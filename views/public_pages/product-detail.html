@@ -399,9 +399,9 @@
         <header
             class="sticky top-0 z-50 glass-panel border-b border-gray-100 px-5 py-2.5 flex items-center justify-between"
         >
-            <a href="index.html" class="flex items-center gap-3 no-underline">
+            <a href="/" class="flex items-center gap-3 no-underline">
                 <img
-                    src="photos/logo_only_bk.png"
+                    src="/photos/logo_only_bk.png"
                     alt="EL-ATTIRE"
                     class="nav-logo"
                     onerror="this.style.display='none'"
@@ -411,11 +411,13 @@
                 >
             </a>
             <nav class="hidden lg:flex items-center gap-6 text-[0.72rem] uppercase tracking-[0.08em] font-medium">
-                <a href="index.html" class="link-underline">Home</a>
-                <a href="collection.html" class="link-underline font-semibold border-b-2 border-[#374151] pb-1">Shop</a>
-                <a href="fabrics.html" class="link-underline">Fabrics</a>
-                <a href="tailoring-page.html" class="link-underline">Tailoring</a>
-                <a href="about.html" class="link-underline">About</a>
+                <a href="/" class="link-underline ">Home</a>
+                <a href="/collection" class="link-underline border-b-2 border-[#374151] pb-1">Shop</a>
+                <a href="/fabrics" class="link-underline">Fabrics</a>
+                <a href="/tailoring" class="link-underline">Tailoring</a>
+                <a href="/lookbook" class="link-underline">Lookbook</a>
+
+                <a href="/about" class="link-underline">About</a>
             </nav>
             <div class="flex items-center gap-3">
                 <button class="support-btn" id="supportHeaderToggle">
@@ -440,8 +442,8 @@
         <main class="max-w-7xl mx-auto px-4 md:px-6 py-6">
             <!-- Breadcrumb -->
             <div class="breadcrumb mb-5">
-                <a href="index.html">Home</a> <span>/</span> <a href="collection.html">Shop</a> <span>/</span>
-                <a href="collection.html">Kaftans</a> <span>/</span>
+                <a href="/">Home</a> <span>/</span> <a href="/collection">Shop</a> <span>/</span>
+                <a href="/collection">Kaftans</a> <span>/</span>
                 <span class="text-neutral-400">Royal Blue Kaftan</span>
             </div>
 
@@ -453,28 +455,28 @@
                         <div class="flex flex-col gap-2 w-16 flex-shrink-0" id="thumbnails">
                             <div class="thumb-item active-thumb" data-img="0">
                                 <img
-                                    src="photos/a1.jpg"
+                                    src="/photos/kaftan_1.jpg"
                                     alt="Front"
                                     onerror="this.src='https://placehold.co/64x64/e5e7eb/9ca3af?text=1'"
                                 />
                             </div>
                             <div class="thumb-item" data-img="1">
                                 <img
-                                    src="photos/a2.jpg"
+                                    src="/photos/kaftan_2.jpg"
                                     alt="Side"
                                     onerror="this.src='https://placehold.co/64x64/e5e7eb/9ca3af?text=2'"
                                 />
                             </div>
                             <div class="thumb-item" data-img="2">
                                 <img
-                                    src="photos/a3.jpg"
+                                    src="/photos/kaftan_3.jpg"
                                     alt="Detail"
                                     onerror="this.src='https://placehold.co/64x64/e5e7eb/9ca3af?text=3'"
                                 />
                             </div>
                             <div class="thumb-item" data-img="3">
                                 <img
-                                    src="photos/model_c1.jpg"
+                                    src="/photos/kaftan_4.jpg"
                                     alt="Back"
                                     onerror="this.src='https://placehold.co/64x64/e5e7eb/9ca3af?text=4'"
                                 />
@@ -483,7 +485,7 @@
                         <div class="flex-1 main-image-wrap" id="mainImageWrap">
                             <img
                                 id="mainImage"
-                                src="photos/a1.jpg"
+                                src="/photos/kaftan_1.jpg"
                                 alt="Royal Blue Kaftan"
                                 onerror="this.src='https://placehold.co/600x800/e5e7eb/9ca3af?text=Kaftan'"
                             />
@@ -547,7 +549,7 @@
                                 >Size</label
                             >
                             <a
-                                href="measurements.html"
+                                href="/fitting"
                                 class="text-[0.62rem] text-neutral-400 hover:text-[#374151] underline transition-colors"
                                 >Size Guide</a
                             >
@@ -698,7 +700,7 @@
                             >
                                 <i class="fas fa-comment mr-1.5 text-[0.55rem]"></i> Chat Now
                             </button>
-                            <a href="fitting.html" class="btn-outline flex-1 py-2 text-[0.7rem] text-center"
+                            <a href="/fitting" class="btn-outline flex-1 py-2 text-[0.7rem] text-center"
                                 ><i class="fas fa-calendar-check mr-1.5 text-[0.55rem]"></i> Book Fitting</a
                             >
                         </div>
@@ -711,11 +713,11 @@
                 <h2 class="text-lg font-medium text-[#374151] mb-4">Complete the Look</h2>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <a
-                        href="fabric-detail.html?id=1"
+                        href="/fabric/1"
                         class="bg-white border border-gray-100 rounded-xl overflow-hidden hover:shadow-md transition group no-underline"
                     >
                         <img
-                            src="photos/fabrics/f1.jpg"
+                            src="/photos/fabrics/f1.jpg"
                             alt="Aso Oke"
                             class="w-full aspect-square object-cover"
                             onerror="this.src='https://placehold.co/200x200/e5e7eb/9ca3af'"
@@ -730,7 +732,7 @@
                         class="bg-white border border-gray-100 rounded-xl overflow-hidden hover:shadow-md transition group no-underline"
                     >
                         <img
-                            src="photos/tailoring/style2.jpg"
+                            src="/photos/tailoring/style2.jpg"
                             alt="Shoes"
                             class="w-full aspect-square object-cover"
                             onerror="this.src='https://placehold.co/200x200/e5e7eb/9ca3af'"
@@ -745,7 +747,7 @@
                         class="bg-white border border-gray-100 rounded-xl overflow-hidden hover:shadow-md transition group no-underline"
                     >
                         <img
-                            src="photos/a2.jpg"
+                            src="/photos/a2.jpg"
                             alt="Accessories"
                             class="w-full aspect-square object-cover"
                             onerror="this.src='https://placehold.co/200x200/e5e7eb/9ca3af'"
@@ -760,7 +762,7 @@
                         class="bg-white border border-gray-100 rounded-xl overflow-hidden hover:shadow-md transition group no-underline"
                     >
                         <img
-                            src="photos/b1.jpg"
+                            src="/photos/b1.jpg"
                             alt="Agbada"
                             class="w-full aspect-square object-cover"
                             onerror="this.src='https://placehold.co/200x200/e5e7eb/9ca3af'"
@@ -779,7 +781,7 @@
                 <div class="grid md:grid-cols-4 gap-8 mb-8">
                     <div>
                         <img
-                            src="photos/logo_only.png"
+                            src="/photos/logo_only.png"
                             alt="EL-ATTIRE"
                             class="footer-logo mb-4"
                             onerror="this.style.display='none'"
@@ -789,11 +791,11 @@
                     <div>
                         <p class="text-white uppercase tracking-wider mb-3 text-[0.65rem] font-semibold">Shop</p>
                         <a
-                            href="collection.html"
+                            href="/collection"
                             class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
                             >Collection</a
                         ><a
-                            href="fabrics.html"
+                            href="/fabrics"
                             class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
                             >Fabrics</a
                         >
@@ -801,11 +803,11 @@
                     <div>
                         <p class="text-white uppercase tracking-wider mb-3 text-[0.65rem] font-semibold">Services</p>
                         <a
-                            href="tailoring-page.html"
+                            href="/tailoring"
                             class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
                             >Tailoring</a
                         ><a
-                            href="fitting.html"
+                            href="/fitting"
                             class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
                             >Fittings</a
                         >
@@ -813,11 +815,11 @@
                     <div>
                         <p class="text-white uppercase tracking-wider mb-3 text-[0.65rem] font-semibold">Support</p>
                         <a
-                            href="faq.html"
+                            href="/faq"
                             class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
                             >FAQ</a
                         ><a
-                            href="terms.html"
+                            href="/terms"
                             class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
                             >Terms</a
                         >
@@ -932,7 +934,7 @@
                     name: "Royal Blue Kaftan",
                     category: "kaftan",
                     price: 245000,
-                    images: ["photos/a1.jpg", "photos/a2.jpg", "photos/a3.jpg", "photos/model_c1.jpg"],
+                    images: ["/photos/kaftan_1.jpg", "/photos/kaftan_2.jpg", "/photos/kaftan_3.jpg", "/photos/kaftan_4.jpg"],
                     tag: "Premium",
                     sizes: ["S", "M", "L", "XL"],
                     availableSizes: ["S", "M", "L", "XL"],

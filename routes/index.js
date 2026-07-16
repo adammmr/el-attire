@@ -30,7 +30,7 @@ router.get('/fabrics', (req, res) => {
 });
 
 // Fabric detail page
-router.get('/fabric-detail', (req, res) => {
+router.get('/fabric/:id', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'views', 'public_pages', 'fabric-detail.html'));
 });
 

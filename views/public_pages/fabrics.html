@@ -456,7 +456,7 @@
               <button class="border px-2.5 py-1 text-sm rounded hover:bg-gray-50 detail-qty-plus">+</button>
             </div>
             <button class="btn-primary w-full py-2.5 text-[0.72rem] detail-add-cart" data-id="${f.id}">Add to Cart · ₦<span class="detail-total-price">${(f.price*3).toLocaleString()}</span></button>
-            <a href="fabric-detail.html?id=${f.id}" class="block text-center mt-2 text-[0.7rem] text-neutral-400 hover:text-[#374151] transition-colors">View Full Details →</a>
+            <a href="/fabric/${f.id}" class="block text-center mt-2 text-[0.7rem] text-neutral-400 hover:text-[#374151] transition-colors">View Full Details →</a>
             <div class="flex gap-2 mt-3">${f.images.map((img,i)=>`<img src="${img}" class="w-12 h-12 object-cover rounded cursor-pointer border-2 ${i===0?'border-[#374151]':'border-transparent'} detail-thumb" data-img="${i}">`).join('')}</div>
           </div>`;
         document.getElementById('detailModalOverlay').classList.add('open'); document.body.style.overflow='hidden';
@@ -484,7 +484,7 @@
               <span class="fabric-tag">${fabric.tag}</span>
               ${fabric.badge?`<span class="fabric-badge">${fabric.badge}</span>`:''}
               <button class="quick-add-btn" data-id="${fabric.id}">Quick Add</button>
-              <a href="fabric-detail.html?id=${fabric.id}" class="view-detail-link" onclick="event.stopPropagation()"><i class="fas fa-eye text-[0.55rem]"></i> Details</a>
+              <a href="/fabric/${fabric.id}" class="view-detail-link" onclick="event.stopPropagation()"><i class="fas fa-eye text-[0.55rem]"></i> Details</a>
             </div>
             <div class="p-3 flex-1 flex flex-col justify-between">
               <div>

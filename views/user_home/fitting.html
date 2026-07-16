@@ -183,53 +183,120 @@
 </head>
 <body class="antialiased">
 
-  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-100 px-5 py-2.5 flex items-center justify-between">
-    <a href="dashboard.html" class="text-lg font-semibold tracking-[0.1em] text-[#374151] no-underline">
-      EL-<span class="font-normal text-neutral-400 text-sm">ATTIRE</span>
+  <!-- Compact Header -->
+ <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-100 px-5 py-2.5 flex items-center justify-between">
+    <!-- Logo + Brand Name (flex row) -->
+    <a href="#" class="flex items-center gap-3 no-underline">
+      <img src="/photos/logo_bk_only_bk.png" alt="EL-ATTIRE" style="height:36px;width:auto;" onerror="this.style.display='none'">
+      <span class="text-lg font-semibold tracking-[0.1em] text-[#374151]">EL-<span class="font-normal text-neutral-400 text-sm">ATTIRE</span></span>
     </a>
+    
+    <!-- Right side items -->
     <div class="flex items-center gap-4">
       <div class="relative cursor-pointer p-1.5 hover:bg-gray-50 rounded-lg transition-colors">
         <i class="fas fa-bell text-sm text-neutral-400 hover:text-[#374151] transition-colors"></i>
         <span class="notification-dot absolute top-0.5 right-0.5"></span>
       </div>
       <div class="flex items-center gap-2">
-        <div class="w-7 h-7 rounded-full bg-stone-100 flex items-center justify-center font-medium text-[0.65rem] text-[#374151] ring-2 ring-white shadow-sm">OA</div>
+        <div class="w-7 h-7 rounded-full bg-stone-100 flex items-center justify-center font-medium text-[0.65rem] text-[#374151] ring-2 ring-white shadow-sm">
+          OA
+        </div>
         <span class="hidden sm:inline text-[0.8rem] font-medium text-[#374151]">Oluwaseun</span>
       </div>
     </div>
   </header>
 
   <div class="flex min-h-screen">
-    <aside class="fixed top-[41px] left-0 bottom-0 w-[210px] hidden lg:flex flex-col border-r border-stone-200/50 overflow-y-auto" style="background: #f8f7f5;">
+    <!-- Fixed Sidebar -->
+    <aside class="fixed top-[45px] left-0 bottom-0 w-[210px] hidden lg:flex flex-col border-r border-stone-200/50 overflow-y-auto" style="background: #f8f7f5;">
+      <!-- Logo -->
       <div class="px-3.5 pt-4 pb-3 border-b border-stone-200/30">
         <div class="flex items-center gap-2">
-          <div class="w-7 h-7 rounded-md flex items-center justify-center bg-[#374151]"><span class="text-white font-semibold text-[0.65rem]">E</span></div>
-          <div><p class="text-[0.7rem] font-semibold text-[#374151] tracking-wider">EL-ATTIRE</p><p class="text-[0.55rem] text-neutral-400 tracking-wider">BESPOKE</p></div>
+          <div class="w-7 h-7 rounded-md flex items-center justify-center bg-[#374151]">
+            <span class="text-white font-semibold text-[0.65rem]">E</span>
+          </div>
+          <div>
+            <p class="text-[0.7rem] font-semibold text-[#374151] tracking-wider">EL-ATTIRE</p>
+            <p class="text-[0.55rem] text-neutral-400 tracking-wider">BESPOKE</p>
+          </div>
         </div>
       </div>
+
+      <!-- Navigation -->
       <nav class="flex-1 px-2.5 py-3 space-y-0.5">
         <p class="px-2.5 text-[0.58rem] font-semibold uppercase tracking-widest text-neutral-400 mb-1.5">Menu</p>
-        <a href="dashboard.html" class="nav-link"><i class="fas fa-th-large w-3 text-[0.7rem]"></i> Dashboard</a>
-        <a href="measurements.html" class="nav-link"><i class="fas fa-ruler-combined w-3 text-[0.7rem]"></i> Measurements</a>
-        <a href="orders.html" class="nav-link"><i class="fas fa-shopping-bag w-3 text-[0.7rem]"></i> Orders</a>
-        <a href="tailoring.html" class="nav-link active"><i class="fas fa-cut w-3 text-[0.7rem]"></i> Tailoring</a>
-        <a href="reviews.html" class="nav-link"><i class="fas fa-star w-3 text-[0.7rem]"></i> Reviews</a>
+        <a href="/user/dashboard" class="nav-link active">
+          <i class="fas fa-th-large w-3 text-[0.7rem]"></i> Dashboard
+        </a>
+        <a href="/user/measurements" class="nav-link">
+          <i class="fas fa-ruler-combined w-3 text-[0.7rem]"></i> Measurements
+        </a>
+        <a href="/user/orders" class="nav-link">
+          <i class="fas fa-shopping-bag w-3 text-[0.7rem]"></i> Orders
+          <span class="ml-auto bg-stone-200/80 text-[0.55rem] font-medium px-1.5 py-0.5 rounded-full text-stone-500">3</span>
+        </a>
+        <a href="/collection" class="nav-link">
+          <i class="fas fa-shopping-cart w-3 text-[0.7rem]"></i> Shop
+        </a>
+        <a href="/user/tailoring" class="nav-link">
+          <i class="fas fa-cut w-3 text-[0.7rem]"></i> Tailoring
+          <span class="ml-auto bg-amber-100/80 text-[0.55rem] font-medium px-1.5 py-0.5 rounded-full text-amber-600">2</span>
+        </a>
+        <a href="/user/reviews" class="nav-link">
+          <i class="fas fa-star w-3 text-[0.7rem]"></i> Reviews
+        </a>
+        
         <p class="px-2.5 text-[0.58rem] font-semibold uppercase tracking-widest text-neutral-400 mb-1.5 mt-4">Account</p>
-        <a href="profile.html" class="nav-link"><i class="fas fa-user-cog w-3 text-[0.7rem]"></i> Profile</a>
-        <a href="#" class="nav-link"><i class="fas fa-cog w-3 text-[0.7rem]"></i> Settings</a>
+        <a href="/user/profile" class="nav-link">
+          <i class="fas fa-user-cog w-3 text-[0.7rem]"></i> Profile
+        </a>
+        <a href="#" class="nav-link">
+          <i class="fas fa-cog w-3 text-[0.7rem]"></i> Settings
+        </a>
       </nav>
+
+      <!-- Sidebar Footer -->
       <div class="px-2.5 py-3 border-t border-stone-200/30">
-        <div class="rounded-lg p-3" style="background: #f3f1ed;">
-          <div class="flex items-center gap-1.5 mb-1.5"><i class="fas fa-headset text-[0.6rem] text-amber-700/60"></i><p class="text-[0.65rem] font-medium text-[#374151]">Support</p></div>
+        <!-- Support Card - Clickable to open chat -->
+        <button id="supportToggle" title="Open chat support" 
+          class="w-full text-left rounded-lg p-3 cursor-pointer transition-all hover:shadow-sm border border-transparent hover:border-amber-200/50"
+          style="background: #f3f1ed;">
+          <div class="flex items-center gap-1.5 mb-1.5">
+            <i class="fas fa-headset text-[0.6rem] text-amber-700/60"></i>
+            <span class="text-[0.65rem] font-medium text-[#374151]">Support</span>
+          </div>
           <p class="text-[0.6rem] text-neutral-400 mb-2 leading-relaxed">Mon-Sat, 8am-8pm</p>
-          <a href="#" class="flex items-center gap-2 py-1.5 px-2 rounded-md text-[0.7rem] text-neutral-400 hover:text-[#374151] hover:bg-[#efede9] transition-colors"><i class="fas fa-envelope text-[0.55rem]"></i> support@elattire.com</a>
-        </div>
+          <div class="flex items-center gap-1.5 text-[0.6rem] text-neutral-500 hover:text-[#374151] transition-colors">
+            <i class="fas fa-envelope text-[0.58rem]"></i> support@elattire.com
+          </div>
+        </button>
+
+        <!-- User Profile -->
         <div class="flex items-center gap-2 mt-2.5 px-1.5 py-1.5 rounded-lg hover:bg-[#f3f1ed] transition-colors cursor-pointer">
-          <div class="w-6 h-6 rounded-full bg-stone-200 flex items-center justify-center font-medium text-[0.55rem] text-[#374151] flex-shrink-0">OA</div>
-          <div class="min-w-0 flex-1"><p class="text-[0.68rem] font-medium text-[#374151] truncate">Oluwaseun A.</p></div>
+          <div class="w-6 h-6 rounded-full bg-stone-200 flex items-center justify-center font-medium text-[0.55rem] text-[#374151] flex-shrink-0">
+            OA
+          </div>
+          <div class="min-w-0 flex-1">
+            <p class="text-[0.68rem] font-medium text-[#374151] truncate">Oluwaseun A.</p>
+          </div>
           <i class="fas fa-sign-out-alt text-[0.55rem] text-neutral-400 hover:text-red-400 transition-colors flex-shrink-0"></i>
         </div>
       </div>
+
+      <!-- Chat Widget Toggle Script -->
+      <script>
+        (function() {
+          var supportToggle = document.getElementById('supportToggle');
+          var chatWidget = document.getElementById('chatWidget'); // Your existing chat widget
+          
+          if (supportToggle && chatWidget) {
+            supportToggle.addEventListener('click', function() {
+              // Toggle chat widget open/closed
+              chatWidget.classList.toggle('open');
+            });
+          }
+        })();
+      </script>
     </aside>
 
     <main class="flex-1 p-4 md:p-5 lg:ml-[210px]">

@@ -202,10 +202,14 @@
 <body class="antialiased">
 
   <!-- Compact Header -->
-  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-100 px-5 py-2.5 flex items-center justify-between">
-    <a href="#" class="text-lg font-semibold tracking-[0.1em] text-[#374151] no-underline">
-      EL-<span class="font-normal text-neutral-400 text-sm">ATTIRE</span>
+ <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-100 px-5 py-2.5 flex items-center justify-between">
+    <!-- Logo + Brand Name (flex row) -->
+    <a href="#" class="flex items-center gap-3 no-underline">
+      <img src="/photos/logo_bk_only_bk.png" alt="EL-ATTIRE" style="height:36px;width:auto;" onerror="this.style.display='none'">
+      <span class="text-lg font-semibold tracking-[0.1em] text-[#374151]">EL-<span class="font-normal text-neutral-400 text-sm">ATTIRE</span></span>
     </a>
+    
+    <!-- Right side items -->
     <div class="flex items-center gap-4">
       <div class="relative cursor-pointer p-1.5 hover:bg-gray-50 rounded-lg transition-colors">
         <i class="fas fa-bell text-sm text-neutral-400 hover:text-[#374151] transition-colors"></i>
@@ -239,26 +243,29 @@
       <!-- Navigation -->
       <nav class="flex-1 px-2.5 py-3 space-y-0.5">
         <p class="px-2.5 text-[0.58rem] font-semibold uppercase tracking-widest text-neutral-400 mb-1.5">Menu</p>
-        <a href="dashboard.html" class="nav-link active">
+        <a href="/user/dashboard" class="nav-link active">
           <i class="fas fa-th-large w-3 text-[0.7rem]"></i> Dashboard
         </a>
-        <a href="measurements.html" class="nav-link">
+        <a href="/user/measurements" class="nav-link">
           <i class="fas fa-ruler-combined w-3 text-[0.7rem]"></i> Measurements
         </a>
-        <a href="orders.html" class="nav-link">
+        <a href="/user/orders" class="nav-link">
           <i class="fas fa-shopping-bag w-3 text-[0.7rem]"></i> Orders
           <span class="ml-auto bg-stone-200/80 text-[0.55rem] font-medium px-1.5 py-0.5 rounded-full text-stone-500">3</span>
         </a>
-        <a href="tailoring.html" class="nav-link">
+        <a href="/collection" class="nav-link">
+          <i class="fas fa-shopping-cart w-3 text-[0.7rem]"></i> Shop
+        </a>
+        <a href="/user/tailoring" class="nav-link">
           <i class="fas fa-cut w-3 text-[0.7rem]"></i> Tailoring
           <span class="ml-auto bg-amber-100/80 text-[0.55rem] font-medium px-1.5 py-0.5 rounded-full text-amber-600">2</span>
         </a>
-        <a href="reviews.html" class="nav-link">
+        <a href="/user/reviews" class="nav-link">
           <i class="fas fa-star w-3 text-[0.7rem]"></i> Reviews
         </a>
         
         <p class="px-2.5 text-[0.58rem] font-semibold uppercase tracking-widest text-neutral-400 mb-1.5 mt-4">Account</p>
-        <a href="profile.html" class="nav-link">
+        <a href="/user/profile" class="nav-link">
           <i class="fas fa-user-cog w-3 text-[0.7rem]"></i> Profile
         </a>
         <a href="#" class="nav-link">
@@ -268,17 +275,21 @@
 
       <!-- Sidebar Footer -->
       <div class="px-2.5 py-3 border-t border-stone-200/30">
-        <div class="rounded-lg p-3" style="background: #f3f1ed;">
+        <!-- Support Card - Clickable to open chat -->
+        <button id="supportToggle" title="Open chat support" 
+          class="w-full text-left rounded-lg p-3 cursor-pointer transition-all hover:shadow-sm border border-transparent hover:border-amber-200/50"
+          style="background: #f3f1ed;">
           <div class="flex items-center gap-1.5 mb-1.5">
             <i class="fas fa-headset text-[0.6rem] text-amber-700/60"></i>
-            <p class="text-[0.65rem] font-medium text-[#374151]">Support</p>
+            <span class="text-[0.65rem] font-medium text-[#374151]">Support</span>
           </div>
           <p class="text-[0.6rem] text-neutral-400 mb-2 leading-relaxed">Mon-Sat, 8am-8pm</p>
-          <a href="#" class="sidebar-footer-link">
+          <div class="flex items-center gap-1.5 text-[0.6rem] text-neutral-500 hover:text-[#374151] transition-colors">
             <i class="fas fa-envelope text-[0.58rem]"></i> support@elattire.com
-          </a>
-        </div>
+          </div>
+        </button>
 
+        <!-- User Profile -->
         <div class="flex items-center gap-2 mt-2.5 px-1.5 py-1.5 rounded-lg hover:bg-[#f3f1ed] transition-colors cursor-pointer">
           <div class="w-6 h-6 rounded-full bg-stone-200 flex items-center justify-center font-medium text-[0.55rem] text-[#374151] flex-shrink-0">
             OA
@@ -289,6 +300,21 @@
           <i class="fas fa-sign-out-alt text-[0.55rem] text-neutral-400 hover:text-red-400 transition-colors flex-shrink-0"></i>
         </div>
       </div>
+
+      <!-- Chat Widget Toggle Script -->
+      <script>
+        (function() {
+          var supportToggle = document.getElementById('supportToggle');
+          var chatWidget = document.getElementById('chatWidget'); // Your existing chat widget
+          
+          if (supportToggle && chatWidget) {
+            supportToggle.addEventListener('click', function() {
+              // Toggle chat widget open/closed
+              chatWidget.classList.toggle('open');
+            });
+          }
+        })();
+      </script>
     </aside>
 
     <!-- Main Content (offset for fixed sidebar) -->
@@ -342,7 +368,7 @@
         <div class="lg:col-span-2 glass-panel p-4">
           <div class="flex justify-between items-center mb-3">
             <h3 class="font-medium text-[0.65rem] uppercase tracking-wider text-neutral-400">Recent Orders</h3>
-            <a href="orders.html" class="text-[0.68rem] text-neutral-400 hover:text-[#374151] transition-colors">View All →</a>
+            <a href="/user/orders" class="text-[0.68rem] text-neutral-400 hover:text-[#374151] transition-colors">View All →</a>
           </div>
           <div class="space-y-0">
             <div class="order-row flex justify-between items-center py-2.5 border-b border-gray-50">
@@ -372,16 +398,16 @@
         <div class="glass-panel p-4">
           <h3 class="font-medium text-[0.65rem] uppercase tracking-wider text-neutral-400 mb-3">Quick Actions</h3>
           <div class="space-y-1.5">
-            <a href="orders.html" class="btn-black w-full py-2.5 text-[0.7rem] uppercase inline-block text-center no-underline tracking-wider">
+            <a href="/user/orders" class="btn-black w-full py-2.5 text-[0.7rem] uppercase inline-block text-center no-underline tracking-wider">
               <i class="fas fa-plus mr-1.5 text-[0.6rem]"></i> New Order
             </a>
-            <a href="measurements.html" class="btn-outline w-full py-2.5 text-[0.7rem] uppercase inline-block text-center no-underline tracking-wider">
+            <a href="/user/measurements" class="btn-outline w-full py-2.5 text-[0.7rem] uppercase inline-block text-center no-underline tracking-wider">
               <i class="fas fa-ruler mr-1.5 text-[0.6rem]"></i> Measurements
             </a>
-            <a href="tailoring.html" class="btn-outline w-full py-2.5 text-[0.7rem] uppercase inline-block text-center no-underline tracking-wider">
+            <a href="/user/tailoring" class="btn-outline w-full py-2.5 text-[0.7rem] uppercase inline-block text-center no-underline tracking-wider">
               <i class="fas fa-cut mr-1.5 text-[0.6rem]"></i> Tailoring
             </a>
-            <a href="reviews.html" class="btn-outline w-full py-2.5 text-[0.7rem] uppercase inline-block text-center no-underline tracking-wider">
+            <a href="/user/reviews" class="btn-outline w-full py-2.5 text-[0.7rem] uppercase inline-block text-center no-underline tracking-wider">
               <i class="fas fa-star mr-1.5 text-[0.6rem]"></i> Reviews
             </a>
           </div>
@@ -478,6 +504,128 @@
       </div>
     </main>
   </div>
+  <style>
+        /* Chat Widget */
+    .chat-widget-overlay {
+      position: fixed; bottom: 24px; right: 24px;
+      width: 350px; max-width: 90vw; height: 440px; max-height: 65vh;
+      background: white; border-radius: 14px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2); z-index: 300;
+      display: flex; flex-direction: column;
+      transform: translateY(20px) scale(0.95);
+      opacity: 0; pointer-events: none;
+      transition: all 0.25s cubic-bezier(0.23,1,0.32,1);
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+    .chat-widget-overlay.open {
+      transform: translateY(0) scale(1);
+      opacity: 1; pointer-events: all;
+    }
+    .cw-h {
+      padding: 12px 14px; border-bottom: 1px solid #f3f4f6;
+      display: flex; align-items: center; justify-content: space-between;
+      border-radius: 14px 14px 0 0; background: #fafafa;
+    }
+    .cw-ag { display: flex; align-items: center; gap: 8px; }
+    .cw-av {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: linear-gradient(135deg,#6366f1,#8b5cf6);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-weight: 600; font-size: 0.65rem;
+    }
+    .cw-on {
+      display: flex; align-items: center; gap: 4px;
+      font-size: 0.6rem; color: #10b981; font-weight: 500;
+    }
+    .cw-ond { width: 5px; height: 5px; border-radius: 50%; background: #10b981; }
+    .cw-b {
+      flex: 1; overflow-y: auto; padding: 12px;
+      display: flex; flex-direction: column; gap: 8px; background: #fafafa;
+    }
+    .cw-f {
+      padding: 10px 12px; border-top: 1px solid #f3f4f6;
+      display: flex; gap: 6px; align-items: center;
+    }
+    .cw-f input {
+      flex: 1; padding: 8px 12px; border: 1px solid #e5e7eb;
+      border-radius: 18px; font-size: 0.75rem; outline: none;
+      background: white; font-family: inherit;
+    }
+    .cw-s {
+      width: 34px; height: 34px; border-radius: 50%; border: none;
+      background: #374151; color: white; cursor: pointer;
+      font-size: 0.75rem; transition: all 0.15s; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cw-s:hover { background: #4b5563; transform: scale(1.05); }
+    .cw-x {
+      width: 26px; height: 26px; border-radius: 50%; border: none;
+      background: transparent; cursor: pointer; color: #9ca3af;
+      font-size: 0.9rem; display: flex; align-items: center; justify-content: center;
+    }
+    .cw-x:hover { background: #e5e7eb; color: #374151; }
+    .cw-q {
+      display: flex; flex-wrap: wrap; gap: 4px; padding: 0 12px 8px;
+    }
+    .cw-q button {
+      padding: 5px 10px; border-radius: 14px;
+      border: 1px solid #e5e7eb; background: white;
+      font-size: 0.65rem; cursor: pointer; transition: all 0.15s;
+      color: #374151; font-family: inherit;
+    }
+    .cw-q button:hover { background: #374151; color: white; border-color: #374151; }
+    .chat-bubble {
+      padding: 8px 12px; border-radius: 12px;
+      font-size: 0.75rem; line-height: 1.5; max-width: 85%;
+      animation: cwIn 0.3s ease-out;
+    }
+    .chat-bubble.received {
+      background: white; color: #374151;
+      align-self: flex-start; border-bottom-left-radius: 4px;
+    }
+    .chat-bubble.sent {
+      background: #374151; color: white;
+      align-self: flex-end; border-bottom-right-radius: 4px;
+    }
+    .chat-bubble .time {
+      font-size: 0.55rem; opacity: 0.6; margin-top: 3px; display: block;
+    }
+    @keyframes cwIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+
+<!-- Chat Widget HTML -->
+<div class="chat-widget-overlay" id="chatWidget">
+  <div class="cw-h">
+    <div class="cw-ag">
+      <div class="cw-av">CS</div>
+      <div>
+        <p style="font-size:0.75rem;font-weight:500;color:#374151;margin:0">Customer Support</p>
+        <div class="cw-on"><span class="cw-ond"></span>Online</div>
+      </div>
+    </div>
+    <button class="cw-x" id="chatCloseBtn">✕</button>
+  </div>
+  <div class="cw-b" id="chatMessages">
+    <div class="chat-bubble received">
+      Hello! 👋 How can we help you today?<span class="time">Just now</span>
+    </div>
+  </div>
+  <div class="cw-q" id="quickReplies">
+    <button onclick="sendQuickReply('Track my order')">📦 Track Order</button>
+    <button onclick="sendQuickReply('Tailoring progress')">✂️ Tailoring</button>
+    <button onclick="sendQuickReply('Schedule fitting')">📅 Fitting</button>
+    <button onclick="sendQuickReply('Fabric prices')">💰 Prices</button>
+  </div>
+  <div class="cw-f">
+    <input type="text" placeholder="Type message..." id="chatInput">
+    <button class="cw-s" id="chatSendBtn">
+      <i class="fas fa-paper-plane"></i>
+    </button>
+  </div>
+</div>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -507,6 +655,157 @@
       
       ringProgresses.forEach(ring => observer.observe(ring));
     });
+  </script>
+
+    <script>
+    // ============ INDEPENDENT CHAT WIDGET SCRIPT ============
+    (function() {
+      // This script is completely independent and can work on any page
+      const chatWidget = document.getElementById('chatWidget');
+      const supportToggle = document.getElementById('supportToggle');
+      const chatCloseBtn = document.getElementById('chatCloseBtn');
+      const chatInput = document.getElementById('chatInput');
+      const chatMessages = document.getElementById('chatMessages');
+      const quickReplies = document.getElementById('quickReplies');
+      // Add send button listener
+      var chatSendBtn = document.getElementById('chatSendBtn');
+      if (chatSendBtn) {
+        chatSendBtn.addEventListener('click', sendMessage);
+      }
+
+      // Add Enter key listener for chat input
+      if (chatInput) {
+        chatInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') sendMessage();
+        });
+      }
+      
+      let isChatOpen = false;
+      
+      // Auto-reply database
+      const autoReplies = {
+        'track': "📦 To track your order, please provide your order number (e.g., INV-2026-0704-001). You can also check your Orders page for real-time status updates.",
+        'tailoring': "✂️ Your tailoring projects can be viewed on the Tailoring page. Currently, your Agbada Set is at 65% (embroidery stage) and your Kaftan is at 25% (fabric preparation).",
+        'fitting': "📅 To schedule a fitting, visit the Tailoring page and click 'Schedule Fitting'. Available slots: Mon-Fri 9AM-5PM, Sat 9AM-2PM. Lagos & Abuja studios available.",
+        'fabric': "🧵 We stock premium Aso Oke, Damask, Silk, Brocade, and Cotton blends. Prices range from $55-$210/yard. Visit our Shop page to browse the full collection!",
+        'order': "📋 You can place a new order through our Shop page. We offer fabrics by the yard, ready-made clothing, and accessories. Delivery available in Lagos & Abuja.",
+        'measurement': "📏 Your measurements are saved in the Measurements page. You can create multiple profiles for different fits. We recommend updating measurements every 6 months.",
+        'price': "💰 Our fabrics range from $55-$210/yard. Tailoring services start from $180. Ready-made pieces from $180-$450. Shipping is free for store pickup, $5-$10 for home delivery.",
+        'delivery': "🚚 Delivery options: Store Pickup (free), Home Delivery Lagos ($5), Home Delivery Abuja ($10). Standard delivery time is 5-7 business days for fabrics, 2-3 weeks for tailoring.",
+        'return': "↩️ We accept returns on unused fabrics within 7 days. Tailored garments can be adjusted for fit within 14 days of delivery. Contact support for return authorization.",
+        'default': "Thank you for your message! A support agent will respond shortly. For urgent inquiries, call +234 800 000 0000. Our hours are Mon-Sat, 8am-8pm WAT."
+      };
+      
+      function getAutoReply(message) {
+        const msg = message.toLowerCase();
+        if (msg.includes('track') || msg.includes('order status')) return autoReplies.track;
+        if (msg.includes('tailor') || msg.includes('progress')) return autoReplies.tailoring;
+        if (msg.includes('fitting') || msg.includes('schedule') || msg.includes('appointment')) return autoReplies.fitting;
+        if (msg.includes('fabric') || msg.includes('material') || msg.includes('textile')) return autoReplies.fabric;
+        if (msg.includes('order') || msg.includes('buy') || msg.includes('purchase')) return autoReplies.order;
+        if (msg.includes('measure') || msg.includes('size') || msg.includes('fit')) return autoReplies.measurement;
+        if (msg.includes('price') || msg.includes('cost') || msg.includes('how much')) return autoReplies.price;
+        if (msg.includes('deliver') || msg.includes('ship') || msg.includes('pickup')) return autoReplies.delivery;
+        if (msg.includes('return') || msg.includes('refund') || msg.includes('cancel')) return autoReplies.return;
+        return autoReplies.default;
+      }
+      
+      function getTime() {
+        return new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+      }
+      
+      function addMessage(text, type) {
+        const bubble = document.createElement('div');
+        bubble.className = `chat-bubble ${type}`;
+        bubble.innerHTML = `${text}<span class="time">${getTime()}</span>`;
+        chatMessages.appendChild(bubble);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+      
+      function showTyping() {
+        const typing = document.createElement('div');
+        typing.className = 'chat-bubble received';
+        typing.id = 'typingIndicator';
+        typing.innerHTML = '<span style="display:flex;gap:4px;"><span style="animation:pulse-dot 0.8s infinite;width:6px;height:6px;border-radius:50%;background:#9ca3af;"></span><span style="animation:pulse-dot 0.8s 0.2s infinite;width:6px;height:6px;border-radius:50%;background:#9ca3af;"></span><span style="animation:pulse-dot 0.8s 0.4s infinite;width:6px;height:6px;border-radius:50%;background:#9ca3af;"></span></span>';
+        chatMessages.appendChild(typing);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+      
+      function removeTyping() {
+        const typing = document.getElementById('typingIndicator');
+        if (typing) typing.remove();
+      }
+      
+      function sendMessage() {
+        const message = chatInput.value.trim();
+        if (!message) return;
+        
+        addMessage(message, 'sent');
+        chatInput.value = '';
+        
+        // Simulate typing and auto-reply
+        showTyping();
+        setTimeout(() => {
+          removeTyping();
+          const reply = getAutoReply(message);
+          addMessage(reply, 'received');
+        }, 800 + Math.random() * 1200);
+      }
+      
+      window.sendQuickReply = function(text) {
+        chatInput.value = text;
+        sendMessage();
+      };
+      
+      function openChat() {
+        chatWidget.classList.add('open');
+        isChatOpen = true;
+        supportToggle.style.background = '#e8e5df';
+        setTimeout(() => chatInput.focus(), 300);
+      }
+      
+      function closeChat() {
+        chatWidget.classList.remove('open');
+        isChatOpen = false;
+        supportToggle.style.background = '#f3f1ed';
+      }
+      
+      function toggleChat() {
+        if (isChatOpen) {
+          closeChat();
+        } else {
+          openChat();
+        }
+      }
+      
+      // Event listeners
+      if (supportToggle) {
+        supportToggle.addEventListener('click', toggleChat);
+      }
+      
+      if (chatCloseBtn) {
+        chatCloseBtn.addEventListener('click', closeChat);
+      }
+      
+      // Close on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && isChatOpen) {
+          closeChat();
+        }
+      });
+      
+      // Close when clicking outside
+      document.addEventListener('click', function(e) {
+        if (isChatOpen && 
+            !chatWidget.contains(e.target) && 
+            e.target !== supportToggle && 
+            !supportToggle.contains(e.target)) {
+          closeChat();
+        }
+      });
+      
+      console.log('✅ EL-ATTIRE Chat Widget initialized');
+    })();
   </script>
 </body>
 </html>
