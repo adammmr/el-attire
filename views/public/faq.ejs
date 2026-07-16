@@ -1,0 +1,241 @@
+
+
+  <main class="max-w-4xl mx-auto px-6 md:px-10 py-12">
+    
+    <!-- Page Header -->
+    <div class="mb-10">
+      <span class="text-xs uppercase tracking-[0.2em] text-neutral-400">Help Center</span>
+      <h1 class="text-4xl md:text-5xl font-light section-title mb-3 mt-2">Frequently Asked Questions</h1>
+      <p class="text-neutral-500 text-base">Find answers to common questions about our tailoring services, fabrics, orders, and more.</p>
+      <div class="h-px w-16 bg-black/20 mt-6"></div>
+    </div>
+
+    <!-- Search -->
+    <div class="search-box mb-10">
+      <input type="text" id="faqSearch" placeholder="Search questions...">
+      <i class="fas fa-search"></i>
+    </div>
+
+    <!-- Categories -->
+    <div class="flex flex-wrap gap-3 mb-10">
+      <button class="category-btn active-cat" data-cat="all">All Questions</button>
+      <button class="category-btn" data-cat="tailoring">Tailoring</button>
+      <button class="category-btn" data-cat="orders">Orders & Payments</button>
+      <button class="category-btn" data-cat="shipping">Shipping & Delivery</button>
+      <button class="category-btn" data-cat="measurements">Measurements</button>
+      <button class="category-btn" data-cat="fabrics">Fabrics</button>
+      <button class="category-btn" data-cat="account">Account</button>
+    </div>
+
+    <!-- FAQ List -->
+    <div id="faqList">
+      <div class="faq-item" data-cat="tailoring">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>How long does bespoke tailoring take?</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Bespoke tailoring typically takes <strong>10-21 business days</strong> depending on the complexity of the garment and current workload. Premium and Concierge tier orders receive priority processing. You'll receive a detailed timeline during your consultation with estimated completion dates for each stage.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item" data-cat="tailoring">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>Can I make changes after placing a tailoring order?</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Minor adjustments can be made <strong>within 48 hours</strong> of placing your order at no additional cost. Significant design changes after production has begun may incur additional costs and extend the delivery timeline. Contact your tailor immediately through your dashboard if you need to make changes.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item" data-cat="tailoring">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>What's the difference between your service tiers?</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>
+            <strong>Essential (₦95,000):</strong> Standard measurement, basic fabric selection, 1 fitting session, 2-week turnaround.<br><br>
+            <strong>Premium (₦195,000):</strong> Precision 3D measurement, premium fabric consultation, 2 fitting sessions, 10-day turnaround, embroidery options available.<br><br>
+            <strong>Concierge (₦495,000):</strong> Home visit measurement, exclusive fabric sourcing, unlimited fittings, 5-day priority turnaround, custom embroidery & beading, dedicated personal stylist.
+          </p>
+        </div>
+      </div>
+      
+      <div class="faq-item" data-cat="measurements">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>How do I provide my measurements?</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>You can provide measurements in three convenient ways:<br><br>
+          <strong>1. In-Studio:</strong> Visit our Lagos or Abuja studio for professional in-person measurement by our master tailors.<br>
+          <strong>2. Virtual Consultation:</strong> Schedule a video call where we guide you through the measurement process step by step.<br>
+          <strong>3. Self-Measurement:</strong> Enter your measurements manually in your account profile using our interactive measurement guide with visual references.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item" data-cat="measurements">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>What if my measurements are incorrect?</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>We strongly recommend professional measurement for the best fit. If you provide self-measurements that result in an ill-fitting garment, we offer <strong>one complimentary adjustment</strong>. Additional alterations may be charged at standard rates. Our master tailors review all measurements before production begins and will flag any potential issues.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item" data-cat="orders">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>What payment methods do you accept?</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>We accept all major credit and debit cards (Visa, Mastercard, American Express), <strong>bank transfers</strong>, and <strong>mobile money payments</strong>. For bespoke orders over ₦500,000, a 50% deposit is required to begin work, with the balance due upon completion and before delivery.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item" data-cat="orders">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>Can I cancel my order?</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p><strong>Ready-to-wear orders</strong> can be cancelled within 24 hours for a full refund. <strong>Bespoke tailoring orders:</strong> deposits are non-refundable once production has begun. Contact our support team immediately if you need to cancel — we'll work with you to find the best solution.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item" data-cat="shipping">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>Do you ship internationally?</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Yes! We ship to <strong>over 30 countries</strong> worldwide including the United States, United Kingdom, Canada, Ghana, South Africa, and across the European Union. International shipping rates are calculated at checkout based on destination and package weight. Please note that customers are responsible for any customs duties, taxes, or import fees imposed by their country.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item" data-cat="shipping">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>How can I track my order?</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Once your order ships, you'll receive an <strong>email with a tracking number</strong>. You can also track your order status in real-time from your account dashboard under "My Orders." For tailoring orders, you can monitor progress through each stage of production — from fabric cutting to final fitting.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item" data-cat="fabrics">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>Can I request fabric samples?</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Absolutely! We offer <strong>complimentary fabric swatches</strong> for most of our collection. You can request up to 5 swatches per order through our fabric page. Swatches typically arrive within 5-7 business days. This helps you feel the texture and see the true color before committing to a larger purchase.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item" data-cat="fabrics">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>Where do your fabrics come from?</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Our fabrics are sourced from <strong>premium suppliers</strong> across the globe:<br><br>
+          <strong>Nigeria:</strong> Aso Oke, Adire, and traditional handwoven textiles<br>
+          <strong>Italy:</strong> Damask, silk, and luxury brocade<br>
+          <strong>Turkey:</strong> Premium cotton blends and linen<br>
+          <strong>India:</strong> Intricate embroidery and beaded fabrics<br><br>
+          We personally vet all suppliers to ensure quality, ethical production, and authentic materials.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item" data-cat="account">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>How do I create an account?</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Creating an account is <strong>simple and free</strong>. Click "Sign In" on the top menu, then select "Create Account." You'll need your phone number (which serves as your username), email address, and a password. Once registered, you can save measurements, track orders, manage your profile, and access exclusive features.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="account">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>Is my personal information secure?</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Absolutely. We use <strong>industry-standard encryption</strong> to protect all personal and payment information. Your measurement data is stored securely and never shared with third parties. You can request deletion of your data at any time by contacting our privacy team.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- No results -->
+    <div id="noResults" class="hidden text-center py-16">
+      <i class="fas fa-search text-5xl text-neutral-200 mb-4"></i>
+      <p class="text-neutral-500 text-lg">No questions found matching your search.</p>
+      <p class="text-sm text-neutral-400 mt-1">Try different keywords or browse all categories.</p>
+      <button class="btn-outline px-6 py-2 uppercase text-xs mt-4" onclick="document.getElementById('faqSearch').value=''; filterFAQs('all',''); document.querySelectorAll('.category-btn').forEach(b=>b.classList.remove('active-cat')); document.querySelector('.category-btn[data-cat=all]').classList.add('active-cat');">Clear Search</button>
+    </div>
+
+    <!-- Contact CTA -->
+    <div class="mt-16 p-10 bg-neutral-50 rounded-xl text-center border border-neutral-100">
+      <i class="fas fa-headset text-4xl text-neutral-300 mb-4"></i>
+      <h3 class="text-2xl font-light section-title mb-2">Still have questions?</h3>
+      <p class="text-sm text-neutral-500 mb-6 max-w-md mx-auto">Our support team is ready to help you with any inquiries about our tailoring services, fabrics, or orders.</p>
+      <div class="flex gap-4 justify-center flex-wrap">
+        <a href="mailto:support@elattire.com" class="btn-black px-8 py-3 uppercase text-xs inline-block no-underline">
+          <i class="fas fa-envelope mr-2"></i> Email Us
+        </a>
+        <a href="tel:+2348123456789" class="btn-outline px-8 py-3 uppercase text-xs inline-block no-underline">
+          <i class="fas fa-phone mr-2"></i> Call Us
+        </a>
+        <a href="#" class="btn-outline px-8 py-3 uppercase text-xs inline-block no-underline">
+          <i class="fab fa-whatsapp mr-2"></i> WhatsApp
+        </a>
+      </div>
+    </div>
+  </main>
+
+
+
+  <script>
+    (function() {
+      window.toggleFaq = function(question) {
+        const item = question.parentElement;
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      };
+
+      const categoryBtns = document.querySelectorAll('.category-btn');
+      categoryBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          categoryBtns.forEach(b => b.classList.remove('active-cat'));
+          this.classList.add('active-cat');
+          filterFAQs(this.dataset.cat, document.getElementById('faqSearch').value);
+        });
+      });
+
+      document.getElementById('faqSearch').addEventListener('input', function() {
+        const activeCat = document.querySelector('.category-btn.active-cat')?.dataset.cat || 'all';
+        filterFAQs(activeCat, this.value);
+      });
+
+      window.filterFAQs = function(category, searchTerm) {
+        const items = document.querySelectorAll('.faq-item');
+        let visibleCount = 0;
+        items.forEach(item => {
+          const cat = item.dataset.cat;
+          const text = item.textContent.toLowerCase();
+          const matchesCat = category === 'all' || cat === category;
+          const matchesSearch = !searchTerm || text.includes(searchTerm.toLowerCase());
+          if (matchesCat && matchesSearch) { item.style.display = 'block'; visibleCount++; }
+          else { item.style.display = 'none'; }
+        });
+        document.getElementById('noResults').classList.toggle('hidden', visibleCount > 0);
+      };
+    })();
+  </script>

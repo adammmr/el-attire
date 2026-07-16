@@ -1,0 +1,329 @@
+
+
+  <!-- Toast -->
+  <div class="toast" id="toast">✓ Added to cart</div>
+
+  <!-- Detail Modal (Quick View) -->
+  <div class="detail-modal-overlay" id="detailModalOverlay">
+    <div class="detail-modal" id="detailModal"></div>
+    <button class="detail-modal-close" id="detailModalClose">✕</button>
+  </div>
+
+  <!-- Cart Drawer -->
+  <div class="cart-drawer-overlay" id="cartDrawerOverlay"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="p-4 border-b flex justify-between items-center">
+      <div>
+        <span class="text-sm font-medium text-[#374151]">Shopping Bag</span>
+        <span class="text-[0.65rem] text-neutral-400 ml-2" id="drawerCount">0 items</span>
+      </div>
+      <button class="text-neutral-400 hover:text-[#374151] text-lg leading-none transition-colors" id="closeDrawer">✕</button>
+    </div>
+    <div class="flex-1 overflow-y-auto p-4 space-y-3" id="drawerItems">
+      <p class="text-neutral-400 text-[0.8rem] text-center py-16">Your bag is empty</p>
+    </div>
+    <div class="p-4 border-t">
+      <div class="flex justify-between font-medium mb-1 text-[0.8rem]"><span>Subtotal</span><span id="drawerTotal">₦0</span></div>
+      <p class="text-[0.62rem] text-neutral-400 mb-3">Shipping calculated at checkout</p>
+      <button class="btn-primary w-full py-2.5 text-[0.75rem]">Checkout</button>
+    </div>
+  </div>
+
+
+
+  <main>
+    <!-- Hero Slideshow -->
+    <section class="relative h-[55vh] min-h-[400px] overflow-hidden" id="heroSlideshow">
+      <div class="hero-slide absolute inset-0 bg-cover bg-center opacity-100" style="background-image:url('photos/fabrics/f1.jpg');"></div>
+      <div class="hero-slide absolute inset-0 bg-cover bg-center opacity-0" style="background-image:url('photos/fabrics/f5.jpg');"></div>
+      <div class="hero-slide absolute inset-0 bg-cover bg-center opacity-0" style="background-image:url('photos/fabrics/f9.jpg');"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-white/90 via-white/50 to-transparent z-10"></div>
+      <div class="relative z-20 max-w-2xl px-6 md:px-10 py-16">
+        <span class="text-[0.65rem] uppercase tracking-[0.2em] text-neutral-500 bg-white/90 px-3 py-1.5 inline-block rounded mb-3">Premium Collection</span>
+        <h1 class="text-3xl md:text-5xl font-light text-[#374151] leading-tight mb-3">Luxury Fabrics</h1>
+        <p class="text-neutral-500 text-[0.9rem] mb-5 max-w-md">Handpicked textiles from Nigeria, Italy, and beyond. Each fabric tells a story of craftsmanship.</p>
+        <a href="#fabricGrid" class="btn-primary px-6 py-2.5 text-[0.75rem] inline-block no-underline">Explore Collection</a>
+      </div>
+      <!-- Hero dots -->
+      <div class="absolute bottom-6 left-6 md:left-10 z-20 flex gap-2" id="heroDots">
+        <span class="w-8 h-1.5 rounded-full bg-[#374151] cursor-pointer hero-dot active-dot" data-index="0"></span>
+        <span class="w-3 h-1.5 rounded-full bg-white/60 cursor-pointer hero-dot" data-index="1"></span>
+        <span class="w-3 h-1.5 rounded-full bg-white/60 cursor-pointer hero-dot" data-index="2"></span>
+      </div>
+      <!-- Hero nav arrows -->
+      <div class="absolute bottom-6 right-6 md:right-10 z-20 flex gap-2">
+        <button class="w-9 h-9 rounded-full bg-white/80 backdrop-blur border border-gray-200 flex items-center justify-center hover:bg-white transition-all" id="heroPrev"><i class="fas fa-chevron-left text-xs"></i></button>
+        <button class="w-9 h-9 rounded-full bg-white/80 backdrop-blur border border-gray-200 flex items-center justify-center hover:bg-white transition-all" id="heroNext"><i class="fas fa-chevron-right text-xs"></i></button>
+      </div>
+    </section>
+
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-8">
+      <!-- Filters -->
+      <div class="flex flex-wrap gap-2 mb-6 overflow-x-auto pb-1" id="filterContainer">
+        <button class="filter-chip active-chip" data-filter="all">All Fabrics</button>
+        <button class="filter-chip" data-filter="aso-oke">Aso Oke</button>
+        <button class="filter-chip" data-filter="damask">Damask</button>
+        <button class="filter-chip" data-filter="silk">Silk</button>
+        <button class="filter-chip" data-filter="brocade">Brocade</button>
+        <button class="filter-chip" data-filter="cotton">Cotton</button>
+        <button class="filter-chip" data-filter="lace">Lace</button>
+        <button class="filter-chip" data-filter="new">New Arrivals</button>
+      </div>
+
+      <!-- Fabric Grid -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4" id="fabricGridContainer"></div>
+
+      <div class="text-center mt-8">
+        <button class="btn-outline px-8 py-2.5 text-[0.72rem]" id="loadMoreBtn">Load More</button>
+      </div>
+    </div>
+  </main>
+
+
+
+  <!-- Independent Chat Widget Script -->
+  <script>
+    (function() {
+      const widget = document.createElement('div');
+      widget.className = 'chat-widget-overlay';
+      widget.id = 'chatWidget';
+      widget.innerHTML = `
+        <style>
+          .chat-widget-overlay { position:fixed;bottom:24px;right:24px;width:350px;max-width:90vw;height:440px;max-height:65vh;background:white;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,0.2);z-index:300;display:flex;flex-direction:column;transform:translateY(20px) scale(0.95);opacity:0;pointer-events:none;transition:all 0.25s cubic-bezier(0.23,1,0.32,1);border:1px solid rgba(0,0,0,0.08); }
+          .chat-widget-overlay.open { transform:translateY(0) scale(1);opacity:1;pointer-events:all; }
+          .cw-header { padding:12px 14px;border-bottom:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between;border-radius:14px 14px 0 0;background:#fafafa; }
+          .cw-header .agent-info { display:flex;align-items:center;gap:8px; }
+          .cw-header .agent-avatar { width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;color:white;font-weight:600;font-size:0.65rem; }
+          .cw-header .online { display:flex;align-items:center;gap:4px;font-size:0.6rem;color:#10b981;font-weight:500; }
+          .cw-header .online-dot { width:5px;height:5px;border-radius:50%;background:#10b981; }
+          .cw-body { flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;background:#fafafa; }
+          .cw-footer { padding:10px 12px;border-top:1px solid #f3f4f6;display:flex;gap:6px;align-items:center; }
+          .cw-footer input { flex:1;padding:8px 12px;border:1px solid #e5e7eb;border-radius:18px;font-size:0.75rem;outline:none;background:white;font-family:inherit; }
+          .cw-footer input:focus { border-color:#9ca3af; }
+          .cw-footer button { width:34px;height:34px;border-radius:50%;border:none;background:#374151;color:white;cursor:pointer;font-size:0.75rem;transition:all 0.15s;flex-shrink:0; }
+          .cw-footer button:hover { background:#4b5563;transform:scale(1.05); }
+          .cw-close { width:26px;height:26px;border-radius:50%;border:none;background:transparent;cursor:pointer;color:#9ca3af;font-size:0.9rem;display:flex;align-items:center;justify-content:center;transition:all 0.15s; }
+          .cw-close:hover { background:#e5e7eb;color:#374151; }
+          .cw-bubble { padding:8px 12px;border-radius:12px;font-size:0.75rem;line-height:1.5;max-width:85%;animation:cwIn 0.3s ease-out; }
+          @keyframes cwIn { from{opacity:0;transform:translateY(6px);} to{opacity:1;transform:translateY(0);} }
+          .cw-bubble.received { background:white;color:#374151;align-self:flex-start;border-bottom-left-radius:4px;box-shadow:0 1px 2px rgba(0,0,0,0.04); }
+          .cw-bubble.sent { background:#374151;color:white;align-self:flex-end;border-bottom-right-radius:4px; }
+          .cw-time { font-size:0.55rem;opacity:0.6;margin-top:3px;display:block; }
+          .cw-quick { display:flex;flex-wrap:wrap;gap:4px;padding:0 12px 8px; }
+          .cw-quick button { padding:5px 10px;border-radius:14px;border:1px solid #e5e7eb;background:white;font-size:0.65rem;cursor:pointer;transition:all 0.15s;color:#374151;font-family:inherit;white-space:nowrap; }
+          .cw-quick button:hover { background:#374151;color:white;border-color:#374151; }
+          .cw-typing { display:flex;gap:3px;padding:8px 12px; }
+          .cw-typing span { width:5px;height:5px;border-radius:50%;background:#9ca3af;animation:cwBounce 0.8s infinite; }
+          .cw-typing span:nth-child(2) { animation-delay:0.2s; } .cw-typing span:nth-child(3) { animation-delay:0.4s; }
+          @keyframes cwBounce { 0%,60%,100%{transform:translateY(0);} 30%{transform:translateY(-6px);} }
+        </style>
+        <div class="cw-header"><div class="agent-info"><div class="agent-avatar">CS</div><div><p style="font-size:0.75rem;font-weight:500;color:#374151;margin:0;">Customer Support</p><div class="online"><span class="online-dot"></span> Online</div></div></div><button class="cw-close" id="cwClose">✕</button></div>
+        <div class="cw-body" id="cwMessages"><div class="cw-bubble received">Hello! 👋 Welcome to EL-ATTIRE. How can we help you?<span class="cw-time">Just now</span></div></div>
+        <div class="cw-quick" id="cwQuick"><button onclick="window._cwSendQuick('Fabric inquiry')">🧵 Fabrics</button><button onclick="window._cwSendQuick('Order status')">📦 Orders</button><button onclick="window._cwSendQuick('Pricing')">💰 Pricing</button></div>
+        <div class="cw-footer"><input type="text" placeholder="Type message..." id="cwInput" onkeypress="if(event.key==='Enter')window._cwSend()"><button onclick="window._cwSend()"><i class="fas fa-paper-plane"></i></button></div>
+      `;
+      document.body.appendChild(widget);
+
+      let isOpen = false;
+      const replies = {
+        'fabric': '🧵 We stock Aso Oke (₦120k-210k/yd), Damask (₦95k-105k/yd), Silk (₦165k-185k/yd), Brocade (₦210k-230k/yd), and Cotton (₦45k-55k/yd). Browse our collection above!',
+        'order': '📦 Provide your order number for status updates. You can also view orders on your Orders page.',
+        'price': '💰 Fabrics: ₦45k-230k/yd. Ready-made: ₦180k-450k. Tailoring from ₦180k. Free pickup delivery.',
+        'default': 'Thanks for your message! An agent will respond shortly. For urgent inquiries, call +234 800 000 0000 (Mon-Sat, 8am-8pm).'
+      };
+      function getReply(m) { const x=m.toLowerCase(); if(x.includes('fabric'))return replies.fabric; if(x.includes('order')||x.includes('track'))return replies.order; if(x.includes('price')||x.includes('cost'))return replies.price; return replies.default; }
+      function getTime() { return new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:true}); }
+      function addMsg(text,type) { const msgs=document.getElementById('cwMessages'); const b=document.createElement('div'); b.className='cw-bubble '+type; b.innerHTML=text+'<span class="cw-time">'+getTime()+'</span>'; msgs.appendChild(b); msgs.scrollTop=msgs.scrollHeight; }
+      function showTyping() { const msgs=document.getElementById('cwMessages'); const t=document.createElement('div'); t.className='cw-typing'; t.id='cwTyping'; t.innerHTML='<span></span><span></span><span></span>'; msgs.appendChild(t); msgs.scrollTop=msgs.scrollHeight; }
+      function hideTyping() { const t=document.getElementById('cwTyping'); if(t)t.remove(); }
+      window._cwSend=function(){ const input=document.getElementById('cwInput'); if(!input||!input.value.trim())return; addMsg(input.value.trim(),'sent'); const msg=input.value.trim(); input.value=''; showTyping(); setTimeout(()=>{hideTyping();addMsg(getReply(msg),'received');},700+Math.random()*1000); };
+      window._cwSendQuick=function(text){ const input=document.getElementById('cwInput'); if(input)input.value=text; window._cwSend(); };
+      function open(){ widget.classList.add('open'); isOpen=true; setTimeout(()=>document.getElementById('cwInput')?.focus(),300); }
+      function close(){ widget.classList.remove('open'); isOpen=false; }
+      function toggle(){ isOpen?close():open(); }
+      document.getElementById('cwClose').addEventListener('click',close);
+      document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&isOpen)close(); });
+      document.addEventListener('click',function(e){ if(isOpen&&!widget.contains(e.target)&&e.target.id!=='supportHeaderToggle'&&!document.getElementById('supportHeaderToggle')?.contains(e.target))close(); });
+      const headerToggle=document.getElementById('supportHeaderToggle'); if(headerToggle)headerToggle.addEventListener('click',toggle);
+    })();
+  </script>
+
+  <!-- Main Script -->
+  <script>
+    (function() {
+      const fabricData = [
+        { id:1, name:'Royal Blue Aso Oke', category:'aso-oke', price:120000, unit:'yd', images:['photos/fabrics/f1.jpg','photos/fabrics/f2.jpg','photos/fabrics/f3.jpg'], tag:'Premium', badge:'Bestseller', isNew:false, description:'Handwoven premium Aso Oke from the Yoruba tradition. Rich royal blue with metallic thread accents.', width:'45"', composition:'Cotton / Metallic Thread', weight:'280 gsm', care:'Dry Clean', colors:['#1a3a5c','#c9a84c','#f5f5f0'] },
+        { id:2, name:'Cream Damask Weave', category:'damask', price:95000, unit:'yd', images:['photos/fabrics/f4.jpg','photos/fabrics/f5.jpg','photos/fabrics/f6.jpg'], tag:'Italian', badge:'', isNew:false, description:'Italian damask with subtle floral patterns. Beautiful drape for modern Senator styles.', width:'54"', composition:'Cotton Damask', weight:'250 gsm', care:'Dry Clean', colors:['#f5f0e8','#e8ddd0','#d4c8b8'] },
+        { id:3, name:'Emerald Silk Satin', category:'silk', price:185000, unit:'yd', images:['photos/fabrics/f7.jpg','photos/fabrics/f8.jpg','photos/fabrics/f9.jpg'], tag:'Luxury', badge:'New', isNew:true, description:'Pure silk satin in deep emerald. Liquid-like drape with luminous surface.', width:'44"', composition:'100% Silk', weight:'180 gsm', care:'Dry Clean Only', colors:['#0a5c3a','#1a7a4a','#c9e8d0'] },
+        { id:4, name:'Gold Brocade', category:'brocade', price:210000, unit:'yd', images:['photos/fabrics/f10.jpg','photos/fabrics/f11.jpg','photos/fabrics/f12.jpg'], tag:'Exclusive', badge:'', isNew:false, description:'Opulent gold brocade with raised patterns. Heavyweight for grand Agbada.', width:'48"', composition:'Silk Blend Brocade', weight:'350 gsm', care:'Dry Clean', colors:['#c9a84c','#8b6914','#fff8dc'] },
+        { id:5, name:'White Cotton Lawn', category:'cotton', price:45000, unit:'yd', images:['photos/fabrics/f13.jpg','photos/fabrics/f14.jpg','photos/fabrics/f15.jpg'], tag:'Essential', badge:'', isNew:false, description:'Lightweight cotton lawn in crisp white. Breathable for daily wear.', width:'45"', composition:'100% Cotton', weight:'150 gsm', care:'Machine Wash', colors:['#ffffff','#f8f8f8','#f0f0f0'] },
+        { id:6, name:'Burgundy Aso Oke', category:'aso-oke', price:135000, unit:'yd', images:['photos/fabrics/f16.jpg','photos/fabrics/f1.jpg','photos/fabrics/f2.jpg'], tag:'Heritage', badge:'', isNew:false, description:'Deep burgundy Aso Oke with traditional stripe patterns.', width:'45"', composition:'Cotton / Silk Blend', weight:'290 gsm', care:'Dry Clean', colors:['#4a0a1a','#6a1a2a','#f0e0e5'] },
+        { id:7, name:'Navy Damask', category:'damask', price:105000, unit:'yd', images:['photos/fabrics/f3.jpg','photos/fabrics/f4.jpg','photos/fabrics/f5.jpg'], tag:'Classic', badge:'New', isNew:true, description:'Navy blue damask with subtle geometric weave.', width:'54"', composition:'Cotton Damask', weight:'260 gsm', care:'Dry Clean', colors:['#0a1a3a','#1a2a5a','#c0c8d8'] },
+        { id:8, name:'Sage Cotton Blend', category:'cotton', price:55000, unit:'yd', images:['photos/fabrics/f6.jpg','photos/fabrics/f7.jpg','photos/fabrics/f8.jpg'], tag:'Breathable', badge:'New', isNew:true, description:'Soft sage green cotton blend for casual Kaftans.', width:'45"', composition:'Cotton / Linen Blend', weight:'170 gsm', care:'Machine Wash', colors:['#8a9a7a','#aabaaa','#d0d8c8'] },
+        { id:9, name:'Black Lace Panel', category:'lace', price:150000, unit:'panel', images:['photos/fabrics/f9.jpg','photos/fabrics/f10.jpg','photos/fabrics/f11.jpg'], tag:'Artisan', badge:'', isNew:false, description:'Hand-crafted black lace with intricate floral motifs.', width:'36"', composition:'Cotton Lace', weight:'120 gsm', care:'Hand Wash', colors:['#0a0a0a','#1a1a1a','#2a2a2a'] },
+      ];
+
+      let cart = [];
+      let currentFilter = 'all';
+      let visibleCount = 6;
+
+      function showToast(msg) { const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500); }
+
+      function startAutoSlide(card) {
+        const slides=card.querySelectorAll('.fabric-slide'), dots=card.querySelectorAll('.fabric-dot');
+        if(slides.length<2)return;
+        let index=0,interval;
+        function show(i){ slides.forEach(s=>s.classList.remove('active')); dots.forEach(d=>d.classList.remove('active-dot')); slides[i].classList.add('active'); dots[i].classList.add('active-dot'); }
+        card.addEventListener('mouseenter',()=>{ interval=setInterval(()=>{ index=(index+1)%slides.length; show(index); },1200); });
+        card.addEventListener('mouseleave',()=>{ clearInterval(interval); index=0; show(0); });
+        show(0);
+      }
+
+      function openQuickView(index) {
+        const f=fabricData[index]; if(!f)return;
+        document.getElementById('detailModal').innerHTML=`
+          <div style="height:350px;"><img src="${f.images[0]}" alt="${f.name}" class="w-full h-full object-cover" id="detailMainImage"></div>
+          <div class="p-5 flex flex-col justify-center">
+            <span class="text-[0.6rem] uppercase tracking-[0.15em] text-neutral-400">${f.category.replace('-',' ')} · ${f.tag}</span>
+            <h2 class="text-xl font-medium text-[#374151] mt-1 mb-2">${f.name}</h2>
+            <p class="text-[0.78rem] text-neutral-500 leading-relaxed mb-3">${f.description}</p>
+            <div class="space-y-1.5 text-[0.75rem] mb-3">
+              <div class="flex justify-between"><span class="text-neutral-400">Width</span><span>${f.width}</span></div>
+              <div class="flex justify-between"><span class="text-neutral-400">Composition</span><span>${f.composition}</span></div>
+              <div class="flex justify-between"><span class="text-neutral-400">Weight</span><span>${f.weight}</span></div>
+              <div class="flex justify-between"><span class="text-neutral-400">Care</span><span>${f.care}</span></div>
+            </div>
+            <div class="flex gap-1.5 mb-3">${f.colors.map(c=>`<span class="swatch" style="background:${c};"></span>`).join('')}</div>
+            <p class="text-xl font-semibold mb-2">₦${f.price.toLocaleString()}<span class="text-[0.7rem] font-normal text-neutral-400">/${f.unit}</span></p>
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-[0.65rem] text-neutral-400">Qty:</span>
+              <button class="border px-2.5 py-1 text-sm rounded hover:bg-gray-50 detail-qty-minus">−</button>
+              <span class="px-3 py-1 font-medium detail-qty-val">3</span>
+              <button class="border px-2.5 py-1 text-sm rounded hover:bg-gray-50 detail-qty-plus">+</button>
+            </div>
+            <button class="btn-primary w-full py-2.5 text-[0.72rem] detail-add-cart" data-id="${f.id}">Add to Cart · ₦<span class="detail-total-price">${(f.price*3).toLocaleString()}</span></button>
+            <a href="fabric-detail.html?id=${f.id}" class="block text-center mt-2 text-[0.7rem] text-neutral-400 hover:text-[#374151] transition-colors">View Full Details →</a>
+            <div class="flex gap-2 mt-3">${f.images.map((img,i)=>`<img src="${img}" class="w-12 h-12 object-cover rounded cursor-pointer border-2 ${i===0?'border-[#374151]':'border-transparent'} detail-thumb" data-img="${i}">`).join('')}</div>
+          </div>`;
+        document.getElementById('detailModalOverlay').classList.add('open'); document.body.style.overflow='hidden';
+        const qtyVal=document.querySelector('.detail-qty-val'), totalEl=document.querySelector('.detail-total-price');
+        document.querySelector('.detail-qty-plus').addEventListener('click',()=>{ let v=parseInt(qtyVal.textContent); qtyVal.textContent=Math.min(50,v+1); totalEl.textContent=(f.price*parseInt(qtyVal.textContent)).toLocaleString(); });
+        document.querySelector('.detail-qty-minus').addEventListener('click',()=>{ let v=parseInt(qtyVal.textContent); if(v>1)qtyVal.textContent=v-1; totalEl.textContent=(f.price*parseInt(qtyVal.textContent)).toLocaleString(); });
+        document.querySelector('.detail-add-cart').addEventListener('click',function(){ const qty=parseInt(qtyVal.textContent); for(let i=0;i<qty;i++)addToCart(f.id); showToast('✓ '+qty+' yard(s) added'); closeQuickView(); });
+        document.querySelectorAll('.detail-thumb').forEach(thumb=>{ thumb.addEventListener('click',function(){ document.querySelectorAll('.detail-thumb').forEach(t=>t.classList.remove('border-[#374151]')); this.classList.add('border-[#374151]'); document.getElementById('detailMainImage').src=f.images[parseInt(this.dataset.img)]; }); });
+      }
+
+      function closeQuickView(){ document.getElementById('detailModalOverlay').classList.remove('open'); document.body.style.overflow=''; }
+      document.getElementById('detailModalClose').addEventListener('click',closeQuickView);
+      document.getElementById('detailModalOverlay').addEventListener('click',function(e){ if(e.target===this)closeQuickView(); });
+      document.addEventListener('keydown',function(e){ if(document.getElementById('detailModalOverlay').classList.contains('open')&&e.key==='Escape')closeQuickView(); });
+
+      function renderFabrics(filter='all',count=visibleCount){
+        let filtered=filter==='all'?fabricData:filter==='new'?fabricData.filter(f=>f.isNew):fabricData.filter(f=>f.category===filter);
+        const display=filtered.slice(0,count);
+        document.getElementById('fabricGridContainer').innerHTML=display.map(fabric=>{
+          const idx=fabricData.indexOf(fabric);
+          return `<div class="fabric-card" data-index="${idx}">
+            <div class="fabric-image-container">
+              ${fabric.images.map((img,j)=>`<img src="${img}" class="fabric-slide ${j===0?'active':''}" alt="${fabric.name}" loading="lazy" onerror="this.src='https://placehold.co/400x533/e5e7eb/9ca3af?text=${encodeURIComponent(fabric.name)}'">`).join('')}
+              <div class="fabric-dots">${fabric.images.map((_,j)=>`<span class="fabric-dot ${j===0?'active-dot':''}"></span>`).join('')}</div>
+              <span class="fabric-tag">${fabric.tag}</span>
+              ${fabric.badge?`<span class="fabric-badge">${fabric.badge}</span>`:''}
+              <button class="quick-add-btn" data-id="${fabric.id}">Quick Add</button>
+              <a href="fabric-detail.html?id=${fabric.id}" class="view-detail-link" onclick="event.stopPropagation()"><i class="fas fa-eye text-[0.55rem]"></i> Details</a>
+            </div>
+            <div class="p-3 flex-1 flex flex-col justify-between">
+              <div>
+                <h4 class="text-[0.8rem] font-medium text-[#374151]">${fabric.name}</h4>
+                <p class="text-[0.65rem] text-neutral-400 mt-0.5 line-clamp-1">${fabric.description}</p>
+              </div>
+              <div class="flex justify-between items-center mt-2">
+                <span class="font-semibold text-[0.82rem]">₦${fabric.price.toLocaleString()}<span class="text-[0.62rem] font-normal text-neutral-400">/${fabric.unit}</span></span>
+                <span class="text-[0.6rem] text-neutral-400 uppercase">${fabric.category.replace('-',' ')}</span>
+              </div>
+            </div>
+          </div>`;
+        }).join('');
+        document.querySelectorAll('.fabric-card').forEach(card=>startAutoSlide(card));
+        document.querySelectorAll('.fabric-card').forEach(card=>{ card.addEventListener('click',function(e){ if(e.target.closest('.quick-add-btn')||e.target.closest('.view-detail-link'))return; openQuickView(parseInt(this.dataset.index)); }); });
+        document.querySelectorAll('.quick-add-btn').forEach(btn=>{ btn.addEventListener('click',function(e){ e.stopPropagation(); addToCart(parseInt(this.dataset.id)); showToast('✓ Added to cart'); }); });
+        document.getElementById('loadMoreBtn').style.display=filtered.length<=count?'none':'inline-block';
+      }
+
+      function addToCart(id){ const f=fabricData.find(x=>x.id===id); if(!f)return; const existing=cart.find(i=>i.id===id); existing?existing.qty++:cart.push({...f,qty:1}); updateCart(); }
+      
+      function updateCart(){
+        const total=cart.reduce((s,i)=>s+i.qty,0);
+        document.getElementById('cartBadge').textContent=total;
+        document.getElementById('drawerCount').textContent=total+' item'+(total!==1?'s':'');
+        document.getElementById('drawerTotal').textContent='₦'+cart.reduce((s,i)=>s+i.price*i.qty,0).toLocaleString();
+        document.getElementById('drawerItems').innerHTML=cart.length===0?'<p class="text-neutral-400 text-[0.8rem] text-center py-16">Your bag is empty</p>':cart.map(item=>`
+          <div class="flex gap-3 items-start border-b border-gray-50 pb-3">
+            <img src="${item.images[0]}" class="w-14 h-14 object-cover rounded" alt="${item.name}" onerror="this.src='https://placehold.co/56x56/e5e7eb/9ca3af'">
+            <div class="flex-1 min-w-0"><p class="text-[0.75rem] font-medium truncate">${item.name}</p><p class="text-[0.65rem] text-neutral-400">₦${item.price.toLocaleString()}/${item.unit}</p>
+              <div class="flex items-center gap-2 mt-1">
+                <button class="border px-1.5 py-0.5 text-[0.6rem] rounded cq-minus" data-id="${item.id}">−</button><span class="text-[0.7rem] font-medium">${item.qty}</span><button class="border px-1.5 py-0.5 text-[0.6rem] rounded cq-plus" data-id="${item.id}">+</button>
+              </div>
+            </div>
+            <button class="text-neutral-400 hover:text-red-500 cremove" data-id="${item.id}"><i class="fas fa-trash text-[0.6rem]"></i></button>
+          </div>`).join('');
+        document.querySelectorAll('.cq-plus').forEach(b=>b.addEventListener('click',()=>{ const i=cart.find(x=>x.id===parseInt(b.dataset.id)); if(i)i.qty++; updateCart(); }));
+        document.querySelectorAll('.cq-minus').forEach(b=>b.addEventListener('click',()=>{ const i=cart.find(x=>x.id===parseInt(b.dataset.id)); if(i&&i.qty>1)i.qty--; else cart=cart.filter(x=>x.id!==parseInt(b.dataset.id)); updateCart(); }));
+        document.querySelectorAll('.cremove').forEach(b=>b.addEventListener('click',()=>{ cart=cart.filter(x=>x.id!==parseInt(b.dataset.id)); updateCart(); }));
+      }
+
+      // Hero slideshow
+      (function() {
+        const slides = document.querySelectorAll('.hero-slide');
+        const dots = document.querySelectorAll('.hero-dot');
+        let currentSlide = 0;
+        let slideInterval;
+
+        function showSlide(index) {
+          slides.forEach(s => { s.classList.remove('opacity-100'); s.classList.add('opacity-0'); });
+          dots.forEach(d => { d.classList.remove('active-dot'); d.style.width = '0.75rem'; });
+          
+          slides[index].classList.remove('opacity-0');
+          slides[index].classList.add('opacity-100');
+          dots[index].classList.add('active-dot');
+          dots[index].style.width = '2rem';
+          currentSlide = index;
+        }
+
+        function nextSlide() { showSlide((currentSlide + 1) % slides.length); }
+        function prevSlide() { showSlide((currentSlide - 1 + slides.length) % slides.length); }
+        function startSlideshow() { stopSlideshow(); slideInterval = setInterval(nextSlide, 5000); }
+        function stopSlideshow() { if (slideInterval) clearInterval(slideInterval); }
+
+        document.getElementById('heroNext')?.addEventListener('click', () => { nextSlide(); startSlideshow(); });
+        document.getElementById('heroPrev')?.addEventListener('click', () => { prevSlide(); startSlideshow(); });
+        
+        dots.forEach(dot => {
+          dot.addEventListener('click', function() {
+            showSlide(parseInt(this.dataset.index));
+            startSlideshow();
+          });
+        });
+
+        const heroSection = document.getElementById('heroSlideshow');
+        heroSection?.addEventListener('mouseenter', stopSlideshow);
+        heroSection?.addEventListener('mouseleave', startSlideshow);
+
+        startSlideshow();
+      })();
+
+      // Cart drawer events
+      document.getElementById('cartIcon').addEventListener('click',()=>{ document.getElementById('cartDrawer').classList.add('open'); document.getElementById('cartDrawerOverlay').classList.add('open'); });
+      document.getElementById('closeDrawer').addEventListener('click',()=>{ document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('cartDrawerOverlay').classList.remove('open'); });
+      document.getElementById('cartDrawerOverlay').addEventListener('click',()=>{ document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('cartDrawerOverlay').classList.remove('open'); });
+
+      // Filter events
+      document.querySelectorAll('.filter-chip').forEach(chip=>chip.addEventListener('click',function(){
+        document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active-chip'));
+        this.classList.add('active-chip'); currentFilter=this.dataset.filter; visibleCount=6; renderFabrics(currentFilter,visibleCount);
+      }));
+      document.getElementById('loadMoreBtn').addEventListener('click',()=>{ visibleCount+=6; renderFabrics(currentFilter,visibleCount); });
+
+      renderFabrics(); updateCart();
+    })();
+  </script>

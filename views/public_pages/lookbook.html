@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=yes">
+  <title>EL-ATTIRE | The Lookbook</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --text-primary: #374151;
+      --text-secondary: #9ca3af;
+    }
+
+    * { box-sizing: border-box; }
+
+    body { 
+      font-family: 'Inter', system-ui, -apple-system, sans-serif; 
+      background: #ffffff; color: var(--text-primary); 
+      letter-spacing: -0.01em; overflow-x: hidden;
+      font-size: 0.85rem; font-weight: 400; line-height: 1.6;
+    }
+    html { scroll-behavior: smooth; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+
+    .section-title { font-family: 'Playfair Display', serif; letter-spacing: 0.03em; }
+
+    .glass-panel {
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(20px);
+      border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+      border-radius: 10px;
+    }
+
+    .btn-primary { 
+      background: var(--text-primary); color: white; border: none; 
+      transition: all 0.15s ease; cursor: pointer; font-weight: 500; 
+      letter-spacing: 0.03em; border-radius: 7px; font-size: 0.78rem;
+      padding: 11px 22px; text-decoration: none; display: inline-block;
+    }
+    .btn-primary:hover { background: #4b5563; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+
+    .btn-outline { 
+      background: transparent; color: var(--text-primary); border: 1px solid #e5e7eb; 
+      transition: all 0.15s ease; cursor: pointer; font-weight: 500; 
+      letter-spacing: 0.03em; border-radius: 7px; font-size: 0.78rem;
+      padding: 11px 22px; text-decoration: none; display: inline-block;
+    }
+    .btn-outline:hover { background: #f9fafb; border-color: #d1d5db; }
+
+    .link-underline {
+      position: relative; display: inline-block; padding-bottom: 2px;
+      text-decoration: none; color: var(--text-primary);
+    }
+    .link-underline::after {
+      content: ''; position: absolute; bottom: 0; left: 0; width: 0%; height: 1.5px;
+      background: var(--text-primary); transition: width 0.3s ease;
+    }
+    .link-underline:hover::after { width: 100%; }
+
+    .magazine-spread {
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 75vh; border: 1px solid rgba(0,0,0,0.06);
+      margin-bottom: 1.5rem; position: relative; overflow: hidden;
+      border-radius: 12px;
+    }
+    .magazine-left { position: relative; overflow: hidden; cursor: pointer; }
+    .magazine-left img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .magazine-left:hover img { transform: scale(1.04); }
+    .magazine-right {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 50px; background: #fafafa;
+    }
+
+    .detail-chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 6px 14px; border: 1px solid #e5e7eb;
+      font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.06em;
+      font-weight: 500; transition: all 0.15s; cursor: pointer;
+      border-radius: 6px; color: #9ca3af; background: white;
+    }
+    .detail-chip:hover { border-color: #d1d5db; color: #374151; }
+    .detail-chip.active-chip { background: #374151; color: white; border-color: #374151; }
+
+    .look-card {
+      position: relative; overflow: hidden; cursor: pointer;
+      border: 1px solid rgba(0,0,0,0.05); transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      border-radius: 12px;
+    }
+    .look-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+    .look-card img { width: 100%; height: 350px; object-fit: cover; transition: transform 0.6s ease; }
+    .look-card:hover img { transform: scale(1.05); }
+    .look-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 50%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 20px; opacity: 0; transition: opacity 0.35s ease;
+    }
+    .look-card:hover .look-overlay { opacity: 1; }
+
+    .feature-number {
+      font-size: 4rem; font-weight: 300; line-height: 1;
+      font-family: 'Playfair Display', serif; color: #374151; opacity: 0.08;
+    }
+
+    .swatch {
+      width: 28px; height: 28px; border-radius: 50%; border: 2px solid white;
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.15); display: inline-block;
+    }
+
+    .page-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: #d1d5db;
+      cursor: pointer; transition: all 0.3s; border: none;
+    }
+    .page-dot.active-dot { background: #374151; width: 24px; border-radius: 4px; }
+
+    /* CENTERFOLD OVERLAY */
+    .centerfold-overlay {
+      position: fixed; inset: 0; z-index: 300; background: #0a0a0a;
+      display: flex; opacity: 0; pointer-events: none;
+      transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .centerfold-overlay.open { opacity: 1; pointer-events: all; }
+
+    .centerfold-main {
+      flex: 1; position: relative; display: flex; align-items: center;
+      justify-content: center; overflow: hidden;
+    }
+    .centerfold-scroll {
+      width: 100%; height: 100%; overflow-y: auto; overflow-x: hidden;
+      scroll-behavior: smooth; scrollbar-width: none;
+    }
+    .centerfold-scroll::-webkit-scrollbar { display: none; }
+    .centerfold-full-image {
+      width: 100%; display: block; object-fit: contain;
+      min-height: 100vh; transition: opacity 0.5s ease;
+    }
+
+    .centerfold-nav {
+      position: absolute; top: 50%; transform: translateY(-50%); z-index: 20;
+      width: 48px; height: 48px; border-radius: 50%;
+      background: rgba(255,255,255,0.12); backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.25); color: white;
+      font-size: 1rem; cursor: pointer; display: flex;
+      align-items: center; justify-content: center;
+      transition: all 0.3s;
+    }
+    .centerfold-nav:hover { background: rgba(255,255,255,0.25); transform: translateY(-50%) scale(1.08); }
+    .centerfold-nav-left { left: 20px; }
+    .centerfold-nav-right { right: 20px; }
+
+    .centerfold-counter {
+      position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+      z-index: 20; color: white; font-size: 0.7rem; letter-spacing: 0.12em;
+      font-weight: 500; background: rgba(0,0,0,0.5); padding: 5px 16px;
+      border-radius: 20px; backdrop-filter: blur(8px);
+    }
+
+    .centerfold-dots {
+      position: absolute; bottom: 24px; right: 24px; z-index: 20;
+      display: flex; gap: 6px;
+    }
+    .centerfold-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: rgba(255,255,255,0.4); cursor: pointer; transition: all 0.3s;
+    }
+    .centerfold-dot.active-dot { background: white; width: 20px; border-radius: 4px; }
+
+    .centerfold-sidebar {
+      width: 400px; background: white; display: flex; flex-direction: column;
+      overflow-y: auto; border-left: 1px solid rgba(0,0,0,0.08);
+    }
+    .centerfold-sidebar-inner {
+      padding: 35px 28px; flex: 1; display: flex; flex-direction: column;
+    }
+
+    .centerfold-close {
+      position: absolute; top: 20px; right: 20px; z-index: 30;
+      width: 42px; height: 42px; border-radius: 50%;
+      background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.3); color: white;
+      font-size: 1.2rem; cursor: pointer; display: flex;
+      align-items: center; justify-content: center;
+      transition: all 0.3s;
+    }
+    .centerfold-close:hover { background: rgba(255,255,255,0.3); }
+
+    .thumb-strip { display: flex; gap: 6px; margin-top: 14px; }
+    .thumb-strip-item {
+      width: 52px; height: 52px; background-size: cover; background-position: center;
+      cursor: pointer; border: 2px solid transparent; transition: all 0.2s;
+      opacity: 0.6; border-radius: 6px;
+    }
+    .thumb-strip-item:hover { opacity: 0.9; }
+    .thumb-strip-item.active-thumb { border-color: #374151; opacity: 1; }
+
+    .nav-logo { height: 34px; width: auto; }
+    .footer-logo { height: 50px; width: auto; }
+
+    .support-btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 6px 12px; border-radius: 7px; cursor: pointer;
+      transition: all 0.15s ease; border: 1px solid #e5e7eb;
+      background: transparent; color: #9ca3af; font-family: inherit;
+      font-size: 0.7rem; font-weight: 500;
+    }
+    .support-btn:hover { border-color: #d1d5db; color: #374151; background: #f9fafb; }
+    .support-btn .live-dot {
+      width: 5px; height: 5px; border-radius: 50%; background: #10b981;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot { 0%,100%{transform:scale(1);} 50%{transform:scale(1.4);} }
+
+    @media (max-width: 768px) {
+      .magazine-spread { grid-template-columns: 1fr; min-height: auto; }
+      .magazine-left { height: 350px; }
+      .magazine-right { padding: 30px; }
+      .centerfold-sidebar { width: 100%; position: absolute; bottom: 0; max-height: 40vh; border-left: none; border-top: 1px solid rgba(0,0,0,0.08); }
+    }
+  </style>
+</head>
+<body class="antialiased bg-white">
+
+  <!-- Centerfold Overlay -->
+  <div class="centerfold-overlay" id="centerfoldOverlay">
+    <div class="centerfold-main" id="centerfoldMain">
+      <div class="centerfold-scroll" id="centerfoldScroll"></div>
+      <button class="centerfold-nav centerfold-nav-left" id="cfPrev"><i class="fas fa-chevron-left"></i></button>
+      <button class="centerfold-nav centerfold-nav-right" id="cfNext"><i class="fas fa-chevron-right"></i></button>
+      <div class="centerfold-counter" id="cfCounter">1 / 4</div>
+      <div class="centerfold-dots" id="cfDots"></div>
+      <button class="centerfold-close" id="centerfoldClose">✕</button>
+    </div>
+    <div class="centerfold-sidebar" id="centerfoldSidebar">
+      <div class="centerfold-sidebar-inner" id="cfSidebarContent"></div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 glass-panel border-b border-gray-100 px-5 py-2.5 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3 no-underline">
+      <img src="photos/logo_only_bk.png" alt="EL-ATTIRE" class="nav-logo" onerror="this.style.display='none'">
+      <span class="text-lg font-semibold tracking-[0.1em] text-[#374151]">EL-<span class="font-normal text-neutral-400 text-sm">ATTIRE</span></span>
+    </a>
+    <nav class="hidden lg:flex items-center gap-6 text-[0.72rem] uppercase tracking-[0.08em] font-medium">
+      <a href="/" class="link-underline">Home</a>
+      <a href="/collection" class="link-underline">Shop</a>
+      <a href="/fabrics" class="link-underline">Fabrics</a>
+      <a href="/tailoring" class="link-underline">Tailoring</a>
+      <a href="/lookbook" class="link-underline font-semibold border-b-2 border-[#374151] pb-1">Lookbook</a>
+      <a href="/about" class="link-underline ">About</a>
+
+    </nav>
+    <div class="flex items-center gap-3">
+      <button class="support-btn" id="supportHeaderToggle" title="Chat with support">
+        <i class="fas fa-headset text-[0.6rem]"></i> Support
+        <span class="live-dot"></span>
+      </button>
+      <a href="/login" class="text-[0.75rem] text-neutral-400 hover:text-[#374151] transition-colors">Sign In</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Spread -->
+    <section class="magazine-spread">
+      <div class="magazine-left"><img src="photos/tailoring/agbada_a1.jpg" alt="Hero" onerror="this.src='https://placehold.co/800x600/e5e7eb/9ca3af?text=Lookbook'"></div>
+      <div class="magazine-right">
+        <span class="text-[0.6rem] uppercase tracking-[0.2em] text-neutral-400 mb-3">Collection 2026</span>
+        <h1 class="text-3xl md:text-5xl font-light section-title text-[#374151] leading-tight mb-4">The<br>Lookbook</h1>
+        <p class="text-[0.8rem] text-neutral-400 leading-relaxed mb-5 max-w-md">A curated editorial of our finest tailoring. Each look tells a story of craftsmanship, heritage, and modern elegance.</p>
+        <div class="flex gap-2 flex-wrap">
+          <button class="detail-chip active-chip" data-filter="all">All Looks</button>
+          <button class="detail-chip" data-filter="Wedding"><i class="fas fa-gem text-[0.55rem]"></i> Wedding</button>
+          <button class="detail-chip" data-filter="Corporate"><i class="fas fa-briefcase text-[0.55rem]"></i> Corporate</button>
+          <button class="detail-chip" data-filter="Events"><i class="fas fa-glass-cheers text-[0.55rem]"></i> Events</button>
+          <button class="detail-chip" data-filter="Casual"><i class="fas fa-sun text-[0.55rem]"></i> Casual</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Look -->
+    <section class="max-w-7xl mx-auto px-4 md:px-6 py-12">
+      <div class="magazine-spread">
+        <div class="magazine-left"><img src="photos/tailoring/style_1a.jpg" alt="Featured" onerror="this.src='https://placehold.co/800x600/e5e7eb/9ca3af?text=Featured'"></div>
+        <div class="magazine-right">
+          <span class="text-[0.6rem] uppercase tracking-[0.15em] text-neutral-400">Featured Look</span>
+          <h2 class="text-2xl font-light section-title text-[#374151] mt-1.5 mb-4">The Royal Blue Kaftan</h2>
+          <div class="space-y-3 text-[0.78rem]">
+            <div><span class="font-medium uppercase text-[0.6rem] tracking-wider text-neutral-400">Style</span><p class="mt-0.5 text-neutral-500">Flowing ankle-length Kaftan with intricate chest embroidery and side slits.</p></div>
+            <div><span class="font-medium uppercase text-[0.6rem] tracking-wider text-neutral-400">Fabric</span><p class="mt-0.5 text-neutral-500">Premium Aso Oke with metallic thread accents.</p></div>
+            <div class="flex gap-1.5 mt-1"><span class="swatch" style="background:#1a3a5c;"></span><span class="swatch" style="background:#c9a84c;"></span><span class="swatch" style="background:#f5f5f0;"></span></div>
+          </div>
+          <div class="flex gap-3 mt-5">
+            <button class="btn-primary px-5 py-2.5 text-[0.72rem] open-centerfold" data-look="royal-blue">View Full Look</button>
+            <a href="collection.html" class="btn-outline px-5 py-2.5 text-[0.72rem]">Shop This Look</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Look Grid -->
+    <section class="max-w-7xl mx-auto px-4 md:px-6 py-12 border-t border-gray-100">
+      <h2 class="text-2xl font-medium text-[#374151] mb-8 text-center">The Collection</h2>
+      <div class="grid md:grid-cols-3 gap-5" id="lookGrid"></div>
+      <div class="flex items-center gap-3 justify-center mt-8">
+        <button class="btn-outline px-2.5 py-1.5 text-[0.65rem]" id="prevPage"><i class="fas fa-chevron-left"></i></button>
+        <span class="page-dot active-dot" data-page="0"></span>
+        <span class="page-dot" data-page="1"></span>
+        <button class="btn-outline px-2.5 py-1.5 text-[0.65rem]" id="nextPage"><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- Editorial -->
+    <section class="py-16 bg-[#374151] text-white">
+      <div class="max-w-7xl mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-10 items-center">
+        <div>
+          <span class="text-[0.6rem] uppercase tracking-[0.2em] text-neutral-400">Editorial</span>
+          <h2 class="text-2xl md:text-3xl font-light section-title mt-2 mb-5">The Art of Agbada</h2>
+          <p class="text-neutral-300 text-[0.82rem] leading-relaxed mb-5">The Agbada is more than a garment — it is a statement of presence, a symbol of heritage, and a canvas for artistic expression. Our master tailors spend over 40 hours on each set.</p>
+          <div class="flex gap-8 text-center mt-6">
+            <div><span class="feature-number">40</span><p class="text-[0.62rem] text-neutral-400 mt-1 uppercase tracking-wider">Hours of Craft</p></div>
+            <div><span class="feature-number">12</span><p class="text-[0.62rem] text-neutral-400 mt-1 uppercase tracking-wider">Master Tailors</p></div>
+            <div><span class="feature-number">3</span><p class="text-[0.62rem] text-neutral-400 mt-1 uppercase tracking-wider">Fittings</p></div>
+          </div>
+        </div>
+        <div class="overflow-hidden rounded-xl"><img src="photos/tailoring/agbada1.jpg" alt="Editorial" class="w-full h-[420px] object-cover hover:scale-105 transition duration-700" onerror="this.src='https://placehold.co/600x420/e5e7eb/9ca3af?text=Agbada'"></div>
+      </div>
+    </section>
+
+    <!-- Occasions -->
+    <section class="py-14 max-w-7xl mx-auto px-4 md:px-6">
+      <h2 class="text-xl font-medium text-[#374151] mb-6 text-center">Shop by Occasion</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="look-card"><img src="photos/tailoring/agbada_a1.jpg" alt="Wedding" onerror="this.src='https://placehold.co/400x350/e5e7eb/9ca3af?text=Wedding'"><div class="look-overlay text-white"><h3 class="text-lg font-medium">Wedding</h3></div></div>
+        <div class="look-card"><img src="photos/tailoring/style2.jpg" alt="Corporate" onerror="this.src='https://placehold.co/400x350/e5e7eb/9ca3af?text=Corporate'"><div class="look-overlay text-white"><h3 class="text-lg font-medium">Corporate</h3></div></div>
+        <div class="look-card"><img src="photos/tailoring/style_1a.jpg" alt="Events" onerror="this.src='https://placehold.co/400x350/e5e7eb/9ca3af?text=Events'"><div class="look-overlay text-white"><h3 class="text-lg font-medium">Events</h3></div></div>
+        <div class="look-card"><img src="photos/tailoring/style2b.jpg" alt="Casual" onerror="this.src='https://placehold.co/400x350/e5e7eb/9ca3af?text=Casual'"><div class="look-overlay text-white"><h3 class="text-lg font-medium">Casual</h3></div></div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-14 text-center border-t border-gray-100">
+      <h2 class="text-2xl font-medium text-[#374151] mb-3">Create Your Own Look</h2>
+      <p class="text-[0.78rem] text-neutral-400 mb-5">Schedule a consultation with our stylists to design a bespoke piece.</p>
+      <a href="/fitting" class="btn-primary px-6 py-3 text-[0.75rem]">Book a Consultation</a>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#0a0a0a] text-neutral-400">
+    <div class="max-w-7xl mx-auto px-6 py-10">
+      <div class="grid md:grid-cols-4 gap-8 mb-8">
+        <div><p class="text-white font-semibold text-sm tracking-wider mb-1">EL-ATTIRE</p><p class="text-xs text-neutral-500">Bespoke Nigerian tailoring since 2010.</p></div>
+        <div><p class="text-white uppercase tracking-wider mb-3 text-[0.65rem] font-semibold">Shop</p><a href="/collection" class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition">Collection</a><a href="/fabrics" class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition">Fabrics</a></div>
+        <div><p class="text-white uppercase tracking-wider mb-3 text-[0.65rem] font-semibold">Services</p><a href="/tailoring" class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition">Tailoring</a><a href="/fitting" class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition">Fittings</a></div>
+        <div><p class="text-white uppercase tracking-wider mb-3 text-[0.65rem] font-semibold">Support</p><a href="/faq" class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition">FAQ</a><a href="/terms" class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition">Terms</a></div>
+      </div>
+      <div class="border-t border-neutral-800 pt-6 text-center text-[0.65rem] text-neutral-600">© 2026 EL-ATTIRE. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <!-- Independent Chat Widget -->
+  <script>
+    (function() {
+      var widget = document.createElement('div');
+      widget.className = 'chat-widget-overlay'; widget.id = 'chatWidget';
+      widget.innerHTML = '<style>' +
+        '.chat-widget-overlay{position:fixed;bottom:24px;right:24px;width:350px;max-width:90vw;height:440px;max-height:65vh;background:white;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,0.2);z-index:300;display:flex;flex-direction:column;transform:translateY(20px)scale(0.95);opacity:0;pointer-events:none;transition:all 0.25s cubic-bezier(0.23,1,0.32,1);border:1px solid rgba(0,0,0,0.08)}' +
+        '.chat-widget-overlay.open{transform:translateY(0)scale(1);opacity:1;pointer-events:all}' +
+        '.cw-h{padding:12px 14px;border-bottom:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between;border-radius:14px 14px 0 0;background:#fafafa}' +
+        '.cw-ag{display:flex;align-items:center;gap:8px}.cw-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;color:white;font-weight:600;font-size:0.65rem}' +
+        '.cw-on{display:flex;align-items:center;gap:4px;font-size:0.6rem;color:#10b981;font-weight:500}.cw-ond{width:5px;height:5px;border-radius:50%;background:#10b981}' +
+        '.cw-b{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;background:#fafafa}' +
+        '.cw-f{padding:10px 12px;border-top:1px solid #f3f4f6;display:flex;gap:6px;align-items:center}' +
+        '.cw-f input{flex:1;padding:8px 12px;border:1px solid #e5e7eb;border-radius:18px;font-size:0.75rem;outline:none;background:white;font-family:inherit}' +
+        '.cw-s{width:34px;height:34px;border-radius:50%;border:none;background:#374151;color:white;cursor:pointer;font-size:0.75rem;transition:all 0.15s;flex-shrink:0}' +
+        '.cw-s:hover{background:#4b5563;transform:scale(1.05)}.cw-x{width:26px;height:26px;border-radius:50%;border:none;background:transparent;cursor:pointer;color:#9ca3af;font-size:0.9rem;display:flex;align-items:center;justify-content:center;transition:all 0.15s}' +
+        '.cw-x:hover{background:#e5e7eb;color:#374151}.cw-bub{padding:8px 12px;border-radius:12px;font-size:0.75rem;line-height:1.5;max-width:85%;animation:cwIn 0.3s ease-out}' +
+        '@keyframes cwIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}' +
+        '.cw-bub.in{background:white;color:#374151;align-self:flex-start;border-bottom-left-radius:4px}' +
+        '.cw-bub.out{background:#374151;color:white;align-self:flex-end;border-bottom-right-radius:4px}' +
+        '.cw-t{font-size:0.55rem;opacity:0.6;margin-top:3px;display:block}' +
+        '.cw-q{display:flex;flex-wrap:wrap;gap:4px;padding:0 12px 8px}' +
+        '.cw-q button{padding:5px 10px;border-radius:14px;border:1px solid #e5e7eb;background:white;font-size:0.65rem;cursor:pointer;transition:all 0.15s;color:#374151;font-family:inherit}' +
+        '.cw-q button:hover{background:#374151;color:white;border-color:#374151}' +
+      '</style>' +
+      '<div class="cw-h"><div class="cw-ag"><div class="cw-av">CS</div><div><p style="font-size:0.75rem;font-weight:500;color:#374151;margin:0">Customer Support</p><div class="cw-on"><span class="cw-ond"></span>Online</div></div></div><button class="cw-x" id="cwCloseBtn">✕</button></div>' +
+      '<div class="cw-b" id="cwMessages"><div class="cw-bub in">Hello! 👋 Love a look? Let us help you get it.<span class="cw-t">Just now</span></div></div>' +
+      '<div class="cw-q"><button id="cwQuickLook">👔 This Look</button><button id="cwQuickCustom">✂️ Custom</button><button id="cwQuickFitting">📅 Fitting</button></div>' +
+      '<div class="cw-f"><input type="text" placeholder="Type message..." id="cwInput"><button class="cw-s" id="cwSendBtn"><i class="fas fa-paper-plane"></i></button></div>';
+      document.body.appendChild(widget);
+
+      var isOpen = false;
+      var replies = {'look':'👔 All our lookbook styles are available made-to-order. Visit the Shop page or book a fitting to get the exact look in your size.','custom':'✂️ We can customize any look — change fabric, color, or details. Book a consultation with our stylists.','fitting':'📅 Book a fitting at our Lagos or Abuja studio. Mon-Fri 9AM-5PM, Sat 9AM-2PM. Virtual available.','default':'Thanks! A style consultant will respond shortly. For immediate help: +234 800 000 0000.'};
+      function getReply(m){var x=m.toLowerCase();if(x.indexOf('look')>-1||x.indexOf('style')>-1)return replies.look;if(x.indexOf('custom')>-1||x.indexOf('change')>-1)return replies.custom;if(x.indexOf('fitting')>-1||x.indexOf('book')>-1)return replies.fitting;return replies.default}
+      function getTime(){return new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:true})}
+      function addMsg(text,type){var msgs=document.getElementById('cwMessages');var b=document.createElement('div');b.className='cw-bub '+(type==='sent'?'out':'in');b.innerHTML=text+'<span class="cw-t">'+getTime()+'</span>';msgs.appendChild(b);msgs.scrollTop=msgs.scrollHeight}
+      function sendMsg(){var input=document.getElementById('cwInput');if(!input||!input.value.trim())return;var msg=input.value.trim();addMsg(msg,'sent');input.value='';setTimeout(function(){addMsg(getReply(msg),'received');},700+Math.random()*1000)}
+      function sendQuick(text){var input=document.getElementById('cwInput');if(input)input.value=text;sendMsg()}
+      function open(){widget.classList.add('open');isOpen=true;setTimeout(function(){var inp=document.getElementById('cwInput');if(inp)inp.focus();},300)}
+      function close(){widget.classList.remove('open');isOpen=false}
+      function toggle(){isOpen?close():open()}
+      document.getElementById('cwCloseBtn').addEventListener('click',close);
+      document.getElementById('cwSendBtn').addEventListener('click',sendMsg);
+      document.getElementById('cwInput').addEventListener('keypress',function(e){if(e.key==='Enter')sendMsg()});
+      document.getElementById('cwQuickLook').addEventListener('click',function(){sendQuick('This look')});
+      document.getElementById('cwQuickCustom').addEventListener('click',function(){sendQuick('Custom order')});
+      document.getElementById('cwQuickFitting').addEventListener('click',function(){sendQuick('Book fitting')});
+      document.addEventListener('keydown',function(e){if(e.key==='Escape'&&isOpen)close()});
+      document.addEventListener('click',function(e){if(isOpen&&!widget.contains(e.target)&&e.target.id!=='supportHeaderToggle'&&!document.getElementById('supportHeaderToggle').contains(e.target))close()});
+      document.getElementById('supportHeaderToggle').addEventListener('click',toggle);
+    })();
+  </script>
+
+  <!-- Lookbook Script -->
+  <script>
+    (function() {
+      var looks = [
+        { id:'royal-blue', name:'Royal Blue Kaftan', style:'Flowing ankle-length Kaftan with intricate chest embroidery and side slits. A modern interpretation of classic Nigerian elegance, designed to command attention at any formal gathering.', fabric:'Premium Aso Oke with metallic thread accents. Medium weight, breathable, with subtle sheen under light. Handwoven by master artisans in Oyo State.', occasion:'Wedding', colors:['#1a3a5c','#c9a84c','#f5f5f0'], price:245000, type:'Kaftan', images:['photos/tailoring/style_1a.jpg','photos/tailoring/style_1b.jpg','photos/a1.jpg','photos/a2.jpg'] },
+        { id:'gold-agbada', name:'Gold Agbada Ensemble', style:'Full three-piece Agbada set with flowing outer robe, fitted inner wear, and matching trousers. The gold embroidery traces traditional Yoruba motifs across the chest and back.', fabric:'Handwoven Aso Oke with real gold thread embroidery. Heavyweight, regal drape that commands presence. Each set requires over 40 hours of handwork.', occasion:'Wedding', colors:['#c9a84c','#8b6914','#fff8dc'], price:450000, type:'Agbada', images:['photos/tailoring/agbada_a1.jpg','photos/tailoring/agbada_a2.jpg','photos/tailoring/agbada1.jpg','photos/tailoring/agbada1b.jpg'] },
+        { id:'white-senator', name:'Senator White', style:'Clean, minimalist Senator style with mandarin collar and subtle tonal embroidery. The epitome of understated sophistication for the modern professional.', fabric:'Premium cotton lawn with silk lining. Lightweight and breathable, perfect for all-day wear in warm climates. Italian-inspired tailoring with Nigerian soul.', occasion:'Corporate', colors:['#ffffff','#f0f0f0','#e8e8e8'], price:195000, type:'Senator', images:['photos/tailoring/style2.jpg','photos/tailoring/style2b.jpg','photos/model_c1.jpg','photos/model_c2.jpg'] },
+        { id:'midnight-brocade', name:'Midnight Brocade Kaftan', style:'Slim-fit Kaftan with mandarin collar and hidden placket. Modern silhouette meets traditional fabric for a look that bridges generations.', fabric:'Italian brocade with subtle floral pattern. Medium-heavy weight with excellent drape. The midnight blue shifts subtly under different lighting.', occasion:'Events', colors:['#0a0a2e','#1a1a4e','#c0c0d0'], price:275000, type:'Kaftan', images:['photos/model_d1.jpg','photos/model_d3.jpg','photos/a3.jpg','photos/b1.jpg'] },
+        { id:'emerald-agbada', name:'Emerald Agbada', style:'Statement Agbada in rich emerald with contrasting gold embroidery. A bold choice for the man who leads with confidence and style.', fabric:'Silk-blend damask with metallic embroidery. Luxurious weight and movement. The emerald tone is inspired by the lush landscapes of the Obudu Plateau.', occasion:'Events', colors:['#0a5c3a','#c9a84c','#1a3a2a'], price:420000, type:'Agbada', images:['photos/tailoring/agbada1.jpg','photos/tailoring/agbada1b.jpg','photos/tailoring/agbada_a1.jpg','photos/b2.jpg'] },
+        { id:'navy-casual', name:'Navy Casual Kaftan', style:'Relaxed-fit everyday Kaftan with minimal detailing. Comfortable yet polished — perfect for weekend gatherings and casual celebrations.', fabric:'Lightweight cotton blend. Soft, breathable, perfect for daily wear. Easy care with machine washability while maintaining its crisp appearance.', occasion:'Casual', colors:['#1a2a4a','#2a3a5a','#d0d5e0'], price:165000, type:'Kaftan', images:['photos/model_c1.jpg','photos/a1.jpg','photos/model_d1.jpg','photos/tailoring/style_1a.jpg'] }
+      ];
+
+      var currentPage = 0, looksPerPage = 4, totalPages = Math.ceil(looks.length / looksPerPage);
+      var cfCurrentIndex = 0, cfLookData = null;
+
+      function openCenterfold(lookId) {
+        cfLookData = looks.find(function(l) { return l.id === lookId; });
+        if (!cfLookData) return;
+        cfCurrentIndex = 0;
+        renderCenterfoldImage();
+        renderCenterfoldSidebar();
+        document.getElementById('centerfoldOverlay').classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeCenterfold() {
+        document.getElementById('centerfoldOverlay').classList.remove('open');
+        document.body.style.overflow = '';
+        cfLookData = null;
+      }
+
+      function renderCenterfoldImage() {
+        if (!cfLookData) return;
+        var scroll = document.getElementById('centerfoldScroll');
+        scroll.innerHTML = '<img src="' + cfLookData.images[cfCurrentIndex] + '" class="centerfold-full-image" alt="' + cfLookData.name + '" onerror="this.src=\'https://placehold.co/800x1200/e5e7eb/9ca3af?text=' + encodeURIComponent(cfLookData.name) + '\'">';
+        scroll.scrollTop = 0;
+
+        var dotsContainer = document.getElementById('cfDots');
+        dotsContainer.innerHTML = cfLookData.images.map(function(_, i) {
+          return '<div class="centerfold-dot ' + (i === cfCurrentIndex ? 'active-dot' : '') + '" data-index="' + i + '"></div>';
+        }).join('');
+        document.getElementById('cfCounter').textContent = (cfCurrentIndex + 1) + ' / ' + cfLookData.images.length;
+
+        dotsContainer.querySelectorAll('.centerfold-dot').forEach(function(dot) {
+          dot.addEventListener('click', function() { cfCurrentIndex = parseInt(this.dataset.index); updateCenterfold(); });
+        });
+      }
+
+      function updateCenterfold() {
+        if (!cfLookData) return;
+        var scroll = document.getElementById('centerfoldScroll');
+        scroll.innerHTML = '<img src="' + cfLookData.images[cfCurrentIndex] + '" class="centerfold-full-image" alt="' + cfLookData.name + '" onerror="this.src=\'https://placehold.co/800x1200/e5e7eb/9ca3af?text=' + encodeURIComponent(cfLookData.name) + '\'">';
+        scroll.scrollTop = 0;
+        document.querySelectorAll('.centerfold-dot').forEach(function(d, i) { d.classList.toggle('active-dot', i === cfCurrentIndex); });
+        document.getElementById('cfCounter').textContent = (cfCurrentIndex + 1) + ' / ' + cfLookData.images.length;
+        renderCenterfoldSidebar();
+      }
+
+      function renderCenterfoldSidebar() {
+        var sidebar = document.getElementById('cfSidebarContent');
+        if (!cfLookData) return;
+        sidebar.innerHTML = 
+          '<span class="text-[0.6rem] uppercase tracking-[0.15em] text-neutral-400">' + cfLookData.occasion + ' · ' + cfLookData.type + '</span>' +
+          '<h2 class="text-2xl font-light section-title text-[#374151] mt-1.5 mb-3">' + cfLookData.name + '</h2>' +
+          '<div class="space-y-3 text-[0.78rem] flex-1">' +
+            '<div><span class="font-medium uppercase text-[0.6rem] tracking-wider text-neutral-400">Article</span><p class="mt-1 text-neutral-500 leading-relaxed">' + cfLookData.style + '</p></div>' +
+            '<div><span class="font-medium uppercase text-[0.6rem] tracking-wider text-neutral-400">Fabric & Craft</span><p class="mt-1 text-neutral-500 leading-relaxed">' + cfLookData.fabric + '</p></div>' +
+            '<div class="flex gap-1.5">' + cfLookData.colors.map(function(c) { return '<span class="swatch" style="background:' + c + ';"></span>'; }).join('') + '</div>' +
+            '<p class="text-xl font-semibold text-[#374151]">₦' + cfLookData.price.toLocaleString() + '</p>' +
+            '<div class="thumb-strip">' + cfLookData.images.map(function(img, i) {
+              return '<div class="thumb-strip-item ' + (i === cfCurrentIndex ? 'active-thumb' : '') + '" style="background-image:url(\'' + img + '\');" data-index="' + i + '"></div>';
+            }).join('') + '</div>' +
+            '<p class="text-[0.62rem] text-neutral-400 mt-1">Image ' + (cfCurrentIndex + 1) + ' of ' + cfLookData.images.length + ' — Click thumbnails or use arrows</p>' +
+          '</div>' +
+          '<div class="flex gap-2 mt-5 pt-4 border-t border-gray-100">' +
+            '<a href="collection.html" class="btn-primary flex-1 text-center text-[0.7rem] py-2.5">Shop This Look</a>' +
+            '<a href="fitting.html" class="btn-outline flex-1 text-center text-[0.7rem] py-2.5">Schedule Fitting</a>' +
+          '</div>';
+
+        sidebar.querySelectorAll('.thumb-strip-item').forEach(function(thumb) {
+          thumb.addEventListener('click', function() { cfCurrentIndex = parseInt(this.dataset.index); updateCenterfold(); });
+        });
+      }
+
+      document.getElementById('cfPrev').addEventListener('click', function() {
+        if (!cfLookData) return;
+        cfCurrentIndex = (cfCurrentIndex - 1 + cfLookData.images.length) % cfLookData.images.length;
+        updateCenterfold();
+      });
+      document.getElementById('cfNext').addEventListener('click', function() {
+        if (!cfLookData) return;
+        cfCurrentIndex = (cfCurrentIndex + 1) % cfLookData.images.length;
+        updateCenterfold();
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (!document.getElementById('centerfoldOverlay').classList.contains('open')) return;
+        if (e.key === 'Escape') closeCenterfold();
+        if (e.key === 'ArrowLeft' && cfLookData) { cfCurrentIndex = (cfCurrentIndex - 1 + cfLookData.images.length) % cfLookData.images.length; updateCenterfold(); }
+        if (e.key === 'ArrowRight' && cfLookData) { cfCurrentIndex = (cfCurrentIndex + 1) % cfLookData.images.length; updateCenterfold(); }
+      });
+
+      var touchStartX = 0;
+      document.getElementById('centerfoldMain').addEventListener('touchstart', function(e) { touchStartX = e.changedTouches[0].screenX; });
+      document.getElementById('centerfoldMain').addEventListener('touchend', function(e) {
+        if (!cfLookData) return;
+        var diff = e.changedTouches[0].screenX - touchStartX;
+        if (Math.abs(diff) > 50) {
+          if (diff < 0) cfCurrentIndex = (cfCurrentIndex + 1) % cfLookData.images.length;
+          else cfCurrentIndex = (cfCurrentIndex - 1 + cfLookData.images.length) % cfLookData.images.length;
+          updateCenterfold();
+        }
+      });
+
+      document.getElementById('centerfoldClose').addEventListener('click', closeCenterfold);
+      document.getElementById('centerfoldOverlay').addEventListener('click', function(e) { if (e.target === this) closeCenterfold(); });
+
+      function renderGrid(page) {
+        currentPage = page;
+        var start = page * looksPerPage;
+        var pageLooks = looks.slice(start, start + looksPerPage);
+        document.getElementById('lookGrid').innerHTML = pageLooks.map(function(look) {
+          return '<div class="look-card">' +
+            '<img src="' + look.images[0] + '" alt="' + look.name + '" loading="lazy" onerror="this.src=\'https://placehold.co/400x350/e5e7eb/9ca3af?text=' + encodeURIComponent(look.name) + '\'">' +
+            '<div class="look-overlay text-white">' +
+              '<h3 class="text-lg font-medium">' + look.name + '</h3>' +
+              '<p class="text-[0.65rem] opacity-80 mt-1">' + look.occasion + ' · ₦' + look.price.toLocaleString() + '</p>' +
+              '<button class="bg-white text-[#374151] px-4 py-2 text-[0.65rem] font-medium rounded-lg mt-3 open-centerfold" data-look="' + look.id + '">View Details</button>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+        document.querySelectorAll('.page-dot').forEach(function(d, i) { d.classList.toggle('active-dot', i === page); });
+        document.querySelectorAll('.open-centerfold').forEach(function(btn) {
+          btn.addEventListener('click', function(e) { e.stopPropagation(); openCenterfold(this.dataset.look); });
+        });
+        document.querySelectorAll('.look-card').forEach(function(card) {
+          card.addEventListener('click', function() { var btn = this.querySelector('.open-centerfold'); if (btn) openCenterfold(btn.dataset.look); });
+        });
+      }
+
+      document.getElementById('prevPage').addEventListener('click', function() { if (currentPage > 0) renderGrid(currentPage - 1); });
+      document.getElementById('nextPage').addEventListener('click', function() { if (currentPage < totalPages - 1) renderGrid(currentPage + 1); });
+      document.querySelectorAll('.page-dot').forEach(function(dot) { dot.addEventListener('click', function() { renderGrid(parseInt(this.dataset.page)); }); });
+      document.querySelectorAll('.detail-chip').forEach(function(chip) {
+        chip.addEventListener('click', function() {
+          document.querySelectorAll('.detail-chip').forEach(function(c) { c.classList.remove('active-chip'); });
+          this.classList.add('active-chip');
+        });
+      });
+
+      renderGrid(0);
+    })();
+  </script>
+</body>
+</html>

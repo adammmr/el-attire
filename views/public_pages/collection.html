@@ -1,0 +1,1129 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=yes"
+        />
+        <title>EL-ATTIRE | The Collection</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --text-primary: #374151;
+                --text-secondary: #9ca3af;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family:
+                    "Inter",
+                    system-ui,
+                    -apple-system,
+                    sans-serif;
+                background: #fafaf9;
+                color: var(--text-primary);
+                letter-spacing: -0.01em;
+                overflow-x: hidden;
+                font-size: 0.85rem;
+                font-weight: 400;
+                line-height: 1.5;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            ::-webkit-scrollbar {
+                width: 4px;
+            }
+            ::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: #d1d5db;
+                border-radius: 10px;
+            }
+
+            .section-title {
+                font-family: "Playfair Display", serif;
+                letter-spacing: 0.03em;
+            }
+
+            .glass-panel {
+                background: rgba(255, 255, 255, 0.92);
+                backdrop-filter: blur(20px);
+                border: 1px solid rgba(0, 0, 0, 0.06);
+                border-radius: 10px;
+            }
+
+            .btn-primary {
+                background: var(--text-primary);
+                color: white;
+                border: none;
+                transition: all 0.2s ease;
+                cursor: pointer;
+                font-weight: 500;
+                letter-spacing: 0.03em;
+                border-radius: 7px;
+                font-size: 0.78rem;
+                padding: 11px 22px;
+                text-decoration: none;
+                display: inline-block;
+            }
+            .btn-primary:hover {
+                background: #4b5563;
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+
+            .btn-outline {
+                background: transparent;
+                color: var(--text-primary);
+                border: 1px solid #e5e7eb;
+                transition: all 0.2s ease;
+                cursor: pointer;
+                font-weight: 500;
+                letter-spacing: 0.03em;
+                border-radius: 7px;
+                font-size: 0.78rem;
+                padding: 11px 22px;
+                text-decoration: none;
+                display: inline-block;
+            }
+            .btn-outline:hover {
+                background: #f9fafb;
+                border-color: #d1d5db;
+            }
+
+            .link-underline {
+                position: relative;
+                display: inline-block;
+                padding-bottom: 2px;
+                text-decoration: none;
+                color: var(--text-primary);
+            }
+            .link-underline::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 0%;
+                height: 1.5px;
+                background: var(--text-primary);
+                transition: width 0.3s ease;
+            }
+            .link-underline:hover::after {
+                width: 100%;
+            }
+
+            /* Hero Banner */
+            .collection-hero {
+                position: relative;
+                min-height: 45vh;
+                display: flex;
+                align-items: center;
+                background: linear-gradient(135deg, #f5f4f1 0%, #edece8 30%, #f0efeb 60%, #f8f7f5 100%);
+                overflow: hidden;
+            }
+            .collection-hero::before {
+                content: "";
+                position: absolute;
+                top: -50%;
+                right: -10%;
+                width: 60%;
+                height: 200%;
+                background: radial-gradient(ellipse, rgba(55, 65, 81, 0.03) 0%, transparent 70%);
+            }
+            .hero-accent-line {
+                position: absolute;
+                left: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 4px;
+                height: 120px;
+                background: #374151;
+                opacity: 0.3;
+            }
+
+            /* Product Card - Editorial Style */
+            .product-card {
+                position: relative;
+                background: white;
+                transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+                cursor: pointer;
+                overflow: hidden;
+                border: 1px solid rgba(0, 0, 0, 0.04);
+            }
+            .product-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
+            }
+
+            .product-image-wrap {
+                position: relative;
+                overflow: hidden;
+                aspect-ratio: 3/4;
+            }
+            .product-image-wrap img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            }
+            .product-card:hover .product-image-wrap img {
+                transform: scale(1.06);
+            }
+
+            .product-overlay {
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 0%, transparent 40%);
+                opacity: 0;
+                transition: opacity 0.4s ease;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                padding: 20px;
+            }
+            .product-card:hover .product-overlay {
+                opacity: 1;
+            }
+
+            .product-actions-row {
+                position: absolute;
+                bottom: 16px;
+                left: 50%;
+                transform: translateX(-50%) translateY(16px);
+                display: flex;
+                gap: 8px;
+                opacity: 0;
+                transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            }
+            .product-card:hover .product-actions-row {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+
+            .action-pill {
+                padding: 8px 16px;
+                border-radius: 20px;
+                font-size: 0.68rem;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.2s;
+                letter-spacing: 0.03em;
+                background: white;
+                color: #374151;
+                border: none;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+            .action-pill:hover {
+                background: #374151;
+                color: white;
+                transform: translateY(-2px);
+            }
+            .action-pill.primary-pill {
+                background: #374151;
+                color: white;
+            }
+            .action-pill.primary-pill:hover {
+                background: #4b5563;
+            }
+
+            .product-tag {
+                position: absolute;
+                top: 12px;
+                left: 12px;
+                background: rgba(255, 255, 255, 0.95);
+                color: #374151;
+                padding: 4px 12px;
+                font-size: 0.6rem;
+                font-weight: 600;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                z-index: 10;
+                border-radius: 4px;
+            }
+            .product-badge {
+                position: absolute;
+                top: 12px;
+                right: 12px;
+                background: #374151;
+                color: white;
+                padding: 4px 12px;
+                font-size: 0.6rem;
+                font-weight: 600;
+                letter-spacing: 0.06em;
+                z-index: 10;
+                border-radius: 4px;
+            }
+
+            /* Featured large card */
+            .featured-card {
+                grid-column: span 2;
+                grid-row: span 2;
+            }
+            .featured-card .product-image-wrap {
+                aspect-ratio: auto;
+                height: 100%;
+            }
+
+            /* Modal */
+            .modal-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 200;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s;
+                backdrop-filter: blur(6px);
+            }
+            .modal-overlay.open {
+                opacity: 1;
+                pointer-events: all;
+            }
+            .modal-content {
+                background: white;
+                max-width: 850px;
+                width: 94%;
+                max-height: 85vh;
+                overflow-y: auto;
+                border-radius: 14px;
+                box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+            .modal-close {
+                position: absolute;
+                top: 14px;
+                right: 14px;
+                z-index: 20;
+                width: 34px;
+                height: 34px;
+                border-radius: 50%;
+                background: white;
+                border: 1px solid rgba(0, 0, 0, 0.1);
+                cursor: pointer;
+                font-size: 1rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.15s;
+                color: #374151;
+            }
+            .modal-close:hover {
+                background: #374151;
+                color: white;
+            }
+
+            .cart-drawer {
+                position: fixed;
+                top: 0;
+                right: -420px;
+                width: 400px;
+                max-width: 92vw;
+                height: 100vh;
+                background: white;
+                z-index: 170;
+                box-shadow: -8px 0 30px rgba(0, 0, 0, 0.12);
+                transition: right 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+                display: flex;
+                flex-direction: column;
+            }
+            .cart-drawer.open {
+                right: 0;
+            }
+            .cart-drawer-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.4);
+                z-index: 160;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s;
+                backdrop-filter: blur(2px);
+            }
+            .cart-drawer-overlay.open {
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .size-option {
+                width: 38px;
+                height: 38px;
+                border: 1px solid #e5e7eb;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                font-size: 0.72rem;
+                font-weight: 500;
+                transition: all 0.15s;
+                border-radius: 7px;
+            }
+            .size-option:hover {
+                border-color: #9ca3af;
+            }
+            .size-option.selected-size {
+                background: #374151;
+                color: white;
+                border-color: #374151;
+            }
+
+            .filter-chip {
+                padding: 7px 18px;
+                border: 1px solid #e5e7eb;
+                background: white;
+                color: #9ca3af;
+                font-size: 0.68rem;
+                font-weight: 500;
+                letter-spacing: 0.04em;
+                cursor: pointer;
+                transition: all 0.15s;
+                border-radius: 20px;
+                white-space: nowrap;
+            }
+            .filter-chip:hover,
+            .filter-chip.active-chip {
+                background: #374151;
+                color: white;
+                border-color: #374151;
+            }
+
+            .toast {
+                position: fixed;
+                bottom: 24px;
+                right: 24px;
+                background: #374151;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 8px;
+                font-size: 0.78rem;
+                font-weight: 500;
+                z-index: 300;
+                opacity: 0;
+                transform: translateY(10px);
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+                pointer-events: none;
+            }
+            .toast.show {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .nav-logo {
+                height: 34px;
+                width: auto;
+            }
+            .footer-logo {
+                height: 50px;
+                width: auto;
+            }
+
+            .support-btn {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                padding: 6px 12px;
+                border-radius: 20px;
+                cursor: pointer;
+                transition: all 0.15s ease;
+                border: 1px solid #e5e7eb;
+                background: transparent;
+                color: #9ca3af;
+                font-family: inherit;
+                font-size: 0.7rem;
+                font-weight: 500;
+            }
+            .support-btn:hover {
+                border-color: #d1d5db;
+                color: #374151;
+                background: #f9fafb;
+            }
+            .support-btn .live-dot {
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                background: #10b981;
+                animation: pulse-dot 2s ease-in-out infinite;
+            }
+            @keyframes pulse-dot {
+                0%,
+                100% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.4);
+                }
+            }
+        </style>
+    </head>
+    <body class="antialiased">
+        <div class="toast" id="toast"></div>
+        <div class="cart-drawer-overlay" id="cartDrawerOverlay"></div>
+
+        <div class="cart-drawer" id="cartDrawer">
+            <div class="p-4 border-b flex justify-between items-center">
+                <div>
+                    <span class="text-sm font-medium text-[#374151]">Shopping Bag</span
+                    ><span class="text-[0.65rem] text-neutral-400 ml-2" id="drawerCount">0 items</span>
+                </div>
+                <button class="text-neutral-400 hover:text-[#374151] text-lg transition-colors" id="closeDrawer">
+                    ✕
+                </button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-4 space-y-3" id="drawerItems">
+                <p class="text-neutral-400 text-[0.8rem] text-center py-16">Your bag is empty</p>
+            </div>
+            <div class="p-4 border-t">
+                <div class="flex justify-between font-medium mb-1 text-[0.8rem]">
+                    <span>Subtotal</span><span id="drawerTotal">₦0</span>
+                </div>
+                <p class="text-[0.62rem] text-neutral-400 mb-3">Shipping calculated at checkout</p>
+                <button class="btn-primary w-full py-2.5 text-[0.75rem]">Checkout</button>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="quickViewModal">
+            <div class="modal-content" id="modalContent"></div>
+            <button class="modal-close" id="modalClose">✕</button>
+        </div>
+
+        <header
+            class="sticky top-0 z-50 glass-panel border-b border-gray-100 px-5 py-2.5 flex items-center justify-between"
+        >
+            <a href="/" class="flex items-center gap-3 no-underline">
+                <img
+                    src="photos/logo_only_bk.png"
+                    alt="EL-ATTIRE"
+                    class="nav-logo"
+                    onerror="this.style.display='none'"
+                />
+                <span class="text-lg font-semibold tracking-[0.1em] text-[#374151]"
+                    >EL-<span class="font-normal text-neutral-400 text-sm">ATTIRE</span></span
+                >
+            </a>
+            <nav class="hidden lg:flex items-center gap-6 text-[0.72rem] uppercase tracking-[0.08em] font-medium">
+                <a href="/" class="link-underline ">Home</a>
+                <a href="/collection" class="link-underline border-b-2 border-[#374151] pb-1">Shop</a>
+                <a href="/fabrics" class="link-underline">Fabrics</a>
+                <a href="/tailoring" class="link-underline">Tailoring</a>
+                <a href="/lookbook" class="link-underline">Lookbook</a>
+
+                <a href="/about" class="link-underline">About</a>
+            </nav>
+            <div class="flex items-center gap-3">
+                <button class="support-btn" id="supportHeaderToggle">
+                    <i class="fas fa-headset text-[0.6rem]"></i> Support<span class="live-dot"></span>
+                </button>
+                <div class="relative cursor-pointer p-1.5 hover:bg-gray-50 rounded-lg transition-colors" id="cartIcon">
+                    <i class="fas fa-shopping-bag text-sm text-neutral-400 hover:text-[#374151] transition-colors"></i>
+                    <span
+                        class="absolute -top-1 -right-1 bg-[#374151] text-white text-[0.55rem] w-4 h-4 rounded-full flex items-center justify-center font-semibold"
+                        id="cartBadge"
+                        >0</span
+                    >
+                </div>
+                <div
+                    class="w-7 h-7 rounded-full bg-stone-100 flex items-center justify-center font-medium text-[0.65rem] text-[#374151]"
+                >
+                    OA
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- Artistic Hero -->
+            <section class="collection-hero">
+                <div class="hero-accent-line"></div>
+                <div class="max-w-7xl mx-auto px-5 md:px-10 py-16 w-full">
+                    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+                        <div>
+                            <span class="text-[0.6rem] uppercase tracking-[0.25em] text-neutral-400 mb-3 block"
+                                >The Collection</span
+                            >
+                            <h1 class="text-4xl md:text-6xl font-light section-title text-[#374151] leading-none">
+                                Artistry<br />in Every Stitch
+                            </h1>
+                        </div>
+                        <div class="max-w-sm">
+                            <p class="text-[0.8rem] text-neutral-400 leading-relaxed">
+                                Handcrafted Kaftans, Agbada, and Senator styles. Each piece is a dialogue between
+                                tradition and modernity — tailored to perfection.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Filters + Grid -->
+            <div class="max-w-7xl mx-auto px-4 md:px-6 py-10">
+                <div class="flex flex-wrap gap-2 mb-8 justify-center">
+                    <button class="filter-chip active-chip" data-filter="all">All Pieces</button>
+                    <button class="filter-chip" data-filter="kaftan">Kaftans</button>
+                    <button class="filter-chip" data-filter="agbada">Agbada</button>
+                    <button class="filter-chip" data-filter="senator">Senator</button>
+                    <button class="filter-chip" data-filter="new">New Arrivals</button>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-auto" id="productGrid"></div>
+            </div>
+        </main>
+
+        <footer class="bg-[#0a0a0a] text-neutral-400 mt-12">
+            <div class="max-w-7xl mx-auto px-6 py-10">
+                <div class="grid md:grid-cols-4 gap-8 mb-8">
+                    <div>
+                        <img
+                            src="photos/logo_only.png"
+                            alt="EL-ATTIRE"
+                            class="footer-logo mb-4"
+                            onerror="this.style.display='none'"
+                        />
+                        <p class="text-xs text-neutral-500">Bespoke Nigerian tailoring since 2010.</p>
+                    </div>
+                    <div>
+                        <p class="text-white uppercase tracking-wider mb-3 text-[0.65rem] font-semibold">Shop</p>
+                        <a
+                            href="/collection"
+                            class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
+                            >Collection</a
+                        ><a
+                            href="/fabrics"
+                            class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
+                            >Fabrics</a
+                        >
+                    </div>
+                    <div>
+                        <p class="text-white uppercase tracking-wider mb-3 text-[0.65rem] font-semibold">Services</p>
+                        <a
+                            href="/tailoring"
+                            class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
+                            >Tailoring</a
+                        ><a
+                            href="/fitting"
+                            class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
+                            >Fittings</a
+                        >
+                    </div>
+                    <div>
+                        <p class="text-white uppercase tracking-wider mb-3 text-[0.65rem] font-semibold">Support</p>
+                        <a
+                            href="/faq"
+                            class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
+                            >FAQ</a
+                        ><a
+                            href="/terms"
+                            class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
+                            >Terms</a
+                        >
+                    </div>
+                </div>
+                <div class="border-t border-neutral-800 pt-6 text-center text-[0.65rem] text-neutral-600">
+                    © 2026 EL-ATTIRE. All rights reserved.
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            (function () {
+                var widget = document.createElement("div");
+                widget.className = "chat-widget-overlay";
+                widget.id = "chatWidget";
+                widget.innerHTML =
+                    '<style>.chat-widget-overlay{position:fixed;bottom:24px;right:24px;width:350px;max-width:90vw;height:440px;max-height:65vh;background:white;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,0.2);z-index:300;display:flex;flex-direction:column;transform:translateY(20px)scale(0.95);opacity:0;pointer-events:none;transition:all 0.25s cubic-bezier(0.23,1,0.32,1);border:1px solid rgba(0,0,0,0.08)}.chat-widget-overlay.open{transform:translateY(0)scale(1);opacity:1;pointer-events:all}.cw-h{padding:12px 14px;border-bottom:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between;border-radius:14px 14px 0 0;background:#fafafa}.cw-ag{display:flex;align-items:center;gap:8px}.cw-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;color:white;font-weight:600;font-size:0.65rem}.cw-on{display:flex;align-items:center;gap:4px;font-size:0.6rem;color:#10b981;font-weight:500}.cw-ond{width:5px;height:5px;border-radius:50%;background:#10b981}.cw-b{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;background:#fafafa}.cw-f{padding:10px 12px;border-top:1px solid #f3f4f6;display:flex;gap:6px;align-items:center}.cw-f input{flex:1;padding:8px 12px;border:1px solid #e5e7eb;border-radius:18px;font-size:0.75rem;outline:none;background:white;font-family:inherit}.cw-s{width:34px;height:34px;border-radius:50%;border:none;background:#374151;color:white;cursor:pointer;font-size:0.75rem;transition:all 0.15s;flex-shrink:0}.cw-s:hover{background:#4b5563;transform:scale(1.05)}.cw-x{width:26px;height:26px;border-radius:50%;border:none;background:transparent;cursor:pointer;color:#9ca3af;font-size:0.9rem;display:flex;align-items:center;justify-content:center;transition:all 0.15s}.cw-x:hover{background:#e5e7eb;color:#374151}.cw-bub{padding:8px 12px;border-radius:12px;font-size:0.75rem;line-height:1.5;max-width:85%;animation:cwIn 0.3s ease-out}@keyframes cwIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}.cw-bub.in{background:white;color:#374151;align-self:flex-start;border-bottom-left-radius:4px}.cw-bub.out{background:#374151;color:white;align-self:flex-end;border-bottom-right-radius:4px}.cw-t{font-size:0.55rem;opacity:0.6;margin-top:3px;display:block}.cw-q{display:flex;flex-wrap:wrap;gap:4px;padding:0 12px 8px}.cw-q button{padding:5px 10px;border-radius:14px;border:1px solid #e5e7eb;background:white;font-size:0.65rem;cursor:pointer;transition:all 0.15s;color:#374151;font-family:inherit}.cw-q button:hover{background:#374151;color:white;border-color:#374151}</style><div class="cw-h"><div class="cw-ag"><div class="cw-av">CS</div><div><p style="font-size:0.75rem;font-weight:500;color:#374151;margin:0">Customer Support</p><div class="cw-on"><span class="cw-ond"></span>Online</div></div></div><button class="cw-x" id="cwCloseBtn">✕</button></div><div class="cw-b" id="cwMessages"><div class="cw-bub in">Hello! 👋 How can we help with your order?<span class="cw-t">Just now</span></div></div><div class="cw-q"><button id="cwQuickSize">📏 Sizes</button><button id="cwQuickShip">🚚 Shipping</button><button id="cwQuickCustom">✂️ Custom</button></div><div class="cw-f"><input type="text" placeholder="Type message..." id="cwInput"><button class="cw-s" id="cwSendBtn"><i class="fas fa-paper-plane"></i></button></div>';
+                document.body.appendChild(widget);
+                var isOpen = false,
+                    replies = {
+                        size: '📏 S:38-40", M:40-42", L:42-44", XL:44-46", XXL:46-48". Book a fitting for best results.',
+                        ship: "🚚 Ships in 2-3 days. Free pickup. Lagos ₦5k, Abuja ₦10k delivery.",
+                        custom: "✂️ Full bespoke tailoring available! Book a fitting and our master tailors will create your perfect piece.",
+                        default: "Thanks! A consultant will respond shortly. +234 800 000 0000.",
+                    };
+                function getReply(m) {
+                    var x = m.toLowerCase();
+                    if (x.includes("size")) return replies.size;
+                    if (x.includes("ship")) return replies.ship;
+                    if (x.includes("custom") || x.includes("tailor")) return replies.custom;
+                    return replies.default;
+                }
+                function getTime() {
+                    return new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
+                }
+                function addMsg(t, ty) {
+                    var ms = document.getElementById("cwMessages"),
+                        b = document.createElement("div");
+                    b.className = "cw-bub " + (ty === "sent" ? "out" : "in");
+                    b.innerHTML = t + '<span class="cw-t">' + getTime() + "</span>";
+                    ms.appendChild(b);
+                    ms.scrollTop = ms.scrollHeight;
+                }
+                function sendMsg() {
+                    var inp = document.getElementById("cwInput");
+                    if (!inp || !inp.value.trim()) return;
+                    var m = inp.value.trim();
+                    addMsg(m, "sent");
+                    inp.value = "";
+                    setTimeout(
+                        function () {
+                            addMsg(getReply(m), "received");
+                        },
+                        700 + Math.random() * 1000
+                    );
+                }
+                function sendQuick(t) {
+                    var inp = document.getElementById("cwInput");
+                    if (inp) inp.value = t;
+                    sendMsg();
+                }
+                function open() {
+                    widget.classList.add("open");
+                    isOpen = true;
+                    setTimeout(function () {
+                        var i = document.getElementById("cwInput");
+                        if (i) i.focus();
+                    }, 300);
+                }
+                function close() {
+                    widget.classList.remove("open");
+                    isOpen = false;
+                }
+                function toggle() {
+                    isOpen ? close() : open();
+                }
+                document.getElementById("cwCloseBtn").addEventListener("click", close);
+                document.getElementById("cwSendBtn").addEventListener("click", sendMsg);
+                document.getElementById("cwInput").addEventListener("keypress", function (e) {
+                    if (e.key === "Enter") sendMsg();
+                });
+                document.getElementById("cwQuickSize").addEventListener("click", function () {
+                    sendQuick("Size guide");
+                });
+                document.getElementById("cwQuickShip").addEventListener("click", function () {
+                    sendQuick("Shipping");
+                });
+                document.getElementById("cwQuickCustom").addEventListener("click", function () {
+                    sendQuick("Custom order");
+                });
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape" && isOpen) close();
+                });
+                document.addEventListener("click", function (e) {
+                    if (
+                        isOpen &&
+                        !widget.contains(e.target) &&
+                        e.target.id !== "supportHeaderToggle" &&
+                        !document.getElementById("supportHeaderToggle").contains(e.target)
+                    )
+                        close();
+                });
+                document.getElementById("supportHeaderToggle").addEventListener("click", toggle);
+            })();
+        </script>
+
+        <script>
+            (function () {
+                var products = [
+                    {
+                        id: 1,
+                        name: "Royal Blue Kaftan",
+                        category: "kaftan",
+                        price: 245000,
+                        images: ["photos/a1.jpg", "photos/a2.jpg"],
+                        badge: "Bestseller",
+                        tag: "Premium",
+                        sizes: ["S", "M", "L", "XL"],
+                        description:
+                            "Handcrafted royal blue Kaftan with intricate chest embroidery. Flowing silhouette with side slits for effortless movement.",
+                        featured: true,
+                    },
+                    {
+                        id: 2,
+                        name: "Embroidered Agbada Set",
+                        category: "agbada",
+                        price: 380000,
+                        images: ["photos/b1.jpg", "photos/b2.jpg"],
+                        badge: "Limited",
+                        tag: "Exclusive",
+                        sizes: ["M", "L", "XL", "XXL"],
+                        description:
+                            "Full three-piece Agbada set in cream with gold embroidery. The epitome of Nigerian ceremonial elegance.",
+                        featured: false,
+                    },
+                    {
+                        id: 3,
+                        name: "Senator White",
+                        category: "senator",
+                        price: 195000,
+                        images: ["photos/model_c1.jpg", "photos/model_c2.jpg"],
+                        badge: "Classic",
+                        tag: "Essential",
+                        sizes: ["S", "M", "L", "XL"],
+                        description:
+                            "Clean white Senator style in breathable cotton blend. Mandarin collar with subtle tonal embroidery.",
+                        featured: false,
+                    },
+                    {
+                        id: 4,
+                        name: "Midnight Brocade Kaftan",
+                        category: "kaftan",
+                        price: 275000,
+                        images: ["photos/model_d1.jpg", "photos/model_d3.jpg"],
+                        badge: "New",
+                        tag: "Luxury",
+                        sizes: ["M", "L", "XL"],
+                        description:
+                            "Deep midnight blue brocade Kaftan with subtle sheen. Italian fabric with Nigerian craftsmanship.",
+                        featured: false,
+                    },
+                    {
+                        id: 5,
+                        name: "Gold Agbada Ensemble",
+                        category: "agbada",
+                        price: 450000,
+                        images: ["photos/tailoring/agbada_a1.jpg", "photos/tailoring/agbada_a2.jpg"],
+                        badge: "Exclusive",
+                        tag: "Heritage",
+                        sizes: ["L", "XL", "XXL"],
+                        description:
+                            "Opulent gold Agbada with intricate Aso Oke accents. A statement of regal presence.",
+                        featured: true,
+                    },
+                    {
+                        id: 6,
+                        name: "Navy Senator Style",
+                        category: "senator",
+                        price: 165000,
+                        images: ["photos/tailoring/style2.jpg", "photos/tailoring/style2b.jpg"],
+                        badge: "Popular",
+                        tag: "Versatile",
+                        sizes: ["S", "M", "L", "XL", "XXL"],
+                        description:
+                            "Navy blue Senator with clean lines. Lightweight fabric for all-day corporate comfort.",
+                        featured: false,
+                    },
+                    {
+                        id: 7,
+                        name: "Emerald Kaftan",
+                        category: "kaftan",
+                        price: 310000,
+                        images: ["photos/tailoring/style_1a.jpg", "photos/tailoring/style_1b.jpg"],
+                        badge: "New",
+                        tag: "Luxury",
+                        sizes: ["S", "M", "L"],
+                        description:
+                            "Rich emerald green Kaftan with silk lining. Jewel-toned elegance for celebrations.",
+                        featured: false,
+                    },
+                    {
+                        id: 8,
+                        name: "Burgundy Agbada",
+                        category: "agbada",
+                        price: 420000,
+                        images: ["photos/tailoring/agbada1.jpg", "photos/tailoring/agbada1b.jpg"],
+                        badge: "Limited",
+                        tag: "Regal",
+                        sizes: ["M", "L", "XL"],
+                        description:
+                            "Deep burgundy Agbada with gold detailing. A royal ensemble for distinguished gentlemen.",
+                        featured: false,
+                    },
+                ];
+                var cart = JSON.parse(localStorage.getItem("elattire_cart") || "[]");
+                function saveCart() {
+                    localStorage.setItem("elattire_cart", JSON.stringify(cart));
+                }
+                var currentFilter = "all",
+                    quickViewIndex = -1;
+                function showToast(m) {
+                    var t = document.getElementById("toast");
+                    t.textContent = m;
+                    t.classList.add("show");
+                    setTimeout(function () {
+                        t.classList.remove("show");
+                    }, 2500);
+                }
+
+                function renderProducts(filter) {
+                    filter = filter || "all";
+                    var filtered =
+                        filter === "all"
+                            ? products
+                            : filter === "new"
+                              ? products.filter(function (p) {
+                                    return p.badge === "New";
+                                })
+                              : products.filter(function (p) {
+                                    return p.category === filter;
+                                });
+                    var html = "";
+                    var featuredCount = 0;
+                    filtered.forEach(function (p, i) {
+                        var idx = products.indexOf(p);
+                        var isFeatured = p.featured && i < 2 && filter === "all";
+                        var cardClass = isFeatured ? "product-card featured-card" : "product-card";
+                        html +=
+                            '<div class="' +
+                            cardClass +
+                            '" data-index="' +
+                            idx +
+                            '"><div class="product-image-wrap"><img src="' +
+                            p.images[0] +
+                            '" alt="' +
+                            p.name +
+                            '" loading="lazy" onerror="this.src=\'https://placehold.co/400x533/e5e7eb/9ca3af?text=' +
+                            encodeURIComponent(p.name) +
+                            '\'"><span class="product-tag">' +
+                            p.tag +
+                            "</span>" +
+                            (p.badge ? '<span class="product-badge">' + p.badge + "</span>" : "") +
+                            '<div class="product-overlay"></div><div class="product-actions-row"><button class="action-pill wishlist-btn" data-id="' +
+                            p.id +
+                            '"><i class="far fa-heart"></i></button><button class="action-pill quick-view-btn" data-index="' +
+                            idx +
+                            '"><i class="fas fa-search"></i> View</button><button class="action-pill primary-pill add-cart-btn" data-id="' +
+                            p.id +
+                            '"><i class="fas fa-shopping-bag"></i> Add</button></div></div><div class="p-3"><h4 class="text-[0.8rem] font-medium text-[#374151]">' +
+                            p.name +
+                            '</h4><div class="flex justify-between items-center mt-1"><span class="font-semibold text-[0.82rem]">₦' +
+                            p.price.toLocaleString() +
+                            '</span><span class="text-[0.62rem] text-neutral-400">' +
+                            p.sizes.join(" · ") +
+                            "</span></div></div></div>";
+                        if (isFeatured) featuredCount++;
+                    });
+                    document.getElementById("productGrid").innerHTML = html;
+                    document.querySelectorAll(".wishlist-btn").forEach(function (b) {
+                        b.addEventListener("click", function (e) {
+                            e.stopPropagation();
+                            var i = this.querySelector("i");
+                            i.classList.toggle("far");
+                            i.classList.toggle("fas");
+                            showToast(i.classList.contains("fas") ? "♥ Wishlist" : "Removed");
+                        });
+                    });
+                    document.querySelectorAll(".quick-view-btn").forEach(function (b) {
+                        b.addEventListener("click", function (e) {
+                            e.stopPropagation();
+                            quickViewIndex = parseInt(this.dataset.index);
+                            openQuickView(quickViewIndex);
+                        });
+                    });
+                    document.querySelectorAll(".add-cart-btn").forEach(function (b) {
+                        b.addEventListener("click", function (e) {
+                            e.stopPropagation();
+                            addToCart(parseInt(this.dataset.id));
+                        });
+                    });
+                    document.querySelectorAll(".product-card").forEach(function (c) {
+                        c.addEventListener("click", function () {
+                            quickViewIndex = parseInt(this.dataset.index);
+                            openQuickView(quickViewIndex);
+                        });
+                    });
+                }
+
+                function openQuickView(index) {
+                    var p = products[index];
+                    if (!p) return;
+                    quickViewIndex = index;
+                    document.getElementById("modalContent").innerHTML =
+                        '<div style="height:420px;"><img src="' +
+                        p.images[0] +
+                        '" alt="' +
+                        p.name +
+                        '" class="w-full h-full object-cover" onerror="this.src=\'https://placehold.co/600x420/e5e7eb/9ca3af\'"></div><div class="p-6 flex flex-col justify-between"><div><span class="text-[0.6rem] uppercase tracking-[0.15em] text-neutral-400">' +
+                        p.tag +
+                        " · " +
+                        p.category +
+                        '</span><h2 class="text-xl font-medium text-[#374151] mt-1">' +
+                        p.name +
+                        '</h2><p class="text-xl font-semibold mt-2">₦' +
+                        p.price.toLocaleString() +
+                        '</p><p class="text-[0.78rem] text-neutral-500 mt-3 leading-relaxed">' +
+                        p.description +
+                        '</p><div class="mt-4"><p class="text-[0.65rem] font-medium text-neutral-400 uppercase tracking-wider mb-2">Size</p><div class="flex gap-2">' +
+                        p.sizes
+                            .map(function (s, i) {
+                                return (
+                                    '<div class="size-option ' +
+                                    (i === 0 ? "selected-size" : "") +
+                                    '" data-size="' +
+                                    s +
+                                    '">' +
+                                    s +
+                                    "</div>"
+                                );
+                            })
+                            .join("") +
+                        '</div></div></div><div class="space-y-2 mt-5"><button class="btn-primary w-full py-2.5 text-[0.75rem]" id="qvAddToCart"><i class="fas fa-shopping-bag mr-2 text-[0.6rem]"></i>Add to Cart · ₦' +
+                        p.price.toLocaleString() +
+                        '</button><a href="product-detail.html?id=' +
+                        p.id +
+                        '" class="btn-outline w-full py-2 text-[0.72rem] text-center block no-underline">View Full Details →</a></div></div>';
+                    document.querySelectorAll(".size-option").forEach(function (o) {
+                        o.addEventListener("click", function () {
+                            document.querySelectorAll(".size-option").forEach(function (x) {
+                                x.classList.remove("selected-size");
+                            });
+                            this.classList.add("selected-size");
+                        });
+                    });
+                    document.getElementById("qvAddToCart").addEventListener("click", function () {
+                        addToCart(p.id);
+                        closeQuickView();
+                    });
+                    document.getElementById("quickViewModal").classList.add("open");
+                }
+                function closeQuickView() {
+                    document.getElementById("quickViewModal").classList.remove("open");
+                }
+                document.getElementById("modalClose").addEventListener("click", closeQuickView);
+                document.getElementById("quickViewModal").addEventListener("click", function (e) {
+                    if (e.target === this) closeQuickView();
+                });
+                document.addEventListener("keydown", function (e) {
+                    if (!document.getElementById("quickViewModal").classList.contains("open")) return;
+                    if (e.key === "Escape") closeQuickView();
+                });
+
+                function addToCart(id) {
+                    var p = products.find(function (x) {
+                        return x.id === id;
+                    });
+                    if (!p) return;
+                    var ex = cart.find(function (i) {
+                        return i.id === id;
+                    });
+                    ex
+                        ? ex.qty++
+                        : cart.push({
+                              id: p.id,
+                              name: p.name,
+                              price: p.price,
+                              images: p.images,
+                              qty: 1,
+                              selectedSize: p.sizes[0],
+                              unit: "piece",
+                          });
+                    saveCart();
+                    updateCart();
+                    showToast("✓ " + p.name + " added");
+                }
+                function updateCart() {
+                    var t = cart.reduce(function (s, i) {
+                        return s + i.qty;
+                    }, 0);
+                    document.getElementById("cartBadge").textContent = t;
+                    document.getElementById("drawerCount").textContent = t + " item" + (t !== 1 ? "s" : "");
+                    document.getElementById("drawerTotal").textContent =
+                        "₦" +
+                        cart
+                            .reduce(function (s, i) {
+                                return s + i.price * i.qty;
+                            }, 0)
+                            .toLocaleString();
+                    document.getElementById("drawerItems").innerHTML =
+                        cart.length === 0
+                            ? '<p class="text-neutral-400 text-[0.8rem] text-center py-16">Your bag is empty</p>'
+                            : cart
+                                  .map(function (item) {
+                                      return (
+                                          '<div class="flex gap-3 items-start border-b border-gray-50 pb-3"><img src="' +
+                                          item.images[0] +
+                                          '" class="w-14 h-14 object-cover rounded" onerror="this.src=\'https://placehold.co/56x56/e5e7eb/9ca3af\'"><div class="flex-1 min-w-0"><p class="text-[0.75rem] font-medium truncate">' +
+                                          item.name +
+                                          '</p><p class="text-[0.65rem] text-neutral-400">Size: ' +
+                                          item.selectedSize +
+                                          " · ₦" +
+                                          item.price.toLocaleString() +
+                                          '</p><div class="flex items-center gap-2 mt-1"><button class="border px-1.5 py-0.5 text-[0.6rem] rounded cq-minus" data-id="' +
+                                          item.id +
+                                          '">−</button><span class="text-[0.7rem] font-medium">' +
+                                          item.qty +
+                                          '</span><button class="border px-1.5 py-0.5 text-[0.6rem] rounded cq-plus" data-id="' +
+                                          item.id +
+                                          '">+</button></div></div><button class="text-neutral-400 hover:text-red-500 cremove" data-id="' +
+                                          item.id +
+                                          '"><i class="fas fa-trash text-[0.6rem]"></i></button></div>'
+                                      );
+                                  })
+                                  .join("");
+                    document.querySelectorAll(".cq-plus").forEach(function (b) {
+                        b.addEventListener("click", function () {
+                            var i = cart.find(function (x) {
+                                return x.id === parseInt(b.dataset.id);
+                            });
+                            if (i) {
+                                i.qty++;
+                                saveCart();
+                                updateCart();
+                            }
+                        });
+                    });
+                    document.querySelectorAll(".cq-minus").forEach(function (b) {
+                        b.addEventListener("click", function () {
+                            var i = cart.find(function (x) {
+                                return x.id === parseInt(b.dataset.id);
+                            });
+                            if (i && i.qty > 1) {
+                                i.qty--;
+                            } else {
+                                cart = cart.filter(function (x) {
+                                    return x.id !== parseInt(b.dataset.id);
+                                });
+                            }
+                            saveCart();
+                            updateCart();
+                        });
+                    });
+                    document.querySelectorAll(".cremove").forEach(function (b) {
+                        b.addEventListener("click", function () {
+                            cart = cart.filter(function (x) {
+                                return x.id !== parseInt(b.dataset.id);
+                            });
+                            saveCart();
+                            updateCart();
+                        });
+                    });
+                }
+                document.getElementById("cartIcon").addEventListener("click", function () {
+                    document.getElementById("cartDrawer").classList.add("open");
+                    document.getElementById("cartDrawerOverlay").classList.add("open");
+                });
+                document.getElementById("closeDrawer").addEventListener("click", function () {
+                    document.getElementById("cartDrawer").classList.remove("open");
+                    document.getElementById("cartDrawerOverlay").classList.remove("open");
+                });
+                document.getElementById("cartDrawerOverlay").addEventListener("click", function () {
+                    document.getElementById("cartDrawer").classList.remove("open");
+                    document.getElementById("cartDrawerOverlay").classList.remove("open");
+                });
+                document.querySelectorAll(".filter-chip").forEach(function (c) {
+                    c.addEventListener("click", function () {
+                        document.querySelectorAll(".filter-chip").forEach(function (x) {
+                            x.classList.remove("active-chip");
+                        });
+                        this.classList.add("active-chip");
+                        currentFilter = this.dataset.filter;
+                        renderProducts(currentFilter);
+                    });
+                });
+                renderProducts();
+                updateCart();
+            })();
+        </script>
+    </body>
+</html>

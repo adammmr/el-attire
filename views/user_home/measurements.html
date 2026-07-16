@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=yes">
+  <title>EL-ATTIRE | Measurements</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --text-primary: #374151;
+      --text-secondary: #9ca3af;
+      --bg-primary: #fafafa;
+      --bg-card: #ffffff;
+      --border-color: rgba(0,0,0,0.05);
+      --sidebar-bg: #f8f7f5;
+      --sidebar-hover: #efede9;
+      --sidebar-active: #374151;
+      --sidebar-active-text: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body { 
+      font-family: 'Inter', system-ui, -apple-system, sans-serif; 
+      background: var(--bg-primary); 
+      color: var(--text-primary); 
+      letter-spacing: -0.01em; 
+      font-size: 0.85rem;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #b0b7c3; }
+
+    .glass-panel { 
+      background: var(--bg-card); 
+      border: 1px solid var(--border-color); 
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03); 
+      border-radius: 10px; 
+    }
+
+    .btn-primary { 
+      background: var(--text-primary); 
+      color: white; 
+      border: none; 
+      transition: all 0.15s ease; 
+      cursor: pointer; 
+      font-weight: 500; 
+      letter-spacing: 0.03em; 
+      border-radius: 7px;
+      font-size: 0.78rem;
+    }
+    .btn-primary:hover { 
+      background: #4b5563; 
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .btn-primary:active { transform: scale(0.98); }
+
+    .btn-outline { 
+      background: transparent; 
+      color: var(--text-primary); 
+      border: 1px solid #e5e7eb; 
+      transition: all 0.15s ease; 
+      cursor: pointer; 
+      font-weight: 500; 
+      letter-spacing: 0.03em; 
+      border-radius: 7px;
+      font-size: 0.78rem;
+    }
+    .btn-outline:hover { 
+      background: #f9fafb; 
+      border-color: #d1d5db;
+      transform: translateY(-1px);
+    }
+    .btn-outline:active { transform: scale(0.98); }
+
+    .btn-danger {
+      background: transparent;
+      color: #ef4444;
+      border: 1px solid #fecaca;
+      transition: all 0.15s ease;
+      cursor: pointer;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      border-radius: 7px;
+      font-size: 0.78rem;
+    }
+    .btn-danger:hover {
+      background: #fef2f2;
+      border-color: #ef4444;
+      transform: translateY(-1px);
+    }
+
+    .nav-link { 
+      display: flex; 
+      align-items: center; 
+      gap: 9px; 
+      padding: 8px 12px; 
+      border-radius: 7px; 
+      transition: all 0.15s ease; 
+      color: var(--text-secondary); 
+      text-decoration: none; 
+      font-weight: 450; 
+      font-size: 0.8rem; 
+    }
+    .nav-link:hover { 
+      background: var(--sidebar-hover); 
+      color: var(--text-primary); 
+    }
+    .nav-link.active { 
+      background: var(--sidebar-active); 
+      color: var(--sidebar-active-text); 
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+
+    .input-lux { 
+      width: 100%; 
+      padding: 0.45rem 0.65rem; 
+      border: 1px solid #e5e7eb; 
+      background: #fafafa; 
+      transition: all 0.15s; 
+      font-size: 0.78rem; 
+      border-radius: 6px; 
+      color: var(--text-primary);
+    }
+    .input-lux:focus { 
+      border-color: #6b7280; 
+      background: white; 
+      outline: none; 
+      box-shadow: 0 0 0 3px rgba(107,114,128,0.1);
+    }
+
+    .tab-btn { 
+      padding: 7px 18px; 
+      border-bottom: 2px solid transparent; 
+      cursor: pointer; 
+      font-weight: 500; 
+      font-size: 0.76rem; 
+      text-transform: uppercase; 
+      letter-spacing: 0.05em; 
+      transition: all 0.15s; 
+      background: none; 
+      color: #9ca3af;
+    }
+    .tab-btn.active-tab { 
+      border-bottom-color: #374151; 
+      color: #374151; 
+    }
+    .tab-btn:hover:not(.active-tab) { color: #6b7280; }
+
+    .measurement-dot { 
+      fill: #374151; 
+      stroke: white; 
+      stroke-width: 3; 
+      cursor: pointer; 
+      transition: all 0.2s; 
+      r: 7; 
+    }
+    .measurement-dot:hover { 
+      fill: white; 
+      stroke: #374151; 
+      r: 10; 
+    }
+    .measurement-dot.active-dot { 
+      fill: white; 
+      stroke: #374151; 
+      r: 10; 
+      animation: pulse 1.2s infinite; 
+    }
+    @keyframes pulse { 
+      0%,100% { r: 10; } 
+      50% { r: 14; opacity: 0.6; } 
+    }
+    .measure-line { 
+      stroke: #d1d5db; 
+      stroke-width: 2; 
+      stroke-dasharray: 6 4; 
+      cursor: pointer; 
+      transition: all 0.2s; 
+    }
+    .measure-line:hover { 
+      stroke: #374151; 
+      stroke-width: 2.5; 
+      stroke-dasharray: 0; 
+      opacity: 1; 
+    }
+    .measure-line.active { 
+      stroke: #374151; 
+      stroke-width: 2.5; 
+      opacity: 1; 
+      stroke-dasharray: 0; 
+    }
+    .body-outline { 
+      fill: none; 
+      stroke: #374151; 
+      stroke-width: 2.2; 
+      stroke-linecap: round; 
+      stroke-linejoin: round; 
+    }
+
+    .profile-card {
+      transition: all 0.15s ease;
+      position: relative;
+    }
+    .profile-card:hover {
+      border-color: #d1d5db;
+    }
+    .profile-card.primary {
+      border-color: #374151;
+      border-width: 2px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #374151;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      z-index: 1000;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      pointer-events: none;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .toast.success { background: #059669; }
+    .toast.error { background: #ef4444; }
+
+    .notification-dot { 
+      width: 6px; 
+      height: 6px; 
+      background: #ef4444; 
+      border-radius: 50%; 
+      display: inline-block; 
+      box-shadow: 0 0 0 2px white;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.4); }
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- Header (matching dashboard) -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-100 px-5 py-2.5 flex items-center justify-between">
+    <a href="dashboard.html" class="text-lg font-semibold tracking-[0.1em] text-[#374151] no-underline">
+      EL-<span class="font-normal text-neutral-400 text-sm">ATTIRE</span>
+    </a>
+    <div class="flex items-center gap-4">
+      <div class="relative cursor-pointer p-1.5 hover:bg-gray-50 rounded-lg transition-colors">
+        <i class="fas fa-bell text-sm text-neutral-400 hover:text-[#374151] transition-colors"></i>
+        <span class="notification-dot absolute top-0.5 right-0.5"></span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-full bg-stone-100 flex items-center justify-center font-medium text-[0.65rem] text-[#374151] ring-2 ring-white shadow-sm">
+          OA
+        </div>
+        <span class="hidden sm:inline text-[0.8rem] font-medium text-[#374151]">Oluwaseun</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="flex min-h-screen">
+    <!-- Fixed Sidebar (matching dashboard exactly) -->
+    <aside class="fixed top-[41px] left-0 bottom-0 w-[210px] hidden lg:flex flex-col border-r border-stone-200/50 overflow-y-auto" style="background: #f8f7f5;">
+      <div class="px-3.5 pt-4 pb-3 border-b border-stone-200/30">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-md flex items-center justify-center bg-[#374151]">
+            <span class="text-white font-semibold text-[0.65rem]">E</span>
+          </div>
+          <div>
+            <p class="text-[0.7rem] font-semibold text-[#374151] tracking-wider">EL-ATTIRE</p>
+            <p class="text-[0.55rem] text-neutral-400 tracking-wider">BESPOKE</p>
+          </div>
+        </div>
+      </div>
+
+      <nav class="flex-1 px-2.5 py-3 space-y-0.5">
+        <p class="px-2.5 text-[0.58rem] font-semibold uppercase tracking-widest text-neutral-400 mb-1.5">Menu</p>
+        <a href="dashboard.html" class="nav-link">
+          <i class="fas fa-th-large w-3 text-[0.7rem]"></i> Dashboard
+        </a>
+        <a href="measurements.html" class="nav-link active">
+          <i class="fas fa-ruler-combined w-3 text-[0.7rem]"></i> Measurements
+        </a>
+        <a href="orders.html" class="nav-link">
+          <i class="fas fa-shopping-bag w-3 text-[0.7rem]"></i> Orders
+        </a>
+        <a href="tailoring.html" class="nav-link">
+          <i class="fas fa-cut w-3 text-[0.7rem]"></i> Tailoring
+        </a>
+        <a href="reviews.html" class="nav-link">
+          <i class="fas fa-star w-3 text-[0.7rem]"></i> Reviews
+        </a>
+        
+        <p class="px-2.5 text-[0.58rem] font-semibold uppercase tracking-widest text-neutral-400 mb-1.5 mt-4">Account</p>
+        <a href="profile.html" class="nav-link">
+          <i class="fas fa-user-cog w-3 text-[0.7rem]"></i> Profile
+        </a>
+        <a href="#" class="nav-link">
+          <i class="fas fa-cog w-3 text-[0.7rem]"></i> Settings
+        </a>
+      </nav>
+
+      <div class="px-2.5 py-3 border-t border-stone-200/30">
+        <div class="rounded-lg p-3" style="background: #f3f1ed;">
+          <div class="flex items-center gap-1.5 mb-1.5">
+            <i class="fas fa-headset text-[0.6rem] text-amber-700/60"></i>
+            <p class="text-[0.65rem] font-medium text-[#374151]">Support</p>
+          </div>
+          <p class="text-[0.6rem] text-neutral-400 mb-2 leading-relaxed">Mon-Sat, 8am-8pm</p>
+          <a href="#" class="flex items-center gap-2 py-1.5 px-2 rounded-md text-[0.7rem] text-neutral-400 hover:text-[#374151] hover:bg-[#efede9] transition-colors">
+            <i class="fas fa-envelope text-[0.55rem]"></i> support@elattire.com
+          </a>
+        </div>
+
+        <div class="flex items-center gap-2 mt-2.5 px-1.5 py-1.5 rounded-lg hover:bg-[#f3f1ed] transition-colors cursor-pointer">
+          <div class="w-6 h-6 rounded-full bg-stone-200 flex items-center justify-center font-medium text-[0.55rem] text-[#374151] flex-shrink-0">
+            OA
+          </div>
+          <div class="min-w-0 flex-1">
+            <p class="text-[0.68rem] font-medium text-[#374151] truncate">Oluwaseun A.</p>
+          </div>
+          <i class="fas fa-sign-out-alt text-[0.55rem] text-neutral-400 hover:text-red-400 transition-colors flex-shrink-0"></i>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-4 md:p-5 lg:ml-[210px]">
+      <!-- Tabs -->
+      <div class="flex gap-1 mb-4 border-b border-gray-100">
+        <button class="tab-btn active-tab" data-tab="profiles">Profiles</button>
+        <button class="tab-btn" data-tab="edit">Edit</button>
+        <button class="tab-btn" data-tab="silhouette">Silhouette</button>
+      </div>
+
+      <!-- PROFILES TAB -->
+      <div class="tab-content" id="tab-profiles">
+        <div class="flex justify-between items-center mb-3">
+          <span class="text-[0.75rem] font-medium text-[#374151]">Saved Profiles</span>
+          <button class="btn-primary px-3 py-1.5 text-[0.7rem]" onclick="createNewProfile()">
+            <i class="fas fa-plus mr-1 text-[0.55rem]"></i> New
+          </button>
+        </div>
+        <div class="grid md:grid-cols-2 gap-3" id="profilesGrid"></div>
+      </div>
+
+      <!-- EDIT TAB -->
+      <div class="tab-content hidden" id="tab-edit">
+        <div class="glass-panel p-4 max-w-3xl">
+          <div class="flex justify-between items-center mb-4">
+            <div class="flex items-center gap-3">
+              <input type="text" class="input-lux max-w-[200px] text-sm font-medium" id="profileNameInput" placeholder="Profile name" value="Default Profile">
+              <span class="text-[0.65rem] text-neutral-400" id="editModeLabel"></span>
+            </div>
+            <div class="flex gap-2">
+              <button class="btn-outline px-3 py-1.5 text-[0.7rem]" id="resetMeasurementsBtn">Reset</button>
+              <button class="btn-primary px-3 py-1.5 text-[0.7rem]" id="saveMeasurementsBtn">
+                <i class="fas fa-check mr-1 text-[0.55rem]"></i> Save
+              </button>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-4">
+            <div>
+              <h4 class="text-[0.65rem] font-semibold uppercase tracking-wider text-neutral-400 mb-2.5">Upper Body</h4>
+              <div class="space-y-2">
+                <div><label class="text-[0.62rem] text-neutral-400">Neck (in)</label><input type="number" step="0.25" class="input-lux mt-0.5" data-measure="neck" placeholder="15.5"></div>
+                <div><label class="text-[0.62rem] text-neutral-400">Shoulder</label><input type="number" step="0.25" class="input-lux mt-0.5" data-measure="shoulder" placeholder="18.0"></div>
+                <div><label class="text-[0.62rem] text-neutral-400">Chest</label><input type="number" step="0.25" class="input-lux mt-0.5" data-measure="chest" placeholder="42.0"></div>
+                <div><label class="text-[0.62rem] text-neutral-400">Sleeve</label><input type="number" step="0.25" class="input-lux mt-0.5" data-measure="sleeve" placeholder="25.0"></div>
+                <div><label class="text-[0.62rem] text-neutral-400">Bicep</label><input type="number" step="0.25" class="input-lux mt-0.5" data-measure="bicep" placeholder="14.0"></div>
+              </div>
+            </div>
+            <div>
+              <h4 class="text-[0.65rem] font-semibold uppercase tracking-wider text-neutral-400 mb-2.5">Mid Body</h4>
+              <div class="space-y-2">
+                <div><label class="text-[0.62rem] text-neutral-400">Waist</label><input type="number" step="0.25" class="input-lux mt-0.5" data-measure="waist" placeholder="34.0"></div>
+                <div><label class="text-[0.62rem] text-neutral-400">Hips</label><input type="number" step="0.25" class="input-lux mt-0.5" data-measure="hips" placeholder="40.0"></div>
+                <div><label class="text-[0.62rem] text-neutral-400">Back Length</label><input type="number" step="0.25" class="input-lux mt-0.5" data-measure="back-length" placeholder="28.0"></div>
+                <div><label class="text-[0.62rem] text-neutral-400">Agbada Width</label><input type="number" step="0.25" class="input-lux mt-0.5" data-measure="agbada-width" placeholder="58.0"></div>
+              </div>
+            </div>
+            <div>
+              <h4 class="text-[0.65rem] font-semibold uppercase tracking-wider text-neutral-400 mb-2.5">Lower Body</h4>
+              <div class="space-y-2">
+                <div><label class="text-[0.62rem] text-neutral-400">Inseam</label><input type="number" step="0.25" class="input-lux mt-0.5" data-measure="inseam" placeholder="32.0"></div>
+                <div><label class="text-[0.62rem] text-neutral-400">Outseam</label><input type="number" step="0.25" class="input-lux mt-0.5" data-measure="outseam" placeholder="42.0"></div>
+                <div><label class="text-[0.62rem] text-neutral-400">Thigh</label><input type="number" step="0.25" class="input-lux mt-0.5" data-measure="thigh" placeholder="24.0"></div>
+                <div><label class="text-[0.62rem] text-neutral-400">Knee</label><input type="number" step="0.25" class="input-lux mt-0.5" data-measure="knee" placeholder="16.0"></div>
+                <div><label class="text-[0.62rem] text-neutral-400">Ankle</label><input type="number" step="0.25" class="input-lux mt-0.5" data-measure="ankle" placeholder="10.0"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SILHOUETTE TAB -->
+      <div class="tab-content hidden" id="tab-silhouette">
+        <div class="grid lg:grid-cols-2 gap-4">
+          <div class="glass-panel p-4 flex flex-col items-center">
+            <span class="text-[0.7rem] font-medium text-[#374151] mb-3">Front View</span>
+            <div class="relative" style="width:200px;height:500px;" id="frontSilhouetteWrapper">
+              <svg viewBox="0 0 350 900" width="200" height="500" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="175" cy="85" r="42" fill="#f9fafb" stroke="none"/>
+                <path d="M162 128 L162 152 L188 152 L188 128 Z" fill="#f9fafb" stroke="none"/>
+                <path d="M112 162 Q122 210 127 270 Q130 340 142 420 Q152 490 157 590 L193 590 Q198 490 208 420 Q220 340 223 270 Q228 210 238 162 Z" fill="#f9fafb" stroke="none"/>
+                <path d="M112 167 Q72 240 77 350 Q80 460 92 590 L102 590 L102 167 Z" fill="#f9fafb" stroke="none"/>
+                <path d="M238 167 Q278 240 273 350 Q270 460 258 590 L248 590 L248 167 Z" fill="#f9fafb" stroke="none"/>
+                <path d="M157 590 Q147 680 147 810 L167 810 L167 590 Z" fill="#f9fafb" stroke="none"/>
+                <path d="M193 590 Q203 680 203 810 L183 810 L183 590 Z" fill="#f9fafb" stroke="none"/>
+                <ellipse cx="157" cy="825" rx="14" ry="7" fill="#f9fafb" stroke="none"/>
+                <ellipse cx="203" cy="825" rx="14" ry="7" fill="#f9fafb" stroke="none"/>
+                <circle cx="175" cy="85" r="42" class="body-outline"/>
+                <line x1="162" y1="128" x2="162" y2="152" class="body-outline"/><line x1="188" y1="128" x2="188" y2="152" class="body-outline"/>
+                <line x1="112" y1="162" x2="238" y2="162" class="body-outline"/>
+                <path d="M112 162 Q122 210 127 270 Q130 340 142 420 Q152 490 157 590 L193 590 Q198 490 208 420 Q220 340 223 270 Q228 210 238 162" class="body-outline"/>
+                <path d="M112 167 Q72 240 77 350 Q80 460 92 590" class="body-outline"/><path d="M238 167 Q278 240 273 350 Q270 460 258 590" class="body-outline"/>
+                <path d="M157 590 Q147 680 147 810" class="body-outline"/><path d="M193 590 Q203 680 203 810" class="body-outline"/>
+                <ellipse cx="157" cy="825" rx="14" ry="7" class="body-outline"/><ellipse cx="203" cy="825" rx="14" ry="7" class="body-outline"/>
+                <line x1="102" y1="242" x2="248" y2="242" class="measure-line" data-measure="chest"/><circle cx="102" cy="242" class="measurement-dot" data-measure="chest"/><circle cx="248" cy="242" class="measurement-dot" data-measure="chest"/>
+                <text x="255" y="246" font-size="9" fill="#374151" font-weight="600">CHEST</text>
+                <line x1="107" y1="340" x2="243" y2="340" class="measure-line" data-measure="waist"/><circle cx="107" cy="340" class="measurement-dot" data-measure="waist"/><circle cx="243" cy="340" class="measurement-dot" data-measure="waist"/>
+                <text x="250" y="344" font-size="9" fill="#374151" font-weight="600">WAIST</text>
+                <line x1="112" y1="450" x2="238" y2="450" class="measure-line" data-measure="hips"/><circle cx="112" cy="450" class="measurement-dot" data-measure="hips"/><circle cx="238" cy="450" class="measurement-dot" data-measure="hips"/>
+                <text x="245" y="454" font-size="9" fill="#374151" font-weight="600">HIPS</text>
+                <line x1="112" y1="145" x2="238" y2="145" class="measure-line" data-measure="shoulder"/><circle cx="112" cy="145" class="measurement-dot" data-measure="shoulder"/><circle cx="238" cy="145" class="measurement-dot" data-measure="shoulder"/>
+                <text x="245" y="149" font-size="9" fill="#374151" font-weight="600">SHOULDER</text>
+                <ellipse cx="175" cy="148" rx="20" ry="9" class="measure-line" data-measure="neck"/><circle cx="175" cy="139" class="measurement-dot" data-measure="neck"/>
+                <text x="198" y="151" font-size="9" fill="#374151" font-weight="600">NECK</text>
+                <line x1="175" y1="590" x2="175" y2="810" class="measure-line" data-measure="inseam"/><circle cx="175" cy="590" class="measurement-dot" data-measure="inseam"/><circle cx="175" cy="810" class="measurement-dot" data-measure="inseam"/>
+                <text x="182" y="710" font-size="9" fill="#374151" font-weight="600">INSEAM</text>
+              </svg>
+              <div id="frontIndicator" style="position:absolute;top:5%;left:50%;transform:translateX(-50%);background:#374151;color:white;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:500;opacity:0;transition:opacity 0.2s;pointer-events:none;white-space:nowrap;">Hover</div>
+            </div>
+          </div>
+
+          <div class="glass-panel p-4 flex flex-col items-center">
+            <span class="text-[0.7rem] font-medium text-[#374151] mb-3">Back View</span>
+            <div class="relative" style="width:200px;height:500px;" id="backSilhouetteWrapper">
+              <svg viewBox="0 0 350 900" width="200" height="500" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="175" cy="85" r="42" fill="#f9fafb" stroke="none"/>
+                <path d="M162 128 L162 152 L188 152 L188 128 Z" fill="#f9fafb" stroke="none"/>
+                <path d="M112 162 Q122 210 132 310 Q142 410 152 590 L198 590 Q208 410 218 310 Q228 210 238 162 Z" fill="#f9fafb" stroke="none"/>
+                <path d="M112 167 Q72 240 82 590 L102 590 L102 167 Z" fill="#f9fafb" stroke="none"/>
+                <path d="M238 167 Q278 240 268 590 L248 590 L248 167 Z" fill="#f9fafb" stroke="none"/>
+                <path d="M152 590 Q147 680 147 810 L167 810 L167 590 Z" fill="#f9fafb" stroke="none"/>
+                <path d="M198 590 Q203 680 203 810 L183 810 L183 590 Z" fill="#f9fafb" stroke="none"/>
+                <ellipse cx="157" cy="825" rx="14" ry="7" fill="#f9fafb" stroke="none"/><ellipse cx="203" cy="825" rx="14" ry="7" fill="#f9fafb" stroke="none"/>
+                <circle cx="175" cy="85" r="42" class="body-outline"/>
+                <line x1="162" y1="128" x2="162" y2="152" class="body-outline"/><line x1="188" y1="128" x2="188" y2="152" class="body-outline"/>
+                <line x1="112" y1="162" x2="238" y2="162" class="body-outline"/>
+                <path d="M112 162 Q122 210 132 310 Q142 410 152 590 L198 590 Q208 410 218 310 Q228 210 238 162" class="body-outline"/>
+                <path d="M112 167 Q72 240 82 590" class="body-outline"/><path d="M238 167 Q278 240 268 590" class="body-outline"/>
+                <path d="M152 590 Q147 680 147 810" class="body-outline"/><path d="M198 590 Q203 680 203 810" class="body-outline"/>
+                <ellipse cx="157" cy="825" rx="14" ry="7" class="body-outline"/><ellipse cx="203" cy="825" rx="14" ry="7" class="body-outline"/>
+                <line x1="112" y1="145" x2="238" y2="145" class="measure-line" data-measure="across-shoulder"/><circle cx="112" cy="145" class="measurement-dot" data-measure="across-shoulder"/><circle cx="238" cy="145" class="measurement-dot" data-measure="across-shoulder"/>
+                <text x="245" y="149" font-size="9" fill="#374151" font-weight="600">ACROSS</text>
+                <line x1="117" y1="215" x2="233" y2="215" class="measure-line" data-measure="back-width"/><circle cx="117" cy="215" class="measurement-dot" data-measure="back-width"/><circle cx="233" cy="215" class="measurement-dot" data-measure="back-width"/>
+                <text x="240" y="219" font-size="9" fill="#374151" font-weight="600">BACK</text>
+                <line x1="112" y1="350" x2="238" y2="350" class="measure-line" data-measure="back-waist"/><circle cx="112" cy="350" class="measurement-dot" data-measure="back-waist"/><circle cx="238" cy="350" class="measurement-dot" data-measure="back-waist"/>
+                <text x="245" y="354" font-size="9" fill="#374151" font-weight="600">WAIST</text>
+                <line x1="112" y1="460" x2="238" y2="460" class="measure-line" data-measure="seat"/><circle cx="112" cy="460" class="measurement-dot" data-measure="seat"/><circle cx="238" cy="460" class="measurement-dot" data-measure="seat"/>
+                <text x="245" y="464" font-size="9" fill="#374151" font-weight="600">SEAT</text>
+                <line x1="175" y1="145" x2="175" y2="590" class="measure-line" data-measure="center-back"/><circle cx="175" cy="145" class="measurement-dot" data-measure="center-back"/><circle cx="175" cy="590" class="measurement-dot" data-measure="center-back"/>
+                <text x="182" y="380" font-size="9" fill="#374151" font-weight="600">CENTER</text>
+              </svg>
+              <div id="backIndicator" style="position:absolute;top:5%;left:50%;transform:translateX(-50%);background:#374151;color:white;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:500;opacity:0;transition:opacity 0.2s;pointer-events:none;white-space:nowrap;">Hover</div>
+            </div>
+          </div>
+        </div>
+        <p class="text-[0.65rem] text-neutral-400 mt-3 text-center">Hover over dots to see measurement names. Click to edit that measurement.</p>
+      </div>
+    </main>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function() {
+      // State
+      let profiles = JSON.parse(localStorage.getItem('elMeasurements') || '[]');
+      let currentProfileId = localStorage.getItem('elActiveProfile') || null;
+      let editingProfileId = null;
+
+      const defaultMeasurements = {
+        neck: 15.5, shoulder: 18.0, chest: 42.0, sleeve: 25.0, bicep: 14.0,
+        waist: 34.0, hips: 40.0, 'back-length': 28.0, 'agbada-width': 58.0,
+        inseam: 32.0, outseam: 42.0, thigh: 24.0, knee: 16.0, ankle: 10.0
+      };
+
+      if (profiles.length === 0) {
+        profiles.push({
+          id: 'prof_' + Date.now(),
+          name: 'Default Profile',
+          measurements: { ...defaultMeasurements },
+          isPrimary: true,
+          createdAt: new Date().toISOString()
+        });
+        currentProfileId = profiles[0].id;
+        saveProfiles();
+      }
+
+      if (!currentProfileId || !profiles.find(p => p.id === currentProfileId)) {
+        currentProfileId = profiles[0].id;
+        localStorage.setItem('elActiveProfile', currentProfileId);
+      }
+
+      function saveProfiles() {
+        localStorage.setItem('elMeasurements', JSON.stringify(profiles));
+        localStorage.setItem('elActiveProfile', currentProfileId);
+      }
+
+      function showToast(msg, type = 'success') {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.className = 'toast ' + type + ' show';
+        setTimeout(() => t.classList.remove('show'), 2500);
+      }
+
+      function clearEditForm() {
+        document.getElementById('profileNameInput').value = '';
+        document.getElementById('editModeLabel').textContent = '';
+        Object.keys(defaultMeasurements).forEach(key => {
+          const input = document.querySelector(`[data-measure="${key}"]`);
+          if (input) input.value = '';
+        });
+      }
+
+      function populateEditForm(profile) {
+        document.getElementById('profileNameInput').value = profile.name;
+        Object.entries(profile.measurements).forEach(([key, val]) => {
+          const input = document.querySelector(`[data-measure="${key}"]`);
+          if (input) input.value = val;
+        });
+      }
+
+      // Tabs
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active-tab'));
+          document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+          btn.classList.add('active-tab');
+          document.getElementById('tab-' + btn.dataset.tab).classList.remove('hidden');
+          if (btn.dataset.tab === 'profiles') renderProfiles();
+          if (btn.dataset.tab === 'silhouette') setupSilhouette();
+        });
+      });
+
+      window.switchToTab = function(name) {
+        document.querySelector(`.tab-btn[data-tab="${name}"]`)?.click();
+      };
+
+      // Profiles
+      function renderProfiles() {
+        const grid = document.getElementById('profilesGrid');
+        if (!grid) return;
+        grid.innerHTML = profiles.map(p => `
+          <div class="glass-panel p-3 profile-card ${p.isPrimary ? 'primary' : ''}">
+            <div class="flex justify-between items-start mb-2">
+              <div>
+                <span class="text-[0.78rem] font-medium text-[#374151]">${p.name}</span>
+                <p class="text-[0.6rem] text-neutral-400">${new Date(p.createdAt).toLocaleDateString('en-US', {month:'short', year:'numeric'})}</p>
+              </div>
+              ${p.isPrimary ? '<span class="bg-[#374151] text-white px-2 py-0.5 text-[0.58rem] font-medium rounded-full">Primary</span>' : ''}
+            </div>
+            <div class="grid grid-cols-3 gap-1 text-[0.7rem] mb-2">
+              <div><span class="text-neutral-400">Chest</span> <span class="font-medium">${p.measurements.chest}"</span></div>
+              <div><span class="text-neutral-400">Waist</span> <span class="font-medium">${p.measurements.waist}"</span></div>
+              <div><span class="text-neutral-400">Hips</span> <span class="font-medium">${p.measurements.hips}"</span></div>
+            </div>
+            <div class="flex gap-1.5">
+              <button class="btn-outline flex-1 py-1.5 text-[0.65rem]" onclick="editProfile('${p.id}')">Edit</button>
+              ${!p.isPrimary && profiles.length > 1 ? `<button class="btn-danger flex-1 py-1.5 text-[0.65rem]" onclick="deleteProfile('${p.id}')">Delete</button>` : ''}
+              ${!p.isPrimary ? `<button class="btn-outline py-1.5 px-2 text-[0.6rem]" onclick="setPrimary('${p.id}')" title="Set as primary">☆</button>` : ''}
+            </div>
+          </div>
+        `).join('') + `
+          <div class="glass-panel p-3 flex flex-col items-center justify-center text-center border-2 border-dashed border-gray-200 hover:border-gray-300 transition-colors cursor-pointer" onclick="createNewProfile()" style="min-height:180px;">
+            <i class="fas fa-plus-circle text-2xl text-neutral-300 mb-2"></i>
+            <span class="text-[0.75rem] font-medium text-[#374151]">New Profile</span>
+            <p class="text-[0.65rem] text-neutral-400">Add another measurement set</p>
+          </div>
+        `;
+      }
+
+      window.createNewProfile = function() {
+        editingProfileId = null;
+        clearEditForm();
+        document.getElementById('editModeLabel').textContent = '(new profile)';
+        switchToTab('edit');
+        document.getElementById('profileNameInput').focus();
+      };
+
+      window.editProfile = function(id) {
+        const p = profiles.find(x => x.id === id);
+        if (!p) return;
+        editingProfileId = id;
+        populateEditForm(p);
+        document.getElementById('editModeLabel').textContent = '(editing)';
+        switchToTab('edit');
+      };
+
+      window.setPrimary = function(id) {
+        profiles.forEach(p => p.isPrimary = (p.id === id));
+        currentProfileId = id;
+        saveProfiles();
+        renderProfiles();
+        showToast('Primary profile set');
+      };
+
+      window.deleteProfile = function(id) {
+        if (profiles.length <= 1) return showToast('Cannot delete last profile', 'error');
+        if (!confirm('Delete this profile?')) return;
+        profiles = profiles.filter(p => p.id !== id);
+        if (currentProfileId === id) currentProfileId = profiles[0].id;
+        saveProfiles();
+        renderProfiles();
+        showToast('Profile deleted');
+      };
+
+      // Save
+      document.getElementById('saveMeasurementsBtn').addEventListener('click', () => {
+        const name = document.getElementById('profileNameInput').value.trim() || 'Untitled';
+        const measurements = {};
+        document.querySelectorAll('[data-measure]').forEach(input => {
+          measurements[input.dataset.measure] = parseFloat(input.value) || 0;
+        });
+
+        if (editingProfileId) {
+          const p = profiles.find(x => x.id === editingProfileId);
+          if (p) { p.name = name; p.measurements = measurements; }
+        } else {
+          profiles.push({
+            id: 'prof_' + Date.now(),
+            name, measurements,
+            isPrimary: false,
+            createdAt: new Date().toISOString()
+          });
+        }
+        saveProfiles();
+        document.getElementById('editModeLabel').textContent = '(editing)';
+        showToast('✓ Saved');
+        renderProfiles();
+      });
+
+      // Reset
+      document.getElementById('resetMeasurementsBtn').addEventListener('click', () => {
+        if (editingProfileId) {
+          const p = profiles.find(x => x.id === editingProfileId);
+          if (p) { populateEditForm(p); return; }
+        }
+        Object.entries(defaultMeasurements).forEach(([k, v]) => {
+          const input = document.querySelector(`[data-measure="${k}"]`);
+          if (input) input.value = v;
+        });
+      });
+
+      // Silhouette
+      function setupSilhouette() {
+        ['front', 'back'].forEach(view => {
+          const w = document.getElementById(`${view}SilhouetteWrapper`);
+          const ind = document.getElementById(`${view}Indicator`);
+          if (!w) return;
+          const dots = w.querySelectorAll('.measurement-dot');
+          const lines = w.querySelectorAll('.measure-line');
+
+          function clear() {
+            dots.forEach(d => d.classList.remove('active-dot'));
+            lines.forEach(l => l.classList.remove('active'));
+            if (ind) ind.style.opacity = '0';
+          }
+
+          function highlight(m) {
+            dots.forEach(d => { if (d.dataset.measure === m) d.classList.add('active-dot'); });
+            lines.forEach(l => { if (l.dataset.measure === m) l.classList.add('active'); });
+            if (ind) { ind.textContent = m.replace(/-/g, ' ').toUpperCase(); ind.style.opacity = '1'; }
+          }
+
+          dots.forEach(d => {
+            d.addEventListener('mouseenter', () => { clear(); highlight(d.dataset.measure); });
+            d.addEventListener('click', () => {
+              const primary = profiles.find(p => p.isPrimary) || profiles[0];
+              if (primary) {
+                editProfile(primary.id);
+                setTimeout(() => {
+                  const inp = document.querySelector(`[data-measure="${d.dataset.measure}"]`);
+                  if (inp) { inp.focus(); inp.select(); }
+                }, 400);
+              }
+            });
+          });
+
+          lines.forEach(l => {
+            l.addEventListener('mouseenter', () => { clear(); highlight(l.dataset.measure); });
+          });
+
+          w.addEventListener('mouseleave', () => setTimeout(() => {
+            if (!w.querySelector('.measurement-dot:hover') && !w.querySelector('.measure-line:hover')) clear();
+          }, 100));
+        });
+      }
+
+      renderProfiles();
+      console.log('✅ Measurements ready');
+    })();
+  </script>
+</body>
+</html>

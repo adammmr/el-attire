@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=yes"
+        />
+        <title>EL-ATTIRE | Terms & Conditions</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --text-primary: #374151;
+                --text-secondary: #9ca3af;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family:
+                    "Inter",
+                    system-ui,
+                    -apple-system,
+                    sans-serif;
+                background: #ffffff;
+                color: var(--text-primary);
+                letter-spacing: -0.01em;
+                overflow-x: hidden;
+                font-size: 0.85rem;
+                font-weight: 400;
+                line-height: 1.6;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            ::-webkit-scrollbar {
+                width: 4px;
+            }
+            ::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: #d1d5db;
+                border-radius: 10px;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: #9ca3af;
+            }
+
+            .section-title {
+                font-family: "Playfair Display", serif;
+                letter-spacing: 0.03em;
+            }
+
+            .glass-panel {
+                background: rgba(255, 255, 255, 0.92);
+                backdrop-filter: blur(20px);
+                border: 1px solid rgba(0, 0, 0, 0.06);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+                border-radius: 10px;
+            }
+
+            .btn-primary {
+                background: var(--text-primary);
+                color: white;
+                border: none;
+                transition: all 0.15s ease;
+                cursor: pointer;
+                font-weight: 500;
+                letter-spacing: 0.03em;
+                border-radius: 7px;
+                font-size: 0.78rem;
+                padding: 11px 22px;
+                text-decoration: none;
+                display: inline-block;
+            }
+            .btn-primary:hover {
+                background: #4b5563;
+                transform: translateY(-1px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            }
+
+            .btn-outline {
+                background: transparent;
+                color: var(--text-primary);
+                border: 1px solid #e5e7eb;
+                transition: all 0.15s ease;
+                cursor: pointer;
+                font-weight: 500;
+                letter-spacing: 0.03em;
+                border-radius: 7px;
+                font-size: 0.78rem;
+                padding: 11px 22px;
+                text-decoration: none;
+                display: inline-block;
+            }
+            .btn-outline:hover {
+                background: #f9fafb;
+                border-color: #d1d5db;
+            }
+
+            .link-underline {
+                position: relative;
+                display: inline-block;
+                padding-bottom: 2px;
+                text-decoration: none;
+                color: var(--text-primary);
+            }
+            .link-underline::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 0%;
+                height: 1.5px;
+                background: var(--text-primary);
+                transition: width 0.3s ease;
+            }
+            .link-underline:hover::after {
+                width: 100%;
+            }
+
+            .terms-section {
+                padding: 24px 0;
+                border-bottom: 1px solid #f3f4f6;
+            }
+            .terms-section:last-child {
+                border-bottom: none;
+            }
+            .terms-section h3 {
+                font-family: "Playfair Display", serif;
+                font-size: 1.1rem;
+                font-weight: 600;
+                margin-bottom: 12px;
+                color: #374151;
+                letter-spacing: 0.02em;
+            }
+            .terms-section p,
+            .terms-section li {
+                font-size: 0.82rem;
+                color: #6b7280;
+                line-height: 1.8;
+            }
+            .terms-section ul {
+                list-style: disc;
+                padding-left: 20px;
+            }
+            .terms-section ul li {
+                margin-bottom: 5px;
+            }
+            .terms-section strong {
+                color: #374151;
+                font-weight: 600;
+            }
+
+            .toc-link {
+                display: block;
+                padding: 8px 14px;
+                font-size: 0.75rem;
+                color: #9ca3af;
+                text-decoration: none;
+                border-left: 2px solid transparent;
+                transition: all 0.2s;
+                border-radius: 0 6px 6px 0;
+                margin-bottom: 1px;
+            }
+            .toc-link:hover {
+                color: #374151;
+                background: #f9fafb;
+                border-left-color: #d1d5db;
+                padding-left: 18px;
+            }
+            .toc-link.active-toc {
+                color: #374151;
+                background: #f3f4f6;
+                border-left-color: #374151;
+                font-weight: 500;
+            }
+
+            .last-updated {
+                font-size: 0.7rem;
+                color: #9ca3af;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                font-weight: 500;
+            }
+
+            .nav-logo {
+                height: 34px;
+                width: auto;
+            }
+            .footer-logo {
+                height: 50px;
+                width: auto;
+            }
+
+            .support-btn {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                padding: 6px 12px;
+                border-radius: 7px;
+                cursor: pointer;
+                transition: all 0.15s ease;
+                border: 1px solid #e5e7eb;
+                background: transparent;
+                color: #9ca3af;
+                font-family: inherit;
+                font-size: 0.7rem;
+                font-weight: 500;
+            }
+            .support-btn:hover {
+                border-color: #d1d5db;
+                color: #374151;
+                background: #f9fafb;
+            }
+            .support-btn .live-dot {
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                background: #10b981;
+                animation: pulse-dot 2s ease-in-out infinite;
+            }
+            @keyframes pulse-dot {
+                0%,
+                100% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.4);
+                }
+            }
+        </style>
+    </head>
+    <body class="antialiased">
+        <!-- Header -->
+        <header
+            class="sticky top-0 z-50 glass-panel border-b border-gray-100 px-5 py-2.5 flex items-center justify-between"
+        >
+            <a href="index.html" class="flex items-center gap-3 no-underline">
+                <img
+                    src="photos/logo_only_bk.png"
+                    alt="EL-ATTIRE"
+                    class="nav-logo"
+                    onerror="this.style.display='none'"
+                />
+                <span class="text-lg font-semibold tracking-[0.1em] text-[#374151]"
+                    >EL-<span class="font-normal text-neutral-400 text-sm">ATTIRE</span></span
+                >
+            </a>
+            <nav class="hidden lg:flex items-center gap-6 text-[0.72rem] uppercase tracking-[0.08em] font-medium">
+                <a href="index.html" class="link-underline">Home</a>
+                <a href="collection.html" class="link-underline">Shop</a>
+                <a href="fabrics.html" class="link-underline">Fabrics</a>
+                <a href="tailoring-page.html" class="link-underline">Tailoring</a>
+                <a href="about.html" class="link-underline">About</a>
+            </nav>
+            <div class="flex items-center gap-3">
+                <button class="support-btn" id="supportHeaderToggle" title="Chat with support">
+                    <i class="fas fa-headset text-[0.6rem]"></i> Support
+                    <span class="live-dot"></span>
+                </button>
+                <a href="login.html" class="text-[0.75rem] text-neutral-400 hover:text-[#374151] transition-colors"
+                    >Sign In</a
+                >
+            </div>
+        </header>
+
+        <main class="max-w-5xl mx-auto px-4 md:px-6 py-8">
+            <!-- Page Header -->
+            <div class="mb-8">
+                <span class="text-[0.65rem] uppercase tracking-[0.15em] text-neutral-400">Legal</span>
+                <h1 class="text-3xl font-medium section-title text-[#374151] mt-1 mb-2">Terms & Conditions</h1>
+                <p class="last-updated">Last Updated: July 4, 2026</p>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-8">
+                <!-- Table of Contents -->
+                <aside class="md:col-span-1">
+                    <div class="sticky top-24">
+                        <h4 class="text-[0.65rem] font-semibold uppercase tracking-wider mb-3 text-neutral-400">
+                            Contents
+                        </h4>
+                        <nav id="tocNav">
+                            <a href="#acceptance" class="toc-link">1. Acceptance of Terms</a>
+                            <a href="#services" class="toc-link">2. Services</a>
+                            <a href="#orders" class="toc-link">3. Orders & Payments</a>
+                            <a href="#measurements" class="toc-link">4. Measurements & Fitting</a>
+                            <a href="#delivery" class="toc-link">5. Shipping & Delivery</a>
+                            <a href="#returns" class="toc-link">6. Returns & Refunds</a>
+                            <a href="#intellectual" class="toc-link">7. Intellectual Property</a>
+                            <a href="#privacy" class="toc-link">8. Privacy</a>
+                            <a href="#liability" class="toc-link">9. Limitation of Liability</a>
+                            <a href="#governing" class="toc-link">10. Governing Law</a>
+                        </nav>
+                    </div>
+                </aside>
+
+                <!-- Terms Content -->
+                <div class="md:col-span-3">
+                    <div class="terms-section" id="acceptance">
+                        <h3>1. Acceptance of Terms</h3>
+                        <p>
+                            By accessing or using the EL-ATTIRE website, mobile application, or any of our services
+                            (collectively, the "Services"), you agree to be bound by these Terms and Conditions. If you
+                            do not agree to these terms, please do not use our Services.
+                        </p>
+                        <p class="mt-2">
+                            We reserve the right to update or modify these terms at any time without prior notice. Your
+                            continued use of the Services following any changes constitutes acceptance of the new terms.
+                            We encourage you to review this page periodically.
+                        </p>
+                    </div>
+
+                    <div class="terms-section" id="services">
+                        <h3>2. Services</h3>
+                        <p>EL-ATTIRE provides bespoke tailoring services including but not limited to:</p>
+                        <ul class="mt-2">
+                            <li>Custom-made Kaftans, Agbada, Senator styles, and other traditional Nigerian attire</li>
+                            <li>Fabric sourcing and sales from premium local and international suppliers</li>
+                            <li>
+                                Professional measurement and fitting consultations (in-studio, home visit, or virtual)
+                            </li>
+                            <li>Ready-to-wear clothing sales from our seasonal collections</li>
+                            <li>Alterations and adjustments on existing garments</li>
+                        </ul>
+                        <p class="mt-2">All services are subject to availability and may vary by location.</p>
+                    </div>
+
+                    <div class="terms-section" id="orders">
+                        <h3>3. Orders & Payments</h3>
+                        <p>
+                            <strong>3.1 Order Placement:</strong> All orders are subject to acceptance and availability.
+                            We reserve the right to refuse or cancel any order at our discretion. You will receive a
+                            confirmation once your order has been accepted.
+                        </p>
+                        <p class="mt-2">
+                            <strong>3.2 Pricing:</strong> All prices are listed in Nigerian Naira (₦) unless otherwise
+                            stated. Prices are subject to change without notice. The price at the time of order
+                            confirmation is final and binding.
+                        </p>
+                        <p class="mt-2">
+                            <strong>3.3 Payment Methods:</strong> We accept credit/debit cards, bank transfers, and
+                            mobile money payments. Full payment is required before production begins for bespoke items.
+                        </p>
+                        <p class="mt-2">
+                            <strong>3.4 Deposits:</strong> For bespoke tailoring orders exceeding ₦500,000, a 50%
+                            non-refundable deposit is required to commence work. The balance is due upon completion and
+                            before delivery.
+                        </p>
+                    </div>
+
+                    <div class="terms-section" id="measurements">
+                        <h3>4. Measurements & Fitting</h3>
+                        <p>
+                            <strong>4.1 Accuracy:</strong> Clients are responsible for providing accurate measurements.
+                            EL-ATTIRE offers professional measurement services at our studios and through virtual
+                            consultations to ensure precision.
+                        </p>
+                        <p class="mt-2">
+                            <strong>4.2 Fitting Sessions:</strong> Depending on your service tier, one or more fitting
+                            sessions are included. Additional fittings beyond those included in your tier may incur
+                            extra charges.
+                        </p>
+                        <p class="mt-2">
+                            <strong>4.3 Design Changes:</strong> Significant design changes requested after production
+                            has begun may result in additional costs and extended timelines. Minor adjustments within 48
+                            hours are accommodated at no charge.
+                        </p>
+                    </div>
+
+                    <div class="terms-section" id="delivery">
+                        <h3>5. Shipping & Delivery</h3>
+                        <p>
+                            <strong>5.1 Timeframes:</strong> Bespoke tailoring typically takes 10-21 business days
+                            depending on complexity. Ready-to-wear items ship within 2-5 business days. These are
+                            estimates and not guaranteed delivery dates.
+                        </p>
+                        <p class="mt-2">
+                            <strong>5.2 Shipping Costs:</strong> Calculated at checkout based on destination and
+                            delivery method. Free shipping on orders over ₦200,000 within Nigeria. International
+                            shipping rates vary.
+                        </p>
+                        <p class="mt-2">
+                            <strong>5.3 International Shipping:</strong> Available to over 30 countries. Customers are
+                            responsible for any customs duties, taxes, or import fees imposed by their country.
+                        </p>
+                    </div>
+
+                    <div class="terms-section" id="returns">
+                        <h3>6. Returns & Refunds</h3>
+                        <p>
+                            <strong>6.1 Bespoke Items:</strong> Due to the custom nature of bespoke tailoring, we cannot
+                            accept returns or offer refunds on made-to-measure garments unless there is a manufacturing
+                            defect. We will repair or remake at no cost.
+                        </p>
+                        <p class="mt-2">
+                            <strong>6.2 Ready-to-Wear:</strong> Unworn, unaltered items with original tags may be
+                            returned within 14 days of delivery. Return shipping costs are the customer's responsibility
+                            unless defective.
+                        </p>
+                        <p class="mt-2">
+                            <strong>6.3 Fabrics:</strong> Cut fabric is non-returnable. Uncut fabric in original
+                            condition may be returned within 7 days. Return shipping is the customer's responsibility.
+                        </p>
+                        <p class="mt-2">
+                            <strong>6.4 Refund Processing:</strong> Approved refunds are processed within 10 business
+                            days to the original payment method.
+                        </p>
+                    </div>
+
+                    <div class="terms-section" id="intellectual">
+                        <h3>7. Intellectual Property</h3>
+                        <p>
+                            All content on the EL-ATTIRE website, including designs, logos, photographs, illustrations,
+                            text, and software, is the exclusive property of EL-ATTIRE and protected by applicable
+                            intellectual property laws.
+                        </p>
+                        <p class="mt-2">
+                            You may not reproduce, distribute, modify, or create derivative works from any content
+                            without our express prior written permission. Unauthorized use may result in legal action.
+                        </p>
+                    </div>
+
+                    <div class="terms-section" id="privacy">
+                        <h3>8. Privacy</h3>
+                        <p>
+                            Your privacy is of utmost importance. Please review our Privacy Policy to understand how we
+                            collect, use, and protect your personal information. By using our Services, you consent to
+                            our data practices.
+                        </p>
+                        <p class="mt-2">
+                            We implement industry-standard security measures to protect your data. You may request
+                            access to, correction of, or deletion of your personal data at any time.
+                        </p>
+                    </div>
+
+                    <div class="terms-section" id="liability">
+                        <h3>9. Limitation of Liability</h3>
+                        <p>
+                            EL-ATTIRE shall not be liable for any indirect, incidental, special, consequential, or
+                            punitive damages arising from or related to the use of our Services, including loss of
+                            profits, data, or business opportunities.
+                        </p>
+                        <p class="mt-2">
+                            Our total liability for any claim shall not exceed the amount paid by you for that specific
+                            product or service. This limitation applies regardless of the legal theory.
+                        </p>
+                    </div>
+
+                    <div class="terms-section" id="governing">
+                        <h3>10. Governing Law</h3>
+                        <p>
+                            These Terms and Conditions are governed by and construed in accordance with the laws of the
+                            Federal Republic of Nigeria, without regard to its conflict of law principles.
+                        </p>
+                        <p class="mt-2">
+                            Any disputes arising from or relating to these terms shall be resolved exclusively in the
+                            courts of Lagos State, Nigeria. You hereby consent to the personal jurisdiction of such
+                            courts.
+                        </p>
+                    </div>
+
+                    <!-- Contact CTA -->
+                    <div class="mt-10 p-6 bg-gray-50 rounded-xl text-center border border-gray-100">
+                        <i class="fas fa-balance-scale text-2xl text-neutral-300 mb-3"></i>
+                        <h3 class="font-medium text-[#374151] mb-2">Questions About Our Terms?</h3>
+                        <p class="text-[0.75rem] text-neutral-400 mb-4 max-w-md mx-auto">
+                            Our legal team is available to clarify any questions you may have about these terms and
+                            conditions.
+                        </p>
+                        <div class="flex gap-3 justify-center flex-wrap">
+                            <a href="mailto:legal@elattire.com" class="btn-primary px-5 py-2.5 text-[0.72rem]">
+                                <i class="fas fa-envelope mr-1.5 text-[0.6rem]"></i> legal@elattire.com
+                            </a>
+                            <a href="index.html#contact" class="btn-outline px-5 py-2.5 text-[0.72rem]">
+                                <i class="fas fa-phone mr-1.5 text-[0.6rem]"></i> Contact Us
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-[#0a0a0a] text-neutral-400 mt-12">
+            <div class="max-w-7xl mx-auto px-6 py-10">
+                <div class="grid md:grid-cols-4 gap-8 mb-8">
+                    <div>
+                        <img
+                            src="photos/logo_only.png"
+                            alt="EL-ATTIRE"
+                            class="footer-logo mb-4"
+                            onerror="this.style.display='none'"
+                        />
+                        <p class="text-xs text-neutral-500 leading-relaxed">Bespoke Nigerian tailoring since 2010.</p>
+                    </div>
+                    <div>
+                        <p class="text-white uppercase tracking-wider mb-3 text-[0.65rem] font-semibold">Collections</p>
+                        <a href="#" class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
+                            >Kaftans</a
+                        ><a href="#" class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
+                            >Agbada</a
+                        >
+                    </div>
+                    <div>
+                        <p class="text-white uppercase tracking-wider mb-3 text-[0.65rem] font-semibold">Services</p>
+                        <a
+                            href="tailoring-page.html"
+                            class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
+                            >Tailoring</a
+                        ><a
+                            href="fabrics.html"
+                            class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
+                            >Fabrics</a
+                        >
+                    </div>
+                    <div>
+                        <p class="text-white uppercase tracking-wider mb-3 text-[0.65rem] font-semibold">Support</p>
+                        <a href="#" class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
+                            >FAQ</a
+                        ><a
+                            href="terms.html"
+                            class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
+                            >Terms</a
+                        >
+                    </div>
+                </div>
+                <div class="border-t border-neutral-800 pt-6 text-center text-[0.65rem] text-neutral-600">
+                    © 2026 EL-ATTIRE. All rights reserved.
+                </div>
+            </div>
+        </footer>
+
+        <!-- Independent Chat Widget -->
+        <script>
+            (function () {
+                var widget = document.createElement("div");
+                widget.className = "chat-widget-overlay";
+                widget.id = "chatWidget";
+                widget.innerHTML =
+                    "<style>" +
+                    ".chat-widget-overlay{position:fixed;bottom:24px;right:24px;width:350px;max-width:90vw;height:440px;max-height:65vh;background:white;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,0.2);z-index:300;display:flex;flex-direction:column;transform:translateY(20px)scale(0.95);opacity:0;pointer-events:none;transition:all 0.25s cubic-bezier(0.23,1,0.32,1);border:1px solid rgba(0,0,0,0.08)}" +
+                    ".chat-widget-overlay.open{transform:translateY(0)scale(1);opacity:1;pointer-events:all}" +
+                    ".cw-h{padding:12px 14px;border-bottom:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between;border-radius:14px 14px 0 0;background:#fafafa}" +
+                    ".cw-ag{display:flex;align-items:center;gap:8px}.cw-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;color:white;font-weight:600;font-size:0.65rem}" +
+                    ".cw-on{display:flex;align-items:center;gap:4px;font-size:0.6rem;color:#10b981;font-weight:500}.cw-ond{width:5px;height:5px;border-radius:50%;background:#10b981}" +
+                    ".cw-b{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;background:#fafafa}" +
+                    ".cw-f{padding:10px 12px;border-top:1px solid #f3f4f6;display:flex;gap:6px;align-items:center}" +
+                    ".cw-f input{flex:1;padding:8px 12px;border:1px solid #e5e7eb;border-radius:18px;font-size:0.75rem;outline:none;background:white;font-family:inherit}" +
+                    ".cw-s{width:34px;height:34px;border-radius:50%;border:none;background:#374151;color:white;cursor:pointer;font-size:0.75rem;transition:all 0.15s;flex-shrink:0}" +
+                    ".cw-s:hover{background:#4b5563;transform:scale(1.05)}.cw-x{width:26px;height:26px;border-radius:50%;border:none;background:transparent;cursor:pointer;color:#9ca3af;font-size:0.9rem;display:flex;align-items:center;justify-content:center;transition:all 0.15s}" +
+                    ".cw-x:hover{background:#e5e7eb;color:#374151}.cw-bub{padding:8px 12px;border-radius:12px;font-size:0.75rem;line-height:1.5;max-width:85%;animation:cwIn 0.3s ease-out}" +
+                    "@keyframes cwIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}" +
+                    ".cw-bub.in{background:white;color:#374151;align-self:flex-start;border-bottom-left-radius:4px}" +
+                    ".cw-bub.out{background:#374151;color:white;align-self:flex-end;border-bottom-right-radius:4px}" +
+                    ".cw-t{font-size:0.55rem;opacity:0.6;margin-top:3px;display:block}" +
+                    ".cw-q{display:flex;flex-wrap:wrap;gap:4px;padding:0 12px 8px}" +
+                    ".cw-q button{padding:5px 10px;border-radius:14px;border:1px solid #e5e7eb;background:white;font-size:0.65rem;cursor:pointer;transition:all 0.15s;color:#374151;font-family:inherit}" +
+                    ".cw-q button:hover{background:#374151;color:white;border-color:#374151}" +
+                    "</style>" +
+                    '<div class="cw-h"><div class="cw-ag"><div class="cw-av">CS</div><div><p style="font-size:0.75rem;font-weight:500;color:#374151;margin:0">Customer Support</p><div class="cw-on"><span class="cw-ond"></span>Online</div></div></div><button class="cw-x" id="cwCloseBtn">✕</button></div>' +
+                    '<div class="cw-b" id="cwMessages"><div class="cw-bub in">Hello! 👋 Questions about our terms?<span class="cw-t">Just now</span></div></div>' +
+                    '<div class="cw-q"><button id="cwQuickReturn">↩️ Returns</button><button id="cwQuickRefund">💰 Refunds</button><button id="cwQuickPrivacy">🔒 Privacy</button></div>' +
+                    '<div class="cw-f"><input type="text" placeholder="Type message..." id="cwInput"><button class="cw-s" id="cwSendBtn"><i class="fas fa-paper-plane"></i></button></div>';
+                document.body.appendChild(widget);
+
+                var isOpen = false;
+                var replies = {
+                    return: "↩️ Uncut fabric: 7 days return. Ready-made: 14 days unworn with tags. Bespoke items: non-returnable unless defective. See Section 6.",
+                    refund: "💰 Approved refunds processed within 10 business days to original payment method. Bespoke deposits are non-refundable. See Section 6.4.",
+                    privacy:
+                        "🔒 We use industry-standard encryption. Your data is never sold. You can request data access or deletion anytime. See Section 8.",
+                    default: "Thanks! For legal inquiries: legal@elattire.com. For general help: +234 800 000 0000.",
+                };
+                function getReply(m) {
+                    var x = m.toLowerCase();
+                    if (x.indexOf("return") > -1) return replies.return;
+                    if (x.indexOf("refund") > -1 || x.indexOf("money") > -1) return replies.refund;
+                    if (x.indexOf("privacy") > -1 || x.indexOf("data") > -1) return replies.privacy;
+                    return replies.default;
+                }
+                function getTime() {
+                    return new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
+                }
+                function addMsg(text, type) {
+                    var msgs = document.getElementById("cwMessages");
+                    var b = document.createElement("div");
+                    b.className = "cw-bub " + (type === "sent" ? "out" : "in");
+                    b.innerHTML = text + '<span class="cw-t">' + getTime() + "</span>";
+                    msgs.appendChild(b);
+                    msgs.scrollTop = msgs.scrollHeight;
+                }
+                function sendMsg() {
+                    var input = document.getElementById("cwInput");
+                    if (!input || !input.value.trim()) return;
+                    var msg = input.value.trim();
+                    addMsg(msg, "sent");
+                    input.value = "";
+                    setTimeout(
+                        function () {
+                            addMsg(getReply(msg), "received");
+                        },
+                        700 + Math.random() * 1000
+                    );
+                }
+                function sendQuick(text) {
+                    var input = document.getElementById("cwInput");
+                    if (input) input.value = text;
+                    sendMsg();
+                }
+                function open() {
+                    widget.classList.add("open");
+                    isOpen = true;
+                    setTimeout(function () {
+                        var inp = document.getElementById("cwInput");
+                        if (inp) inp.focus();
+                    }, 300);
+                }
+                function close() {
+                    widget.classList.remove("open");
+                    isOpen = false;
+                }
+                function toggle() {
+                    isOpen ? close() : open();
+                }
+                document.getElementById("cwCloseBtn").addEventListener("click", close);
+                document.getElementById("cwSendBtn").addEventListener("click", sendMsg);
+                document.getElementById("cwInput").addEventListener("keypress", function (e) {
+                    if (e.key === "Enter") sendMsg();
+                });
+                document.getElementById("cwQuickReturn").addEventListener("click", function () {
+                    sendQuick("Return policy");
+                });
+                document.getElementById("cwQuickRefund").addEventListener("click", function () {
+                    sendQuick("Refund info");
+                });
+                document.getElementById("cwQuickPrivacy").addEventListener("click", function () {
+                    sendQuick("Privacy policy");
+                });
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape" && isOpen) close();
+                });
+                document.addEventListener("click", function (e) {
+                    if (
+                        isOpen &&
+                        !widget.contains(e.target) &&
+                        e.target.id !== "supportHeaderToggle" &&
+                        !document.getElementById("supportHeaderToggle").contains(e.target)
+                    )
+                        close();
+                });
+                document.getElementById("supportHeaderToggle").addEventListener("click", toggle);
+            })();
+        </script>
+
+        <!-- TOC Active State Script -->
+        <script>
+            (function () {
+                var sections = document.querySelectorAll(".terms-section");
+                var tocLinks = document.querySelectorAll(".toc-link");
+
+                function updateActiveToc() {
+                    var current = "";
+                    sections.forEach(function (section) {
+                        if (window.scrollY >= section.offsetTop - 150) {
+                            current = section.getAttribute("id");
+                        }
+                    });
+                    tocLinks.forEach(function (link) {
+                        link.classList.remove("active-toc");
+                        if (link.getAttribute("href") === "#" + current) link.classList.add("active-toc");
+                    });
+                }
+
+                window.addEventListener("scroll", updateActiveToc);
+
+                tocLinks.forEach(function (link) {
+                    link.addEventListener("click", function (e) {
+                        e.preventDefault();
+                        var target = document.querySelector(this.getAttribute("href"));
+                        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+                    });
+                });
+            })();
+        </script>
+    </body>
+</html>

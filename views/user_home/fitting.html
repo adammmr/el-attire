@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=yes">
+  <title>EL-ATTIRE | Schedule Fitting</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --text-primary: #374151;
+      --text-secondary: #9ca3af;
+      --bg-primary: #fafafa;
+      --bg-card: #ffffff;
+      --border-color: rgba(0,0,0,0.05);
+      --sidebar-bg: #f8f7f5;
+      --sidebar-hover: #efede9;
+      --sidebar-active: #374151;
+      --sidebar-active-text: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body { 
+      font-family: 'Inter', system-ui, -apple-system, sans-serif; 
+      background: var(--bg-primary); 
+      color: var(--text-primary); 
+      letter-spacing: -0.01em; 
+      font-size: 0.85rem;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #b0b7c3; }
+
+    .glass-panel { 
+      background: var(--bg-card); 
+      border: 1px solid var(--border-color); 
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03); 
+      border-radius: 10px; 
+    }
+
+    .btn-primary { 
+      background: var(--text-primary); 
+      color: white; 
+      border: none; 
+      transition: all 0.15s ease; 
+      cursor: pointer; 
+      font-weight: 500; 
+      letter-spacing: 0.03em; 
+      border-radius: 7px;
+      font-size: 0.78rem;
+    }
+    .btn-primary:hover { 
+      background: #4b5563; 
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .btn-primary:active { transform: scale(0.98); }
+    .btn-primary:disabled { 
+      opacity: 0.4; 
+      cursor: not-allowed; 
+      transform: none; 
+      box-shadow: none;
+    }
+
+    .btn-outline { 
+      background: transparent; 
+      color: var(--text-primary); 
+      border: 1px solid #e5e7eb; 
+      transition: all 0.15s ease; 
+      cursor: pointer; 
+      font-weight: 500; 
+      letter-spacing: 0.03em; 
+      border-radius: 7px;
+      font-size: 0.78rem;
+    }
+    .btn-outline:hover { 
+      background: #f9fafb; 
+      border-color: #d1d5db;
+      transform: translateY(-1px);
+    }
+    .btn-outline:active { transform: scale(0.98); }
+
+    .nav-link { 
+      display: flex; 
+      align-items: center; 
+      gap: 9px; 
+      padding: 8px 12px; 
+      border-radius: 7px; 
+      transition: all 0.15s ease; 
+      color: var(--text-secondary); 
+      text-decoration: none; 
+      font-weight: 450; 
+      font-size: 0.8rem; 
+    }
+    .nav-link:hover { background: var(--sidebar-hover); color: var(--text-primary); }
+    .nav-link.active { background: var(--sidebar-active); color: var(--sidebar-active-text); box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+
+    .input-lux { 
+      width: 100%; 
+      padding: 0.5rem 0.75rem; 
+      border: 1px solid #e5e7eb; 
+      background: #fafafa; 
+      font-size: 0.8rem; 
+      border-radius: 7px;
+      color: var(--text-primary);
+      transition: all 0.15s;
+    }
+    .input-lux:focus { 
+      border-color: #6b7280; 
+      background: white; 
+      outline: none; 
+      box-shadow: 0 0 0 3px rgba(107,114,128,0.1);
+    }
+
+    /* Calendar */
+    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; text-align: center; }
+    .calendar-day-header { font-size: 0.58rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #9ca3af; padding: 6px 0; }
+    .calendar-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; cursor: pointer; border-radius: 8px; transition: all 0.15s; font-weight: 500; }
+    .calendar-day:hover { background: #f3f4f6; }
+    .calendar-day.empty { cursor: default; }
+    .calendar-day.today { font-weight: 700; border: 2px solid #374151; }
+    .calendar-day.selected { background: #374151; color: white; font-weight: 600; box-shadow: 0 2px 8px rgba(55,65,81,0.2); }
+    .calendar-day.unavailable { color: #d1d5db; cursor: not-allowed; pointer-events: none; }
+    .calendar-day.past { color: #e5e7eb; cursor: not-allowed; pointer-events: none; }
+
+    /* Time slots */
+    .time-slot { 
+      padding: 8px 10px; 
+      border: 1px solid #e5e7eb; 
+      text-align: center; 
+      font-size: 0.72rem; 
+      cursor: pointer; 
+      transition: all 0.15s; 
+      font-weight: 500; 
+      background: white; 
+      border-radius: 7px;
+      color: #374151;
+    }
+    .time-slot:hover { border-color: #9ca3af; background: #f9fafb; }
+    .time-slot.selected-slot { background: #374151; color: white; border-color: #374151; }
+    .time-slot.booked { background: #f9fafb; color: #d1d5db; cursor: not-allowed; text-decoration: line-through; pointer-events: none; }
+
+    /* Step indicator */
+    .step-dot { 
+      width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+      font-size: 0.7rem; font-weight: 600; border: 2px solid #e5e7eb; background: white; transition: all 0.3s; flex-shrink: 0;
+    }
+    .step-dot.active { background: #374151; color: white; border-color: #374151; }
+    .step-dot.done { background: #374151; color: white; border-color: #374151; }
+    .step-line { flex: 1; height: 2px; background: #e5e7eb; transition: background 0.3s; }
+    .step-line.done { background: #374151; }
+
+    /* Mannequin */
+    .mannequin-wrapper { position: relative; width: 200px; height: 520px; margin: 0 auto; perspective: 1000px; }
+    .mannequin-inner { position: relative; width: 100%; height: 100%; transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1); transform-style: preserve-3d; }
+    .mannequin-face { position: absolute; top: 0; left: 0; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+    .mannequin-front { z-index: 2; }
+    .mannequin-back { transform: rotateY(180deg); z-index: 1; }
+    .body-outline { fill: none; stroke: #374151; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .measure-line { stroke: #d1d5db; stroke-width: 1.8; stroke-dasharray: 5 4; cursor: pointer; transition: all 0.2s; }
+    .measure-line:hover { stroke: #374151; stroke-width: 2.2; stroke-dasharray: 0; }
+    .measure-dot { fill: #374151; stroke: white; stroke-width: 2.5; cursor: pointer; transition: all 0.2s; r: 6; }
+    .measure-dot:hover { fill: white; stroke: #374151; r: 9; }
+    .rotation-slider { -webkit-appearance: none; appearance: none; width: 130px; height: 4px; background: #e5e7eb; border-radius: 2px; outline: none; cursor: pointer; }
+    .rotation-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: #374151; cursor: grab; border: 3px solid white; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
+
+    .notification-dot { width: 6px; height: 6px; background: #ef4444; border-radius: 50%; display: inline-block; box-shadow: 0 0 0 2px white; animation: pulse-dot 2s ease-in-out infinite; }
+    @keyframes pulse-dot { 0%,100%{transform:scale(1);} 50%{transform:scale(1.4);} }
+
+    .toast {
+      position: fixed; bottom: 20px; right: 20px; background: #059669; color: white; padding: 10px 18px;
+      border-radius: 8px; font-size: 0.78rem; font-weight: 500; z-index: 1000; opacity: 0;
+      transform: translateY(10px); transition: all 0.3s ease; box-shadow: 0 4px 16px rgba(0,0,0,0.15); pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body class="antialiased">
+
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-100 px-5 py-2.5 flex items-center justify-between">
+    <a href="dashboard.html" class="text-lg font-semibold tracking-[0.1em] text-[#374151] no-underline">
+      EL-<span class="font-normal text-neutral-400 text-sm">ATTIRE</span>
+    </a>
+    <div class="flex items-center gap-4">
+      <div class="relative cursor-pointer p-1.5 hover:bg-gray-50 rounded-lg transition-colors">
+        <i class="fas fa-bell text-sm text-neutral-400 hover:text-[#374151] transition-colors"></i>
+        <span class="notification-dot absolute top-0.5 right-0.5"></span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-full bg-stone-100 flex items-center justify-center font-medium text-[0.65rem] text-[#374151] ring-2 ring-white shadow-sm">OA</div>
+        <span class="hidden sm:inline text-[0.8rem] font-medium text-[#374151]">Oluwaseun</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="flex min-h-screen">
+    <aside class="fixed top-[41px] left-0 bottom-0 w-[210px] hidden lg:flex flex-col border-r border-stone-200/50 overflow-y-auto" style="background: #f8f7f5;">
+      <div class="px-3.5 pt-4 pb-3 border-b border-stone-200/30">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-md flex items-center justify-center bg-[#374151]"><span class="text-white font-semibold text-[0.65rem]">E</span></div>
+          <div><p class="text-[0.7rem] font-semibold text-[#374151] tracking-wider">EL-ATTIRE</p><p class="text-[0.55rem] text-neutral-400 tracking-wider">BESPOKE</p></div>
+        </div>
+      </div>
+      <nav class="flex-1 px-2.5 py-3 space-y-0.5">
+        <p class="px-2.5 text-[0.58rem] font-semibold uppercase tracking-widest text-neutral-400 mb-1.5">Menu</p>
+        <a href="dashboard.html" class="nav-link"><i class="fas fa-th-large w-3 text-[0.7rem]"></i> Dashboard</a>
+        <a href="measurements.html" class="nav-link"><i class="fas fa-ruler-combined w-3 text-[0.7rem]"></i> Measurements</a>
+        <a href="orders.html" class="nav-link"><i class="fas fa-shopping-bag w-3 text-[0.7rem]"></i> Orders</a>
+        <a href="tailoring.html" class="nav-link active"><i class="fas fa-cut w-3 text-[0.7rem]"></i> Tailoring</a>
+        <a href="reviews.html" class="nav-link"><i class="fas fa-star w-3 text-[0.7rem]"></i> Reviews</a>
+        <p class="px-2.5 text-[0.58rem] font-semibold uppercase tracking-widest text-neutral-400 mb-1.5 mt-4">Account</p>
+        <a href="profile.html" class="nav-link"><i class="fas fa-user-cog w-3 text-[0.7rem]"></i> Profile</a>
+        <a href="#" class="nav-link"><i class="fas fa-cog w-3 text-[0.7rem]"></i> Settings</a>
+      </nav>
+      <div class="px-2.5 py-3 border-t border-stone-200/30">
+        <div class="rounded-lg p-3" style="background: #f3f1ed;">
+          <div class="flex items-center gap-1.5 mb-1.5"><i class="fas fa-headset text-[0.6rem] text-amber-700/60"></i><p class="text-[0.65rem] font-medium text-[#374151]">Support</p></div>
+          <p class="text-[0.6rem] text-neutral-400 mb-2 leading-relaxed">Mon-Sat, 8am-8pm</p>
+          <a href="#" class="flex items-center gap-2 py-1.5 px-2 rounded-md text-[0.7rem] text-neutral-400 hover:text-[#374151] hover:bg-[#efede9] transition-colors"><i class="fas fa-envelope text-[0.55rem]"></i> support@elattire.com</a>
+        </div>
+        <div class="flex items-center gap-2 mt-2.5 px-1.5 py-1.5 rounded-lg hover:bg-[#f3f1ed] transition-colors cursor-pointer">
+          <div class="w-6 h-6 rounded-full bg-stone-200 flex items-center justify-center font-medium text-[0.55rem] text-[#374151] flex-shrink-0">OA</div>
+          <div class="min-w-0 flex-1"><p class="text-[0.68rem] font-medium text-[#374151] truncate">Oluwaseun A.</p></div>
+          <i class="fas fa-sign-out-alt text-[0.55rem] text-neutral-400 hover:text-red-400 transition-colors flex-shrink-0"></i>
+        </div>
+      </div>
+    </aside>
+
+    <main class="flex-1 p-4 md:p-5 lg:ml-[210px]">
+      <!-- Step Indicator -->
+      <div class="flex items-center gap-2 max-w-sm mb-5">
+        <div class="step-dot active" id="stepDot1">1</div><div class="step-line" id="stepLine1"></div>
+        <div class="step-dot" id="stepDot2">2</div><div class="step-line" id="stepLine2"></div>
+        <div class="step-dot" id="stepDot3">3</div>
+      </div>
+
+      <!-- STEP 1 -->
+      <div id="step1Content">
+        <div class="grid lg:grid-cols-3 gap-5">
+          <div class="lg:col-span-2">
+            <div class="grid md:grid-cols-2 gap-5">
+              <div>
+                <span class="text-[0.7rem] font-medium text-neutral-400 uppercase tracking-wider">Select Date</span>
+                <div class="flex items-center justify-between mt-2 mb-3">
+                  <button id="prevMonth" class="p-1.5 rounded-md hover:bg-gray-100 transition-colors"><i class="fas fa-chevron-left text-xs"></i></button>
+                  <span class="text-sm font-medium" id="monthYearDisplay">July 2026</span>
+                  <button id="nextMonth" class="p-1.5 rounded-md hover:bg-gray-100 transition-colors"><i class="fas fa-chevron-right text-xs"></i></button>
+                </div>
+                <div class="calendar-grid" id="calendarGrid"></div>
+              </div>
+              <div>
+                <span class="text-[0.7rem] font-medium text-neutral-400 uppercase tracking-wider">Select Time</span>
+                <p class="text-[0.7rem] text-neutral-400 mt-2 mb-3" id="selectedDateDisplay">Pick a date first</p>
+                <div class="grid grid-cols-3 gap-2" id="timeSlots"></div>
+              </div>
+            </div>
+            <div class="mt-4 flex justify-end">
+              <button class="btn-primary px-8 py-2 text-[0.72rem] disabled:opacity-40" id="toStep2" disabled>Continue →</button>
+            </div>
+          </div>
+
+          <!-- Mannequin -->
+          <div class="glass-panel p-4 flex flex-col items-center">
+            <span class="text-[0.65rem] font-medium text-neutral-400 uppercase tracking-wider mb-3">Fit Preview</span>
+            <div class="mannequin-wrapper" id="mannequinContainer">
+              <div class="mannequin-inner" id="mannequinInner">
+                <div class="mannequin-face mannequin-front">
+                  <svg viewBox="0 0 350 900" width="200" height="520" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="175" cy="85" r="42" fill="#f9fafb" stroke="none"/><path d="M162 128 L162 152 L188 152 L188 128 Z" fill="#f9fafb" stroke="none"/><path d="M112 162 Q122 210 127 270 Q130 340 142 420 Q152 490 157 590 L193 590 Q198 490 208 420 Q220 340 223 270 Q228 210 238 162 Z" fill="#f9fafb" stroke="none"/><path d="M112 167 Q72 240 77 350 Q80 460 92 590 L102 590 L102 167 Z" fill="#f9fafb" stroke="none"/><path d="M238 167 Q278 240 273 350 Q270 460 258 590 L248 590 L248 167 Z" fill="#f9fafb" stroke="none"/><path d="M157 590 Q147 680 147 810 L167 810 L167 590 Z" fill="#f9fafb" stroke="none"/><path d="M193 590 Q203 680 203 810 L183 810 L183 590 Z" fill="#f9fafb" stroke="none"/><ellipse cx="157" cy="825" rx="14" ry="7" fill="#f9fafb" stroke="none"/><ellipse cx="203" cy="825" rx="14" ry="7" fill="#f9fafb" stroke="none"/>
+                    <circle cx="175" cy="85" r="42" class="body-outline"/><line x1="162" y1="128" x2="162" y2="152" class="body-outline"/><line x1="188" y1="128" x2="188" y2="152" class="body-outline"/><line x1="112" y1="162" x2="238" y2="162" class="body-outline"/><path d="M112 162 Q122 210 127 270 Q130 340 142 420 Q152 490 157 590 L193 590 Q198 490 208 420 Q220 340 223 270 Q228 210 238 162" class="body-outline"/><path d="M112 167 Q72 240 77 350 Q80 460 92 590" class="body-outline"/><path d="M238 167 Q278 240 273 350 Q270 460 258 590" class="body-outline"/><path d="M157 590 Q147 680 147 810" class="body-outline"/><path d="M193 590 Q203 680 203 810" class="body-outline"/><ellipse cx="157" cy="825" rx="14" ry="7" class="body-outline"/><ellipse cx="203" cy="825" rx="14" ry="7" class="body-outline"/>
+                    <line x1="102" y1="242" x2="248" y2="242" class="measure-line" data-measure="chest"/><circle cx="102" cy="242" class="measure-dot"/><circle cx="248" cy="242" class="measure-dot"/><text x="256" y="246" font-size="8" fill="#374151" font-weight="600">CHEST</text>
+                    <line x1="107" y1="340" x2="243" y2="340" class="measure-line" data-measure="waist"/><circle cx="107" cy="340" class="measure-dot"/><circle cx="243" cy="340" class="measure-dot"/><text x="251" y="344" font-size="8" fill="#374151" font-weight="600">WAIST</text>
+                    <line x1="175" y1="590" x2="175" y2="810" class="measure-line" data-measure="inseam"/><circle cx="175" cy="590" class="measure-dot"/><circle cx="175" cy="810" class="measure-dot"/><text x="182" y="710" font-size="8" fill="#374151" font-weight="600">INSEAM</text>
+                  </svg>
+                </div>
+                <div class="mannequin-face mannequin-back">
+                  <svg viewBox="0 0 350 900" width="200" height="520" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="175" cy="85" r="42" fill="#f9fafb" stroke="none"/><path d="M162 128 L162 152 L188 152 L188 128 Z" fill="#f9fafb" stroke="none"/><path d="M112 162 Q122 210 132 310 Q142 410 152 590 L198 590 Q208 410 218 310 Q228 210 238 162 Z" fill="#f9fafb" stroke="none"/><path d="M112 167 Q72 240 82 590 L102 590 L102 167 Z" fill="#f9fafb" stroke="none"/><path d="M238 167 Q278 240 268 590 L248 590 L248 167 Z" fill="#f9fafb" stroke="none"/><path d="M152 590 Q147 680 147 810 L167 810 L167 590 Z" fill="#f9fafb" stroke="none"/><path d="M198 590 Q203 680 203 810 L183 810 L183 590 Z" fill="#f9fafb" stroke="none"/><ellipse cx="157" cy="825" rx="14" ry="7" fill="#f9fafb" stroke="none"/><ellipse cx="203" cy="825" rx="14" ry="7" fill="#f9fafb" stroke="none"/>
+                    <circle cx="175" cy="85" r="42" class="body-outline"/><line x1="162" y1="128" x2="162" y2="152" class="body-outline"/><line x1="188" y1="128" x2="188" y2="152" class="body-outline"/><line x1="112" y1="162" x2="238" y2="162" class="body-outline"/><path d="M112 162 Q122 210 132 310 Q142 410 152 590 L198 590 Q208 410 218 310 Q228 210 238 162" class="body-outline"/><path d="M112 167 Q72 240 82 590" class="body-outline"/><path d="M238 167 Q278 240 268 590" class="body-outline"/><path d="M152 590 Q147 680 147 810" class="body-outline"/><path d="M198 590 Q203 680 203 810" class="body-outline"/><ellipse cx="157" cy="825" rx="14" ry="7" class="body-outline"/><ellipse cx="203" cy="825" rx="14" ry="7" class="body-outline"/>
+                    <line x1="117" y1="215" x2="233" y2="215" class="measure-line" data-measure="back"/><circle cx="117" cy="215" class="measure-dot"/><circle cx="233" cy="215" class="measure-dot"/><text x="241" y="219" font-size="8" fill="#374151" font-weight="600">BACK</text>
+                    <line x1="175" y1="145" x2="175" y2="590" class="measure-line" data-measure="center"/><circle cx="175" cy="145" class="measure-dot"/><circle cx="175" cy="590" class="measure-dot"/><text x="182" y="370" font-size="8" fill="#374151" font-weight="600">CENTER</text>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 mt-3">
+              <span class="text-[0.6rem] font-medium text-neutral-400">Front</span>
+              <input type="range" class="rotation-slider" id="rotationSlider" min="0" max="180" value="0" step="1">
+              <span class="text-[0.6rem] font-medium text-neutral-400">Back</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div id="step2Content" class="hidden">
+        <div class="grid md:grid-cols-2 gap-5 max-w-3xl">
+          <div class="space-y-3">
+            <span class="text-[0.7rem] font-medium text-neutral-400 uppercase tracking-wider">Your Info</span>
+            <div><label class="text-[0.62rem] text-neutral-400">Full Name</label><input type="text" value="Oluwaseun Adebayo" class="input-lux mt-0.5"></div>
+            <div><label class="text-[0.62rem] text-neutral-400">Email</label><input type="email" value="customer@email.com" class="input-lux mt-0.5"></div>
+            <div><label class="text-[0.62rem] text-neutral-400">Phone</label><input type="tel" value="+234 812 345 6789" class="input-lux mt-0.5"></div>
+          </div>
+          <div class="space-y-3">
+            <span class="text-[0.7rem] font-medium text-neutral-400 uppercase tracking-wider">Fitting Details</span>
+            <div><label class="text-[0.62rem] text-neutral-400">Location</label><select class="input-lux mt-0.5" id="fittingLocation"><option>Lagos Studio</option><option>Abuja Studio</option><option>Virtual (Zoom)</option><option>Home Visit (+$50)</option></select></div>
+            <div><label class="text-[0.62rem] text-neutral-400">Garment Type</label><select class="input-lux mt-0.5" id="fittingGarment"><option>Kaftan</option><option>Agbada Set</option><option>Senator Style</option><option>Multiple Pieces</option></select></div>
+            <div><label class="text-[0.62rem] text-neutral-400">Project Ref</label><input type="text" class="input-lux mt-0.5" placeholder="TAIL-2026-001 (optional)"></div>
+            <div><label class="text-[0.62rem] text-neutral-400">Notes</label><textarea class="input-lux mt-0.5" rows="2" placeholder="Any specific requests..."></textarea></div>
+          </div>
+        </div>
+        <div class="mt-5 flex justify-between max-w-3xl">
+          <button class="btn-outline px-6 py-2 text-[0.72rem]" id="backToStep1">← Back</button>
+          <button class="btn-primary px-6 py-2 text-[0.72rem]" id="toStep3">Review →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div id="step3Content" class="hidden">
+        <span class="text-[0.7rem] font-medium text-neutral-400 uppercase tracking-wider">Review</span>
+        <div class="glass-panel p-4 max-w-lg mt-2 space-y-2 text-[0.8rem]">
+          <div class="flex justify-between py-2 border-b border-gray-50"><span class="text-neutral-400">Date</span><span class="font-medium" id="reviewDate">—</span></div>
+          <div class="flex justify-between py-2 border-b border-gray-50"><span class="text-neutral-400">Time</span><span class="font-medium" id="reviewTime">—</span></div>
+          <div class="flex justify-between py-2 border-b border-gray-50"><span class="text-neutral-400">Location</span><span class="font-medium" id="reviewLocation">—</span></div>
+          <div class="flex justify-between py-2 border-b border-gray-50"><span class="text-neutral-400">Garment</span><span class="font-medium" id="reviewGarment">—</span></div>
+          <div class="flex justify-between py-2"><span class="text-neutral-400">Duration</span><span class="font-medium">45 min</span></div>
+        </div>
+        <div class="mt-5 flex justify-between max-w-lg">
+          <button class="btn-outline px-6 py-2 text-[0.72rem]" id="backToStep2">← Back</button>
+          <button class="btn-primary px-6 py-2 text-[0.72rem]" id="confirmBooking">Confirm Booking</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div class="fixed inset-0 bg-black/40 backdrop-blur-sm z-100 flex items-center justify-center opacity-0 pointer-events-none transition-opacity" id="confirmModal">
+    <div class="bg-white p-6 rounded-xl max-w-sm w-[90%] text-center shadow-2xl">
+      <div class="w-14 h-14 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-3">
+        <i class="fas fa-check text-emerald-600 text-xl"></i>
+      </div>
+      <h3 class="text-lg font-medium text-[#374151] mb-1">Fitting Confirmed!</h3>
+      <p class="text-[0.78rem] text-neutral-400 mb-1" id="modalDetails"></p>
+      <p class="text-[0.65rem] text-neutral-400 mb-4">Confirmation sent to your email & phone.</p>
+      <div class="flex gap-2">
+        <button class="btn-outline flex-1 py-2 text-[0.7rem]" onclick="closeConfirmModal()">Close</button>
+        <button class="btn-primary flex-1 py-2 text-[0.7rem]" onclick="closeConfirmModal();window.location.href='tailoring.html'">
+          <i class="fas fa-arrow-left mr-1 text-[0.55rem]"></i> Tailoring
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function() {
+      let step = 1, selectedDate = null, selectedTime = null;
+      const today = new Date();
+      let calMonth = today.getMonth(), calYear = today.getFullYear();
+
+      const bookedSlots = { '2026-07-04': ['10:00 AM','2:00 PM'], '2026-07-10': ['1:00 PM','4:00 PM'] };
+      const unavailableDates = ['2026-07-06','2026-07-07'];
+
+      // Mannequin rotation
+      const inner = document.getElementById('mannequinInner');
+      const slider = document.getElementById('rotationSlider');
+      function rotateMannequin(deg) {
+        if (inner) inner.style.transform = `rotateY(${deg}deg)`;
+        if (slider) { slider.value = Math.round(deg); slider.style.background = `linear-gradient(to right, #374151 0%, #374151 ${(deg/180)*100}%, #e5e7eb ${(deg/180)*100}%, #e5e7eb 100%)`; }
+      }
+      slider?.addEventListener('input', () => rotateMannequin(parseInt(slider.value)));
+      rotateMannequin(0);
+
+      // Calendar
+      function renderCalendar() {
+        const firstDay = new Date(calYear, calMonth, 1).getDay();
+        const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+        document.getElementById('monthYearDisplay').textContent = `${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][calMonth]} ${calYear}`;
+        
+        let html = ['Su','Mo','Tu','We','Th','Fr','Sa'].map(d => `<div class="calendar-day-header">${d}</div>`).join('');
+        for (let i = 0; i < firstDay; i++) html += '<div class="calendar-day empty"></div>';
+        
+        const todayStr = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+        for (let d = 1; d <= daysInMonth; d++) {
+          const ds = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+          const dateObj = new Date(calYear, calMonth, d);
+          const isPast = dateObj < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+          const isUnavailable = unavailableDates.includes(ds);
+          let cls = 'calendar-day';
+          if (isPast || isUnavailable) cls += isPast ? ' past' : ' unavailable';
+          if (ds === todayStr) cls += ' today';
+          if (ds === selectedDate) cls += ' selected';
+          html += `<div class="${cls}" data-date="${ds}">${d}</div>`;
+        }
+        document.getElementById('calendarGrid').innerHTML = html;
+
+        document.querySelectorAll('.calendar-day:not(.empty):not(.past):not(.unavailable)').forEach(day => {
+          day.addEventListener('click', function() {
+            selectedDate = this.dataset.date;
+            selectedTime = null;
+            document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
+            this.classList.add('selected');
+            const d = new Date(selectedDate + 'T00:00');
+            document.getElementById('selectedDateDisplay').textContent = d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+            renderTimeSlots();
+            updateContinueBtn();
+          });
+        });
+      }
+
+      function renderTimeSlots() {
+        const slots = ['9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM'];
+        const booked = bookedSlots[selectedDate] || [];
+        const container = document.getElementById('timeSlots');
+        if (!selectedDate) { container.innerHTML = slots.map(s => `<div class="time-slot booked">${s}</div>`).join(''); return; }
+        container.innerHTML = slots.map(s => {
+          const isBooked = booked.includes(s), isSel = selectedTime === s;
+          return `<div class="time-slot ${isBooked?'booked':''} ${isSel?'selected-slot':''}" data-time="${s}">${s}</div>`;
+        }).join('');
+        container.querySelectorAll('.time-slot:not(.booked)').forEach(slot => {
+          slot.addEventListener('click', function() {
+            selectedTime = this.dataset.time;
+            container.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected-slot'));
+            this.classList.add('selected-slot');
+            updateContinueBtn();
+          });
+        });
+      }
+
+      function updateContinueBtn() {
+        const btn = document.getElementById('toStep2');
+        if (btn) btn.disabled = !(selectedDate && selectedTime);
+      }
+
+      document.getElementById('prevMonth').addEventListener('click',()=>{calMonth--;if(calMonth<0){calMonth=11;calYear--;}selectedDate=null;selectedTime=null;renderCalendar();renderTimeSlots();updateContinueBtn();});
+      document.getElementById('nextMonth').addEventListener('click',()=>{calMonth++;if(calMonth>11){calMonth=0;calYear++;}selectedDate=null;selectedTime=null;renderCalendar();renderTimeSlots();updateContinueBtn();});
+
+      // Steps
+      function showStep(s) {
+        step = s;
+        document.getElementById('step1Content').classList.toggle('hidden', s!==1);
+        document.getElementById('step2Content').classList.toggle('hidden', s!==2);
+        document.getElementById('step3Content').classList.toggle('hidden', s!==3);
+        ['stepDot1','stepDot2','stepDot3'].forEach((id,i)=>{
+          const el=document.getElementById(id);
+          el.classList.remove('active','done');
+          if(i+1<s)el.classList.add('done');
+          if(i+1===s)el.classList.add('active');
+        });
+        document.getElementById('stepLine1').classList.toggle('done',s>1);
+        document.getElementById('stepLine2').classList.toggle('done',s>2);
+        if(s===3){
+          document.getElementById('reviewDate').textContent=selectedDate?new Date(selectedDate+'T00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'}):'—';
+          document.getElementById('reviewTime').textContent=selectedTime||'—';
+          document.getElementById('reviewLocation').textContent=document.getElementById('fittingLocation')?.options[document.getElementById('fittingLocation').selectedIndex]?.text||'—';
+          document.getElementById('reviewGarment').textContent=document.getElementById('fittingGarment')?.options[document.getElementById('fittingGarment').selectedIndex]?.text||'—';
+        }
+      }
+
+      document.getElementById('toStep2').addEventListener('click',()=>showStep(2));
+      document.getElementById('backToStep1').addEventListener('click',()=>showStep(1));
+      document.getElementById('toStep3').addEventListener('click',()=>showStep(3));
+      document.getElementById('backToStep2').addEventListener('click',()=>showStep(2));
+      document.getElementById('confirmBooking').addEventListener('click',()=>{
+        document.getElementById('modalDetails').textContent=`${selectedDate?new Date(selectedDate+'T00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'}):''} at ${selectedTime||''}`;
+        document.getElementById('confirmModal').classList.add('opacity-100');
+        document.getElementById('confirmModal').classList.remove('pointer-events-none');
+      });
+
+      window.closeConfirmModal = function() {
+        document.getElementById('confirmModal').classList.remove('opacity-100');
+        document.getElementById('confirmModal').classList.add('pointer-events-none');
+      };
+
+      renderCalendar();
+      renderTimeSlots();
+      updateContinueBtn();
+    })();
+  </script>
+</body>
+</html>

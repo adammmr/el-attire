@@ -1,0 +1,1051 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=yes"
+        />
+        <title>EL-ATTIRE | Book Professional Fitting</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --text-primary: #374151;
+                --text-secondary: #9ca3af;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family:
+                    "Inter",
+                    system-ui,
+                    -apple-system,
+                    sans-serif;
+                background: #ffffff;
+                color: var(--text-primary);
+                letter-spacing: -0.01em;
+                overflow-x: hidden;
+                min-height: 100vh;
+                font-size: 0.85rem;
+                font-weight: 400;
+                line-height: 1.5;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            ::-webkit-scrollbar {
+                width: 4px;
+                height: 4px;
+            }
+            ::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: #d1d5db;
+                border-radius: 10px;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: #9ca3af;
+            }
+
+            .section-title {
+                font-family: "Playfair Display", serif;
+                letter-spacing: 0.03em;
+            }
+
+            .glass-panel {
+                background: rgba(255, 255, 255, 0.92);
+                backdrop-filter: blur(20px);
+                border: 1px solid rgba(0, 0, 0, 0.06);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+                border-radius: 10px;
+            }
+
+            .btn-primary {
+                background: var(--text-primary);
+                color: white;
+                border: none;
+                transition: all 0.15s ease;
+                cursor: pointer;
+                font-weight: 500;
+                letter-spacing: 0.03em;
+                border-radius: 7px;
+                font-size: 0.78rem;
+                padding: 11px 22px;
+                text-decoration: none;
+                display: inline-block;
+            }
+            .btn-primary:hover {
+                background: #4b5563;
+                transform: translateY(-1px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            }
+            .btn-primary:disabled {
+                opacity: 0.35;
+                cursor: not-allowed;
+                transform: none;
+                box-shadow: none;
+            }
+
+            .btn-outline {
+                background: transparent;
+                color: var(--text-primary);
+                border: 1px solid #e5e7eb;
+                transition: all 0.15s ease;
+                cursor: pointer;
+                font-weight: 500;
+                letter-spacing: 0.03em;
+                border-radius: 7px;
+                font-size: 0.78rem;
+                padding: 11px 22px;
+                text-decoration: none;
+                display: inline-block;
+            }
+            .btn-outline:hover {
+                background: #f9fafb;
+                border-color: #d1d5db;
+                transform: translateY(-1px);
+            }
+
+            .link-underline {
+                position: relative;
+                display: inline-block;
+                padding-bottom: 2px;
+                text-decoration: none;
+                color: var(--text-primary);
+            }
+            .link-underline::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 0%;
+                height: 1.5px;
+                background: var(--text-primary);
+                transition: width 0.3s ease;
+            }
+            .link-underline:hover::after {
+                width: 100%;
+            }
+
+            .input-lux {
+                width: 100%;
+                padding: 0.5rem 0.75rem;
+                border: 1px solid #e5e7eb;
+                background: #fafafa;
+                transition: all 0.15s ease;
+                font-family: inherit;
+                font-size: 0.8rem;
+                border-radius: 7px;
+                color: var(--text-primary);
+            }
+            .input-lux:focus {
+                border-color: #6b7280;
+                background: white;
+                outline: none;
+                box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.1);
+            }
+
+            .calendar-grid {
+                display: grid;
+                grid-template-columns: repeat(7, 1fr);
+                gap: 3px;
+                text-align: center;
+            }
+            .calendar-day-header {
+                font-size: 0.58rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                color: #9ca3af;
+                padding: 6px 0;
+            }
+            .calendar-day {
+                aspect-ratio: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.75rem;
+                cursor: pointer;
+                border-radius: 8px;
+                transition: all 0.15s;
+                font-weight: 500;
+            }
+            .calendar-day:hover {
+                background: #f3f4f6;
+            }
+            .calendar-day.empty {
+                cursor: default;
+            }
+            .calendar-day.today {
+                font-weight: 700;
+                border: 2px solid #374151;
+            }
+            .calendar-day.selected {
+                background: #374151;
+                color: white;
+                font-weight: 600;
+            }
+            .calendar-day.unavailable {
+                color: #d1d5db;
+                cursor: not-allowed;
+                pointer-events: none;
+            }
+            .calendar-day.past {
+                color: #e5e7eb;
+                cursor: not-allowed;
+                pointer-events: none;
+            }
+
+            .time-slot {
+                padding: 8px 12px;
+                border: 1px solid #e5e7eb;
+                text-align: center;
+                font-size: 0.72rem;
+                cursor: pointer;
+                transition: all 0.15s;
+                font-weight: 500;
+                background: white;
+                border-radius: 7px;
+                color: #374151;
+            }
+            .time-slot:hover {
+                border-color: #9ca3af;
+                background: #f9fafb;
+            }
+            .time-slot.selected-slot {
+                background: #374151;
+                color: white;
+                border-color: #374151;
+            }
+            .time-slot.booked {
+                background: #f9fafb;
+                color: #d1d5db;
+                cursor: not-allowed;
+                text-decoration: line-through;
+                pointer-events: none;
+            }
+
+            .step-dot {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.7rem;
+                font-weight: 600;
+                border: 2px solid #e5e7eb;
+                background: white;
+                transition: all 0.3s;
+                flex-shrink: 0;
+            }
+            .step-dot.active-step {
+                background: #374151;
+                color: white;
+                border-color: #374151;
+            }
+            .step-dot.completed {
+                background: #374151;
+                color: white;
+                border-color: #374151;
+            }
+            .step-line {
+                flex: 1;
+                height: 2px;
+                background: #e5e7eb;
+                transition: all 0.3s;
+            }
+            .step-line.completed {
+                background: #374151;
+            }
+
+            .modal-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 200;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s;
+                backdrop-filter: blur(4px);
+            }
+            .modal-overlay.open {
+                opacity: 1;
+                pointer-events: all;
+            }
+            .modal-content {
+                background: white;
+                padding: 40px;
+                max-width: 440px;
+                width: 90%;
+                text-align: center;
+                border-radius: 14px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            }
+
+            .toggle-btn {
+                padding: 7px 18px;
+                border: 1px solid #e5e7eb;
+                background: white;
+                cursor: pointer;
+                font-size: 0.7rem;
+                font-weight: 500;
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+                transition: all 0.15s;
+                border-radius: 6px;
+                color: #9ca3af;
+                font-family: inherit;
+            }
+            .toggle-btn:hover {
+                border-color: #d1d5db;
+                color: #374151;
+            }
+            .toggle-btn.active-toggle {
+                background: #374151;
+                color: white;
+                border-color: #374151;
+            }
+
+            .nav-logo {
+                height: 34px;
+                width: auto;
+            }
+            .footer-logo {
+                height: 50px;
+                width: auto;
+            }
+
+            .support-btn {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                padding: 6px 12px;
+                border-radius: 7px;
+                cursor: pointer;
+                transition: all 0.15s ease;
+                border: 1px solid #e5e7eb;
+                background: transparent;
+                color: #9ca3af;
+                font-family: inherit;
+                font-size: 0.7rem;
+                font-weight: 500;
+            }
+            .support-btn:hover {
+                border-color: #d1d5db;
+                color: #374151;
+                background: #f9fafb;
+            }
+            .support-btn .live-dot {
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                background: #10b981;
+                animation: pulse-dot 2s ease-in-out infinite;
+            }
+            @keyframes pulse-dot {
+                0%,
+                100% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.4);
+                }
+            }
+
+            .toast {
+                position: fixed;
+                bottom: 24px;
+                right: 24px;
+                background: #374151;
+                color: white;
+                padding: 10px 18px;
+                border-radius: 8px;
+                font-size: 0.78rem;
+                font-weight: 500;
+                z-index: 300;
+                opacity: 0;
+                transform: translateY(10px);
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+                pointer-events: none;
+            }
+            .toast.show {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            .toast.success {
+                background: #059669;
+            }
+        </style>
+    </head>
+    <body class="antialiased bg-white">
+        <!-- Confirmation Modal -->
+        <div class="modal-overlay" id="confirmationModal">
+            <div class="modal-content">
+                <div class="w-14 h-14 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-check text-emerald-600 text-xl"></i>
+                </div>
+                <h2 class="text-xl font-medium text-[#374151] mb-2">Fitting Confirmed!</h2>
+                <p class="text-[0.8rem] text-neutral-400 mb-1" id="modalDetails"></p>
+                <p class="text-[0.7rem] text-neutral-400 mb-5">Confirmation sent to your email & phone.</p>
+                <button
+                    class="btn-primary px-6 py-2.5 text-[0.72rem]"
+                    onclick="document.getElementById('confirmationModal').classList.remove('open')"
+                >
+                    Close
+                </button>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <header
+            class="sticky top-0 z-50 glass-panel border-b border-gray-100 px-5 py-2.5 flex items-center justify-between"
+        >
+            <a href="index.html" class="flex items-center gap-3 no-underline">
+                <img
+                    src="photos/logo_only_bk.png"
+                    alt="EL-ATTIRE"
+                    class="nav-logo"
+                    onerror="this.style.display='none'"
+                />
+                <span class="text-lg font-semibold tracking-[0.1em] text-[#374151]"
+                    >EL-<span class="font-normal text-neutral-400 text-sm">ATTIRE</span></span
+                >
+            </a>
+            <nav class="hidden lg:flex items-center gap-6 text-[0.72rem] uppercase tracking-[0.08em] font-medium">
+                <a href="index.html" class="link-underline">Home</a>
+                <a href="collection.html" class="link-underline">Shop</a>
+                <a href="fabrics.html" class="link-underline">Fabrics</a>
+                <a href="tailoring-page.html" class="link-underline font-semibold border-b-2 border-[#374151] pb-1"
+                    >Tailoring</a
+                >
+                <a href="about.html" class="link-underline">About</a>
+            </nav>
+            <div class="flex items-center gap-3">
+                <button class="support-btn" id="supportHeaderToggle" title="Chat with support">
+                    <i class="fas fa-headset text-[0.6rem]"></i> Support
+                    <span class="live-dot"></span>
+                </button>
+                <div class="flex items-center gap-2">
+                    <div
+                        class="w-7 h-7 rounded-full bg-stone-100 flex items-center justify-center font-medium text-[0.65rem] text-[#374151] ring-2 ring-white shadow-sm"
+                    >
+                        OA
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-6xl mx-auto px-4 md:px-6 py-6">
+            <div class="mb-6">
+                <span class="text-[0.65rem] uppercase tracking-[0.15em] text-neutral-400">Tailoring</span>
+                <h1 class="text-2xl font-medium text-[#374151] mt-1 mb-2">Book a Professional Fitting</h1>
+                <p class="text-[0.8rem] text-neutral-400 max-w-xl">
+                    Schedule a private consultation with our master tailors. Available in Lagos, Abuja, and virtually.
+                </p>
+            </div>
+
+            <!-- Progress Steps -->
+            <div class="flex items-center gap-2 max-w-sm mb-6">
+                <div class="step-dot active-step" id="stepDot1">1</div>
+                <div class="step-line" id="stepLine1"></div>
+                <div class="step-dot" id="stepDot2">2</div>
+                <div class="step-line" id="stepLine2"></div>
+                <div class="step-dot" id="stepDot3">3</div>
+            </div>
+
+            <!-- STEP 1 -->
+            <div id="step1Content">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h2 class="text-[0.75rem] font-medium uppercase tracking-wider text-neutral-400 mb-3">
+                            Select Date
+                        </h2>
+                        <div class="flex items-center justify-between mb-3">
+                            <button id="prevMonth" class="p-1.5 rounded-md hover:bg-gray-100 transition-colors">
+                                <i class="fas fa-chevron-left text-xs"></i>
+                            </button>
+                            <span class="text-sm font-medium" id="monthYearDisplay">July 2026</span>
+                            <button id="nextMonth" class="p-1.5 rounded-md hover:bg-gray-100 transition-colors">
+                                <i class="fas fa-chevron-right text-xs"></i>
+                            </button>
+                        </div>
+                        <div class="calendar-grid" id="calendarGrid"></div>
+                        <div class="flex gap-4 mt-3 text-[0.62rem] text-neutral-400">
+                            <span class="flex items-center gap-1"
+                                ><span class="w-2.5 h-2.5 rounded-full border-2 border-[#374151] inline-block"></span>
+                                Available</span
+                            >
+                            <span class="flex items-center gap-1"
+                                ><span class="w-2.5 h-2.5 rounded-full bg-gray-200 inline-block"></span>
+                                Unavailable</span
+                            >
+                        </div>
+                    </div>
+                    <div>
+                        <h2 class="text-[0.75rem] font-medium uppercase tracking-wider text-neutral-400 mb-3">
+                            Select Time
+                        </h2>
+                        <p class="text-[0.72rem] text-neutral-400 mb-3" id="selectedDateDisplay">
+                            Please select a date first
+                        </p>
+                        <div class="grid grid-cols-3 gap-2" id="timeSlots"></div>
+                    </div>
+                </div>
+                <div class="mt-5 flex justify-end">
+                    <button class="btn-primary px-6 py-2.5 text-[0.72rem] disabled:opacity-35" id="toStep2" disabled>
+                        Continue →
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 2 -->
+            <div id="step2Content" class="hidden">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h2 class="text-[0.75rem] font-medium uppercase tracking-wider text-neutral-400 mb-3">
+                            Your Information
+                        </h2>
+                        <div class="flex gap-2 mb-4">
+                            <button class="toggle-btn active-toggle" id="registeredToggle">Registered</button>
+                            <button class="toggle-btn" id="guestToggle">Guest</button>
+                        </div>
+                        <div id="registeredFields" class="space-y-3">
+                            <div>
+                                <label class="text-[0.62rem] text-neutral-400 block mb-0.5">Phone (Username)</label>
+                                <div class="flex gap-2">
+                                    <select class="input-lux w-20 text-[0.7rem]">
+                                        <option>+234</option></select
+                                    ><input type="tel" placeholder="812 345 6789" class="input-lux flex-1" />
+                                </div>
+                            </div>
+                            <button
+                                class="text-[0.65rem] text-neutral-400 hover:text-[#374151] transition-colors underline bg-transparent border-none cursor-pointer font-inherit"
+                            >
+                                Look up my profile
+                            </button>
+                        </div>
+                        <div id="guestFields" class="hidden space-y-3">
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="text-[0.62rem] text-neutral-400 block mb-0.5">First Name</label
+                                    ><input type="text" class="input-lux" />
+                                </div>
+                                <div>
+                                    <label class="text-[0.62rem] text-neutral-400 block mb-0.5">Last Name</label
+                                    ><input type="text" class="input-lux" />
+                                </div>
+                            </div>
+                            <div>
+                                <label class="text-[0.62rem] text-neutral-400 block mb-0.5">Email</label
+                                ><input type="email" class="input-lux" />
+                            </div>
+                            <div>
+                                <label class="text-[0.62rem] text-neutral-400 block mb-0.5">Phone</label>
+                                <div class="flex gap-2">
+                                    <select class="input-lux w-20 text-[0.7rem]">
+                                        <option>+234</option></select
+                                    ><input type="tel" class="input-lux flex-1" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h2 class="text-[0.75rem] font-medium uppercase tracking-wider text-neutral-400 mb-3">
+                            Fitting Preferences
+                        </h2>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="text-[0.62rem] text-neutral-400 block mb-0.5">Location</label
+                                ><select class="input-lux">
+                                    <option>Lagos Studio</option>
+                                    <option>Abuja Studio</option>
+                                    <option>Virtual (Zoom)</option>
+                                    <option>Home Visit (+₦50,000)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-[0.62rem] text-neutral-400 block mb-0.5">Garment Type</label
+                                ><select class="input-lux">
+                                    <option>Kaftan</option>
+                                    <option>Agbada Set</option>
+                                    <option>Senator Style</option>
+                                    <option>Multiple Pieces</option>
+                                    <option>Not Sure Yet</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-[0.62rem] text-neutral-400 block mb-0.5">Occasion</label
+                                ><select class="input-lux">
+                                    <option>Wedding</option>
+                                    <option>Corporate</option>
+                                    <option>Casual</option>
+                                    <option>Religious</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-[0.62rem] text-neutral-400 block mb-0.5">Special Requests</label
+                                ><textarea rows="3" class="input-lux" placeholder="Any specific details..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5 flex justify-between">
+                    <button class="btn-outline px-5 py-2.5 text-[0.72rem]" id="backToStep1">← Back</button>
+                    <button class="btn-primary px-5 py-2.5 text-[0.72rem]" id="toStep3">Review →</button>
+                </div>
+            </div>
+
+            <!-- STEP 3 -->
+            <div id="step3Content" class="hidden">
+                <h2 class="text-[0.75rem] font-medium uppercase tracking-wider text-neutral-400 mb-3">
+                    Review Your Appointment
+                </h2>
+                <div class="glass-panel p-5 max-w-lg">
+                    <div class="space-y-2 text-[0.78rem]">
+                        <div class="flex justify-between py-2 border-b border-gray-50">
+                            <span class="text-neutral-400">Date</span><span class="font-medium" id="reviewDate">—</span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b border-gray-50">
+                            <span class="text-neutral-400">Time</span><span class="font-medium" id="reviewTime">—</span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b border-gray-50">
+                            <span class="text-neutral-400">Location</span
+                            ><span class="font-medium" id="reviewLocation">—</span>
+                        </div>
+                        <div class="flex justify-between py-2 border-b border-gray-50">
+                            <span class="text-neutral-400">Garment</span
+                            ><span class="font-medium" id="reviewGarment">—</span>
+                        </div>
+                        <div class="flex justify-between py-2">
+                            <span class="text-neutral-400">Duration</span><span class="font-medium">45 minutes</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-3 bg-gray-50 rounded-lg text-[0.65rem] text-neutral-400">
+                        <i class="fas fa-info-circle mr-1"></i> You'll receive a confirmation email and SMS reminder 24
+                        hours before.
+                    </div>
+                </div>
+                <div class="mt-5 flex justify-between max-w-lg">
+                    <button class="btn-outline px-5 py-2.5 text-[0.72rem]" id="backToStep2">← Back</button>
+                    <button class="btn-primary px-5 py-2.5 text-[0.72rem]" id="confirmBooking">Confirm Booking</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-[#0a0a0a] text-neutral-400 mt-12">
+            <div class="max-w-7xl mx-auto px-6 py-10">
+                <div class="grid md:grid-cols-4 gap-8 mb-8">
+                    <div>
+                        <img
+                            src="photos/logo_only.png"
+                            alt="EL-ATTIRE"
+                            class="footer-logo mb-4"
+                            onerror="this.style.display='none'"
+                        />
+                        <p class="text-xs text-neutral-500 leading-relaxed">Bespoke Nigerian tailoring since 2010.</p>
+                    </div>
+                    <div>
+                        <p class="text-white uppercase tracking-wider mb-3 text-[0.65rem] font-semibold">Collections</p>
+                        <a href="#" class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
+                            >Kaftans</a
+                        ><a href="#" class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
+                            >Agbada</a
+                        >
+                    </div>
+                    <div>
+                        <p class="text-white uppercase tracking-wider mb-3 text-[0.65rem] font-semibold">Services</p>
+                        <a
+                            href="tailoring-page.html"
+                            class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
+                            >Tailoring</a
+                        ><a
+                            href="fabrics.html"
+                            class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
+                            >Fabrics</a
+                        >
+                    </div>
+                    <div>
+                        <p class="text-white uppercase tracking-wider mb-3 text-[0.65rem] font-semibold">Support</p>
+                        <a href="#" class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
+                            >FAQ</a
+                        ><a href="#" class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
+                            >Contact</a
+                        >
+                    </div>
+                </div>
+                <div class="border-t border-neutral-800 pt-6 text-center text-[0.65rem] text-neutral-600">
+                    © 2026 EL-ATTIRE. All rights reserved.
+                </div>
+            </div>
+        </footer>
+
+        <!-- Independent Chat Widget Script -->
+        <script>
+            (function () {
+                var widget = document.createElement("div");
+                widget.className = "chat-widget-overlay";
+                widget.id = "chatWidget";
+                widget.innerHTML =
+                    "<style>" +
+                    ".chat-widget-overlay{position:fixed;bottom:24px;right:24px;width:350px;max-width:90vw;height:440px;max-height:65vh;background:white;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,0.2);z-index:300;display:flex;flex-direction:column;transform:translateY(20px)scale(0.95);opacity:0;pointer-events:none;transition:all 0.25s cubic-bezier(0.23,1,0.32,1);border:1px solid rgba(0,0,0,0.08)}" +
+                    ".chat-widget-overlay.open{transform:translateY(0)scale(1);opacity:1;pointer-events:all}" +
+                    ".cw-h{padding:12px 14px;border-bottom:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between;border-radius:14px 14px 0 0;background:#fafafa}" +
+                    ".cw-ag{display:flex;align-items:center;gap:8px}.cw-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;color:white;font-weight:600;font-size:0.65rem}" +
+                    ".cw-on{display:flex;align-items:center;gap:4px;font-size:0.6rem;color:#10b981;font-weight:500}.cw-ond{width:5px;height:5px;border-radius:50%;background:#10b981}" +
+                    ".cw-b{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;background:#fafafa}" +
+                    ".cw-f{padding:10px 12px;border-top:1px solid #f3f4f6;display:flex;gap:6px;align-items:center}" +
+                    ".cw-f input{flex:1;padding:8px 12px;border:1px solid #e5e7eb;border-radius:18px;font-size:0.75rem;outline:none;background:white;font-family:inherit}" +
+                    ".cw-s{width:34px;height:34px;border-radius:50%;border:none;background:#374151;color:white;cursor:pointer;font-size:0.75rem;transition:all 0.15s;flex-shrink:0}" +
+                    ".cw-s:hover{background:#4b5563;transform:scale(1.05)}.cw-x{width:26px;height:26px;border-radius:50%;border:none;background:transparent;cursor:pointer;color:#9ca3af;font-size:0.9rem;display:flex;align-items:center;justify-content:center;transition:all 0.15s}" +
+                    ".cw-x:hover{background:#e5e7eb;color:#374151}.cw-bub{padding:8px 12px;border-radius:12px;font-size:0.75rem;line-height:1.5;max-width:85%;animation:cwIn 0.3s ease-out}" +
+                    "@keyframes cwIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}" +
+                    ".cw-bub.in{background:white;color:#374151;align-self:flex-start;border-bottom-left-radius:4px}" +
+                    ".cw-bub.out{background:#374151;color:white;align-self:flex-end;border-bottom-right-radius:4px}" +
+                    ".cw-t{font-size:0.55rem;opacity:0.6;margin-top:3px;display:block}" +
+                    ".cw-q{display:flex;flex-wrap:wrap;gap:4px;padding:0 12px 8px}" +
+                    ".cw-q button{padding:5px 10px;border-radius:14px;border:1px solid #e5e7eb;background:white;font-size:0.65rem;cursor:pointer;transition:all 0.15s;color:#374151;font-family:inherit}" +
+                    ".cw-q button:hover{background:#374151;color:white;border-color:#374151}" +
+                    "</style>" +
+                    '<div class="cw-h"><div class="cw-ag"><div class="cw-av">CS</div><div><p style="font-size:0.75rem;font-weight:500;color:#374151;margin:0">Customer Support</p><div class="cw-on"><span class="cw-ond"></span>Online</div></div></div><button class="cw-x" id="cwCloseBtn">✕</button></div>' +
+                    '<div class="cw-b" id="cwMessages"><div class="cw-bub in">Hello! 👋 Need help booking a fitting?<span class="cw-t">Just now</span></div></div>' +
+                    '<div class="cw-q"><button id="cwQuickLocation">📍 Locations</button><button id="cwQuickTime">⏱️ Duration</button><button id="cwQuickVirtual">💻 Virtual</button></div>' +
+                    '<div class="cw-f"><input type="text" placeholder="Type message..." id="cwInput"><button class="cw-s" id="cwSendBtn"><i class="fas fa-paper-plane"></i></button></div>';
+                document.body.appendChild(widget);
+
+                var isOpen = false;
+                var replies = {
+                    location:
+                        "📍 Lagos Studio: 15 Marina Rd, VI. Abuja Studio: 12 Aminu Kano Cres, Wuse 2. Both open Mon-Sat 9AM-6PM.",
+                    time: "⏱️ Standard fitting: 45 min. Multiple garments: 60-90 min. We recommend arriving 5 min early.",
+                    virtual:
+                        "💻 Virtual fittings via Zoom. We'll guide you through self-measurements and discuss fabrics/styles via video call.",
+                    default:
+                        "Thanks! A fitting specialist will respond shortly. For immediate booking: +234 800 000 0000.",
+                };
+                function getReply(m) {
+                    var x = m.toLowerCase();
+                    if (x.indexOf("location") > -1 || x.indexOf("where") > -1 || x.indexOf("studio") > -1)
+                        return replies.location;
+                    if (x.indexOf("time") > -1 || x.indexOf("duration") > -1 || x.indexOf("long") > -1)
+                        return replies.time;
+                    if (x.indexOf("virtual") > -1 || x.indexOf("zoom") > -1 || x.indexOf("online") > -1)
+                        return replies.virtual;
+                    return replies.default;
+                }
+                function getTime() {
+                    return new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
+                }
+                function addMsg(text, type) {
+                    var msgs = document.getElementById("cwMessages");
+                    var b = document.createElement("div");
+                    b.className = "cw-bub " + (type === "sent" ? "out" : "in");
+                    b.innerHTML = text + '<span class="cw-t">' + getTime() + "</span>";
+                    msgs.appendChild(b);
+                    msgs.scrollTop = msgs.scrollHeight;
+                }
+                function sendMsg() {
+                    var input = document.getElementById("cwInput");
+                    if (!input || !input.value.trim()) return;
+                    var msg = input.value.trim();
+                    addMsg(msg, "sent");
+                    input.value = "";
+                    setTimeout(
+                        function () {
+                            addMsg(getReply(msg), "received");
+                        },
+                        700 + Math.random() * 1000
+                    );
+                }
+                function sendQuick(text) {
+                    var input = document.getElementById("cwInput");
+                    if (input) input.value = text;
+                    sendMsg();
+                }
+                function open() {
+                    widget.classList.add("open");
+                    isOpen = true;
+                    setTimeout(function () {
+                        var inp = document.getElementById("cwInput");
+                        if (inp) inp.focus();
+                    }, 300);
+                }
+                function close() {
+                    widget.classList.remove("open");
+                    isOpen = false;
+                }
+                function toggle() {
+                    isOpen ? close() : open();
+                }
+                document.getElementById("cwCloseBtn").addEventListener("click", close);
+                document.getElementById("cwSendBtn").addEventListener("click", sendMsg);
+                document.getElementById("cwInput").addEventListener("keypress", function (e) {
+                    if (e.key === "Enter") sendMsg();
+                });
+                document.getElementById("cwQuickLocation").addEventListener("click", function () {
+                    sendQuick("Studio locations");
+                });
+                document.getElementById("cwQuickTime").addEventListener("click", function () {
+                    sendQuick("Fitting duration");
+                });
+                document.getElementById("cwQuickVirtual").addEventListener("click", function () {
+                    sendQuick("Virtual fitting");
+                });
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape" && isOpen) close();
+                });
+                document.addEventListener("click", function (e) {
+                    if (
+                        isOpen &&
+                        !widget.contains(e.target) &&
+                        e.target.id !== "supportHeaderToggle" &&
+                        !document.getElementById("supportHeaderToggle").contains(e.target)
+                    )
+                        close();
+                });
+                document.getElementById("supportHeaderToggle").addEventListener("click", toggle);
+            })();
+        </script>
+
+        <!-- Fitting Page Script -->
+        <script>
+            (function () {
+                var currentStep = 1,
+                    selectedDate = null,
+                    selectedTime = null;
+                var today = new Date();
+                var currentMonth = today.getMonth(),
+                    currentYear = today.getFullYear();
+
+                var bookedSlots = {
+                    "2026-07-04": ["10:00 AM", "2:00 PM"],
+                    "2026-07-05": ["9:00 AM", "11:00 AM", "3:00 PM"],
+                    "2026-07-10": ["1:00 PM", "4:00 PM"],
+                    "2026-07-15": ["12:00 PM", "5:00 PM"],
+                };
+                var unavailableDates = ["2026-07-06", "2026-07-07", "2026-07-13", "2026-07-20"];
+
+                function renderCalendar() {
+                    var firstDay = new Date(currentYear, currentMonth, 1).getDay();
+                    var daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+                    var monthNames = [
+                        "January",
+                        "February",
+                        "March",
+                        "April",
+                        "May",
+                        "June",
+                        "July",
+                        "August",
+                        "September",
+                        "October",
+                        "November",
+                        "December",
+                    ];
+                    document.getElementById("monthYearDisplay").textContent =
+                        monthNames[currentMonth] + " " + currentYear;
+
+                    var html = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+                        .map(function (d) {
+                            return '<div class="calendar-day-header">' + d + "</div>";
+                        })
+                        .join("");
+                    for (var i = 0; i < firstDay; i++) html += '<div class="calendar-day empty"></div>';
+
+                    for (var day = 1; day <= daysInMonth; day++) {
+                        var dateStr =
+                            currentYear +
+                            "-" +
+                            String(currentMonth + 1).padStart(2, "0") +
+                            "-" +
+                            String(day).padStart(2, "0");
+                        var dateObj = new Date(currentYear, currentMonth, day);
+                        var isPast = dateObj < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+                        var isUnavailable = unavailableDates.indexOf(dateStr) > -1;
+                        var isToday = dateObj.toDateString() === today.toDateString();
+                        var isSelected = selectedDate === dateStr;
+                        var classes = "calendar-day";
+                        if (isPast || isUnavailable) classes += " unavailable";
+                        if (isPast) classes += " past";
+                        if (isToday) classes += " today";
+                        if (isSelected) classes += " selected";
+                        html += '<div class="' + classes + '" data-date="' + dateStr + '">' + day + "</div>";
+                    }
+
+                    document.getElementById("calendarGrid").innerHTML = html;
+
+                    document
+                        .querySelectorAll(".calendar-day:not(.empty):not(.unavailable):not(.past)")
+                        .forEach(function (day) {
+                            day.addEventListener("click", function () {
+                                selectedDate = this.dataset.date;
+                                document.querySelectorAll(".calendar-day").forEach(function (d) {
+                                    d.classList.remove("selected");
+                                });
+                                this.classList.add("selected");
+                                document.getElementById("selectedDateDisplay").textContent =
+                                    "Selected: " +
+                                    new Date(selectedDate + "T00:00").toLocaleDateString("en-US", {
+                                        weekday: "long",
+                                        month: "long",
+                                        day: "numeric",
+                                    });
+                                selectedTime = null;
+                                renderTimeSlots();
+                                updateContinueBtn();
+                            });
+                        });
+                }
+
+                function renderTimeSlots() {
+                    var allSlots = [
+                        "9:00 AM",
+                        "10:00 AM",
+                        "11:00 AM",
+                        "12:00 PM",
+                        "1:00 PM",
+                        "2:00 PM",
+                        "3:00 PM",
+                        "4:00 PM",
+                        "5:00 PM",
+                    ];
+                    var booked = bookedSlots[selectedDate] || [];
+                    document.getElementById("timeSlots").innerHTML = allSlots
+                        .map(function (slot) {
+                            var classes = "time-slot";
+                            if (booked.indexOf(slot) > -1) classes += " booked";
+                            if (selectedTime === slot) classes += " selected-slot";
+                            return '<div class="' + classes + '" data-time="' + slot + '">' + slot + "</div>";
+                        })
+                        .join("");
+
+                    document.querySelectorAll(".time-slot:not(.booked)").forEach(function (slot) {
+                        slot.addEventListener("click", function () {
+                            selectedTime = this.dataset.time;
+                            document.querySelectorAll(".time-slot").forEach(function (s) {
+                                s.classList.remove("selected-slot");
+                            });
+                            this.classList.add("selected-slot");
+                            updateContinueBtn();
+                        });
+                    });
+                }
+
+                function updateContinueBtn() {
+                    document.getElementById("toStep2").disabled = !(selectedDate && selectedTime);
+                }
+
+                document.getElementById("prevMonth").addEventListener("click", function () {
+                    currentMonth--;
+                    if (currentMonth < 0) {
+                        currentMonth = 11;
+                        currentYear--;
+                    }
+                    renderCalendar();
+                });
+                document.getElementById("nextMonth").addEventListener("click", function () {
+                    currentMonth++;
+                    if (currentMonth > 11) {
+                        currentMonth = 0;
+                        currentYear++;
+                    }
+                    renderCalendar();
+                });
+
+                function showStep(step) {
+                    currentStep = step;
+                    document.getElementById("step1Content").classList.toggle("hidden", step !== 1);
+                    document.getElementById("step2Content").classList.toggle("hidden", step !== 2);
+                    document.getElementById("step3Content").classList.toggle("hidden", step !== 3);
+                    ["stepDot1", "stepDot2", "stepDot3"].forEach(function (id, i) {
+                        var d = document.getElementById(id);
+                        d.classList.remove("active-step", "completed");
+                        if (i + 1 < step) d.classList.add("completed");
+                        if (i + 1 === step) d.classList.add("active-step");
+                    });
+                    document.getElementById("stepLine1").classList.toggle("completed", step > 1);
+                    document.getElementById("stepLine2").classList.toggle("completed", step > 2);
+                    if (step === 3) {
+                        document.getElementById("reviewDate").textContent = selectedDate
+                            ? new Date(selectedDate + "T00:00").toLocaleDateString("en-US", {
+                                  weekday: "long",
+                                  month: "long",
+                                  day: "numeric",
+                                  year: "numeric",
+                              })
+                            : "—";
+                        document.getElementById("reviewTime").textContent = selectedTime || "—";
+                        var locSelect = document.querySelector("#step2Content select");
+                        document.getElementById("reviewLocation").textContent = locSelect
+                            ? locSelect.options[locSelect.selectedIndex].text
+                            : "—";
+                        var garSelect = document.querySelectorAll("#step2Content select")[1];
+                        document.getElementById("reviewGarment").textContent = garSelect
+                            ? garSelect.options[garSelect.selectedIndex].text
+                            : "—";
+                    }
+                }
+
+                document.getElementById("toStep2").addEventListener("click", function () {
+                    showStep(2);
+                });
+                document.getElementById("backToStep1").addEventListener("click", function () {
+                    showStep(1);
+                });
+                document.getElementById("toStep3").addEventListener("click", function () {
+                    showStep(3);
+                });
+                document.getElementById("backToStep2").addEventListener("click", function () {
+                    showStep(2);
+                });
+
+                document.getElementById("registeredToggle").addEventListener("click", function () {
+                    this.classList.add("active-toggle");
+                    document.getElementById("guestToggle").classList.remove("active-toggle");
+                    document.getElementById("registeredFields").classList.remove("hidden");
+                    document.getElementById("guestFields").classList.add("hidden");
+                });
+                document.getElementById("guestToggle").addEventListener("click", function () {
+                    this.classList.add("active-toggle");
+                    document.getElementById("registeredToggle").classList.remove("active-toggle");
+                    document.getElementById("guestFields").classList.remove("hidden");
+                    document.getElementById("registeredFields").classList.add("hidden");
+                });
+
+                document.getElementById("confirmBooking").addEventListener("click", function () {
+                    document.getElementById("modalDetails").textContent =
+                        (selectedDate
+                            ? new Date(selectedDate + "T00:00").toLocaleDateString("en-US", {
+                                  weekday: "long",
+                                  month: "long",
+                                  day: "numeric",
+                              })
+                            : "") +
+                        " at " +
+                        (selectedTime || "");
+                    document.getElementById("confirmationModal").classList.add("open");
+                });
+
+                renderCalendar();
+                renderTimeSlots();
+                updateContinueBtn();
+                showStep(1);
+            })();
+        </script>
+    </body>
+</html>

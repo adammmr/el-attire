@@ -1,0 +1,167 @@
+
+
+  <div class="toast" id="toast"></div>
+
+  <div class="cover-page">
+    <!-- Left: Hero Image -->
+    <div class="cover-hero" id="coverHero" style="background-image: url('photos/tailoring/agbada_a1.jpg');">
+      <div class="cover-hero-content">
+        <h2>Crafted for<br>the Modern<br>Gentleman</h2>
+        <p>Bespoke Nigerian tailoring since 2010. Every stitch tells a story of elegance and tradition.</p>
+      </div>
+      <div class="cover-hero-dots" id="heroDots">
+        <span class="cover-hero-dot active-dot" data-img="0"></span>
+        <span class="cover-hero-dot" data-img="1"></span>
+        <span class="cover-hero-dot" data-img="2"></span>
+      </div>
+    </div>
+
+    <!-- Right: Login Form -->
+    <div class="cover-form">
+      <div class="cover-form-inner">
+        <!-- Logo -->
+        <div class="text-center mb-8">
+          <a href="index.html" class="inline-block no-underline">
+            <img src="photos/logo_only_bk.png" alt="EL-ATTIRE" class="nav-logo mx-auto mb-2" onerror="this.style.display='none'">
+          </a>
+          <p class="text-[0.62rem] text-neutral-400 tracking-widest uppercase">Bespoke Nigerian Tailoring</p>
+        </div>
+
+        <!-- Heading -->
+        <h1 class="text-2xl font-light section-title text-[#374151] mb-1">Welcome Back</h1>
+        <p class="text-[0.78rem] text-neutral-400 mb-6">Sign in to your account to continue.</p>
+
+        <!-- Error -->
+        <div class="error-msg mb-4" id="loginError">
+          <i class="fas fa-exclamation-circle mr-2"></i><span id="errorText">Invalid phone number or password.</span>
+        </div>
+
+        <!-- Form -->
+        <form id="loginForm" class="space-y-3.5">
+          <div>
+            <label class="text-[0.62rem] font-medium text-neutral-400 uppercase tracking-wider block mb-1">Phone Number</label>
+            <div class="flex gap-2">
+              <select class="input-lux w-20 text-[0.72rem]"><option>+234</option><option>+1</option><option>+44</option></select>
+              <input type="tel" id="phoneNumber" placeholder="812 345 6789" required class="input-lux flex-1" autocomplete="username">
+            </div>
+          </div>
+
+          <div>
+            <label class="text-[0.62rem] font-medium text-neutral-400 uppercase tracking-wider block mb-1">Password</label>
+            <div class="relative">
+              <input type="password" id="password" placeholder="Enter your password" required class="input-lux pr-10" autocomplete="current-password">
+              <button type="button" class="password-toggle" id="togglePassword"><i class="far fa-eye"></i></button>
+            </div>
+          </div>
+
+          <div class="flex justify-between items-center text-[0.7rem] pt-1">
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="checkbox" class="accent-[#374151] w-3.5 h-3.5" checked>
+              <span class="text-neutral-400">Remember me</span>
+            </label>
+            <a href="forgot-password.html" class="text-neutral-400 hover:text-[#374151] transition-colors">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="btn-primary text-[0.78rem] tracking-wider">Sign In</button>
+        </form>
+
+        <!-- Divider -->
+        <div class="divider my-5">or continue with</div>
+
+        <!-- Social -->
+        <div class="grid grid-cols-2 gap-3">
+          <button class="social-btn" onclick="showToast('Google sign-in coming soon')"><i class="fab fa-google text-red-500"></i> Google</button>
+          <button class="social-btn" onclick="showToast('Apple sign-in coming soon')"><i class="fab fa-apple"></i> Apple</button>
+        </div>
+
+        <!-- Register link -->
+        <p class="text-center text-[0.7rem] text-neutral-400 mt-5">
+          Don't have an account? <a href="register.html" class="text-[#374151] font-medium hover:underline">Create Account</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Terms -->
+  <div style="position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:50;">
+    <p class="text-[0.6rem] text-neutral-400 text-center">
+      By signing in, you agree to our <a href="terms.html" class="underline hover:text-[#374151]">Terms</a> and <a href="#" class="underline hover:text-[#374151]">Privacy Policy</a>.
+    </p>
+  </div>
+
+  <script>
+    (function() {
+      // Hero image rotation
+      var heroImages = [
+        'photos/tailoring/agbada_a1.jpg',
+        'photos/tailoring/style_1a.jpg',
+        'photos/tailoring/style2.jpg'
+      ];
+      var currentHero = 0;
+      var heroEl = document.getElementById('coverHero');
+      var heroDots = document.querySelectorAll('.cover-hero-dot');
+
+      function setHero(index) {
+        currentHero = index;
+        heroEl.style.backgroundImage = 'url(' + heroImages[index] + ')';
+        heroDots.forEach(function(d) { d.classList.remove('active-dot'); });
+        if (heroDots[index]) heroDots[index].classList.add('active-dot');
+      }
+
+      heroDots.forEach(function(dot) {
+        dot.addEventListener('click', function() { setHero(parseInt(this.dataset.img)); });
+      });
+
+      // Auto-rotate every 6 seconds
+      setInterval(function() { setHero((currentHero + 1) % heroImages.length); }, 6000);
+
+      // Password toggle
+      var togglePassword = document.getElementById('togglePassword');
+      var passwordInput = document.getElementById('password');
+
+      togglePassword.addEventListener('click', function() {
+        var type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.querySelector('i').classList.toggle('fa-eye');
+        this.querySelector('i').classList.toggle('fa-eye-slash');
+      });
+
+      // Form submit
+      var loginForm = document.getElementById('loginForm');
+      var loginError = document.getElementById('loginError');
+      var errorText = document.getElementById('errorText');
+
+      loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var phone = document.getElementById('phoneNumber').value.trim();
+        var password = passwordInput.value.trim();
+
+        if (phone.length < 7) { showError('Please enter a valid phone number.'); return; }
+        if (password.length < 4) { showError('Password must be at least 4 characters.'); return; }
+
+        // Demo: 8123456789 / password123
+        if (phone === '8123456789' && password !== 'password123' && password !== 'admin') {
+          showError('Incorrect password. Please try again.');
+          return;
+        }
+
+        loginError.style.display = 'none';
+        window.location.href = 'dashboard.html';
+      });
+
+      function showError(msg) {
+        errorText.textContent = msg;
+        loginError.style.display = 'block';
+        setTimeout(function() { loginError.style.display = 'none'; }, 4000);
+      }
+
+      window.showToast = function(msg, type) {
+        type = type || '';
+        var t = document.getElementById('toast');
+        t.textContent = msg; t.className = 'toast ' + type + ' show';
+        setTimeout(function() { t.classList.remove('show'); }, 2500);
+      };
+
+      document.getElementById('phoneNumber').focus();
+    })();
+  </script>

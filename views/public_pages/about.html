@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=yes"
+        />
+        <title>EL-ATTIRE | About Us</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --text-primary: #374151;
+                --text-secondary: #9ca3af;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family:
+                    "Inter",
+                    system-ui,
+                    -apple-system,
+                    sans-serif;
+                background: #ffffff;
+                color: var(--text-primary);
+                letter-spacing: -0.01em;
+                overflow-x: hidden;
+                font-size: 0.85rem;
+                font-weight: 400;
+                line-height: 1.6;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            ::-webkit-scrollbar {
+                width: 4px;
+            }
+            ::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: #d1d5db;
+                border-radius: 10px;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: #9ca3af;
+            }
+
+            .section-title {
+                font-family: "Playfair Display", serif;
+                letter-spacing: 0.03em;
+            }
+
+            .glass-panel {
+                background: rgba(255, 255, 255, 0.92);
+                backdrop-filter: blur(20px);
+                border: 1px solid rgba(0, 0, 0, 0.06);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+                border-radius: 10px;
+            }
+
+            .btn-primary {
+                background: var(--text-primary);
+                color: white;
+                border: none;
+                transition: all 0.15s ease;
+                cursor: pointer;
+                font-weight: 500;
+                letter-spacing: 0.03em;
+                border-radius: 7px;
+                font-size: 0.78rem;
+                padding: 12px 24px;
+                text-decoration: none;
+                display: inline-block;
+            }
+            .btn-primary:hover {
+                background: #4b5563;
+                transform: translateY(-1px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            }
+
+            .btn-outline {
+                background: transparent;
+                color: var(--text-primary);
+                border: 1px solid #e5e7eb;
+                transition: all 0.15s ease;
+                cursor: pointer;
+                font-weight: 500;
+                letter-spacing: 0.03em;
+                border-radius: 7px;
+                font-size: 0.78rem;
+                padding: 12px 24px;
+                text-decoration: none;
+                display: inline-block;
+            }
+            .btn-outline:hover {
+                background: #f9fafb;
+                border-color: #d1d5db;
+            }
+
+            .btn-white {
+                background: white;
+                color: #374151;
+                border: 1px solid white;
+                transition: all 0.15s ease;
+                cursor: pointer;
+                font-weight: 500;
+                letter-spacing: 0.03em;
+                border-radius: 7px;
+                font-size: 0.78rem;
+                padding: 12px 24px;
+                text-decoration: none;
+                display: inline-block;
+            }
+            .btn-white:hover {
+                background: #f3f4f6;
+            }
+
+            .link-underline {
+                position: relative;
+                display: inline-block;
+                padding-bottom: 2px;
+                text-decoration: none;
+                color: var(--text-primary);
+            }
+            .link-underline::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 0%;
+                height: 1.5px;
+                background: var(--text-primary);
+                transition: width 0.3s ease;
+            }
+            .link-underline:hover::after {
+                width: 100%;
+            }
+
+            .hero-about {
+                background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 50%, #f0f0f0 100%);
+            }
+            .stat-number {
+                font-family: "Playfair Display", serif;
+                font-size: 3rem;
+                font-weight: 300;
+                line-height: 1;
+                color: #374151;
+            }
+
+            .team-card {
+                position: relative;
+                overflow: hidden;
+                border: 1px solid rgba(0, 0, 0, 0.06);
+                transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+                background: white;
+                border-radius: 12px;
+            }
+            .team-card:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            }
+            .team-card img {
+                width: 100%;
+                height: 380px;
+                object-fit: cover;
+            }
+
+            .timeline-item {
+                position: relative;
+                padding-left: 32px;
+                border-left: 2px solid #e5e7eb;
+                padding-bottom: 28px;
+            }
+            .timeline-item:last-child {
+                border-left-color: transparent;
+                padding-bottom: 0;
+            }
+            .timeline-dot {
+                position: absolute;
+                left: -7px;
+                top: 8px;
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background: #374151;
+                border: 3px solid white;
+                box-shadow: 0 0 0 2px #374151;
+            }
+
+            .value-icon {
+                width: 56px;
+                height: 56px;
+                border-radius: 50%;
+                background: #374151;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 1.2rem;
+                margin: 0 auto 20px;
+            }
+
+            .nav-logo {
+                height: 34px;
+                width: auto;
+            }
+            .footer-logo {
+                height: 50px;
+                width: auto;
+            }
+
+            .support-btn {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                padding: 6px 12px;
+                border-radius: 7px;
+                cursor: pointer;
+                transition: all 0.15s ease;
+                border: 1px solid #e5e7eb;
+                background: transparent;
+                color: #9ca3af;
+                font-family: inherit;
+                font-size: 0.7rem;
+                font-weight: 500;
+            }
+            .support-btn:hover {
+                border-color: #d1d5db;
+                color: #374151;
+                background: #f9fafb;
+            }
+            .support-btn .live-dot {
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                background: #10b981;
+                animation: pulse-dot 2s ease-in-out infinite;
+            }
+            @keyframes pulse-dot {
+                0%,
+                100% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.4);
+                }
+            }
+
+            .fade-up-element {
+                opacity: 0;
+                transform: translateY(24px);
+                transition:
+                    opacity 0.7s ease,
+                    transform 0.7s ease;
+            }
+            .fade-up-element.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        </style>
+    </head>
+    <body class="antialiased">
+        <!-- Header -->
+        <header
+            class="sticky top-0 z-50 glass-panel border-b border-gray-100 px-5 py-2.5 flex items-center justify-between"
+        >
+            <a href="/" class="flex items-center gap-3 no-underline">
+                <img
+                    src="photos/logo_only_bk.png"
+                    alt="EL-ATTIRE"
+                    class="nav-logo"
+                    onerror="this.style.display='none'"
+                />
+                <span class="text-lg font-semibold tracking-[0.1em] text-[#374151]"
+                    >EL-<span class="font-normal text-neutral-400 text-sm">ATTIRE</span></span
+                >
+            </a>
+            <nav class="hidden lg:flex items-center gap-6 text-[0.72rem] uppercase tracking-[0.08em] font-medium">
+                <a href="/" class="link-underline ">Home</a>
+                <a href="/collection" class="link-underline ">Shop</a>
+                <a href="/fabrics" class="link-underline ">Fabrics</a>
+                <a href="/tailoring" class="link-underline ">Tailoring</a>
+                <a href="/lookbook" class="link-underline">Lookbook</a>
+
+                <a href="/about" class="link-underline border-b-2 border-[#374151] pb-1">About</a>
+            </nav>
+            <div class="flex items-center gap-3">
+                <button class="support-btn" id="supportHeaderToggle" title="Chat with support">
+                    <i class="fas fa-headset text-[0.6rem]"></i> Support
+                    <span class="live-dot"></span>
+                </button>
+                <a href="login" class="text-[0.75rem] text-neutral-400 hover:text-[#374151] transition-colors"
+                    >Sign In</a
+                >
+            </div>
+        </header>
+
+        <main>
+            <!-- Hero -->
+            <section class="hero-about py-20 md:py-28">
+                <div class="max-w-7xl mx-auto px-5 md:px-8 text-center">
+                    <span class="text-[0.65rem] uppercase tracking-[0.2em] text-neutral-400 mb-3 block">Our Story</span>
+                    <h1
+                        class="text-3xl md:text-5xl lg:text-6xl font-light section-title text-[#374151] mb-5 leading-tight"
+                    >
+                        Crafting Nigerian<br />Elegance Since 2010
+                    </h1>
+                    <p class="text-neutral-500 max-w-2xl mx-auto text-[0.9rem] leading-relaxed">
+                        EL-ATTIRE was born from a passion for preserving Nigeria's rich tailoring heritage while
+                        embracing modern sophistication. Every stitch tells a story of culture, craftsmanship, and
+                        commitment to excellence.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Stats -->
+            <section class="py-14 border-y border-gray-100 bg-white">
+                <div class="max-w-7xl mx-auto px-5 md:px-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                    <div class="fade-up-element">
+                        <span class="stat-number">14+</span>
+                        <p class="text-[0.62rem] text-neutral-400 mt-1.5 uppercase tracking-wider">Years of Craft</p>
+                    </div>
+                    <div class="fade-up-element">
+                        <span class="stat-number">5,000+</span>
+                        <p class="text-[0.62rem] text-neutral-400 mt-1.5 uppercase tracking-wider">Happy Clients</p>
+                    </div>
+                    <div class="fade-up-element">
+                        <span class="stat-number">3</span>
+                        <p class="text-[0.62rem] text-neutral-400 mt-1.5 uppercase tracking-wider">Global Studios</p>
+                    </div>
+                    <div class="fade-up-element">
+                        <span class="stat-number">25+</span>
+                        <p class="text-[0.62rem] text-neutral-400 mt-1.5 uppercase tracking-wider">Master Tailors</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mission -->
+            <section class="py-20 max-w-7xl mx-auto px-5 md:px-8">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="fade-up-element">
+                        <span class="text-[0.65rem] uppercase tracking-[0.15em] text-neutral-400 mb-2 block"
+                            >Our Purpose</span
+                        >
+                        <h2 class="text-2xl md:text-3xl font-medium text-[#374151] mb-5">Our Mission</h2>
+                        <p class="text-[0.82rem] text-neutral-500 leading-relaxed mb-4">
+                            To elevate Nigerian tailoring to global standards while preserving the artistry and
+                            traditions passed down through generations. We believe every client deserves clothing that
+                            fits not just their body, but their identity.
+                        </p>
+                        <p class="text-[0.82rem] text-neutral-500 leading-relaxed">
+                            From the bustling streets of Lagos to the fashion capitals of Europe, EL-ATTIRE bridges
+                            heritage and modernity — one garment at a time.
+                        </p>
+                    </div>
+                    <div class="relative fade-up-element">
+                        <img
+                            src="photos/a2.jpg"
+                            alt="Craftsmanship"
+                            class="w-full aspect-4/3 object-cover rounded-xl shadow-lg"
+                            onerror="this.src='https://placehold.co/600x450/e5e7eb/9ca3af?text=Craftsmanship'"
+                        />
+                        <div
+                            class="absolute -bottom-4 -left-4 bg-white px-4 py-2.5 border border-gray-200 text-[0.6rem] uppercase tracking-widest font-medium shadow-md rounded-lg"
+                        >
+                            Master Craftsmanship
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Timeline -->
+            <section class="py-20 bg-neutral-50/50 border-y border-gray-100">
+                <div class="max-w-3xl mx-auto px-5 md:px-8">
+                    <div class="text-center mb-12">
+                        <span class="text-[0.65rem] uppercase tracking-[0.15em] text-neutral-400 mb-2 block"
+                            >Milestones</span
+                        >
+                        <h2 class="text-2xl md:text-3xl font-medium text-[#374151]">Our Journey</h2>
+                    </div>
+                    <div class="space-y-0">
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <span class="text-[0.62rem] text-neutral-400 uppercase tracking-widest font-semibold"
+                                >2010</span
+                            >
+                            <h3 class="font-medium text-lg text-[#374151] mt-1.5">The Beginning</h3>
+                            <p class="text-[0.78rem] text-neutral-500 mt-2 leading-relaxed">
+                                Founded in a small workshop in Lagos with just two tailors and a vision to redefine
+                                Nigerian menswear. The first years were spent perfecting our craft and building
+                                relationships with local fabric artisans across the country.
+                            </p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <span class="text-[0.62rem] text-neutral-400 uppercase tracking-widest font-semibold"
+                                >2015</span
+                            >
+                            <h3 class="font-medium text-lg text-[#374151] mt-1.5">First Studio Expansion</h3>
+                            <p class="text-[0.78rem] text-neutral-500 mt-2 leading-relaxed">
+                                Opened our flagship studio on Victoria Island, Lagos. Introduced precision measurement
+                                technology alongside traditional techniques. Grew our team to 12 master tailors and
+                                expanded our fabric sourcing network internationally.
+                            </p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <span class="text-[0.62rem] text-neutral-400 uppercase tracking-widest font-semibold"
+                                >2020</span
+                            >
+                            <h3 class="font-medium text-lg text-[#374151] mt-1.5">International Recognition</h3>
+                            <p class="text-[0.78rem] text-neutral-500 mt-2 leading-relaxed">
+                                Showcased our collection at Milan Fashion Week, bringing Nigerian tailoring to the
+                                global stage. Expanded fabric sourcing to Italy, Turkey, and India while maintaining our
+                                deep Nigerian roots.
+                            </p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <span class="text-[0.62rem] text-neutral-400 uppercase tracking-widest font-semibold"
+                                >2024</span
+                            >
+                            <h3 class="font-medium text-lg text-[#374151] mt-1.5">Digital Transformation</h3>
+                            <p class="text-[0.78rem] text-neutral-500 mt-2 leading-relaxed">
+                                Launched our comprehensive online platform, bringing bespoke tailoring to clients
+                                worldwide. Introduced virtual consultations, interactive measurement tools, and global
+                                shipping.
+                            </p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <span class="text-[0.62rem] text-neutral-400 uppercase tracking-widest font-semibold"
+                                >2026</span
+                            >
+                            <h3 class="font-medium text-lg text-[#374151] mt-1.5">The Future</h3>
+                            <p class="text-[0.78rem] text-neutral-500 mt-2 leading-relaxed">
+                                Continuing to innovate with sustainable fabric sourcing, expanded ready-to-wear
+                                collections, and plans for a Milano studio. Our commitment to quality and tradition
+                                remains unwavering.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Team -->
+            <section class="py-20 max-w-7xl mx-auto px-5 md:px-8">
+                <div class="text-center mb-12">
+                    <span class="text-[0.65rem] uppercase tracking-[0.15em] text-neutral-400 mb-2 block"
+                        >Our People</span
+                    >
+                    <h2 class="text-2xl md:text-3xl font-medium text-[#374151]">Meet Our Master Tailors</h2>
+                    <p class="text-[0.78rem] text-neutral-400 mt-2 max-w-lg mx-auto">
+                        Decades of combined experience, united by a passion for exceptional craftsmanship.
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="team-card">
+                        <img
+                            src="photos/model_c1.jpg"
+                            alt="Head Tailor"
+                            onerror="this.src='https://placehold.co/400x380/e5e7eb/9ca3af?text=Adebayo'"
+                        />
+                        <div class="p-5">
+                            <h4 class="font-medium text-[#374151]">Adebayo Ogunlesi</h4>
+                            <p class="text-[0.62rem] text-neutral-400 uppercase tracking-wider mt-0.5">
+                                Head Master Tailor
+                            </p>
+                            <p class="text-[0.75rem] text-neutral-500 mt-2 leading-relaxed">
+                                With 25 years of experience, Adebayo leads our tailoring team with unmatched expertise
+                                in traditional Agbada and Kaftan construction.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="team-card">
+                        <img
+                            src="photos/model_d1.jpg"
+                            alt="Senior Tailor"
+                            onerror="this.src='https://placehold.co/400x380/e5e7eb/9ca3af?text=Chioma'"
+                        />
+                        <div class="p-5">
+                            <h4 class="font-medium text-[#374151]">Chioma Eze</h4>
+                            <p class="text-[0.62rem] text-neutral-400 uppercase tracking-wider mt-0.5">Senior Tailor</p>
+                            <p class="text-[0.75rem] text-neutral-500 mt-2 leading-relaxed">
+                                Chioma brings 18 years of precision tailoring to every garment. Her specialty is modern
+                                Senator styles and intricate embroidery work.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="team-card">
+                        <img
+                            src="photos/a1.jpg"
+                            alt="Embroidery Specialist"
+                            onerror="this.src='https://placehold.co/400x380/e5e7eb/9ca3af?text=Ibrahim'"
+                        />
+                        <div class="p-5">
+                            <h4 class="font-medium text-[#374151]">Ibrahim Mohammed</h4>
+                            <p class="text-[0.62rem] text-neutral-400 uppercase tracking-wider mt-0.5">
+                                Embroidery Specialist
+                            </p>
+                            <p class="text-[0.75rem] text-neutral-500 mt-2 leading-relaxed">
+                                Ibrahim's 15 years of hand-embroidery mastery brings our garments to life. Each motif is
+                                a work of art, stitched with patience and precision.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Values -->
+            <section class="py-18 bg-neutral-50/50 border-y border-gray-100">
+                <div class="max-w-7xl mx-auto px-5 md:px-8">
+                    <div class="text-center mb-12">
+                        <h2 class="text-2xl font-medium text-[#374151]">Our Values</h2>
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-8 text-center">
+                        <div class="fade-up-element">
+                            <div class="value-icon mx-auto"><i class="fas fa-hand-sparkles"></i></div>
+                            <h3 class="font-medium text-[#374151] mb-2">Craftsmanship</h3>
+                            <p class="text-[0.75rem] text-neutral-400 leading-relaxed">
+                                Every garment is handcrafted with meticulous attention to detail, honoring centuries-old
+                                tailoring traditions passed down through generations.
+                            </p>
+                        </div>
+                        <div class="fade-up-element">
+                            <div class="value-icon mx-auto"><i class="fas fa-leaf"></i></div>
+                            <h3 class="font-medium text-[#374151] mb-2">Sustainability</h3>
+                            <p class="text-[0.75rem] text-neutral-400 leading-relaxed">
+                                We source ethically, minimize waste, and create garments designed to last generations —
+                                not seasons. Quality that endures.
+                            </p>
+                        </div>
+                        <div class="fade-up-element">
+                            <div class="value-icon mx-auto"><i class="fas fa-globe-africa"></i></div>
+                            <h3 class="font-medium text-[#374151] mb-2">Heritage</h3>
+                            <p class="text-[0.75rem] text-neutral-400 leading-relaxed">
+                                We celebrate Nigerian culture through fabric, design, and technique — sharing our rich
+                                heritage with the world, one garment at a time.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA -->
+            <section class="py-16 bg-[#374151] text-white text-center">
+                <div class="max-w-2xl mx-auto px-5">
+                    <h2 class="text-2xl font-medium mb-3">Experience the Craft</h2>
+                    <p class="text-neutral-300 text-[0.82rem] mb-6 leading-relaxed">
+                        Book a consultation and discover the art of bespoke tailoring. Visit our studio or schedule a
+                        virtual appointment.
+                    </p>
+                    <div class="flex gap-3 justify-center flex-wrap">
+                        <a href="fitting.html" class="btn-white px-6 py-3 text-[0.75rem]">Schedule a Fitting</a>
+                        <a
+                            href="index.html#contact"
+                            class="border border-white/30 text-white px-6 py-3 text-[0.75rem] rounded-lg hover:bg-white/10 transition"
+                            >Contact Us</a
+                        >
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-[#0a0a0a] text-neutral-400">
+            <div class="max-w-7xl mx-auto px-6 py-10">
+                <div class="grid md:grid-cols-4 gap-8 mb-8">
+                    <div>
+                        <img
+                            src="photos/logo_only.png"
+                            alt="EL-ATTIRE"
+                            class="footer-logo mb-4"
+                            onerror="this.style.display='none'"
+                        />
+                        <p class="text-xs text-neutral-500 leading-relaxed">Bespoke Nigerian tailoring since 2010.</p>
+                    </div>
+                    <div>
+                        <p class="text-white uppercase tracking-wider mb-3 text-[0.65rem] font-semibold">Collections</p>
+                        <a href="#" class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
+                            >Kaftans</a
+                        ><a href="#" class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
+                            >Agbada</a
+                        >
+                    </div>
+                    <div>
+                        <p class="text-white uppercase tracking-wider mb-3 text-[0.65rem] font-semibold">Services</p>
+                        <a
+                            href="tailoring-page.html"
+                            class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
+                            >Tailoring</a
+                        ><a
+                            href="fabrics.html"
+                            class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
+                            >Fabrics</a
+                        >
+                    </div>
+                    <div>
+                        <p class="text-white uppercase tracking-wider mb-3 text-[0.65rem] font-semibold">Support</p>
+                        <a
+                            href="faq.html"
+                            class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
+                            >FAQ</a
+                        ><a
+                            href="terms.html"
+                            class="block mb-1.5 text-[0.72rem] text-neutral-500 hover:text-white transition"
+                            >Terms</a
+                        >
+                    </div>
+                </div>
+                <div class="border-t border-neutral-800 pt-6 text-center text-[0.65rem] text-neutral-600">
+                    © 2026 EL-ATTIRE. All rights reserved.
+                </div>
+            </div>
+        </footer>
+
+        <!-- Independent Chat Widget -->
+        <script>
+            (function () {
+                var widget = document.createElement("div");
+                widget.className = "chat-widget-overlay";
+                widget.id = "chatWidget";
+                widget.innerHTML =
+                    "<style>" +
+                    ".chat-widget-overlay{position:fixed;bottom:24px;right:24px;width:350px;max-width:90vw;height:440px;max-height:65vh;background:white;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,0.2);z-index:300;display:flex;flex-direction:column;transform:translateY(20px)scale(0.95);opacity:0;pointer-events:none;transition:all 0.25s cubic-bezier(0.23,1,0.32,1);border:1px solid rgba(0,0,0,0.08)}" +
+                    ".chat-widget-overlay.open{transform:translateY(0)scale(1);opacity:1;pointer-events:all}" +
+                    ".cw-h{padding:12px 14px;border-bottom:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between;border-radius:14px 14px 0 0;background:#fafafa}" +
+                    ".cw-ag{display:flex;align-items:center;gap:8px}.cw-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;color:white;font-weight:600;font-size:0.65rem}" +
+                    ".cw-on{display:flex;align-items:center;gap:4px;font-size:0.6rem;color:#10b981;font-weight:500}.cw-ond{width:5px;height:5px;border-radius:50%;background:#10b981}" +
+                    ".cw-b{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;background:#fafafa}" +
+                    ".cw-f{padding:10px 12px;border-top:1px solid #f3f4f6;display:flex;gap:6px;align-items:center}" +
+                    ".cw-f input{flex:1;padding:8px 12px;border:1px solid #e5e7eb;border-radius:18px;font-size:0.75rem;outline:none;background:white;font-family:inherit}" +
+                    ".cw-s{width:34px;height:34px;border-radius:50%;border:none;background:#374151;color:white;cursor:pointer;font-size:0.75rem;transition:all 0.15s;flex-shrink:0}" +
+                    ".cw-s:hover{background:#4b5563;transform:scale(1.05)}.cw-x{width:26px;height:26px;border-radius:50%;border:none;background:transparent;cursor:pointer;color:#9ca3af;font-size:0.9rem;display:flex;align-items:center;justify-content:center;transition:all 0.15s}" +
+                    ".cw-x:hover{background:#e5e7eb;color:#374151}.cw-bub{padding:8px 12px;border-radius:12px;font-size:0.75rem;line-height:1.5;max-width:85%;animation:cwIn 0.3s ease-out}" +
+                    "@keyframes cwIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}" +
+                    ".cw-bub.in{background:white;color:#374151;align-self:flex-start;border-bottom-left-radius:4px}" +
+                    ".cw-bub.out{background:#374151;color:white;align-self:flex-end;border-bottom-right-radius:4px}" +
+                    ".cw-t{font-size:0.55rem;opacity:0.6;margin-top:3px;display:block}" +
+                    ".cw-q{display:flex;flex-wrap:wrap;gap:4px;padding:0 12px 8px}" +
+                    ".cw-q button{padding:5px 10px;border-radius:14px;border:1px solid #e5e7eb;background:white;font-size:0.65rem;cursor:pointer;transition:all 0.15s;color:#374151;font-family:inherit}" +
+                    ".cw-q button:hover{background:#374151;color:white;border-color:#374151}" +
+                    "</style>" +
+                    '<div class="cw-h"><div class="cw-ag"><div class="cw-av">CS</div><div><p style="font-size:0.75rem;font-weight:500;color:#374151;margin:0">Customer Support</p><div class="cw-on"><span class="cw-ond"></span>Online</div></div></div><button class="cw-x" id="cwCloseBtn">✕</button></div>' +
+                    '<div class="cw-b" id="cwMessages"><div class="cw-bub in">Hello! 👋 Want to learn more about EL-ATTIRE?<span class="cw-t">Just now</span></div></div>' +
+                    '<div class="cw-q"><button id="cwQuickStudio">📍 Studios</button><button id="cwQuickTeam">👥 Team</button><button id="cwQuickHistory">📜 History</button></div>' +
+                    '<div class="cw-f"><input type="text" placeholder="Type message..." id="cwInput"><button class="cw-s" id="cwSendBtn"><i class="fas fa-paper-plane"></i></button></div>';
+                document.body.appendChild(widget);
+
+                var isOpen = false;
+                var replies = {
+                    studio: "📍 Lagos: 15 Marina Rd, Victoria Island. Abuja: 12 Aminu Kano Cres, Wuse 2. Both open Mon-Sat 9AM-6PM. Milano studio coming soon!",
+                    team: "👥 Our team of 25+ master tailors brings decades of experience. Led by Head Master Tailor Adebayo Ogunlesi (25 yrs), Chioma Eze (18 yrs), and Ibrahim Mohammed (15 yrs).",
+                    history:
+                        "📜 Founded in 2010 in Lagos. Showcased at Milan Fashion Week in 2020. Now serving clients in 30+ countries with studios in Lagos, Abuja, and soon Milano.",
+                    default: "Thanks! A team member will respond shortly. For immediate assistance: +234 800 000 0000.",
+                };
+                function getReply(m) {
+                    var x = m.toLowerCase();
+                    if (x.indexOf("studio") > -1 || x.indexOf("location") > -1 || x.indexOf("where") > -1)
+                        return replies.studio;
+                    if (x.indexOf("team") > -1 || x.indexOf("tailor") > -1 || x.indexOf("who") > -1)
+                        return replies.team;
+                    if (x.indexOf("history") > -1 || x.indexOf("story") > -1 || x.indexOf("start") > -1)
+                        return replies.history;
+                    return replies.default;
+                }
+                function getTime() {
+                    return new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
+                }
+                function addMsg(text, type) {
+                    var msgs = document.getElementById("cwMessages");
+                    var b = document.createElement("div");
+                    b.className = "cw-bub " + (type === "sent" ? "out" : "in");
+                    b.innerHTML = text + '<span class="cw-t">' + getTime() + "</span>";
+                    msgs.appendChild(b);
+                    msgs.scrollTop = msgs.scrollHeight;
+                }
+                function sendMsg() {
+                    var input = document.getElementById("cwInput");
+                    if (!input || !input.value.trim()) return;
+                    var msg = input.value.trim();
+                    addMsg(msg, "sent");
+                    input.value = "";
+                    setTimeout(
+                        function () {
+                            addMsg(getReply(msg), "received");
+                        },
+                        700 + Math.random() * 1000
+                    );
+                }
+                function sendQuick(text) {
+                    var input = document.getElementById("cwInput");
+                    if (input) input.value = text;
+                    sendMsg();
+                }
+                function open() {
+                    widget.classList.add("open");
+                    isOpen = true;
+                    setTimeout(function () {
+                        var inp = document.getElementById("cwInput");
+                        if (inp) inp.focus();
+                    }, 300);
+                }
+                function close() {
+                    widget.classList.remove("open");
+                    isOpen = false;
+                }
+                function toggle() {
+                    isOpen ? close() : open();
+                }
+                document.getElementById("cwCloseBtn").addEventListener("click", close);
+                document.getElementById("cwSendBtn").addEventListener("click", sendMsg);
+                document.getElementById("cwInput").addEventListener("keypress", function (e) {
+                    if (e.key === "Enter") sendMsg();
+                });
+                document.getElementById("cwQuickStudio").addEventListener("click", function () {
+                    sendQuick("Studio locations");
+                });
+                document.getElementById("cwQuickTeam").addEventListener("click", function () {
+                    sendQuick("Tell me about the team");
+                });
+                document.getElementById("cwQuickHistory").addEventListener("click", function () {
+                    sendQuick("Company history");
+                });
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape" && isOpen) close();
+                });
+                document.addEventListener("click", function (e) {
+                    if (
+                        isOpen &&
+                        !widget.contains(e.target) &&
+                        e.target.id !== "supportHeaderToggle" &&
+                        !document.getElementById("supportHeaderToggle").contains(e.target)
+                    )
+                        close();
+                });
+                document.getElementById("supportHeaderToggle").addEventListener("click", toggle);
+            })();
+        </script>
+
+        <!-- Fade-up Animation Script -->
+        <script>
+            (function () {
+                var fadeElements = document.querySelectorAll(".fade-up-element");
+                var observer = new IntersectionObserver(
+                    function (entries) {
+                        entries.forEach(function (entry) {
+                            if (entry.isIntersecting) entry.target.classList.add("visible");
+                        });
+                    },
+                    { threshold: 0.15, rootMargin: "0px 0px -30px 0px" }
+                );
+                fadeElements.forEach(function (el) {
+                    observer.observe(el);
+                });
+            })();
+        </script>
+    </body>
+</html>

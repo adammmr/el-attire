@@ -1,0 +1,1053 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=yes"
+        />
+        <title>EL-ATTIRE | Bespoke Nigerian Tailoring</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --text-primary: #374151;
+                --text-secondary: #9ca3af;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family:
+                    "Inter",
+                    system-ui,
+                    -apple-system,
+                    sans-serif;
+                background: #ffffff;
+                color: var(--text-primary);
+                letter-spacing: -0.01em;
+                overflow-x: hidden;
+                font-size: 0.85rem;
+                font-weight: 400;
+                line-height: 1.5;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            ::-webkit-scrollbar {
+                width: 4px;
+            }
+            ::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: #d1d5db;
+                border-radius: 10px;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: #9ca3af;
+            }
+
+            .section-title {
+                font-family: "Playfair Display", serif;
+                letter-spacing: 0.03em;
+            }
+
+            .glass-panel {
+                background: rgba(255, 255, 255, 0.92);
+                backdrop-filter: blur(20px);
+                border: 1px solid rgba(0, 0, 0, 0.06);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+                border-radius: 10px;
+            }
+
+            .btn-primary {
+                background: var(--text-primary);
+                color: white;
+                border: none;
+                transition: all 0.15s ease;
+                cursor: pointer;
+                font-weight: 500;
+                letter-spacing: 0.03em;
+                border-radius: 7px;
+                font-size: 0.78rem;
+                padding: 12px 24px;
+                text-decoration: none;
+                display: inline-block;
+            }
+            .btn-primary:hover {
+                background: #4b5563;
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+
+            .btn-outline {
+                background: transparent;
+                color: var(--text-primary);
+                border: 1px solid #e5e7eb;
+                transition: all 0.15s ease;
+                cursor: pointer;
+                font-weight: 500;
+                letter-spacing: 0.03em;
+                border-radius: 7px;
+                font-size: 0.78rem;
+                padding: 12px 24px;
+                text-decoration: none;
+                display: inline-block;
+            }
+            .btn-outline:hover {
+                background: #f9fafb;
+                border-color: #d1d5db;
+            }
+
+            .link-underline {
+                position: relative;
+                display: inline-block;
+                padding-bottom: 2px;
+                text-decoration: none;
+                color: var(--text-primary);
+            }
+            .link-underline::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 0%;
+                height: 1.5px;
+                background: var(--text-primary);
+                transition: width 0.3s ease;
+            }
+            .link-underline:hover::after {
+                width: 100%;
+            }
+
+            /* Hero Carousel */
+            .hero-carousel {
+                position: relative;
+                height: 90vh;
+                min-height: 600px;
+                overflow: hidden;
+            }
+            .hero-slide {
+                position: absolute;
+                inset: 0;
+                background-size: cover;
+                background-position: center;
+                transition: opacity 1s cubic-bezier(0.23, 1, 0.32, 1);
+                opacity: 0;
+            }
+            .hero-slide.active {
+                opacity: 1;
+            }
+            .hero-overlay {
+                position: absolute;
+                inset: 0;
+                z-index: 5;
+                background: linear-gradient(
+                    to right,
+                    rgba(255, 255, 255, 0.92) 0%,
+                    rgba(255, 255, 255, 0.45) 55%,
+                    rgba(0, 0, 0, 0.1) 100%
+                );
+            }
+            .hero-content {
+                position: relative;
+                z-index: 10;
+                height: 100%;
+                display: flex;
+                align-items: center;
+            }
+            .hero-dots {
+                position: absolute;
+                bottom: 30px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 20;
+                display: flex;
+                gap: 8px;
+            }
+            .hero-dot {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: rgba(0, 0, 0, 0.25);
+                cursor: pointer;
+                transition: all 0.3s;
+                border: none;
+            }
+            .hero-dot.active-dot {
+                background: #374151;
+                width: 24px;
+                border-radius: 4px;
+            }
+            .hero-nav {
+                position: absolute;
+                bottom: 30px;
+                right: 30px;
+                z-index: 20;
+                display: flex;
+                gap: 8px;
+            }
+            .hero-nav-btn {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.85);
+                border: 1px solid rgba(0, 0, 0, 0.1);
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.2s;
+                color: #374151;
+                font-size: 0.8rem;
+            }
+            .hero-nav-btn:hover {
+                background: #374151;
+                color: white;
+            }
+
+            /* Category card */
+            .category-card {
+                position: relative;
+                overflow: hidden;
+                border-radius: 12px;
+                cursor: pointer;
+                transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+                border: 1px solid rgba(0, 0, 0, 0.06);
+                text-decoration: none;
+                display: block;
+            }
+            .category-card:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            }
+            .category-card img {
+                width: 100%;
+                height: 380px;
+                object-fit: cover;
+                transition: transform 0.6s ease;
+            }
+            .category-card:hover img {
+                transform: scale(1.05);
+            }
+
+            /* Product card */
+            .product-card {
+                position: relative;
+                border: 1px solid rgba(0, 0, 0, 0.06);
+                background: white;
+                transition: all 0.3s ease;
+                cursor: pointer;
+                overflow: hidden;
+                border-radius: 10px;
+            }
+            .product-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            }
+            .product-card img {
+                width: 100%;
+                aspect-ratio: 3/4;
+                object-fit: cover;
+            }
+
+            .feature-icon {
+                width: 48px;
+                height: 48px;
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.1rem;
+                background: #f3f4f6;
+                color: #374151;
+                flex-shrink: 0;
+            }
+
+            .stat-number {
+                font-family: "Playfair Display", serif;
+            }
+
+            .testimonial-card {
+                background: white;
+                border: 1px solid rgba(0, 0, 0, 0.06);
+                border-radius: 12px;
+                padding: 24px;
+                transition: all 0.3s;
+            }
+            .testimonial-card:hover {
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+            }
+
+            .nav-logo {
+                height: 34px;
+                width: auto;
+            }
+            .footer-logo {
+                height: 50px;
+                width: auto;
+            }
+
+            .support-btn {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                padding: 6px 12px;
+                border-radius: 7px;
+                cursor: pointer;
+                transition: all 0.15s ease;
+                border: 1px solid #e5e7eb;
+                background: transparent;
+                color: #9ca3af;
+                font-family: inherit;
+                font-size: 0.7rem;
+                font-weight: 500;
+            }
+            .support-btn:hover {
+                border-color: #d1d5db;
+                color: #374151;
+                background: #f9fafb;
+            }
+            .support-btn .live-dot {
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                background: #10b981;
+                animation: pulse-dot 2s ease-in-out infinite;
+            }
+            @keyframes pulse-dot {
+                0%,
+                100% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.4);
+                }
+            }
+
+            .fabric-swatch {
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                border: 2px solid white;
+                box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+                display: inline-block;
+            }
+        </style>
+    </head>
+    <body class="antialiased bg-white">
+        <!-- Header -->
+        <header
+            class="sticky top-0 z-50 glass-panel border-b border-gray-100 px-5 py-2.5 flex items-center justify-between"
+        >
+            <a href="/" class="flex items-center gap-3 no-underline">
+                <img
+                    src="photos/logo_only_bk.png"
+                    alt="EL-ATTIRE"
+                    class="nav-logo"
+                    onerror="this.style.display='none'"
+                />
+                <span class="text-lg font-semibold tracking-[0.1em] text-[#374151]"
+                    >EL-<span class="font-normal text-neutral-400 text-sm">ATTIRE</span></span
+                >
+            </a>
+            <nav class="hidden lg:flex items-center gap-6 text-[0.72rem] uppercase tracking-[0.08em] font-medium">
+                <a href="/" class="link-underline font-semibold border-b-2 border-[#374151] pb-1">Home</a>
+                <a href="/collection" class="link-underline">Shop</a>
+                <a href="/fabrics" class="link-underline">Fabrics</a>
+                <a href="/tailoring" class="link-underline">Tailoring</a>
+                <a href="/lookbook" class="link-underline">Lookbook</a>
+
+                <a href="/about" class="link-underline">About</a>
+            </nav>
+            <div class="flex items-center gap-3">
+                <button class="support-btn" id="supportHeaderToggle" title="Chat with support">
+                    <i class="fas fa-headset text-[0.6rem]"></i> Support
+                    <span class="live-dot"></span>
+                </button>
+                <a href="/login" class="text-[0.75rem] text-neutral-400 hover:text-[#374151] transition-colors"
+                    >Sign In</a
+                >
+                <a href="/register" class="btn-primary px-4 py-2 text-[0.7rem]">Get Started</a>
+            </div>
+        </header>
+
+        <main>
+            <!-- Hero Carousel -->
+            <section class="hero-carousel" id="heroCarousel">
+                <div
+                    class="hero-slide active"
+                    style="background-image: url(&quot;photos/hero_bg1.jpg&quot;)"
+                ></div>
+                <div class="hero-slide" style="background-image: url(&quot;photos/style_model3.jpg&quot;)"></div>
+                <div class="hero-slide" style="background-image: url(&quot;photos/hero_bg3.jpg&quot;)"></div>
+
+                <div class="hero-slide" style="background-image: url(&quot;photos/hero_bg.jpg&quot;)"></div>
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <div class="max-w-7xl mx-auto px-5 md:px-8 w-full">
+                        <div class="max-w-xl">
+                            <span
+                                class="text-[0.65rem] uppercase tracking-[0.2em] text-neutral-500 bg-white/90 px-3 py-1.5 inline-block rounded mb-4"
+                                >Est. 2010 · Lagos · Abuja · Milano</span
+                            >
+                            <h1
+                                class="text-4xl md:text-6xl lg:text-7xl font-light section-title leading-[1.05] mb-4 text-[#374151]"
+                            >
+                                Bespoke<br />Nigerian<br />Tailoring
+                            </h1>
+                            <p class="text-neutral-500 text-[0.9rem] md:text-base mb-8 max-w-md leading-relaxed">
+                                Handcrafted Kaftans, Agbada, and Senator styles for the modern gentleman. Every piece
+                                measured, cut, and stitched to perfection by master tailors.
+                            </p>
+                            <div class="flex flex-wrap gap-3">
+                                <a href="collection" class="btn-primary px-6 py-3 text-[0.8rem]"
+                                    >Explore Collection</a
+                                >
+                                <a href="/fitting" class="btn-outline px-6 py-3 text-[0.8rem]">Book a Fitting</a>
+                            </div>
+                            <div class="flex gap-8 mt-8">
+                                <div>
+                                    <span class="stat-number text-2xl font-semibold">14+</span>
+                                    <p class="text-[0.62rem] text-neutral-400 uppercase tracking-wider">
+                                        Years Experience
+                                    </p>
+                                </div>
+                                <div>
+                                    <span class="stat-number text-2xl font-semibold">5,000+</span>
+                                    <p class="text-[0.62rem] text-neutral-400 uppercase tracking-wider">
+                                        Garments Crafted
+                                    </p>
+                                </div>
+                                <div>
+                                    <span class="stat-number text-2xl font-semibold">3</span>
+                                    <p class="text-[0.62rem] text-neutral-400 uppercase tracking-wider">
+                                        Studio Locations
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-dots" id="heroDots">
+                    <span class="hero-dot active-dot" data-index="0"></span>
+                    <span class="hero-dot" data-index="1"></span>
+                    <span class="hero-dot" data-index="2"></span>
+                </div>
+                <div class="hero-nav">
+                    <button class="hero-nav-btn" id="heroPrev"><i class="fas fa-chevron-left"></i></button>
+                    <button class="hero-nav-btn" id="heroNext"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </section>
+
+            <!-- Features -->
+            <section class="py-16 md:py-20 max-w-7xl mx-auto px-5 md:px-8">
+                <div class="text-center mb-12">
+                    <span class="text-[0.65rem] uppercase tracking-[0.15em] text-neutral-400 mb-2 block"
+                        >Why Choose Us</span
+                    >
+                    <h2 class="text-2xl md:text-3xl font-medium text-[#374151]">The EL-ATTIRE Difference</h2>
+                </div>
+                <div class="grid md:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <div class="feature-icon mx-auto mb-4"><i class="fas fa-cut"></i></div>
+                        <h4 class="font-medium text-[0.8rem] text-[#374151] mb-1">Master Tailors</h4>
+                        <p class="text-[0.7rem] text-neutral-400">
+                            Decades of experience in traditional Nigerian craftsmanship passed down through generations.
+                        </p>
+                    </div>
+                    <div class="text-center">
+                        <div class="feature-icon mx-auto mb-4"><i class="fas fa-ruler-combined"></i></div>
+                        <h4 class="font-medium text-[0.8rem] text-[#374151] mb-1">Precision Fit</h4>
+                        <p class="text-[0.7rem] text-neutral-400">
+                            Over 15 measurement points taken for impeccable drape, silhouette, and all-day comfort.
+                        </p>
+                    </div>
+                    <div class="text-center">
+                        <div class="feature-icon mx-auto mb-4"><i class="fas fa-gem"></i></div>
+                        <h4 class="font-medium text-[0.8rem] text-[#374151] mb-1">Premium Fabrics</h4>
+                        <p class="text-[0.7rem] text-neutral-400">
+                            Handpicked Aso Oke, Damask, Silk & Brocade from Nigeria, Italy, and beyond.
+                        </p>
+                    </div>
+                    <div class="text-center">
+                        <div class="feature-icon mx-auto mb-4"><i class="fas fa-globe"></i></div>
+                        <h4 class="font-medium text-[0.8rem] text-[#374151] mb-1">Worldwide Service</h4>
+                        <p class="text-[0.7rem] text-neutral-400">
+                            Virtual consultations & global shipping. Trusted by clients across 15+ countries.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Signature Collections -->
+            <section class="py-14 bg-neutral-50/50 border-y border-gray-100">
+                <div class="max-w-7xl mx-auto px-5 md:px-8">
+                    <div class="text-center mb-10">
+                        <span class="text-[0.65rem] uppercase tracking-[0.15em] text-neutral-400 mb-2 block"
+                            >Signature Collections</span
+                        >
+                        <h2 class="text-2xl md:text-3xl font-medium text-[#374151]">Crafted Styles</h2>
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-5">
+                        <a href="/collection" class="category-card">
+                            <img
+                                src="photos/tailoring/style_1a.jpg"
+                                alt="Kaftans"
+                                onerror="this.src='https://placehold.co/400x380/e5e7eb/9ca3af?text=Kaftans'"
+                            />
+                            <div
+                                class="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/65 to-transparent text-white"
+                            >
+                                <h3 class="text-lg font-medium">The Kaftan</h3>
+                                <p class="text-[0.72rem] opacity-80">
+                                    Flowing ankle-length elegance for weddings, galas, and formal occasions.
+                                </p>
+                                <span class="text-[0.65rem] underline mt-2 inline-block">Explore Kaftans →</span>
+                            </div>
+                        </a>
+                        <a href="/collection" class="category-card">
+                            <img
+                                src="photos/tailoring/agbada_a1.jpg"
+                                alt="Agbada"
+                                onerror="this.src='https://placehold.co/400x380/e5e7eb/9ca3af?text=Agbada'"
+                            />
+                            <div
+                                class="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/65 to-transparent text-white"
+                            >
+                                <h3 class="text-lg font-medium">The Agbada</h3>
+                                <p class="text-[0.72rem] opacity-80">
+                                    Three-piece regal grandeur with intricate embroidery for distinguished presence.
+                                </p>
+                                <span class="text-[0.65rem] underline mt-2 inline-block">Explore Agbada →</span>
+                            </div>
+                        </a>
+                        <a href="/collection" class="category-card">
+                            <img
+                                src="photos/tailoring/style2.jpg"
+                                alt="Senator"
+                                onerror="this.src='https://placehold.co/400x380/e5e7eb/9ca3af?text=Senator'"
+                            />
+                            <div
+                                class="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/65 to-transparent text-white"
+                            >
+                                <h3 class="text-lg font-medium">The Senator</h3>
+                                <p class="text-[0.72rem] opacity-80">
+                                    Clean modern lines for the contemporary gentleman — corporate to casual.
+                                </p>
+                                <span class="text-[0.65rem] underline mt-2 inline-block">Explore Senator →</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Shop Clothing -->
+            <section class="py-16 max-w-7xl mx-auto px-5 md:px-8">
+                <div class="flex justify-between items-end mb-8">
+                    <div>
+                        <span class="text-[0.65rem] uppercase tracking-[0.15em] text-neutral-400 mb-2 block"
+                            >Ready to Wear</span
+                        >
+                        <h2 class="text-2xl font-medium text-[#374151]">Shop Clothing</h2>
+                    </div>
+                    <a
+                        href="/collection"
+                        class="text-[0.72rem] text-neutral-400 hover:text-[#374151] transition-colors"
+                        >View All →</a
+                    >
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <a href="/collection" class="product-card no-underline">
+                        <img
+                            src="photos/a1.jpg"
+                            alt="Royal Blue Kaftan"
+                            onerror="this.src='https://placehold.co/300x400/e5e7eb/9ca3af?text=Kaftan'"
+                        />
+                        <div class="p-3">
+                            <h4 class="text-[0.75rem] font-medium text-[#374151]">Royal Blue Kaftan</h4>
+                            <p class="text-[0.68rem] text-neutral-400 mt-0.5">₦245,000</p>
+                        </div>
+                    </a>
+                    <a href="/collection" class="product-card no-underline">
+                        <img
+                            src="photos/b1.jpg"
+                            alt="Embroidered Agbada"
+                            onerror="this.src='https://placehold.co/300x400/e5e7eb/9ca3af?text=Agbada'"
+                        />
+                        <div class="p-3">
+                            <h4 class="text-[0.75rem] font-medium text-[#374151]">Embroidered Agbada Set</h4>
+                            <p class="text-[0.68rem] text-neutral-400 mt-0.5">₦380,000</p>
+                        </div>
+                    </a>
+                    <a href="/collection" class="product-card no-underline">
+                        <img
+                            src="photos/model_c1.jpg"
+                            alt="Senator White"
+                            onerror="this.src='https://placehold.co/300x400/e5e7eb/9ca3af?text=Senator'"
+                        />
+                        <div class="p-3">
+                            <h4 class="text-[0.75rem] font-medium text-[#374151]">Senator White</h4>
+                            <p class="text-[0.68rem] text-neutral-400 mt-0.5">₦195,000</p>
+                        </div>
+                    </a>
+                    <a href="/collection" class="product-card no-underline">
+                        <img
+                            src="photos/model_d1.jpg"
+                            alt="Midnight Brocade"
+                            onerror="this.src='https://placehold.co/300x400/e5e7eb/9ca3af?text=Brocade'"
+                        />
+                        <div class="p-3">
+                            <h4 class="text-[0.75rem] font-medium text-[#374151]">Midnight Brocade Kaftan</h4>
+                            <p class="text-[0.68rem] text-neutral-400 mt-0.5">₦275,000</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Shop Fabrics -->
+            <section class="py-14 bg-neutral-50/50 border-y border-gray-100">
+                <div class="max-w-7xl mx-auto px-5 md:px-8">
+                    <div class="flex justify-between items-end mb-8">
+                        <div>
+                            <span class="text-[0.65rem] uppercase tracking-[0.15em] text-neutral-400 mb-2 block"
+                                >Premium Textiles</span
+                            >
+                            <h2 class="text-2xl font-medium text-[#374151]">Shop Fabrics</h2>
+                        </div>
+                        <a
+                            href="/fabrics"
+                            class="text-[0.72rem] text-neutral-400 hover:text-[#374151] transition-colors"
+                            >View All →</a
+                        >
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <a href="/fabrics" class="product-card no-underline">
+                            <img
+                                src="photos/fabrics/f1.jpg"
+                                alt="Royal Blue Aso Oke"
+                                onerror="this.src='https://placehold.co/300x400/e5e7eb/9ca3af?text=Aso+Oke'"
+                            />
+                            <div class="p-3">
+                                <div class="flex gap-1 mb-1">
+                                    <span class="fabric-swatch" style="background: #1a3a5c"></span
+                                    ><span class="fabric-swatch" style="background: #c9a84c"></span>
+                                </div>
+                                <h4 class="text-[0.75rem] font-medium text-[#374151]">Royal Blue Aso Oke</h4>
+                                <p class="text-[0.68rem] text-neutral-400 mt-0.5">₦120,000/yd</p>
+                            </div>
+                        </a>
+                        <a href="/fabrics" class="product-card no-underline">
+                            <img
+                                src="photos/fabrics/f4.jpg"
+                                alt="Cream Damask"
+                                onerror="this.src='https://placehold.co/300x400/e5e7eb/9ca3af?text=Damask'"
+                            />
+                            <div class="p-3">
+                                <h4 class="text-[0.75rem] font-medium text-[#374151]">Cream Damask Weave</h4>
+                                <p class="text-[0.68rem] text-neutral-400 mt-0.5">₦95,000/yd</p>
+                            </div>
+                        </a>
+                        <a href="/fabrics" class="product-card no-underline">
+                            <img
+                                src="photos/fabrics/f7.jpg"
+                                alt="Emerald Silk"
+                                onerror="this.src='https://placehold.co/300x400/e5e7eb/9ca3af?text=Silk'"
+                            />
+                            <div class="p-3">
+                                <h4 class="text-[0.75rem] font-medium text-[#374151]">Emerald Silk Satin</h4>
+                                <p class="text-[0.68rem] text-neutral-400 mt-0.5">₦185,000/yd</p>
+                            </div>
+                        </a>
+                        <a href="/fabrics" class="product-card no-underline">
+                            <img
+                                src="photos/fabrics/f10.jpg"
+                                alt="Gold Brocade"
+                                onerror="this.src='https://placehold.co/300x400/e5e7eb/9ca3af?text=Brocade'"
+                            />
+                            <div class="p-3">
+                                <h4 class="text-[0.75rem] font-medium text-[#374151]">Gold Brocade</h4>
+                                <p class="text-[0.68rem] text-neutral-400 mt-0.5">₦210,000/yd</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Model Showcase -->
+            <section class="py-16 max-w-7xl mx-auto px-5 md:px-8">
+                <div class="text-center mb-10">
+                    <span class="text-[0.65rem] uppercase tracking-[0.15em] text-neutral-400 mb-2 block"
+                        >Model Showcase</span
+                    >
+                    <h2 class="text-2xl font-medium text-[#374151]">See Our Styles on Real Clients</h2>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="rounded-xl overflow-hidden border border-gray-100">
+                        <img
+                            src="photos/tailoring/agbada1.jpg"
+                            alt="Agbada front"
+                            class="w-full aspect-3/4 object-cover"
+                            onerror="this.src='https://placehold.co/300x400/e5e7eb/9ca3af'"
+                        />
+                    </div>
+                    <div class="rounded-xl overflow-hidden border border-gray-100">
+                        <img
+                            src="photos/tailoring/agbada1b.jpg"
+                            alt="Agbada back"
+                            class="w-full aspect-3/4 object-cover"
+                            onerror="this.src='https://placehold.co/300x400/e5e7eb/9ca3af'"
+                        />
+                    </div>
+                    <div class="rounded-xl overflow-hidden border border-gray-100">
+                        <img
+                            src="photos/tailoring/agbada_a2.jpg"
+                            alt="Detail"
+                            class="w-full aspect-3/4 object-cover"
+                            onerror="this.src='https://placehold.co/300x400/e5e7eb/9ca3af'"
+                        />
+                    </div>
+                    <div class="rounded-xl overflow-hidden border border-gray-100">
+                        <img
+                            src="photos/tailoring/style_1b.jpg"
+                            alt="Kaftan style"
+                            class="w-full aspect-3/4 object-cover"
+                            onerror="this.src='https://placehold.co/300x400/e5e7eb/9ca3af'"
+                        />
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testimonials -->
+            <section class="py-16 bg-neutral-50/50 border-y border-gray-100">
+                <div class="max-w-7xl mx-auto px-5 md:px-8">
+                    <div class="text-center mb-10">
+                        <span class="text-[0.65rem] uppercase tracking-[0.15em] text-neutral-400 mb-2 block"
+                            >Testimonials</span
+                        >
+                        <h2 class="text-2xl font-medium text-[#374151]">What Our Clients Say</h2>
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-5">
+                        <div class="testimonial-card">
+                            <div class="flex gap-1 text-amber-500 mb-3 text-[0.7rem]">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i
+                                ><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <p class="text-[0.78rem] text-neutral-500 italic leading-relaxed">
+                                "The attention to detail is unmatched. My Agbada fit perfectly and the fabric quality
+                                was exceptional. I've found my tailor for life."
+                            </p>
+                            <p class="text-[0.68rem] font-medium mt-3 text-[#374151]">— Ade O.</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <div class="flex gap-1 text-amber-500 mb-3 text-[0.7rem]">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i
+                                ><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <p class="text-[0.78rem] text-neutral-500 italic leading-relaxed">
+                                "Three Kaftans for my wedding — each one stunning. The measurement process was thorough
+                                and the team was incredibly professional."
+                            </p>
+                            <p class="text-[0.68rem] font-medium mt-3 text-[#374151]">— Chidi M.</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <div class="flex gap-1 text-amber-500 mb-3 text-[0.7rem]">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i
+                                ><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <p class="text-[0.78rem] text-neutral-500 italic leading-relaxed">
+                                "Premium service from start to finish. The virtual fitting option worked perfectly for
+                                me while I was abroad. Highly recommended."
+                            </p>
+                            <p class="text-[0.68rem] font-medium mt-3 text-[#374151]">— Tunde A.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA -->
+            <section class="py-16 bg-[#374151] text-white text-center">
+                <div class="max-w-2xl mx-auto px-5">
+                    <h2 class="text-2xl md:text-3xl font-medium mb-3">Ready for Your Perfect Fit?</h2>
+                    <p class="text-neutral-300 text-[0.85rem] mb-6">
+                        Book a private consultation with our master tailors. Available in Lagos, Abuja, and virtually
+                        worldwide.
+                    </p>
+                    <div class="flex flex-wrap gap-3 justify-center">
+                        <a
+                            href="/fitting"
+                            class="bg-white text-[#374151] px-6 py-3 rounded-lg text-[0.78rem] font-medium hover:bg-gray-100 transition"
+                            >Schedule a Fitting</a
+                        >
+                        <a
+                            href="/collection"
+                            class="border border-white/30 text-white px-6 py-3 rounded-lg text-[0.78rem] font-medium hover:bg-white/10 transition"
+                            >Browse Collection</a
+                        >
+                        <a
+                            href="/fabrics"
+                            class="border border-white/30 text-white px-6 py-3 rounded-lg text-[0.78rem] font-medium hover:bg-white/10 transition"
+                            >Shop Fabrics</a
+                        >
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-[#0a0a0a] text-neutral-400">
+            <div class="max-w-7xl mx-auto px-6 py-12">
+                <div class="grid md:grid-cols-5 gap-8 mb-10">
+                    <div class="md:col-span-2">
+                        <img
+                            src="photos/logo_only.png"
+                            alt="EL-ATTIRE"
+                            class="footer-logo mb-4"
+                            onerror="this.style.display='none'"
+                        />
+                        <p class="text-sm text-neutral-500 leading-relaxed max-w-xs">
+                            Bespoke Nigerian tailoring since 2010. Crafting Kaftans, Agbada, and Senator styles for the
+                            modern gentleman.
+                        </p>
+                        <div class="flex gap-4 mt-4">
+                            <a href="#" class="text-neutral-500 hover:text-white transition"
+                                ><i class="fab fa-instagram text-lg"></i
+                            ></a>
+                            <a href="#" class="text-neutral-500 hover:text-white transition"
+                                ><i class="fab fa-whatsapp text-lg"></i
+                            ></a>
+                            <a href="#" class="text-neutral-500 hover:text-white transition"
+                                ><i class="fab fa-pinterest text-lg"></i
+                            ></a>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-white uppercase tracking-wider mb-4 text-xs font-semibold">Shop</h4>
+                        <a
+                            href="/collection"
+                            class="block mb-1.5 text-sm text-neutral-500 hover:text-white transition"
+                            >Clothing</a
+                        ><a
+                            href="fabrics"
+                            class="block mb-1.5 text-sm text-neutral-500 hover:text-white transition"
+                            >Fabrics</a
+                        >
+                    </div>
+                    <div>
+                        <h4 class="text-white uppercase tracking-wider mb-4 text-xs font-semibold">Services</h4>
+                        <a
+                            href="tailoring-page.html"
+                            class="block mb-1.5 text-sm text-neutral-500 hover:text-white transition"
+                            >Tailoring</a
+                        ><a
+                            href="fitting.html"
+                            class="block mb-1.5 text-sm text-neutral-500 hover:text-white transition"
+                            >Fittings</a
+                        >
+                    </div>
+                    <div>
+                        <h4 class="text-white uppercase tracking-wider mb-4 text-xs font-semibold">Support</h4>
+                        <a href="#" class="block mb-1.5 text-sm text-neutral-500 hover:text-white transition">FAQ</a
+                        ><a href="#" class="block mb-1.5 text-sm text-neutral-500 hover:text-white transition"
+                            >Contact</a
+                        >
+                    </div>
+                </div>
+                <div
+                    class="border-t border-neutral-800 pt-6 flex flex-col md:flex-row justify-between items-center gap-4"
+                >
+                    <p class="text-xs text-neutral-600">© 2026 EL-ATTIRE. All rights reserved.</p>
+                    <div class="flex gap-5 text-xs text-neutral-600">
+                        <a href="#" class="hover:text-white transition">Terms</a
+                        ><a href="#" class="hover:text-white transition">Privacy</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Chat Widget -->
+        <script>
+            (function () {
+                var widget = document.createElement("div");
+                widget.className = "chat-widget-overlay";
+                widget.id = "chatWidget";
+                widget.innerHTML =
+                    "<style>" +
+                    ".chat-widget-overlay{position:fixed;bottom:24px;right:24px;width:350px;max-width:90vw;height:440px;max-height:65vh;background:white;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,0.2);z-index:300;display:flex;flex-direction:column;transform:translateY(20px)scale(0.95);opacity:0;pointer-events:none;transition:all 0.25s cubic-bezier(0.23,1,0.32,1);border:1px solid rgba(0,0,0,0.08)}" +
+                    ".chat-widget-overlay.open{transform:translateY(0)scale(1);opacity:1;pointer-events:all}" +
+                    ".cw-h{padding:12px 14px;border-bottom:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between;border-radius:14px 14px 0 0;background:#fafafa}" +
+                    ".cw-ag{display:flex;align-items:center;gap:8px}.cw-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;color:white;font-weight:600;font-size:0.65rem}" +
+                    ".cw-on{display:flex;align-items:center;gap:4px;font-size:0.6rem;color:#10b981;font-weight:500}.cw-ond{width:5px;height:5px;border-radius:50%;background:#10b981}" +
+                    ".cw-b{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;background:#fafafa}" +
+                    ".cw-f{padding:10px 12px;border-top:1px solid #f3f4f6;display:flex;gap:6px;align-items:center}" +
+                    ".cw-f input{flex:1;padding:8px 12px;border:1px solid #e5e7eb;border-radius:18px;font-size:0.75rem;outline:none;background:white;font-family:inherit}" +
+                    ".cw-s{width:34px;height:34px;border-radius:50%;border:none;background:#374151;color:white;cursor:pointer;font-size:0.75rem;transition:all 0.15s;flex-shrink:0}" +
+                    ".cw-s:hover{background:#4b5563;transform:scale(1.05)}.cw-x{width:26px;height:26px;border-radius:50%;border:none;background:transparent;cursor:pointer;color:#9ca3af;font-size:0.9rem;display:flex;align-items:center;justify-content:center;transition:all 0.15s}" +
+                    ".cw-x:hover{background:#e5e7eb;color:#374151}.cw-bub{padding:8px 12px;border-radius:12px;font-size:0.75rem;line-height:1.5;max-width:85%;animation:cwIn 0.3s ease-out}" +
+                    "@keyframes cwIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}" +
+                    ".cw-bub.in{background:white;color:#374151;align-self:flex-start;border-bottom-left-radius:4px}" +
+                    ".cw-bub.out{background:#374151;color:white;align-self:flex-end;border-bottom-right-radius:4px}" +
+                    ".cw-t{font-size:0.55rem;opacity:0.6;margin-top:3px;display:block}" +
+                    ".cw-q{display:flex;flex-wrap:wrap;gap:4px;padding:0 12px 8px}" +
+                    ".cw-q button{padding:5px 10px;border-radius:14px;border:1px solid #e5e7eb;background:white;font-size:0.65rem;cursor:pointer;transition:all 0.15s;color:#374151;font-family:inherit}" +
+                    ".cw-q button:hover{background:#374151;color:white;border-color:#374151}" +
+                    "</style>" +
+                    '<div class="cw-h"><div class="cw-ag"><div class="cw-av">CS</div><div><p style="font-size:0.75rem;font-weight:500;color:#374151;margin:0">Customer Support</p><div class="cw-on"><span class="cw-ond"></span>Online</div></div></div><button class="cw-x" id="cwCloseBtn">✕</button></div>' +
+                    '<div class="cw-b" id="cwMessages"><div class="cw-bub in">Hello! 👋 Welcome to EL-ATTIRE. How can we help?<span class="cw-t">Just now</span></div></div>' +
+                    '<div class="cw-q"><button id="cwQuickFitting">📅 Fitting</button><button id="cwQuickFabric">🧵 Fabrics</button><button id="cwQuickPrice">💰 Pricing</button></div>' +
+                    '<div class="cw-f"><input type="text" placeholder="Type message..." id="cwInput"><button class="cw-s" id="cwSendBtn"><i class="fas fa-paper-plane"></i></button></div>';
+                document.body.appendChild(widget);
+
+                var isOpen = false;
+                var replies = {
+                    fitting:
+                        "📅 Book a fitting at our Lagos or Abuja studio. Mon-Fri 9AM-5PM, Sat 9AM-2PM. Virtual consultations also available!",
+                    fabric: "🧵 We stock Aso Oke, Damask, Silk, Brocade & Cotton. Visit our Fabrics page to browse. Prices from ₦45k-230k/yard.",
+                    price: "💰 Tailoring: ₦95k-495k/garment. Fabrics: ₦45k-230k/yard. Ready-made: ₦165k-450k. Free shipping over ₦200k.",
+                    default: "Thanks! A specialist will respond shortly. For immediate assistance: +234 800 000 0000.",
+                };
+                function getReply(m) {
+                    var x = m.toLowerCase();
+                    if (x.indexOf("fitting") > -1 || x.indexOf("book") > -1) return replies.fitting;
+                    if (x.indexOf("fabric") > -1 || x.indexOf("material") > -1) return replies.fabric;
+                    if (x.indexOf("price") > -1 || x.indexOf("cost") > -1) return replies.price;
+                    return replies.default;
+                }
+                function getTime() {
+                    return new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
+                }
+                function addMsg(text, type) {
+                    var msgs = document.getElementById("cwMessages");
+                    var b = document.createElement("div");
+                    b.className = "cw-bub " + (type === "sent" ? "out" : "in");
+                    b.innerHTML = text + '<span class="cw-t">' + getTime() + "</span>";
+                    msgs.appendChild(b);
+                    msgs.scrollTop = msgs.scrollHeight;
+                }
+                function sendMsg() {
+                    var input = document.getElementById("cwInput");
+                    if (!input || !input.value.trim()) return;
+                    var msg = input.value.trim();
+                    addMsg(msg, "sent");
+                    input.value = "";
+                    setTimeout(
+                        function () {
+                            addMsg(getReply(msg), "received");
+                        },
+                        700 + Math.random() * 1000
+                    );
+                }
+                function sendQuick(text) {
+                    var input = document.getElementById("cwInput");
+                    if (input) input.value = text;
+                    sendMsg();
+                }
+                function open() {
+                    widget.classList.add("open");
+                    isOpen = true;
+                    setTimeout(function () {
+                        var inp = document.getElementById("cwInput");
+                        if (inp) inp.focus();
+                    }, 300);
+                }
+                function close() {
+                    widget.classList.remove("open");
+                    isOpen = false;
+                }
+                function toggle() {
+                    isOpen ? close() : open();
+                }
+                document.getElementById("cwCloseBtn").addEventListener("click", close);
+                document.getElementById("cwSendBtn").addEventListener("click", sendMsg);
+                document.getElementById("cwInput").addEventListener("keypress", function (e) {
+                    if (e.key === "Enter") sendMsg();
+                });
+                document.getElementById("cwQuickFitting").addEventListener("click", function () {
+                    sendQuick("Book fitting");
+                });
+                document.getElementById("cwQuickFabric").addEventListener("click", function () {
+                    sendQuick("Fabric info");
+                });
+                document.getElementById("cwQuickPrice").addEventListener("click", function () {
+                    sendQuick("Pricing");
+                });
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape" && isOpen) close();
+                });
+                document.addEventListener("click", function (e) {
+                    if (
+                        isOpen &&
+                        !widget.contains(e.target) &&
+                        e.target.id !== "supportHeaderToggle" &&
+                        !document.getElementById("supportHeaderToggle").contains(e.target)
+                    )
+                        close();
+                });
+                document.getElementById("supportHeaderToggle").addEventListener("click", toggle);
+            })();
+        </script>
+
+        <!-- Hero Carousel Script -->
+        <script>
+            (function () {
+                var slides = document.querySelectorAll(".hero-slide");
+                var dots = document.querySelectorAll(".hero-dot");
+                var currentSlide = 0;
+                var totalSlides = slides.length;
+                var autoPlayInterval;
+
+                function showSlide(index) {
+                    slides.forEach(function (s) {
+                        s.classList.remove("active");
+                    });
+                    dots.forEach(function (d) {
+                        d.classList.remove("active-dot");
+                    });
+                    if (slides[index]) slides[index].classList.add("active");
+                    if (dots[index]) dots[index].classList.add("active-dot");
+                    currentSlide = index;
+                }
+
+                function nextSlide() {
+                    showSlide((currentSlide + 1) % totalSlides);
+                }
+                function prevSlide() {
+                    showSlide((currentSlide - 1 + totalSlides) % totalSlides);
+                }
+
+                document.getElementById("heroNext").addEventListener("click", function () {
+                    nextSlide();
+                    resetAutoPlay();
+                });
+                document.getElementById("heroPrev").addEventListener("click", function () {
+                    prevSlide();
+                    resetAutoPlay();
+                });
+
+                dots.forEach(function (dot) {
+                    dot.addEventListener("click", function () {
+                        showSlide(parseInt(this.dataset.index));
+                        resetAutoPlay();
+                    });
+                });
+
+                function startAutoPlay() {
+                    autoPlayInterval = setInterval(nextSlide, 5000);
+                }
+                function resetAutoPlay() {
+                    clearInterval(autoPlayInterval);
+                    startAutoPlay();
+                }
+
+                startAutoPlay();
+            })();
+        </script>
+    </body>
+</html>

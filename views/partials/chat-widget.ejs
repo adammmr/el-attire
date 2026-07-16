@@ -1,0 +1,94 @@
+<script>
+    (function() {
+        var widget = document.createElement("div");
+        widget.className = "chat-widget-overlay";
+        widget.id = "chatWidget";
+        widget.innerHTML = '<style>' +
+            '.chat-widget-overlay{position:fixed;bottom:24px;right:24px;width:350px;max-width:90vw;height:440px;max-height:65vh;background:white;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,0.2);z-index:300;display:flex;flex-direction:column;transform:translateY(20px)scale(0.95);opacity:0;pointer-events:none;transition:all 0.25s cubic-bezier(0.23,1,0.32,1);border:1px solid rgba(0,0,0,0.08)}' +
+            '.chat-widget-overlay.open{transform:translateY(0)scale(1);opacity:1;pointer-events:all}' +
+            '.cw-h{padding:12px 14px;border-bottom:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between;border-radius:14px 14px 0 0;background:#fafafa}' +
+            '.cw-ag{display:flex;align-items:center;gap:8px}.cw-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;color:white;font-weight:600;font-size:0.65rem}' +
+            '.cw-on{display:flex;align-items:center;gap:4px;font-size:0.6rem;color:#10b981;font-weight:500}.cw-ond{width:5px;height:5px;border-radius:50%;background:#10b981}' +
+            '.cw-b{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;background:#fafafa}' +
+            '.cw-f{padding:10px 12px;border-top:1px solid #f3f4f6;display:flex;gap:6px;align-items:center}' +
+            '.cw-f input{flex:1;padding:8px 12px;border:1px solid #e5e7eb;border-radius:18px;font-size:0.75rem;outline:none;background:white;font-family:inherit}' +
+            '.cw-s{width:34px;height:34px;border-radius:50%;border:none;background:#374151;color:white;cursor:pointer;font-size:0.75rem;transition:all 0.15s;flex-shrink:0}' +
+            '.cw-s:hover{background:#4b5563;transform:scale(1.05)}.cw-x{width:26px;height:26px;border-radius:50%;border:none;background:transparent;cursor:pointer;color:#9ca3af;font-size:0.9rem;display:flex;align-items:center;justify-content:center;transition:all 0.15s}' +
+            '.cw-x:hover{background:#e5e7eb;color:#374151}.cw-bub{padding:8px 12px;border-radius:12px;font-size:0.75rem;line-height:1.5;max-width:85%;animation:cwIn 0.3s ease-out}' +
+            '@keyframes cwIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}' +
+            '.cw-bub.in{background:white;color:#374151;align-self:flex-start;border-bottom-left-radius:4px}' +
+            '.cw-bub.out{background:#374151;color:white;align-self:flex-end;border-bottom-right-radius:4px}' +
+            '.cw-t{font-size:0.55rem;opacity:0.6;margin-top:3px;display:block}' +
+            '.cw-q{display:flex;flex-wrap:wrap;gap:4px;padding:0 12px 8px}' +
+            '.cw-q button{padding:5px 10px;border-radius:14px;border:1px solid #e5e7eb;background:white;font-size:0.65rem;cursor:pointer;transition:all 0.15s;color:#374151;font-family:inherit}' +
+            '.cw-q button:hover{background:#374151;color:white;border-color:#374151}' +
+            '</style>' +
+            '<div class="cw-h"><div class="cw-ag"><div class="cw-av">CS</div><div><p style="font-size:0.75rem;font-weight:500;color:#374151;margin:0">Customer Support</p><div class="cw-on"><span class="cw-ond"></span>Online</div></div></div><button class="cw-x" id="cwCloseBtn">✕</button></div>' +
+            '<div class="cw-b" id="cwMessages"><div class="cw-bub in">Hello! 👋 Welcome to EL-ATTIRE. How can we help?<span class="cw-t">Just now</span></div></div>' +
+            '<div class="cw-q"><button id="cwQuickFitting">📅 Fitting</button><button id="cwQuickFabric">🧵 Fabrics</button><button id="cwQuickPrice">💰 Pricing</button></div>' +
+            '<div class="cw-f"><input type="text" placeholder="Type message..." id="cwInput"><button class="cw-s" id="cwSendBtn"><i class="fas fa-paper-plane"></i></button></div>';
+        document.body.appendChild(widget);
+        
+        var isOpen = false;
+        var replies = {
+            fitting: "📅 Book a fitting at our Lagos or Abuja studio. Mon-Fri 9AM-5PM, Sat 9AM-2PM. Virtual consultations also available!",
+            fabric: "🧵 We stock Aso Oke, Damask, Silk, Brocade & Cotton. Visit our Fabrics page to browse. Prices from ₦45k-230k/yard.",
+            price: "💰 Tailoring: ₦95k-495k/garment. Fabrics: ₦45k-230k/yard. Ready-made: ₦165k-450k. Free shipping over ₦200k.",
+            default: "Thanks! A specialist will respond shortly. For immediate assistance: +234 800 000 0000."
+        };
+        
+        function getReply(m) {
+            var x = m.toLowerCase();
+            if(x.indexOf("fitting")>-1||x.indexOf("book")>-1) return replies.fitting;
+            if(x.indexOf("fabric")>-1||x.indexOf("material")>-1) return replies.fabric;
+            if(x.indexOf("price")>-1||x.indexOf("cost")>-1) return replies.price;
+            return replies.default;
+        }
+        
+        function getTime() {
+            return new Date().toLocaleTimeString('en-US', {hour:'2-digit', minute:'2-digit', hour12:true});
+        }
+        
+        function addMsg(text, type) {
+            var msgs = document.getElementById('cwMessages');
+            var b = document.createElement('div');
+            b.className = 'cw-bub ' + (type==='sent'?'out':'in');
+            b.innerHTML = text + '<span class="cw-t">' + getTime() + '</span>';
+            msgs.appendChild(b);
+            msgs.scrollTop = msgs.scrollHeight;
+        }
+        
+        function sendMsg() {
+            var input = document.getElementById('cwInput');
+            if(!input||!input.value.trim()) return;
+            var msg = input.value.trim();
+            addMsg(msg, 'sent');
+            input.value = '';
+            setTimeout(function() { addMsg(getReply(msg), 'received'); }, 700+Math.random()*1000);
+        }
+        
+        function sendQuick(text) {
+            var input = document.getElementById('cwInput');
+            if(input) input.value = text;
+            sendMsg();
+        }
+        
+        function open() { widget.classList.add('open'); isOpen=true; setTimeout(function(){var inp=document.getElementById('cwInput');if(inp)inp.focus();},300); }
+        function close() { widget.classList.remove('open'); isOpen=false; }
+        function toggle() { isOpen?close():open(); }
+        
+        document.getElementById('cwCloseBtn').addEventListener('click', close);
+        document.getElementById('cwSendBtn').addEventListener('click', sendMsg);
+        document.getElementById('cwInput').addEventListener('keypress', function(e) { if(e.key==='Enter') sendMsg(); });
+        document.getElementById('cwQuickFitting').addEventListener('click', function() { sendQuick('Book fitting'); });
+        document.getElementById('cwQuickFabric').addEventListener('click', function() { sendQuick('Fabric info'); });
+        document.getElementById('cwQuickPrice').addEventListener('click', function() { sendQuick('Pricing'); });
+        
+        document.addEventListener('keydown', function(e) { if(e.key==='Escape'&&isOpen) close(); });
+        document.addEventListener('click', function(e) {
+            if(isOpen && !widget.contains(e.target) && e.target.id!=='supportHeaderToggle' && !document.getElementById('supportHeaderToggle').contains(e.target)) close();
+        });
+        
+        document.getElementById('supportHeaderToggle').addEventListener('click', toggle);
+    })();
+</script>

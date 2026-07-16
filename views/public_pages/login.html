@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=yes">
+  <title>EL-ATTIRE | Sign In</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --text-primary: #374151;
+      --text-secondary: #9ca3af;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body { 
+      font-family: 'Inter', system-ui, -apple-system, sans-serif; 
+      color: var(--text-primary); 
+      letter-spacing: -0.01em; 
+      font-size: 0.85rem;
+      font-weight: 400;
+      line-height: 1.5;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .section-title { font-family: 'Playfair Display', serif; letter-spacing: 0.03em; }
+
+    /* Full cover page layout */
+    .cover-page {
+      display: flex; min-height: 100vh;
+    }
+
+    /* Left: Hero Image Side */
+    .cover-hero {
+      flex: 1; display: none; position: relative; overflow: hidden;
+      background-size: cover; background-position: center;
+    }
+    @media (min-width: 1024px) { .cover-hero { display: flex; } }
+    .cover-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(55,65,81,0.3) 0%, rgba(55,65,81,0.6) 100%);
+      z-index: 1;
+    }
+    .cover-hero-content {
+      position: relative; z-index: 10; padding: 60px 50px; display: flex;
+      flex-direction: column; justify-content: flex-end; color: white;
+    }
+    .cover-hero-content h2 {
+      font-family: 'Playfair Display', serif; font-size: 2.8rem;
+      font-weight: 500; line-height: 1.15; margin-bottom: 16px;
+    }
+    .cover-hero-content p { font-size: 0.95rem; opacity: 0.85; max-width: 400px; line-height: 1.7; }
+    .cover-hero-dots {
+      position: absolute; bottom: 30px; left: 50px; z-index: 10;
+      display: flex; gap: 8px;
+    }
+    .cover-hero-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.4);
+      cursor: pointer; transition: all 0.3s;
+    }
+    .cover-hero-dot.active-dot { background: white; width: 24px; border-radius: 4px; }
+
+    /* Right: Login Form Side */
+    .cover-form {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      padding: 40px 30px; background: #ffffff;
+    }
+    .cover-form-inner { width: 100%; max-width: 420px; }
+
+    .btn-primary {
+        background: var(--text-primary); color: white; border: none; 
+        transition: all 0.15s ease; cursor: pointer; font-weight: 500; 
+        letter-spacing: 0.03em; border-radius: 7px; font-size: 0.82rem;
+        padding: 13px 24px; width: 100%;
+        /* Anchor tag resets */
+        display: inline-flex; align-items: center; justify-content: center;
+        text-decoration: none; text-align: center;
+        font-family: inherit; line-height: 1.4;
+    }
+    .btn-primary:hover { background: #4b5563; transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0,0,0,0.08); text-decoration: none; color: white; }
+    .btn-primary:active { transform: scale(0.98); }
+   
+    .btn-outline { 
+        background: transparent; color: var(--text-primary); border: 1px solid #e5e7eb; 
+        transition: all 0.15s ease; cursor: pointer; font-weight: 500; 
+        letter-spacing: 0.03em; border-radius: 7px; font-size: 0.82rem;
+        padding: 13px 24px; width: 100%;
+        /* Anchor tag resets */
+        display: inline-flex; align-items: center; justify-content: center;
+        text-decoration: none; text-align: center;
+        font-family: inherit; line-height: 1.4;
+    }
+    .btn-outline:hover { background: #f9fafb; border-color: #d1d5db; text-decoration: none; color: var(--text-primary); }
+    .input-lux {
+      width: 100%; padding: 0.65rem 0.9rem; border: 1px solid #e5e7eb;
+      background: #fafafa; font-size: 0.82rem; transition: all 0.15s;
+      border-radius: 7px; color: var(--text-primary); font-family: inherit;
+    }
+    .input-lux:focus { border-color: #6b7280; background: white; outline: none; box-shadow: 0 0 0 3px rgba(107,114,128,0.1); }
+    .input-lux.error { border-color: #ef4444; background: #fef2f2; }
+
+    .divider { 
+      display: flex; align-items: center; gap: 14px; 
+      color: #9ca3af; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; 
+    }
+    .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: #e5e7eb; }
+
+    .social-btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 11px; border: 1px solid #e5e7eb; border-radius: 7px;
+      cursor: pointer; font-size: 0.8rem; font-weight: 500;
+      transition: all 0.15s; background: white; color: var(--text-primary);
+    }
+    .social-btn:hover { border-color: #d1d5db; background: #f9fafb; }
+
+    .password-toggle { 
+      position: absolute; right: 12px; top: 50%; transform: translateY(-50%); 
+      cursor: pointer; color: #9ca3af; transition: color 0.15s; 
+      background: none; border: none; font-size: 0.85rem;
+    }
+    .password-toggle:hover { color: #374151; }
+
+    .error-msg { 
+      background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; 
+      padding: 10px 14px; border-radius: 7px; font-size: 0.75rem; display: none; 
+    }
+
+    .nav-logo { height: 40px; width: auto; }
+
+    .toast {
+      position: fixed; bottom: 24px; right: 24px; background: #374151; color: white;
+      padding: 10px 18px; border-radius: 8px; font-size: 0.78rem; font-weight: 500;
+      z-index: 300; opacity: 0; transform: translateY(10px);
+      transition: all 0.3s ease; box-shadow: 0 4px 16px rgba(0,0,0,0.15); pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { background: #ef4444; }
+  </style>
+</head>
+<body class="antialiased">
+
+  <div class="toast" id="toast"></div>
+
+  <div class="cover-page">
+    <!-- Left: Hero Image -->
+    <div class="cover-hero" id="coverHero" style="background-image: url('photos/tailoring/agbada_a1.jpg');">
+      <div class="cover-hero-content">
+        <h2>Crafted for<br>the Modern<br>Gentleman</h2>
+        <p>Bespoke Nigerian tailoring since 2010. Every stitch tells a story of elegance and tradition.</p>
+      </div>
+      <div class="cover-hero-dots" id="heroDots">
+        <span class="cover-hero-dot active-dot" data-img="0"></span>
+        <span class="cover-hero-dot" data-img="1"></span>
+        <span class="cover-hero-dot" data-img="2"></span>
+      </div>
+    </div>
+
+    <!-- Right: Login Form -->
+    <div class="cover-form">
+      <div class="cover-form-inner">
+        <!-- Logo -->
+        <div class="text-center mb-8">
+          <a href="/" class="inline-block no-underline">
+            <img src="photos/logo_only_bk.png" alt="EL-ATTIRE" class="nav-logo mx-auto mb-2" onerror="this.style.display='none'">
+          </a>
+          <p class="text-[0.62rem] text-neutral-400 tracking-widest uppercase">Bespoke Nigerian Tailoring</p>
+        </div>
+
+        <!-- Heading -->
+        <h1 class="text-2xl font-light section-title text-[#374151] mb-1">Welcome Back</h1>
+        <p class="text-[0.78rem] text-neutral-400 mb-6">Sign in to your account to continue.</p>
+
+        <!-- Error -->
+        <div class="error-msg mb-4" id="loginError">
+          <i class="fas fa-exclamation-circle mr-2"></i><span id="errorText">Invalid phone number or password.</span>
+        </div>
+
+        <!-- Form -->
+        <form id="loginForm" class="space-y-3.5">
+          <div>
+            <label class="text-[0.62rem] font-medium text-neutral-400 uppercase tracking-wider block mb-1">Phone Number</label>
+            <div class="flex gap-2">
+              <select class="input-lux w-20 text-[0.72rem]"><option>+234</option><option>+1</option><option>+44</option></select>
+              <input type="tel" id="phoneNumber" placeholder="812 345 6789" required class="input-lux flex-1" autocomplete="username">
+            </div>
+          </div>
+
+          <div>
+            <label class="text-[0.62rem] font-medium text-neutral-400 uppercase tracking-wider block mb-1">Password</label>
+            <div class="relative">
+              <input type="password" id="password" placeholder="Enter your password" required class="input-lux pr-10" autocomplete="current-password">
+              <button type="button" class="password-toggle" id="togglePassword"><i class="far fa-eye"></i></button>
+            </div>
+          </div>
+
+          <div class="flex justify-between items-center text-[0.7rem] pt-1">
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="checkbox" class="accent-[#374151] w-3.5 h-3.5" checked>
+              <span class="text-neutral-400">Remember me</span>
+            </label>
+            <a href="forgot-password" class="text-neutral-400 hover:text-[#374151] transition-colors">Forgot password?</a>
+          </div>
+
+          <!-- <button type="button" class="btn-primary text-[0.78rem] tracking-wider">Sign In</button> -->
+           <a href="user/dashboard" class="btn-primary text-[0.78rem] tracking-wider inline-flex items-center justify-center no-underline">Sign In [Click Me!]</a>
+        </form>
+
+        <!-- Divider -->
+        <div class="divider my-5">or continue with</div>
+
+        <!-- Social -->
+        <div class="grid grid-cols-2 gap-3">
+          <button class="social-btn" onclick="showToast('Google sign-in coming soon')"><i class="fab fa-google text-red-500"></i> Google</button>
+          <button class="social-btn" onclick="showToast('Apple sign-in coming soon')"><i class="fab fa-apple"></i> Apple</button>
+        </div>
+
+        <!-- Register link -->
+        <p class="text-center text-[0.7rem] text-neutral-400 mt-5">
+          Don't have an account? <a href="register" class="text-[#374151] font-medium hover:underline">Create Account</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Terms -->
+  <div style="position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:50;">
+    <p class="text-[0.6rem] text-neutral-400 text-center">
+      By signing in, you agree to our <a href="terms" class="underline hover:text-[#374151]">Terms</a> and <a href="#" class="underline hover:text-[#374151]">Privacy Policy</a>.
+    </p>
+  </div>
+
+  <script>
+    (function() {
+      // Hero image rotation
+      var heroImages = [
+        'photos/tailoring/style_2.jpg',
+        'photos/tailoring/style_1a.jpg',
+        'photos/tailoring/style2.jpg'
+      ];
+      var currentHero = 0;
+      var heroEl = document.getElementById('coverHero');
+      var heroDots = document.querySelectorAll('.cover-hero-dot');
+
+      function setHero(index) {
+        currentHero = index;
+        heroEl.style.backgroundImage = 'url(' + heroImages[index] + ')';
+        heroDots.forEach(function(d) { d.classList.remove('active-dot'); });
+        if (heroDots[index]) heroDots[index].classList.add('active-dot');
+      }
+
+      heroDots.forEach(function(dot) {
+        dot.addEventListener('click', function() { setHero(parseInt(this.dataset.img)); });
+      });
+
+      // Auto-rotate every 6 seconds
+      setInterval(function() { setHero((currentHero + 1) % heroImages.length); }, 6000);
+
+      // Password toggle
+      var togglePassword = document.getElementById('togglePassword');
+      var passwordInput = document.getElementById('password');
+
+      togglePassword.addEventListener('click', function() {
+        var type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.querySelector('i').classList.toggle('fa-eye');
+        this.querySelector('i').classList.toggle('fa-eye-slash');
+      });
+
+      // Form submit
+      var loginForm = document.getElementById('loginForm');
+      var loginError = document.getElementById('loginError');
+      var errorText = document.getElementById('errorText');
+
+      loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var phone = document.getElementById('phoneNumber').value.trim();
+        var password = passwordInput.value.trim();
+
+        if (phone.length < 7) { showError('Please enter a valid phone number.'); return; }
+        if (password.length < 4) { showError('Password must be at least 4 characters.'); return; }
+
+        // Demo: 8123456789 / password123
+        if (phone === '8123456789' && password !== 'password123' && password !== 'admin') {
+          showError('Incorrect password. Please try again.');
+          return;
+        }
+
+        loginError.style.display = 'none';
+        window.location.href = 'dashboard.html';
+      });
+
+      function showError(msg) {
+        errorText.textContent = msg;
+        loginError.style.display = 'block';
+        setTimeout(function() { loginError.style.display = 'none'; }, 4000);
+      }
+
+      window.showToast = function(msg, type) {
+        type = type || '';
+        var t = document.getElementById('toast');
+        t.textContent = msg; t.className = 'toast ' + type + ' show';
+        setTimeout(function() { t.classList.remove('show'); }, 2500);
+      };
+
+      document.getElementById('phoneNumber').focus();
+    })();
+  </script>
+</body>
+</html>

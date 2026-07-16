@@ -1,0 +1,909 @@
+
+        <div class="toast" id="toast"></div>
+
+
+
+        <main class="max-w-6xl mx-auto px-4 md:px-6 py-8">
+            <div class="mb-8">
+                <span class="text-[0.65rem] uppercase tracking-[0.15em] text-neutral-400">Get Started</span>
+                <h1 class="text-2xl md:text-3xl font-medium text-[#374151] mt-1 mb-2">Create Your Profile</h1>
+                <p class="text-[0.8rem] text-neutral-400 max-w-xl">
+                    Register with your phone number. Optionally complete your measurement profile for the perfect
+                    bespoke fit.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-6 mb-12">
+                <!-- Registration Form -->
+                <div class="space-y-3.5 lg:col-span-1">
+                    <h2 class="text-[0.75rem] font-medium uppercase tracking-wider text-neutral-400">
+                        Account Details
+                    </h2>
+
+                    <div>
+                        <label class="block text-[0.62rem] text-neutral-400 mb-1"
+                            >Phone Number <span class="text-red-400">*</span></label
+                        >
+                        <div class="flex gap-2">
+                            <select class="input-lux w-20 text-[0.72rem]">
+                                <option>+234</option>
+                                <option>+1</option>
+                                <option>+44</option>
+                            </select>
+                            <input
+                                type="tel"
+                                id="phoneNumber"
+                                placeholder="812 345 6789"
+                                required
+                                class="input-lux flex-1"
+                            />
+                        </div>
+                        <p class="text-[0.6rem] text-neutral-400 mt-0.5">This will be your login username.</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[0.62rem] text-neutral-400 mb-1">First Name</label
+                            ><input type="text" placeholder="Oluwaseun" class="input-lux" />
+                        </div>
+                        <div>
+                            <label class="block text-[0.62rem] text-neutral-400 mb-1">Last Name</label
+                            ><input type="text" placeholder="Adebayo" class="input-lux" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-[0.62rem] text-neutral-400 mb-1">Email</label
+                        ><input type="email" placeholder="you@email.com" class="input-lux" />
+                    </div>
+                    <div>
+                        <label class="block text-[0.62rem] text-neutral-400 mb-1"
+                            >Password <span class="text-red-400">*</span></label
+                        ><input type="password" id="regPassword" placeholder="••••••••" class="input-lux" required />
+                    </div>
+
+                    <div>
+                        <label class="block text-[0.62rem] text-neutral-400 mb-1">Gender</label>
+                        <div class="flex gap-5 mt-0.5">
+                            <label class="flex items-center gap-1.5 cursor-pointer text-[0.78rem]"
+                                ><input type="radio" name="gender" checked class="accent-[#374151]" /> Male</label
+                            >
+                            <label class="flex items-center gap-1.5 cursor-pointer text-[0.78rem]"
+                                ><input type="radio" name="gender" class="accent-[#374151]" /> Female</label
+                            >
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-[0.62rem] text-neutral-400 mb-1">Date of Birth</label
+                        ><input type="date" class="input-lux" />
+                    </div>
+
+                    <button id="registerBtn" class="btn-primary w-full py-2.5 text-[0.75rem]">Register Account</button>
+                    <div id="regFeedback" class="text-emerald-600 text-[0.7rem] font-medium hidden text-center">
+                        ✓ Registration successful!
+                    </div>
+                    <p class="text-[0.68rem] text-neutral-400 text-center">
+                        Already have an account?
+                        <a href="login.html" class="text-[#374151] font-medium hover:underline">Sign In</a>
+                    </p>
+                </div>
+
+                <!-- Rotatable Mannequin + Fit Profile Toggle -->
+                <div class="lg:col-span-2 flex flex-col items-center">
+                    <div class="w-full flex justify-between items-center mb-3">
+                        <h2 class="text-[0.75rem] font-medium uppercase tracking-wider text-neutral-400">
+                            Your Fit Profile
+                        </h2>
+
+                        <!-- Optional Toggle -->
+                        <div class="fit-toggle-wrapper" id="fitToggleWrapper" title="Toggle measurement profile">
+                            <span class="text-[0.65rem] text-neutral-400" id="fitToggleLabel">Add measurements</span>
+                            <div class="fit-toggle" id="fitToggle"></div>
+                        </div>
+                    </div>
+
+                    <!-- Mannequin (always visible) -->
+                    <div class="mannequin-wrapper" id="mannequinContainer">
+                        <div class="mannequin-inner" id="mannequinInner">
+                            <!-- FRONT FACE -->
+                            <div class="mannequin-face mannequin-front">
+                                <svg class="mannequin-svg" viewBox="0 0 350 900" xmlns="http://www.w3.org/2000/svg">
+                                    <text x="175" y="28" class="measure-label" style="font-size: 11px">FRONT VIEW</text>
+                                    <circle cx="175" cy="85" r="42" fill="#f9fafb" stroke="none" />
+                                    <path d="M162 128 L162 152 L188 152 L188 128 Z" fill="#f9fafb" stroke="none" />
+                                    <path
+                                        d="M112 162 Q122 210 127 270 Q130 340 142 420 Q152 490 157 590 L193 590 Q198 490 208 420 Q220 340 223 270 Q228 210 238 162 Z"
+                                        fill="#f9fafb"
+                                        stroke="none"
+                                    />
+                                    <path
+                                        d="M112 167 Q72 240 77 350 Q80 460 92 590 L102 590 L102 167 Z"
+                                        fill="#f9fafb"
+                                        stroke="none"
+                                    />
+                                    <path
+                                        d="M238 167 Q278 240 273 350 Q270 460 258 590 L248 590 L248 167 Z"
+                                        fill="#f9fafb"
+                                        stroke="none"
+                                    />
+                                    <path
+                                        d="M157 590 Q147 680 147 810 L167 810 L167 590 Z"
+                                        fill="#f9fafb"
+                                        stroke="none"
+                                    />
+                                    <path
+                                        d="M193 590 Q203 680 203 810 L183 810 L183 590 Z"
+                                        fill="#f9fafb"
+                                        stroke="none"
+                                    />
+                                    <ellipse cx="157" cy="825" rx="14" ry="7" fill="#f9fafb" stroke="none" />
+                                    <ellipse cx="203" cy="825" rx="14" ry="7" fill="#f9fafb" stroke="none" />
+                                    <circle cx="175" cy="85" r="42" class="body-outline" />
+                                    <line x1="162" y1="128" x2="162" y2="152" class="body-outline" />
+                                    <line x1="188" y1="128" x2="188" y2="152" class="body-outline" />
+                                    <line x1="112" y1="162" x2="238" y2="162" class="body-outline" />
+                                    <path
+                                        d="M112 162 Q122 210 127 270 Q130 340 142 420 Q152 490 157 590 L193 590 Q198 490 208 420 Q220 340 223 270 Q228 210 238 162"
+                                        class="body-outline"
+                                    />
+                                    <path d="M112 167 Q72 240 77 350 Q80 460 92 590" class="body-outline" />
+                                    <path d="M238 167 Q278 240 273 350 Q270 460 258 590" class="body-outline" />
+                                    <path d="M157 590 Q147 680 147 810" class="body-outline" />
+                                    <path d="M193 590 Q203 680 203 810" class="body-outline" />
+                                    <ellipse cx="157" cy="825" rx="14" ry="7" class="body-outline" />
+                                    <ellipse cx="203" cy="825" rx="14" ry="7" class="body-outline" />
+                                    <line
+                                        x1="102"
+                                        y1="242"
+                                        x2="248"
+                                        y2="242"
+                                        class="measure-line"
+                                        data-measure="chest"
+                                    />
+                                    <circle cx="102" cy="242" class="measure-dot" data-measure="chest" />
+                                    <circle cx="248" cy="242" class="measure-dot" data-measure="chest" />
+                                    <text x="258" y="246" class="measure-label">CHEST</text>
+                                    <line
+                                        x1="107"
+                                        y1="340"
+                                        x2="243"
+                                        y2="340"
+                                        class="measure-line"
+                                        data-measure="waist"
+                                    />
+                                    <circle cx="107" cy="340" class="measure-dot" data-measure="waist" />
+                                    <circle cx="243" cy="340" class="measure-dot" data-measure="waist" />
+                                    <text x="253" y="344" class="measure-label">WAIST</text>
+                                    <line
+                                        x1="112"
+                                        y1="450"
+                                        x2="238"
+                                        y2="450"
+                                        class="measure-line"
+                                        data-measure="hips"
+                                    />
+                                    <circle cx="112" cy="450" class="measure-dot" data-measure="hips" />
+                                    <circle cx="238" cy="450" class="measure-dot" data-measure="hips" />
+                                    <text x="248" y="454" class="measure-label">HIPS</text>
+                                    <line
+                                        x1="112"
+                                        y1="145"
+                                        x2="238"
+                                        y2="145"
+                                        class="measure-line"
+                                        data-measure="shoulder"
+                                    />
+                                    <circle cx="112" cy="145" class="measure-dot" data-measure="shoulder" />
+                                    <circle cx="238" cy="145" class="measure-dot" data-measure="shoulder" />
+                                    <text x="248" y="149" class="measure-label">SHOULDER</text>
+                                    <line
+                                        x1="97"
+                                        y1="165"
+                                        x2="92"
+                                        y2="590"
+                                        class="measure-line"
+                                        data-measure="sleeve"
+                                    />
+                                    <circle cx="97" cy="165" class="measure-dot" data-measure="sleeve" />
+                                    <circle cx="92" cy="590" class="measure-dot" data-measure="sleeve" />
+                                    <text x="40" y="380" class="measure-label" transform="rotate(-90 40,380)">
+                                        SLEEVE
+                                    </text>
+                                    <line
+                                        x1="223"
+                                        y1="450"
+                                        x2="223"
+                                        y2="810"
+                                        class="measure-line"
+                                        data-measure="outseam"
+                                    />
+                                    <circle cx="223" cy="450" class="measure-dot" data-measure="outseam" />
+                                    <circle cx="223" cy="810" class="measure-dot" data-measure="outseam" />
+                                    <text x="233" y="630" class="measure-label">OUTSEAM</text>
+                                    <line
+                                        x1="175"
+                                        y1="590"
+                                        x2="175"
+                                        y2="810"
+                                        class="measure-line"
+                                        data-measure="inseam"
+                                    />
+                                    <circle cx="175" cy="590" class="measure-dot" data-measure="inseam" />
+                                    <circle cx="175" cy="810" class="measure-dot" data-measure="inseam" />
+                                    <text x="185" y="710" class="measure-label">INSEAM</text>
+                                    <ellipse
+                                        cx="175"
+                                        cy="148"
+                                        rx="20"
+                                        ry="9"
+                                        class="measure-line"
+                                        data-measure="neck"
+                                    />
+                                    <circle cx="175" cy="139" class="measure-dot" data-measure="neck" />
+                                    <text x="208" y="151" class="measure-label">NECK</text>
+                                </svg>
+                            </div>
+                            <!-- BACK FACE -->
+                            <div class="mannequin-face mannequin-back">
+                                <svg class="mannequin-svg" viewBox="0 0 350 900" xmlns="http://www.w3.org/2000/svg">
+                                    <text x="175" y="28" class="measure-label" style="font-size: 11px">BACK VIEW</text>
+                                    <circle cx="175" cy="85" r="42" fill="#f9fafb" stroke="none" />
+                                    <path d="M162 128 L162 152 L188 152 L188 128 Z" fill="#f9fafb" stroke="none" />
+                                    <path
+                                        d="M112 162 Q122 210 132 310 Q142 410 152 590 L198 590 Q208 410 218 310 Q228 210 238 162 Z"
+                                        fill="#f9fafb"
+                                        stroke="none"
+                                    />
+                                    <path
+                                        d="M112 167 Q72 240 82 590 L102 590 L102 167 Z"
+                                        fill="#f9fafb"
+                                        stroke="none"
+                                    />
+                                    <path
+                                        d="M238 167 Q278 240 268 590 L248 590 L248 167 Z"
+                                        fill="#f9fafb"
+                                        stroke="none"
+                                    />
+                                    <path
+                                        d="M152 590 Q147 680 147 810 L167 810 L167 590 Z"
+                                        fill="#f9fafb"
+                                        stroke="none"
+                                    />
+                                    <path
+                                        d="M198 590 Q203 680 203 810 L183 810 L183 590 Z"
+                                        fill="#f9fafb"
+                                        stroke="none"
+                                    />
+                                    <ellipse cx="157" cy="825" rx="14" ry="7" fill="#f9fafb" stroke="none" />
+                                    <ellipse cx="203" cy="825" rx="14" ry="7" fill="#f9fafb" stroke="none" />
+                                    <circle cx="175" cy="85" r="42" class="body-outline" />
+                                    <line x1="162" y1="128" x2="162" y2="152" class="body-outline" />
+                                    <line x1="188" y1="128" x2="188" y2="152" class="body-outline" />
+                                    <line x1="112" y1="162" x2="238" y2="162" class="body-outline" />
+                                    <path
+                                        d="M112 162 Q122 210 132 310 Q142 410 152 590 L198 590 Q208 410 218 310 Q228 210 238 162"
+                                        class="body-outline"
+                                    />
+                                    <path d="M112 167 Q72 240 82 590" class="body-outline" />
+                                    <path d="M238 167 Q278 240 268 590" class="body-outline" />
+                                    <path d="M152 590 Q147 680 147 810" class="body-outline" />
+                                    <path d="M198 590 Q203 680 203 810" class="body-outline" />
+                                    <ellipse cx="157" cy="825" rx="14" ry="7" class="body-outline" />
+                                    <ellipse cx="203" cy="825" rx="14" ry="7" class="body-outline" />
+                                    <line
+                                        x1="117"
+                                        y1="215"
+                                        x2="233"
+                                        y2="215"
+                                        class="measure-line"
+                                        data-measure="back-width"
+                                    />
+                                    <circle cx="117" cy="215" class="measure-dot" data-measure="back-width" />
+                                    <circle cx="233" cy="215" class="measure-dot" data-measure="back-width" />
+                                    <text x="243" y="219" class="measure-label">BACK WIDTH</text>
+                                    <line
+                                        x1="112"
+                                        y1="145"
+                                        x2="238"
+                                        y2="145"
+                                        class="measure-line"
+                                        data-measure="across-shoulder"
+                                    />
+                                    <circle cx="112" cy="145" class="measure-dot" data-measure="across-shoulder" />
+                                    <circle cx="238" cy="145" class="measure-dot" data-measure="across-shoulder" />
+                                    <text x="248" y="149" class="measure-label">ACROSS</text>
+                                    <line
+                                        x1="112"
+                                        y1="350"
+                                        x2="238"
+                                        y2="350"
+                                        class="measure-line"
+                                        data-measure="back-waist"
+                                    />
+                                    <circle cx="112" cy="350" class="measure-dot" data-measure="back-waist" />
+                                    <circle cx="238" cy="350" class="measure-dot" data-measure="back-waist" />
+                                    <text x="248" y="354" class="measure-label">BACK WAIST</text>
+                                    <line
+                                        x1="112"
+                                        y1="460"
+                                        x2="238"
+                                        y2="460"
+                                        class="measure-line"
+                                        data-measure="seat"
+                                    />
+                                    <circle cx="112" cy="460" class="measure-dot" data-measure="seat" />
+                                    <circle cx="238" cy="460" class="measure-dot" data-measure="seat" />
+                                    <text x="248" y="464" class="measure-label">SEAT</text>
+                                    <line
+                                        x1="175"
+                                        y1="145"
+                                        x2="175"
+                                        y2="590"
+                                        class="measure-line"
+                                        data-measure="center-back"
+                                    />
+                                    <circle cx="175" cy="145" class="measure-dot" data-measure="center-back" />
+                                    <circle cx="175" cy="590" class="measure-dot" data-measure="center-back" />
+                                    <text x="185" y="370" class="measure-label">CENTER BACK</text>
+                                </svg>
+                            </div>
+                        </div>
+                        <div
+                            class="limb-indicator"
+                            id="mannequinIndicator"
+                            style="top: 5%; left: 50%; transform: translateX(-50%)"
+                        >
+                            Hover a measurement
+                        </div>
+                    </div>
+
+                    <!-- Toggle Buttons -->
+                    <div class="flex gap-2 mt-3 justify-center">
+                        <button class="quick-toggle-btn active-toggle" id="btnFront">Front</button>
+                        <button class="quick-toggle-btn" id="btnBack">Back</button>
+                    </div>
+
+                    <!-- Rotation Slider -->
+                    <div class="rotation-slider-container">
+                        <span class="rotation-label" id="labelFront">Front</span>
+                        <input
+                            type="range"
+                            id="rotationSlider"
+                            class="rotation-slider"
+                            min="0"
+                            max="180"
+                            value="0"
+                            step="1"
+                        />
+                        <span class="rotation-label" id="labelBack">Back</span>
+                    </div>
+                    <p class="text-[0.6rem] text-neutral-400 mt-1 text-center">Drag slider or use buttons to rotate</p>
+                </div>
+            </div>
+
+            <!-- Detailed Measurements (togglable) -->
+            <div id="measurementsSection" class="border-t border-gray-100 pt-8 mt-4 hidden">
+                <h2 class="text-lg font-medium text-[#374151] mb-5">Detailed Measurements</h2>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="glass-panel p-4">
+                        <h3
+                            class="text-[0.68rem] font-semibold uppercase tracking-wider text-neutral-400 mb-3 flex items-center gap-1.5"
+                        >
+                            <i class="fas fa-tshirt text-[0.6rem]"></i> Upper Body
+                        </h3>
+                        <div class="space-y-2.5">
+                            <div>
+                                <label class="text-[0.62rem] text-neutral-400">Neck (in)</label
+                                ><input
+                                    type="number"
+                                    step="0.25"
+                                    placeholder="15.5"
+                                    class="input-lux mt-0.5 measurement-input"
+                                    data-measure="neck"
+                                />
+                            </div>
+                            <div>
+                                <label class="text-[0.62rem] text-neutral-400">Shoulder</label
+                                ><input
+                                    type="number"
+                                    step="0.25"
+                                    placeholder="18.0"
+                                    class="input-lux mt-0.5 measurement-input"
+                                    data-measure="shoulder"
+                                />
+                            </div>
+                            <div>
+                                <label class="text-[0.62rem] text-neutral-400">Chest</label
+                                ><input
+                                    type="number"
+                                    step="0.25"
+                                    placeholder="42.0"
+                                    class="input-lux mt-0.5 measurement-input"
+                                    data-measure="chest"
+                                />
+                            </div>
+                            <div>
+                                <label class="text-[0.62rem] text-neutral-400">Sleeve</label
+                                ><input
+                                    type="number"
+                                    step="0.25"
+                                    placeholder="25.0"
+                                    class="input-lux mt-0.5 measurement-input"
+                                    data-measure="sleeve"
+                                />
+                            </div>
+                            <div>
+                                <label class="text-[0.62rem] text-neutral-400">Bicep</label
+                                ><input
+                                    type="number"
+                                    step="0.25"
+                                    placeholder="14.0"
+                                    class="input-lux mt-0.5 measurement-input"
+                                    data-measure="bicep"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-panel p-4">
+                        <h3
+                            class="text-[0.68rem] font-semibold uppercase tracking-wider text-neutral-400 mb-3 flex items-center gap-1.5"
+                        >
+                            <i class="fas fa-ruler-vertical text-[0.6rem]"></i> Mid Body
+                        </h3>
+                        <div class="space-y-2.5">
+                            <div>
+                                <label class="text-[0.62rem] text-neutral-400">Waist</label
+                                ><input
+                                    type="number"
+                                    step="0.25"
+                                    placeholder="34.0"
+                                    class="input-lux mt-0.5 measurement-input"
+                                    data-measure="waist"
+                                />
+                            </div>
+                            <div>
+                                <label class="text-[0.62rem] text-neutral-400">Hips</label
+                                ><input
+                                    type="number"
+                                    step="0.25"
+                                    placeholder="40.0"
+                                    class="input-lux mt-0.5 measurement-input"
+                                    data-measure="hips"
+                                />
+                            </div>
+                            <div>
+                                <label class="text-[0.62rem] text-neutral-400">Back Length</label
+                                ><input
+                                    type="number"
+                                    step="0.25"
+                                    placeholder="28.0"
+                                    class="input-lux mt-0.5 measurement-input"
+                                    data-measure="back-length"
+                                />
+                            </div>
+                            <div>
+                                <label class="text-[0.62rem] text-neutral-400">Agbada Width</label
+                                ><input
+                                    type="number"
+                                    step="0.25"
+                                    placeholder="58.0"
+                                    class="input-lux mt-0.5 measurement-input"
+                                    data-measure="agbada-width"
+                                />
+                            </div>
+                            <div>
+                                <label class="text-[0.62rem] text-neutral-400">Back Width</label
+                                ><input
+                                    type="number"
+                                    step="0.25"
+                                    placeholder="20.0"
+                                    class="input-lux mt-0.5 measurement-input"
+                                    data-measure="back-width"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-panel p-4">
+                        <h3
+                            class="text-[0.68rem] font-semibold uppercase tracking-wider text-neutral-400 mb-3 flex items-center gap-1.5"
+                        >
+                            <i class="fas fa-shoe-prints text-[0.6rem]"></i> Lower Body
+                        </h3>
+                        <div class="space-y-2.5">
+                            <div>
+                                <label class="text-[0.62rem] text-neutral-400">Inseam</label
+                                ><input
+                                    type="number"
+                                    step="0.25"
+                                    placeholder="32.0"
+                                    class="input-lux mt-0.5 measurement-input"
+                                    data-measure="inseam"
+                                />
+                            </div>
+                            <div>
+                                <label class="text-[0.62rem] text-neutral-400">Outseam</label
+                                ><input
+                                    type="number"
+                                    step="0.25"
+                                    placeholder="42.0"
+                                    class="input-lux mt-0.5 measurement-input"
+                                    data-measure="outseam"
+                                />
+                            </div>
+                            <div>
+                                <label class="text-[0.62rem] text-neutral-400">Thigh</label
+                                ><input
+                                    type="number"
+                                    step="0.25"
+                                    placeholder="24.0"
+                                    class="input-lux mt-0.5 measurement-input"
+                                    data-measure="thigh"
+                                />
+                            </div>
+                            <div>
+                                <label class="text-[0.62rem] text-neutral-400">Knee</label
+                                ><input
+                                    type="number"
+                                    step="0.25"
+                                    placeholder="16.0"
+                                    class="input-lux mt-0.5 measurement-input"
+                                    data-measure="knee"
+                                />
+                            </div>
+                            <div>
+                                <label class="text-[0.62rem] text-neutral-400">Ankle</label
+                                ><input
+                                    type="number"
+                                    step="0.25"
+                                    placeholder="10.0"
+                                    class="input-lux mt-0.5 measurement-input"
+                                    data-measure="ankle"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5 flex flex-wrap gap-3">
+                    <button id="saveMeasurementsBtn" class="btn-primary px-5 py-2.5 text-[0.72rem]">
+                        Save Measurements
+                    </button>
+                    <a href="fitting.html" class="btn-outline px-5 py-2.5 text-[0.72rem]"
+                        >Request Professional Fitting</a
+                    >
+                </div>
+                <div id="measurementFeedback" class="text-emerald-600 text-[0.7rem] font-medium mt-3 hidden">
+                    ✓ Measurements saved!
+                </div>
+            </div>
+        </main>
+
+
+
+        <!-- Independent Chat Widget Script -->
+        <script>
+            (function () {
+                var widget = document.createElement("div");
+                widget.className = "chat-widget-overlay";
+                widget.id = "chatWidget";
+                widget.innerHTML =
+                    "<style>" +
+                    ".chat-widget-overlay{position:fixed;bottom:24px;right:24px;width:350px;max-width:90vw;height:440px;max-height:65vh;background:white;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,0.2);z-index:300;display:flex;flex-direction:column;transform:translateY(20px)scale(0.95);opacity:0;pointer-events:none;transition:all 0.25s cubic-bezier(0.23,1,0.32,1);border:1px solid rgba(0,0,0,0.08)}" +
+                    ".chat-widget-overlay.open{transform:translateY(0)scale(1);opacity:1;pointer-events:all}" +
+                    ".cw-h{padding:12px 14px;border-bottom:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between;border-radius:14px 14px 0 0;background:#fafafa}" +
+                    ".cw-ag{display:flex;align-items:center;gap:8px}.cw-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;color:white;font-weight:600;font-size:0.65rem}" +
+                    ".cw-on{display:flex;align-items:center;gap:4px;font-size:0.6rem;color:#10b981;font-weight:500}.cw-ond{width:5px;height:5px;border-radius:50%;background:#10b981}" +
+                    ".cw-b{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;background:#fafafa}" +
+                    ".cw-f{padding:10px 12px;border-top:1px solid #f3f4f6;display:flex;gap:6px;align-items:center}" +
+                    ".cw-f input{flex:1;padding:8px 12px;border:1px solid #e5e7eb;border-radius:18px;font-size:0.75rem;outline:none;background:white;font-family:inherit}" +
+                    ".cw-s{width:34px;height:34px;border-radius:50%;border:none;background:#374151;color:white;cursor:pointer;font-size:0.75rem;transition:all 0.15s;flex-shrink:0}" +
+                    ".cw-s:hover{background:#4b5563;transform:scale(1.05)}.cw-x{width:26px;height:26px;border-radius:50%;border:none;background:transparent;cursor:pointer;color:#9ca3af;font-size:0.9rem;display:flex;align-items:center;justify-content:center;transition:all 0.15s}" +
+                    ".cw-x:hover{background:#e5e7eb;color:#374151}.cw-bub{padding:8px 12px;border-radius:12px;font-size:0.75rem;line-height:1.5;max-width:85%;animation:cwIn 0.3s ease-out}" +
+                    "@keyframes cwIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}" +
+                    ".cw-bub.in{background:white;color:#374151;align-self:flex-start;border-bottom-left-radius:4px}" +
+                    ".cw-bub.out{background:#374151;color:white;align-self:flex-end;border-bottom-right-radius:4px}" +
+                    ".cw-t{font-size:0.55rem;opacity:0.6;margin-top:3px;display:block}" +
+                    ".cw-q{display:flex;flex-wrap:wrap;gap:4px;padding:0 12px 8px}" +
+                    ".cw-q button{padding:5px 10px;border-radius:14px;border:1px solid #e5e7eb;background:white;font-size:0.65rem;cursor:pointer;transition:all 0.15s;color:#374151;font-family:inherit}" +
+                    ".cw-q button:hover{background:#374151;color:white;border-color:#374151}" +
+                    "</style>" +
+                    '<div class="cw-h"><div class="cw-ag"><div class="cw-av">CS</div><div><p style="font-size:0.75rem;font-weight:500;color:#374151;margin:0">Customer Support</p><div class="cw-on"><span class="cw-ond"></span>Online</div></div></div><button class="cw-x" id="cwCloseBtn">✕</button></div>' +
+                    '<div class="cw-b" id="cwMessages"><div class="cw-bub in">Hello! 👋 Need help with registration?<span class="cw-t">Just now</span></div></div>' +
+                    '<div class="cw-q"><button id="cwQuickAccount">🔐 Account</button><button id="cwQuickMeasure">📏 Measurements</button><button id="cwQuickFitting">📅 Fitting</button></div>' +
+                    '<div class="cw-f"><input type="text" placeholder="Type message..." id="cwInput"><button class="cw-s" id="cwSendBtn"><i class="fas fa-paper-plane"></i></button></div>';
+                document.body.appendChild(widget);
+
+                var isOpen = false;
+                var replies = {
+                    account:
+                        "🔐 Your phone number is your username. You can sign in with phone + password. Email is optional for order updates.",
+                    measure:
+                        "📏 Measurements help us create perfectly fitted garments. You can skip this now and add them later from your profile.",
+                    fitting:
+                        "📅 After registering, you can book a professional fitting at our Lagos or Abuja studio. Virtual consultations also available!",
+                    default: "Thanks! A support agent will respond shortly. For immediate help: +234 800 000 0000.",
+                };
+                function getReply(m) {
+                    var x = m.toLowerCase();
+                    if (x.indexOf("account") > -1 || x.indexOf("login") > -1 || x.indexOf("password") > -1)
+                        return replies.account;
+                    if (x.indexOf("measure") > -1 || x.indexOf("size") > -1) return replies.measure;
+                    if (x.indexOf("fitting") > -1 || x.indexOf("book") > -1) return replies.fitting;
+                    return replies.default;
+                }
+                function getTime() {
+                    return new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
+                }
+                function addMsg(text, type) {
+                    var msgs = document.getElementById("cwMessages");
+                    var b = document.createElement("div");
+                    b.className = "cw-bub " + (type === "sent" ? "out" : "in");
+                    b.innerHTML = text + '<span class="cw-t">' + getTime() + "</span>";
+                    msgs.appendChild(b);
+                    msgs.scrollTop = msgs.scrollHeight;
+                }
+                function sendMsg() {
+                    var input = document.getElementById("cwInput");
+                    if (!input || !input.value.trim()) return;
+                    var msg = input.value.trim();
+                    addMsg(msg, "sent");
+                    input.value = "";
+                    setTimeout(
+                        function () {
+                            addMsg(getReply(msg), "received");
+                        },
+                        700 + Math.random() * 1000
+                    );
+                }
+                function sendQuick(text) {
+                    var input = document.getElementById("cwInput");
+                    if (input) input.value = text;
+                    sendMsg();
+                }
+                function open() {
+                    widget.classList.add("open");
+                    isOpen = true;
+                    setTimeout(function () {
+                        var inp = document.getElementById("cwInput");
+                        if (inp) inp.focus();
+                    }, 300);
+                }
+                function close() {
+                    widget.classList.remove("open");
+                    isOpen = false;
+                }
+                function toggle() {
+                    isOpen ? close() : open();
+                }
+                document.getElementById("cwCloseBtn").addEventListener("click", close);
+                document.getElementById("cwSendBtn").addEventListener("click", sendMsg);
+                document.getElementById("cwInput").addEventListener("keypress", function (e) {
+                    if (e.key === "Enter") sendMsg();
+                });
+                document.getElementById("cwQuickAccount").addEventListener("click", function () {
+                    sendQuick("Account help");
+                });
+                document.getElementById("cwQuickMeasure").addEventListener("click", function () {
+                    sendQuick("Measurements help");
+                });
+                document.getElementById("cwQuickFitting").addEventListener("click", function () {
+                    sendQuick("Book fitting");
+                });
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape" && isOpen) close();
+                });
+                document.addEventListener("click", function (e) {
+                    if (
+                        isOpen &&
+                        !widget.contains(e.target) &&
+                        e.target.id !== "supportHeaderToggle" &&
+                        !document.getElementById("supportHeaderToggle").contains(e.target)
+                    )
+                        close();
+                });
+                document.getElementById("supportHeaderToggle").addEventListener("click", toggle);
+            })();
+        </script>
+
+        <!-- Mannequin & Page Script -->
+        <script>
+            (function () {
+                var mannequinInner = document.getElementById("mannequinInner");
+                var rotationSlider = document.getElementById("rotationSlider");
+                var indicator = document.getElementById("mannequinIndicator");
+                var mannequinContainer = document.getElementById("mannequinContainer");
+                var btnFront = document.getElementById("btnFront");
+                var btnBack = document.getElementById("btnBack");
+                var labelFront = document.getElementById("labelFront");
+                var labelBack = document.getElementById("labelBack");
+                var allDots = document.querySelectorAll(".measure-dot");
+                var allLines = document.querySelectorAll(".measure-line");
+                var fitToggle = document.getElementById("fitToggle");
+                var fitToggleLabel = document.getElementById("fitToggleLabel");
+                var measurementsSection = document.getElementById("measurementsSection");
+
+                function updateRotation(degrees) {
+                    if (mannequinInner) mannequinInner.style.transform = "rotateY(" + degrees + "deg)";
+                    if (rotationSlider) {
+                        rotationSlider.value = Math.round(degrees);
+                        var percent = (degrees / 180) * 100;
+                        rotationSlider.style.background =
+                            "linear-gradient(to right, #374151 0%, #374151 " +
+                            percent +
+                            "%, #e5e7eb " +
+                            percent +
+                            "%, #e5e7eb 100%)";
+                    }
+                    if (degrees < 30) {
+                        btnFront.classList.add("active-toggle");
+                        btnBack.classList.remove("active-toggle");
+                    } else if (degrees > 150) {
+                        btnBack.classList.add("active-toggle");
+                        btnFront.classList.remove("active-toggle");
+                    } else {
+                        btnFront.classList.remove("active-toggle");
+                        btnBack.classList.remove("active-toggle");
+                    }
+                }
+
+                rotationSlider.addEventListener("input", function () {
+                    updateRotation(parseInt(this.value));
+                });
+                btnFront.addEventListener("click", function () {
+                    updateRotation(0);
+                });
+                btnBack.addEventListener("click", function () {
+                    updateRotation(180);
+                });
+                labelFront.addEventListener("click", function () {
+                    updateRotation(0);
+                });
+                labelBack.addEventListener("click", function () {
+                    updateRotation(180);
+                });
+
+                function hideAllIndicators() {
+                    if (indicator) indicator.classList.remove("visible");
+                    allDots.forEach(function (d) {
+                        d.classList.remove("active-dot");
+                    });
+                    allLines.forEach(function (l) {
+                        l.classList.remove("active");
+                    });
+                }
+
+                allDots.forEach(function (dot) {
+                    dot.addEventListener("mouseenter", function () {
+                        hideAllIndicators();
+                        var measure = this.dataset.measure;
+                        allDots.forEach(function (d) {
+                            if (d.dataset.measure === measure) d.classList.add("active-dot");
+                        });
+                        allLines.forEach(function (l) {
+                            if (l.dataset.measure === measure) l.classList.add("active");
+                        });
+                        if (indicator) {
+                            indicator.textContent = measure.replace(/-/g, " ").toUpperCase();
+                            indicator.classList.add("visible");
+                        }
+                    });
+                    dot.addEventListener("click", function () {
+                        var input = document.querySelector(
+                            '.measurement-input[data-measure="' + this.dataset.measure + '"]'
+                        );
+                        if (input) {
+                            if (measurementsSection.classList.contains("hidden")) {
+                                fitToggle.classList.add("active");
+                                fitToggleLabel.textContent = "Measurements added";
+                                measurementsSection.classList.remove("hidden");
+                            }
+                            setTimeout(function () {
+                                input.focus();
+                                input.scrollIntoView({ behavior: "smooth", block: "center" });
+                            }, 300);
+                        }
+                    });
+                });
+
+                allLines.forEach(function (line) {
+                    line.addEventListener("mouseenter", function () {
+                        hideAllIndicators();
+                        var measure = this.dataset.measure;
+                        allDots.forEach(function (d) {
+                            if (d.dataset.measure === measure) d.classList.add("active-dot");
+                        });
+                        allLines.forEach(function (l) {
+                            if (l.dataset.measure === measure) l.classList.add("active");
+                        });
+                        if (indicator) {
+                            indicator.textContent = measure.replace(/-/g, " ").toUpperCase();
+                            indicator.classList.add("visible");
+                        }
+                    });
+                    line.addEventListener("click", function () {
+                        var input = document.querySelector(
+                            '.measurement-input[data-measure="' + this.dataset.measure + '"]'
+                        );
+                        if (input) {
+                            if (measurementsSection.classList.contains("hidden")) {
+                                fitToggle.classList.add("active");
+                                fitToggleLabel.textContent = "Measurements added";
+                                measurementsSection.classList.remove("hidden");
+                            }
+                            setTimeout(function () {
+                                input.focus();
+                                input.scrollIntoView({ behavior: "smooth", block: "center" });
+                            }, 300);
+                        }
+                    });
+                });
+
+                mannequinContainer.addEventListener("mouseleave", function () {
+                    setTimeout(hideAllIndicators, 300);
+                });
+
+                // Fit Profile Toggle
+                fitToggle.addEventListener("click", function () {
+                    this.classList.toggle("active");
+                    if (this.classList.contains("active")) {
+                        fitToggleLabel.textContent = "Measurements added";
+                        measurementsSection.classList.remove("hidden");
+                        showToast("Measurement fields enabled", "success");
+                    } else {
+                        fitToggleLabel.textContent = "Add measurements";
+                        measurementsSection.classList.add("hidden");
+                        showToast("Measurement fields hidden (optional)");
+                    }
+                });
+
+                // Register
+                document.getElementById("registerBtn").addEventListener("click", function () {
+                    var phone = document.getElementById("phoneNumber").value.trim();
+                    var password = document.getElementById("regPassword").value.trim();
+                    if (phone.length < 7) {
+                        showToast("Please enter a valid phone number", "error");
+                        return;
+                    }
+                    if (!password) {
+                        showToast("Please enter a password", "error");
+                        return;
+                    }
+                    document.getElementById("regFeedback").classList.remove("hidden");
+                    showToast("Registration successful!", "success");
+                    setTimeout(function () {
+                        document.getElementById("regFeedback").classList.add("hidden");
+                    }, 4000);
+                });
+
+                // Save Measurements
+                document.getElementById("saveMeasurementsBtn").addEventListener("click", function () {
+                    var inputs = document.querySelectorAll(".measurement-input");
+                    var hasValue = false;
+                    inputs.forEach(function (i) {
+                        if (i.value) hasValue = true;
+                    });
+                    if (!hasValue) {
+                        showToast("Please fill at least one measurement", "error");
+                        return;
+                    }
+                    document.getElementById("measurementFeedback").classList.remove("hidden");
+                    showToast("Measurements saved!", "success");
+                    setTimeout(function () {
+                        document.getElementById("measurementFeedback").classList.add("hidden");
+                    }, 4000);
+                });
+
+                function showToast(msg, type) {
+                    type = type || "";
+                    var t = document.getElementById("toast");
+                    t.textContent = msg;
+                    t.className = "toast " + type + " show";
+                    setTimeout(function () {
+                        t.classList.remove("show");
+                    }, 3000);
+                }
+
+                updateRotation(0);
+            })();
+        </script>
+    

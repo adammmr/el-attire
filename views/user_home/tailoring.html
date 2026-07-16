@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=yes">
+  <title>EL-ATTIRE | Tailoring</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --text-primary: #374151;
+      --text-secondary: #9ca3af;
+      --bg-primary: #fafafa;
+      --bg-card: #ffffff;
+      --border-color: rgba(0,0,0,0.05);
+      --sidebar-bg: #f8f7f5;
+      --sidebar-hover: #efede9;
+      --sidebar-active: #374151;
+      --sidebar-active-text: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body { 
+      font-family: 'Inter', system-ui, -apple-system, sans-serif; 
+      background: var(--bg-primary); 
+      color: var(--text-primary); 
+      letter-spacing: -0.01em; 
+      font-size: 0.85rem;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #b0b7c3; }
+
+    .glass-panel { 
+      background: var(--bg-card); 
+      border: 1px solid var(--border-color); 
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03); 
+      border-radius: 10px; 
+    }
+
+    .btn-primary { 
+      background: var(--text-primary); 
+      color: white; 
+      border: none; 
+      transition: all 0.15s ease; 
+      cursor: pointer; 
+      font-weight: 500; 
+      letter-spacing: 0.03em; 
+      border-radius: 7px;
+      font-size: 0.78rem;
+    }
+    .btn-primary:hover { 
+      background: #4b5563; 
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .btn-primary:active { transform: scale(0.98); }
+
+    .btn-outline { 
+      background: transparent; 
+      color: var(--text-primary); 
+      border: 1px solid #e5e7eb; 
+      transition: all 0.15s ease; 
+      cursor: pointer; 
+      font-weight: 500; 
+      letter-spacing: 0.03em; 
+      border-radius: 7px;
+      font-size: 0.78rem;
+    }
+    .btn-outline:hover { 
+      background: #f9fafb; 
+      border-color: #d1d5db;
+      transform: translateY(-1px);
+    }
+    .btn-outline:active { transform: scale(0.98); }
+
+    .nav-link { 
+      display: flex; 
+      align-items: center; 
+      gap: 9px; 
+      padding: 8px 12px; 
+      border-radius: 7px; 
+      transition: all 0.15s ease; 
+      color: var(--text-secondary); 
+      text-decoration: none; 
+      font-weight: 450; 
+      font-size: 0.8rem; 
+    }
+    .nav-link:hover { 
+      background: var(--sidebar-hover); 
+      color: var(--text-primary); 
+    }
+    .nav-link.active { 
+      background: var(--sidebar-active); 
+      color: var(--sidebar-active-text); 
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+
+    /* Ring Progress */
+    .ring-progress {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ring-progress svg { transform: rotate(-90deg); }
+    .ring-progress circle { transition: stroke-dashoffset 0.8s ease; }
+    .ring-progress .progress-text {
+      position: absolute;
+      font-weight: 600;
+      font-size: 0.75rem;
+      color: var(--text-primary);
+    }
+
+    /* Timeline */
+    .timeline-dot { 
+      width: 30px; 
+      height: 30px; 
+      border-radius: 50%; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      font-size: 0.65rem; 
+      border: 2px solid #e5e7eb; 
+      background: white; 
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 1;
+    }
+    .timeline-dot.completed { 
+      background: #374151; 
+      color: white; 
+      border-color: #374151; 
+    }
+    .timeline-dot.active-step { 
+      border-color: #374151; 
+      animation: pulse-step 2s infinite; 
+    }
+    @keyframes pulse-step { 
+      0%,100% { box-shadow: 0 0 0 0 rgba(55,65,81,0.25); } 
+      50% { box-shadow: 0 0 0 10px rgba(55,65,81,0); } 
+    }
+    .timeline-line { 
+      width: 2px; 
+      height: 24px; 
+      background: #e5e7eb; 
+      margin: 0 auto; 
+      transition: background 0.5s ease;
+    }
+    .timeline-line.completed { background: #374151; }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 9px;
+      border-radius: 100px;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .chat-message { 
+      padding: 10px 14px; 
+      border-radius: 12px; 
+      max-width: 78%; 
+      font-size: 0.78rem; 
+      line-height: 1.5;
+      animation: msg-in 0.3s ease-out;
+    }
+    @keyframes msg-in {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .chat-message.sent { 
+      background: #374151; 
+      color: white; 
+      margin-left: auto; 
+      border-bottom-right-radius: 4px;
+    }
+    .chat-message.received { 
+      background: #f3f4f6; 
+      color: #374151; 
+      border-bottom-left-radius: 4px;
+    }
+
+    .notification-dot { 
+      width: 6px; 
+      height: 6px; 
+      background: #ef4444; 
+      border-radius: 50%; 
+      display: inline-block; 
+      box-shadow: 0 0 0 2px white;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.4); }
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #374151;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      z-index: 1000;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    /* Fade-in animation for cards */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-in {
+      animation: fadeInUp 0.5s ease-out forwards;
+    }
+    .delay-1 { animation-delay: 0.05s; }
+    .delay-2 { animation-delay: 0.15s; }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-100 px-5 py-2.5 flex items-center justify-between">
+    <a href="dashboard.html" class="text-lg font-semibold tracking-[0.1em] text-[#374151] no-underline">
+      EL-<span class="font-normal text-neutral-400 text-sm">ATTIRE</span>
+    </a>
+    <div class="flex items-center gap-4">
+      <div class="relative cursor-pointer p-1.5 hover:bg-gray-50 rounded-lg transition-colors">
+        <i class="fas fa-bell text-sm text-neutral-400 hover:text-[#374151] transition-colors"></i>
+        <span class="notification-dot absolute top-0.5 right-0.5"></span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-full bg-stone-100 flex items-center justify-center font-medium text-[0.65rem] text-[#374151] ring-2 ring-white shadow-sm">OA</div>
+        <span class="hidden sm:inline text-[0.8rem] font-medium text-[#374151]">Oluwaseun</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="flex min-h-screen">
+    <!-- Fixed Sidebar -->
+    <aside class="fixed top-[41px] left-0 bottom-0 w-[210px] hidden lg:flex flex-col border-r border-stone-200/50 overflow-y-auto" style="background: #f8f7f5;">
+      <div class="px-3.5 pt-4 pb-3 border-b border-stone-200/30">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-md flex items-center justify-center bg-[#374151]">
+            <span class="text-white font-semibold text-[0.65rem]">E</span>
+          </div>
+          <div>
+            <p class="text-[0.7rem] font-semibold text-[#374151] tracking-wider">EL-ATTIRE</p>
+            <p class="text-[0.55rem] text-neutral-400 tracking-wider">BESPOKE</p>
+          </div>
+        </div>
+      </div>
+      <nav class="flex-1 px-2.5 py-3 space-y-0.5">
+        <p class="px-2.5 text-[0.58rem] font-semibold uppercase tracking-widest text-neutral-400 mb-1.5">Menu</p>
+        <a href="dashboard.html" class="nav-link"><i class="fas fa-th-large w-3 text-[0.7rem]"></i> Dashboard</a>
+        <a href="measurements.html" class="nav-link"><i class="fas fa-ruler-combined w-3 text-[0.7rem]"></i> Measurements</a>
+        <a href="orders.html" class="nav-link"><i class="fas fa-shopping-bag w-3 text-[0.7rem]"></i> Orders</a>
+        <a href="tailoring.html" class="nav-link active"><i class="fas fa-cut w-3 text-[0.7rem]"></i> Tailoring</a>
+        <a href="reviews.html" class="nav-link"><i class="fas fa-star w-3 text-[0.7rem]"></i> Reviews</a>
+        <p class="px-2.5 text-[0.58rem] font-semibold uppercase tracking-widest text-neutral-400 mb-1.5 mt-4">Account</p>
+        <a href="profile.html" class="nav-link"><i class="fas fa-user-cog w-3 text-[0.7rem]"></i> Profile</a>
+        <a href="#" class="nav-link"><i class="fas fa-cog w-3 text-[0.7rem]"></i> Settings</a>
+      </nav>
+      <div class="px-2.5 py-3 border-t border-stone-200/30">
+        <div class="rounded-lg p-3" style="background: #f3f1ed;">
+          <div class="flex items-center gap-1.5 mb-1.5">
+            <i class="fas fa-headset text-[0.6rem] text-amber-700/60"></i>
+            <p class="text-[0.65rem] font-medium text-[#374151]">Support</p>
+          </div>
+          <p class="text-[0.6rem] text-neutral-400 mb-2 leading-relaxed">Mon-Sat, 8am-8pm</p>
+          <a href="#" class="flex items-center gap-2 py-1.5 px-2 rounded-md text-[0.7rem] text-neutral-400 hover:text-[#374151] hover:bg-[#efede9] transition-colors">
+            <i class="fas fa-envelope text-[0.55rem]"></i> support@elattire.com
+          </a>
+        </div>
+        <div class="flex items-center gap-2 mt-2.5 px-1.5 py-1.5 rounded-lg hover:bg-[#f3f1ed] transition-colors cursor-pointer">
+          <div class="w-6 h-6 rounded-full bg-stone-200 flex items-center justify-center font-medium text-[0.55rem] text-[#374151] flex-shrink-0">OA</div>
+          <div class="min-w-0 flex-1"><p class="text-[0.68rem] font-medium text-[#374151] truncate">Oluwaseun A.</p></div>
+          <i class="fas fa-sign-out-alt text-[0.55rem] text-neutral-400 hover:text-red-400 transition-colors flex-shrink-0"></i>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-4 md:p-5 lg:ml-[210px]">
+      <div class="flex justify-between items-center mb-4">
+        <span class="text-sm font-medium text-[#374151]">Active Projects</span>
+        <a class="btn-primary px-3 py-1.5 text-[0.7rem]" href="fitting.html">
+          <i class="fas fa-calendar-check mr-1 text-[0.55rem]"></i> Schedule Fitting
+        </a>
+      </div>
+
+      <div class="space-y-4" id="tailoringProjects">
+        <!-- Project 1: Agbada Set -->
+        <div class="glass-panel p-4 animate-in delay-1">
+          <div class="flex flex-col sm:flex-row justify-between sm:items-start gap-3 mb-4">
+            <div class="flex gap-3">
+              <div class="w-20 h-28 rounded-lg overflow-hidden flex-shrink-0 bg-stone-100 flex items-center justify-center">
+                <i class="fas fa-tshirt text-3xl text-stone-300"></i>
+              </div>
+              <div>
+                <h3 class="text-sm font-medium text-[#374151]">Embroidered Agbada Set</h3>
+                <p class="text-[0.65rem] text-neutral-400 font-mono">#TAIL-2026-001 · Started Jun 28</p>
+                <span class="status-badge bg-amber-50 text-amber-600 mt-1.5">In Progress</span>
+                <div class="mt-2 space-y-0.5">
+                  <p class="text-[0.7rem] text-neutral-400 flex items-center gap-1.5">
+                    <i class="fas fa-user text-[0.55rem] w-2.5"></i> Tailor: Ahmed Ibrahim
+                  </p>
+                  <p class="text-[0.7rem] text-neutral-400 flex items-center gap-1.5">
+                    <i class="fas fa-calendar text-[0.55rem] w-2.5"></i> Est. completion: Jul 15, 2026
+                  </p>
+                  <p class="text-[0.7rem] text-neutral-400 flex items-center gap-1.5">
+                    <i class="fas fa-map-pin text-[0.55rem] w-2.5"></i> Lagos Studio
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="ring-progress flex-shrink-0 self-center sm:self-start" data-percent="65" style="width:72px;height:72px;">
+              <svg width="72" height="72" viewBox="0 0 72 72">
+                <circle cx="36" cy="36" r="30" fill="none" stroke="#e5e7eb" stroke-width="4.5"/>
+                <circle cx="36" cy="36" r="30" fill="none" stroke="#374151" stroke-width="4.5" 
+                  stroke-dasharray="188.5" stroke-dashoffset="188.5" stroke-linecap="round"/>
+              </svg>
+              <span class="progress-text text-[0.8rem]">65%</span>
+            </div>
+          </div>
+
+          <!-- Timeline -->
+          <div class="grid grid-cols-5 gap-1 text-center mb-4">
+            <div>
+              <div class="timeline-dot completed mx-auto"><i class="fas fa-check"></i></div>
+              <div class="timeline-line completed mx-auto"></div>
+              <p class="text-[0.6rem] font-medium mt-1.5 text-[#374151]">Measure</p>
+              <p class="text-[0.55rem] text-neutral-400">Jun 28</p>
+            </div>
+            <div>
+              <div class="timeline-dot completed mx-auto"><i class="fas fa-check"></i></div>
+              <div class="timeline-line completed mx-auto"></div>
+              <p class="text-[0.6rem] font-medium mt-1.5 text-[#374151]">Cut</p>
+              <p class="text-[0.55rem] text-neutral-400">Jul 1</p>
+            </div>
+            <div>
+              <div class="timeline-dot active-step mx-auto"><i class="fas fa-spinner fa-pulse"></i></div>
+              <div class="timeline-line mx-auto"></div>
+              <p class="text-[0.6rem] font-medium mt-1.5 text-[#374151]">Embroider</p>
+              <p class="text-[0.55rem] text-amber-600">Active</p>
+            </div>
+            <div>
+              <div class="timeline-dot mx-auto"><i class="far fa-circle text-[0.5rem] text-neutral-300"></i></div>
+              <div class="timeline-line mx-auto"></div>
+              <p class="text-[0.6rem] mt-1.5 text-neutral-400">Fitting</p>
+              <p class="text-[0.55rem] text-neutral-400">Pending</p>
+            </div>
+            <div>
+              <div class="timeline-dot mx-auto"><i class="far fa-circle text-[0.5rem] text-neutral-300"></i></div>
+              <p class="text-[0.6rem] mt-1.5 text-neutral-400">Delivery</p>
+              <p class="text-[0.55rem] text-neutral-400">Pending</p>
+            </div>
+          </div>
+
+          <!-- Details & Actions -->
+          <div class="flex flex-wrap gap-3 text-[0.7rem] text-neutral-400 mb-3">
+            <span><i class="fas fa-ruler mr-1"></i> Chest: 42" · Waist: 34" · Length: 58"</span>
+            <span><i class="fas fa-palette mr-1"></i> Gold embroidery on royal blue</span>
+            <span><i class="fas fa-yarn mr-1"></i> Fabric: Premium Aso Oke</span>
+          </div>
+          <div class="flex gap-2">
+            <button class="btn-primary px-3 py-1.5 text-[0.68rem]" onclick="openChat('agbada')">
+              <i class="fas fa-comment mr-1 text-[0.55rem]"></i> Message Tailor
+            </button>
+            <button class="btn-outline px-3 py-1.5 text-[0.68rem]" onclick="showToast('Fitting scheduled for Jul 12 at 2PM')">
+              <i class="fas fa-calendar mr-1 text-[0.55rem]"></i> Schedule Fitting
+            </button>
+            <button class="btn-outline px-3 py-1.5 text-[0.68rem]" onclick="showToast('Photo gallery coming soon')">
+              <i class="fas fa-images mr-1 text-[0.55rem]"></i> Photos
+            </button>
+          </div>
+        </div>
+
+        <!-- Project 2: Brocade Kaftan -->
+        <div class="glass-panel p-4 animate-in delay-2">
+          <div class="flex flex-col sm:flex-row justify-between sm:items-start gap-3 mb-4">
+            <div class="flex gap-3">
+              <div class="w-20 h-28 rounded-lg overflow-hidden flex-shrink-0 bg-stone-100 flex items-center justify-center">
+                <i class="fas fa-cut text-3xl text-stone-300"></i>
+              </div>
+              <div>
+                <h3 class="text-sm font-medium text-[#374151]">Midnight Brocade Kaftan</h3>
+                <p class="text-[0.65rem] text-neutral-400 font-mono">#TAIL-2026-002 · Started Jul 1</p>
+                <span class="status-badge bg-blue-50 text-blue-600 mt-1.5">Fabric Prep</span>
+                <div class="mt-2 space-y-0.5">
+                  <p class="text-[0.7rem] text-neutral-400 flex items-center gap-1.5">
+                    <i class="fas fa-user text-[0.55rem] w-2.5"></i> Tailor: Blessing Okonkwo
+                  </p>
+                  <p class="text-[0.7rem] text-neutral-400 flex items-center gap-1.5">
+                    <i class="fas fa-calendar text-[0.55rem] w-2.5"></i> Est. completion: Jul 20, 2026
+                  </p>
+                  <p class="text-[0.7rem] text-neutral-400 flex items-center gap-1.5">
+                    <i class="fas fa-map-pin text-[0.55rem] w-2.5"></i> Abuja Studio
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="ring-progress flex-shrink-0 self-center sm:self-start" data-percent="25" style="width:72px;height:72px;">
+              <svg width="72" height="72" viewBox="0 0 72 72">
+                <circle cx="36" cy="36" r="30" fill="none" stroke="#e5e7eb" stroke-width="4.5"/>
+                <circle cx="36" cy="36" r="30" fill="none" stroke="#2563eb" stroke-width="4.5" 
+                  stroke-dasharray="188.5" stroke-dashoffset="188.5" stroke-linecap="round"/>
+              </svg>
+              <span class="progress-text text-[0.8rem]">25%</span>
+            </div>
+          </div>
+
+          <!-- Timeline -->
+          <div class="grid grid-cols-5 gap-1 text-center mb-4">
+            <div>
+              <div class="timeline-dot completed mx-auto"><i class="fas fa-check"></i></div>
+              <div class="timeline-line completed mx-auto"></div>
+              <p class="text-[0.6rem] font-medium mt-1.5 text-[#374151]">Measure</p>
+              <p class="text-[0.55rem] text-neutral-400">Jul 1</p>
+            </div>
+            <div>
+              <div class="timeline-dot active-step mx-auto"><i class="fas fa-spinner fa-pulse"></i></div>
+              <div class="timeline-line mx-auto"></div>
+              <p class="text-[0.6rem] font-medium mt-1.5 text-[#374151]">Prep</p>
+              <p class="text-[0.55rem] text-blue-600">Active</p>
+            </div>
+            <div>
+              <div class="timeline-dot mx-auto"><i class="far fa-circle text-[0.5rem] text-neutral-300"></i></div>
+              <div class="timeline-line mx-auto"></div>
+              <p class="text-[0.6rem] mt-1.5 text-neutral-400">Stitch</p>
+              <p class="text-[0.55rem] text-neutral-400">Pending</p>
+            </div>
+            <div>
+              <div class="timeline-dot mx-auto"><i class="far fa-circle text-[0.5rem] text-neutral-300"></i></div>
+              <div class="timeline-line mx-auto"></div>
+              <p class="text-[0.6rem] mt-1.5 text-neutral-400">Fitting</p>
+              <p class="text-[0.55rem] text-neutral-400">Pending</p>
+            </div>
+            <div>
+              <div class="timeline-dot mx-auto"><i class="far fa-circle text-[0.5rem] text-neutral-300"></i></div>
+              <p class="text-[0.6rem] mt-1.5 text-neutral-400">Delivery</p>
+              <p class="text-[0.55rem] text-neutral-400">Pending</p>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-3 text-[0.7rem] text-neutral-400 mb-3">
+            <span><i class="fas fa-ruler mr-1"></i> Chest: 40" · Waist: 32" · Length: 54"</span>
+            <span><i class="fas fa-palette mr-1"></i> Midnight blue brocade</span>
+            <span><i class="fas fa-yarn mr-1"></i> Fabric: Italian Brocade</span>
+          </div>
+          <div class="flex gap-2">
+            <button class="btn-primary px-3 py-1.5 text-[0.68rem]" onclick="openChat('kaftan')">
+              <i class="fas fa-comment mr-1 text-[0.55rem]"></i> Message Tailor
+            </button>
+            <button class="btn-outline px-3 py-1.5 text-[0.68rem]" onclick="showToast('Fitting scheduling coming soon')">
+              <i class="fas fa-calendar mr-1 text-[0.55rem]"></i> Schedule Fitting
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Completed Projects -->
+      <div class="mt-6">
+        <span class="text-[0.7rem] font-medium text-neutral-400 uppercase tracking-wider">Completed</span>
+        <div class="glass-panel p-3.5 mt-2 opacity-60 hover:opacity-100 transition-opacity">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-emerald-50 flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-check text-emerald-600 text-xs"></i>
+              </div>
+              <div>
+                <p class="text-[0.78rem] font-medium text-[#374151]">Senator Wear Set</p>
+                <p class="text-[0.6rem] text-neutral-400 font-mono">#TAIL-2026-000 · Completed Jun 15</p>
+              </div>
+            </div>
+            <span class="status-badge bg-emerald-50 text-emerald-600">Delivered</span>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Chat Modal -->
+  <div class="fixed inset-0 bg-black/40 backdrop-blur-sm z-100 hidden items-center justify-center" id="chatModal">
+    <div class="bg-white w-full max-w-md mx-3 rounded-xl overflow-hidden shadow-2xl animate-scale-in" id="chatModalInner">
+      <div class="p-3.5 border-b flex justify-between items-center bg-gray-50/80">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-full bg-stone-200 flex items-center justify-center text-[0.6rem] font-medium">AI</div>
+          <div>
+            <h3 class="text-[0.78rem] font-medium text-[#374151]">Ahmed Ibrahim</h3>
+            <p class="text-[0.6rem] text-emerald-500 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Online</p>
+          </div>
+        </div>
+        <button class="text-neutral-400 hover:text-[#374151] text-xl leading-none transition-colors" onclick="closeChat()">&times;</button>
+      </div>
+      <div class="h-72 overflow-y-auto p-3.5 space-y-3" id="chatMessages">
+        <div class="chat-message received">Hello! Your Agbada embroidery is coming along beautifully. We're using the gold thread pattern we discussed.</div>
+        <div class="chat-message sent">That's great to hear! Can you send a photo of the progress?</div>
+        <div class="chat-message received">Of course! I'll upload one shortly. The chest embroidery is about 70% done.</div>
+        <div class="chat-message sent">Perfect, thank you. I'm excited to see the final result!</div>
+        <div class="chat-message received">You'll love it! The gold really pops against the royal blue. Should be ready for fitting by Jul 12.</div>
+      </div>
+      <div class="p-3 border-t flex gap-2">
+        <input type="text" placeholder="Type your message..." class="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-[0.78rem] outline-none focus:border-gray-400 transition-colors" id="chatInput">
+        <button class="btn-primary px-3 py-2 text-[0.68rem]" onclick="sendMessage()">
+          <i class="fas fa-paper-plane text-[0.55rem]"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function() {
+      // Animate ring progress on scroll
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const ring = entry.target;
+            const percent = parseInt(ring.dataset.percent);
+            const circle = ring.querySelector('circle:last-child');
+            if (!circle) return;
+            const radius = parseFloat(circle.getAttribute('r'));
+            const circumference = 2 * Math.PI * radius;
+            const offset = circumference - (percent / 100) * circumference;
+            
+            circle.style.transition = 'none';
+            circle.style.strokeDashoffset = circumference;
+            
+            requestAnimationFrame(() => {
+              circle.style.transition = 'stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1)';
+              circle.style.strokeDashoffset = offset;
+            });
+            
+            observer.unobserve(ring);
+          }
+        });
+      }, { threshold: 0.3 });
+
+      document.querySelectorAll('.ring-progress').forEach(ring => observer.observe(ring));
+
+      // Chat
+      let chatVisible = false;
+
+      window.openChat = function(project) {
+        document.getElementById('chatModal').classList.add('flex');
+        document.getElementById('chatModal').classList.remove('hidden');
+        if (!chatVisible) {
+          chatVisible = true;
+          setTimeout(() => {
+            document.getElementById('chatModalInner').classList.remove('scale-95');
+            document.getElementById('chatModalInner').classList.add('scale-100');
+          }, 10);
+        }
+        document.getElementById('chatInput')?.focus();
+      };
+
+      window.closeChat = function() {
+        document.getElementById('chatModal').classList.add('hidden');
+        document.getElementById('chatModal').classList.remove('flex');
+        chatVisible = false;
+        document.getElementById('chatModalInner').classList.add('scale-95');
+        document.getElementById('chatModalInner').classList.remove('scale-100');
+      };
+
+      window.sendMessage = function() {
+        const input = document.getElementById('chatInput');
+        const messages = document.getElementById('chatMessages');
+        if (!input.value.trim()) return;
+        
+        const msg = input.value.trim();
+        messages.innerHTML += `<div class="chat-message sent">${msg}</div>`;
+        input.value = '';
+        messages.scrollTop = messages.scrollHeight;
+
+        // Auto-reply simulation
+        setTimeout(() => {
+          const replies = [
+            "Thank you for your message! I'll check on that and get back to you shortly.",
+            "Great question! Let me look into that for you.",
+            "I've noted your request. The team is working hard on your garment.",
+            "Sure thing! I'll send an update by end of day.",
+            "Everything is on track! Looking forward to showing you the progress."
+          ];
+          const reply = replies[Math.floor(Math.random() * replies.length)];
+          messages.innerHTML += `<div class="chat-message received">${reply} <span class="text-[0.55rem] text-neutral-400 block mt-1">— Your Tailor</span></div>`;
+          messages.scrollTop = messages.scrollHeight;
+        }, 1200 + Math.random() * 1500);
+      };
+
+      window.showToast = function(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.className = 'toast show';
+        setTimeout(() => t.classList.remove('show'), 2500);
+      };
+
+      document.getElementById('chatModal')?.addEventListener('click', function(e) {
+        if (e.target === this) closeChat();
+      });
+
+      document.getElementById('chatInput')?.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') sendMessage();
+      });
+
+      // Add scale animation class for modal
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes scaleIn {
+          from { opacity: 0; transform: scale(0.95); }
+          to { opacity: 1; transform: scale(1); }
+        }
+        .animate-scale-in {
+          animation: scaleIn 0.2s ease-out forwards;
+        }
+      `;
+      document.head.appendChild(style);
+    })();
+  </script>
+</body>
+</html>

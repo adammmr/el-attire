@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=yes" />
+    <title><%= typeof title !== 'undefined' && title ? title : 'EL-ATTIRE | Bespoke Nigerian Tailoring' %></title>
+    
+    <!-- Meta tags with fallbacks -->
+    <meta name="description" content="<%= typeof description !== 'undefined' && description ? description : 'Premium bespoke Nigerian tailoring. Handcrafted Kaftans, Agbada, and Senator styles.' %>">
+    <meta name="keywords" content="<%= typeof keywords !== 'undefined' && keywords ? keywords : 'Nigerian tailoring, Kaftan, Agbada, Senator, bespoke' %>">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
+    
+        <style>
+            :root {
+                --text-primary: #374151;
+                --text-secondary: #9ca3af;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family:
+                    "Inter",
+                    system-ui,
+                    -apple-system,
+                    sans-serif;
+                background: #ffffff;
+                color: var(--text-primary);
+                letter-spacing: -0.01em;
+                overflow-x: hidden;
+                font-size: 0.85rem;
+                font-weight: 400;
+                line-height: 1.5;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            ::-webkit-scrollbar {
+                width: 4px;
+            }
+            ::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: #d1d5db;
+                border-radius: 10px;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: #9ca3af;
+            }
+
+            .section-title {
+                font-family: "Playfair Display", serif;
+                letter-spacing: 0.03em;
+            }
+
+            .glass-panel {
+                background: rgba(255, 255, 255, 0.92);
+                backdrop-filter: blur(20px);
+                border: 1px solid rgba(0, 0, 0, 0.06);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+                border-radius: 10px;
+            }
+
+            .btn-primary {
+                background: var(--text-primary);
+                color: white;
+                border: none;
+                transition: all 0.15s ease;
+                cursor: pointer;
+                font-weight: 500;
+                letter-spacing: 0.03em;
+                border-radius: 7px;
+                font-size: 0.78rem;
+                padding: 12px 24px;
+                text-decoration: none;
+                display: inline-block;
+            }
+            .btn-primary:hover {
+                background: #4b5563;
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+
+            .btn-outline {
+                background: transparent;
+                color: var(--text-primary);
+                border: 1px solid #e5e7eb;
+                transition: all 0.15s ease;
+                cursor: pointer;
+                font-weight: 500;
+                letter-spacing: 0.03em;
+                border-radius: 7px;
+                font-size: 0.78rem;
+                padding: 12px 24px;
+                text-decoration: none;
+                display: inline-block;
+            }
+            .btn-outline:hover {
+                background: #f9fafb;
+                border-color: #d1d5db;
+            }
+
+            .link-underline {
+                position: relative;
+                display: inline-block;
+                padding-bottom: 2px;
+                text-decoration: none;
+                color: var(--text-primary);
+            }
+            .link-underline::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 0%;
+                height: 1.5px;
+                background: var(--text-primary);
+                transition: width 0.3s ease;
+            }
+            .link-underline:hover::after {
+                width: 100%;
+            }
+
+            /* Hero Carousel */
+            .hero-carousel {
+                position: relative;
+                height: 90vh;
+                min-height: 600px;
+                overflow: hidden;
+            }
+            .hero-slide {
+                position: absolute;
+                inset: 0;
+                background-size: cover;
+                background-position: center;
+                transition: opacity 1s cubic-bezier(0.23, 1, 0.32, 1);
+                opacity: 0;
+            }
+            .hero-slide.active {
+                opacity: 1;
+            }
+            .hero-overlay {
+                position: absolute;
+                inset: 0;
+                z-index: 5;
+                background: linear-gradient(
+                    to right,
+                    rgba(255, 255, 255, 0.92) 0%,
+                    rgba(255, 255, 255, 0.45) 55%,
+                    rgba(0, 0, 0, 0.1) 100%
+                );
+            }
+            .hero-content {
+                position: relative;
+                z-index: 10;
+                height: 100%;
+                display: flex;
+                align-items: center;
+            }
+            .hero-dots {
+                position: absolute;
+                bottom: 30px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 20;
+                display: flex;
+                gap: 8px;
+            }
+            .hero-dot {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: rgba(0, 0, 0, 0.25);
+                cursor: pointer;
+                transition: all 0.3s;
+                border: none;
+            }
+            .hero-dot.active-dot {
+                background: #374151;
+                width: 24px;
+                border-radius: 4px;
+            }
+            .hero-nav {
+                position: absolute;
+                bottom: 30px;
+                right: 30px;
+                z-index: 20;
+                display: flex;
+                gap: 8px;
+            }
+            .hero-nav-btn {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.85);
+                border: 1px solid rgba(0, 0, 0, 0.1);
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.2s;
+                color: #374151;
+                font-size: 0.8rem;
+            }
+            .hero-nav-btn:hover {
+                background: #374151;
+                color: white;
+            }
+
+            /* Category card */
+            .category-card {
+                position: relative;
+                overflow: hidden;
+                border-radius: 12px;
+                cursor: pointer;
+                transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+                border: 1px solid rgba(0, 0, 0, 0.06);
+                text-decoration: none;
+                display: block;
+            }
+            .category-card:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            }
+            .category-card img {
+                width: 100%;
+                height: 380px;
+                object-fit: cover;
+                transition: transform 0.6s ease;
+            }
+            .category-card:hover img {
+                transform: scale(1.05);
+            }
+
+            /* Product card */
+            .product-card {
+                position: relative;
+                border: 1px solid rgba(0, 0, 0, 0.06);
+                background: white;
+                transition: all 0.3s ease;
+                cursor: pointer;
+                overflow: hidden;
+                border-radius: 10px;
+            }
+            .product-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            }
+            .product-card img {
+                width: 100%;
+                aspect-ratio: 3/4;
+                object-fit: cover;
+            }
+
+            .feature-icon {
+                width: 48px;
+                height: 48px;
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.1rem;
+                background: #f3f4f6;
+                color: #374151;
+                flex-shrink: 0;
+            }
+
+            .stat-number {
+                font-family: "Playfair Display", serif;
+            }
+
+            .testimonial-card {
+                background: white;
+                border: 1px solid rgba(0, 0, 0, 0.06);
+                border-radius: 12px;
+                padding: 24px;
+                transition: all 0.3s;
+            }
+            .testimonial-card:hover {
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+            }
+
+            .nav-logo {
+                height: 34px;
+                width: auto;
+            }
+            .footer-logo {
+                height: 50px;
+                width: auto;
+            }
+
+            .support-btn {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                padding: 6px 12px;
+                border-radius: 7px;
+                cursor: pointer;
+                transition: all 0.15s ease;
+                border: 1px solid #e5e7eb;
+                background: transparent;
+                color: #9ca3af;
+                font-family: inherit;
+                font-size: 0.7rem;
+                font-weight: 500;
+            }
+            .support-btn:hover {
+                border-color: #d1d5db;
+                color: #374151;
+                background: #f9fafb;
+            }
+            .support-btn .live-dot {
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                background: #10b981;
+                animation: pulse-dot 2s ease-in-out infinite;
+            }
+            @keyframes pulse-dot {
+                0%,
+                100% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.4);
+                }
+            }
+
+            .fabric-swatch {
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                border: 2px solid white;
+                box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+                display: inline-block;
+            }
+        </style>
+</head>
+<body class="antialiased bg-white">
+    <!-- Header/Navigation -->
+    <%- include('../partials/header') %>
+    
+    <!-- Main Content -->
+    <main>
+        <%- body %>
+    </main>
+    
+    <!-- Footer -->
+    <%- include('../partials/footer') %>
+    
+    <!-- Chat Widget Script -->
+    <%- include('../partials/chat-widget') %>
+    
+    <!-- Page-specific scripts will be injected here -->
+    <%- defineContent('scripts') %>
+</body>
+</html>

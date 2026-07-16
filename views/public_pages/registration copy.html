@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=yes">
+  <title>EL-ATTIRE | Register & Measurements</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #fafafa; color: #0a0a0a;
+      letter-spacing: -0.01em; overflow-x: hidden; min-height: 100vh;
+    }
+    html { scroll-behavior: smooth; }
+    ::selection { background: #0a0a0a; color: #ffffff; }
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: #f5f5f5; }
+    ::-webkit-scrollbar-thumb { background: #b0b0b0; border-radius: 8px; }
+
+    .glass-panel {
+      background: white; border: 1px solid rgba(0,0,0,0.06);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.03); border-radius: 12px;
+    }
+    .btn-black {
+      background: #0a0a0a; color: white; border: 1px solid #0a0a0a;
+      transition: all 0.3s; cursor: pointer; font-weight: 600;
+      letter-spacing: 0.06em; font-size: 0.85rem; border-radius: 8px;
+    }
+    .btn-black:hover { background: #1f1f1f; letter-spacing: 0.1em; }
+    .btn-outline {
+      background: transparent; color: #0a0a0a; border: 1px solid #0a0a0a;
+      transition: 0.3s; cursor: pointer; font-weight: 600;
+      letter-spacing: 0.06em; font-size: 0.85rem; border-radius: 8px;
+    }
+    .btn-outline:hover { background: #0a0a0a; color: white; }
+
+    .mannequin-wrapper {
+      position: relative; width: 240px; height: 620px;
+      margin: 0 auto; perspective: 1000px;
+    }
+    .mannequin-inner {
+      position: relative; width: 100%; height: 100%;
+      transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+      transform-style: preserve-3d;
+    }
+    .mannequin-face {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      backface-visibility: hidden; -webkit-backface-visibility: hidden;
+    }
+    .mannequin-front { z-index: 2; }
+    .mannequin-back { transform: rotateY(180deg); z-index: 1; }
+    .mannequin-svg {
+      width: 100%; height: 100%; background: white;
+      border-radius: 10px; box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    }
+    .body-outline { fill: none; stroke: #0a0a0a; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+    .measure-line {
+      stroke: #0a0a0a; stroke-width: 1.8; stroke-dasharray: 6 4;
+      opacity: 0.5; transition: all 0.35s ease; cursor: pointer;
+    }
+    .measure-line:hover { stroke-width: 2.5; opacity: 1; stroke-dasharray: 0; }
+    .measure-line.active { stroke-width: 3; opacity: 1; stroke-dasharray: 0; }
+    .measure-dot {
+      fill: #0a0a0a; stroke: #ffffff; stroke-width: 3; cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1); r: 7;
+    }
+    .measure-dot:hover { fill: #ffffff; stroke: #0a0a0a; r: 10; filter: drop-shadow(0 0 8px rgba(0,0,0,0.3)); }
+    .measure-dot.active-dot { fill: #ffffff; stroke: #0a0a0a; r: 10; animation: dotPulse 1.2s infinite; }
+    @keyframes dotPulse { 0%{r:10;opacity:1;} 50%{r:14;opacity:0.6;} 100%{r:10;opacity:1;} }
+    .measure-label { fill: #0a0a0a; font-size: 9px; font-weight: 700; text-anchor: middle; pointer-events: none; letter-spacing: 0.05em; }
+    .limb-indicator {
+      position: absolute; background: #0a0a0a; color: white; font-size: 11px;
+      padding: 5px 12px; border-radius: 20px; pointer-events: none; opacity: 0;
+      transform: translateY(8px); transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+      white-space: nowrap; z-index: 30; font-weight: 600;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2); letter-spacing: 0.03em;
+    }
+    .limb-indicator.visible { opacity: 1; transform: translateY(0); }
+    .rotation-slider-container { display: flex; align-items: center; gap: 10px; margin-top: 16px; justify-content: center; }
+    .rotation-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #0a0a0a; cursor: pointer; }
+    .rotation-slider {
+      -webkit-appearance: none; appearance: none; width: 160px; height: 5px;
+      background: #d4d4d4; border-radius: 3px; outline: none; cursor: pointer;
+    }
+    .rotation-slider::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%;
+      background: #0a0a0a; cursor: grab; border: 3px solid white;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .rotation-slider::-webkit-slider-thumb:active { cursor: grabbing; transform: scale(1.1); }
+    .quick-toggle-btn {
+      padding: 8px 18px; border: 1px solid #0a0a0a; background: transparent;
+      color: #0a0a0a; font-size: 10px; font-weight: 600; letter-spacing: 0.06em;
+      cursor: pointer; transition: all 0.3s; text-transform: uppercase; border-radius: 6px;
+    }
+    .quick-toggle-btn:hover { background: #0a0a0a; color: white; }
+    .quick-toggle-btn.active-toggle { background: #0a0a0a; color: white; }
+    .input-lux {
+      width: 100%; padding: 0.75rem 1rem; border: 1px solid #d4d4d4;
+      background: #fafafa; transition: all 0.3s ease; font-family: inherit;
+      font-size: 0.9rem; letter-spacing: 0.01em; border-radius: 8px;
+    }
+    .input-lux:focus { border-color: #0a0a0a; background: white; outline: none; box-shadow: 0 0 0 3px rgba(0,0,0,0.04); }
+    .section-title { font-family: 'Playfair Display', serif; letter-spacing: 0.03em; }
+    .link-underline {
+      position: relative; display: inline-block; padding-bottom: 2px;
+    }
+    .link-underline::after {
+      content: ''; position: absolute; bottom: 0; left: 0; width: 0%; height: 1.5px;
+      background: #0a0a0a; transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .link-underline:hover::after { width: 100%; }
+    .view-indicator { font-size: 11px; font-weight: 600; letter-spacing: 0.05em; color: #0a0a0a; text-align: center; }
+    .nav-logo { height: 34px; width: auto; }
+    .footer-logo { height: 50px; width: auto; }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b px-5 md:px-8 py-3 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3 no-underline">
+      <img src="photos/logo_only_bk.png" alt="EL-ATTIRE" class="nav-logo" onerror="this.style.display='none'">
+      <span class="text-2xl md:text-3xl font-semibold tracking-[0.1em] text-black section-title">EL-<span class="font-light text-neutral-700 text-lg">ATTIRE</span></span>
+    </a>
+    <nav class="hidden lg:flex items-center gap-8 text-xs uppercase tracking-[0.15em] font-medium text-black">
+      <a href="index.html" class="link-underline no-underline text-black">Home</a>
+      <a href="collection.html" class="link-underline no-underline text-black">Shop</a>
+      <a href="fabrics.html" class="link-underline no-underline text-black">Fabrics</a>
+      <a href="tailoring-page.html" class="link-underline no-underline text-black">Tailoring</a>
+      <a href="about.html" class="link-underline no-underline text-black">About</a>
+    </nav>
+    <div class="flex items-center gap-4">
+      <a href="login.html" class="text-sm text-neutral-500 hover:text-black"><i class="far fa-user mr-1"></i> Sign In</a>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-5 md:px-8 py-10">
+    <div class="mb-10 text-center md:text-left">
+      <span class="text-xs uppercase tracking-[0.2em] text-neutral-400">Get Started</span>
+      <h1 class="text-4xl md:text-5xl font-light section-title mb-3 mt-2">Create Your Profile</h1>
+      <p class="text-neutral-500 text-base max-w-xl">Register with your phone number and complete your measurement profile for the perfect bespoke fit.</p>
+      <div class="h-px w-16 bg-black/20 mt-6 mx-auto md:mx-0"></div>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-8 mb-16">
+      <!-- Registration Form -->
+      <div class="space-y-4 lg:col-span-1">
+        <h2 class="text-xl font-light uppercase tracking-widest mb-4">Account Details</h2>
+        <div>
+          <label class="block text-xs uppercase tracking-wider mb-1.5 font-medium text-neutral-500">Phone (Username)*</label>
+          <div class="flex gap-2">
+            <select class="input-lux w-20 text-sm"><option>+234</option><option>+1</option><option>+44</option></select>
+            <input type="tel" id="phoneNumber" placeholder="812 345 6789" required class="input-lux flex-1">
+          </div>
+          <p class="text-xs text-neutral-400 mt-1">This will be your login username.</p>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div><label class="block text-xs uppercase tracking-wider mb-1.5 font-medium text-neutral-500">First Name</label><input type="text" placeholder="Oluwaseun" class="input-lux"></div>
+          <div><label class="block text-xs uppercase tracking-wider mb-1.5 font-medium text-neutral-500">Last Name</label><input type="text" placeholder="Adebayo" class="input-lux"></div>
+        </div>
+        <div><label class="block text-xs uppercase tracking-wider mb-1.5 font-medium text-neutral-500">Email</label><input type="email" placeholder="you@email.com" class="input-lux"></div>
+        <div><label class="block text-xs uppercase tracking-wider mb-1.5 font-medium text-neutral-500">Password</label><input type="password" placeholder="••••••••" class="input-lux"></div>
+        <div>
+          <label class="block text-xs uppercase tracking-wider mb-1.5 font-medium text-neutral-500">Gender</label>
+          <div class="flex gap-5 mt-1">
+            <label class="flex items-center gap-1.5 cursor-pointer text-sm"><input type="radio" name="gender" checked class="accent-black"> Male</label>
+            <label class="flex items-center gap-1.5 cursor-pointer text-sm"><input type="radio" name="gender" class="accent-black"> Female</label>
+          </div>
+        </div>
+        <div><label class="block text-xs uppercase tracking-wider mb-1.5 font-medium text-neutral-500">Date of Birth</label><input type="date" class="input-lux"></div>
+        <button id="registerBtn" class="btn-black w-full py-3 uppercase text-sm mt-2">Register Account</button>
+        <div id="regFeedback" class="text-emerald-600 text-xs font-medium hidden mt-2">✓ Registration successful! Complete your measurements below.</div>
+        <p class="text-xs text-neutral-400 text-center mt-3">Already have an account? <a href="login.html" class="text-black font-semibold hover:underline">Sign In</a></p>
+      </div>
+
+      <!-- Rotatable Mannequin -->
+      <div class="lg:col-span-2 flex flex-col items-center">
+        <h2 class="text-xl font-light uppercase tracking-widest mb-4 w-full text-left">Your Fit Profile</h2>
+        <div class="mannequin-wrapper" id="mannequinContainer">
+          <div class="mannequin-inner" id="mannequinInner">
+            <!-- FRONT FACE -->
+            <div class="mannequin-face mannequin-front">
+              <svg class="mannequin-svg" viewBox="0 0 350 900" xmlns="http://www.w3.org/2000/svg">
+                <text x="140" y="30" class="measure-label" style="font-size:13px;">FRONT VIEW</text>
+                <circle cx="175" cy="85" r="42" fill="#f5f5f5" stroke="none"/>
+                <path d="M162 128 L162 152 L188 152 L188 128 Z" fill="#f5f5f5" stroke="none"/>
+                <path d="M112 162 Q122 210 127 270 Q130 340 142 420 Q152 490 157 590 L193 590 Q198 490 208 420 Q220 340 223 270 Q228 210 238 162 Z" fill="#f5f5f5" stroke="none"/>
+                <path d="M112 167 Q72 240 77 350 Q80 460 92 590 L102 590 L102 167 Z" fill="#f5f5f5" stroke="none"/>
+                <path d="M238 167 Q278 240 273 350 Q270 460 258 590 L248 590 L248 167 Z" fill="#f5f5f5" stroke="none"/>
+                <path d="M157 590 Q147 680 147 810 L167 810 L167 590 Z" fill="#f5f5f5" stroke="none"/>
+                <path d="M193 590 Q203 680 203 810 L183 810 L183 590 Z" fill="#f5f5f5" stroke="none"/>
+                <ellipse cx="157" cy="825" rx="14" ry="7" fill="#f5f5f5" stroke="none"/>
+                <ellipse cx="203" cy="825" rx="14" ry="7" fill="#f5f5f5" stroke="none"/>
+                <circle cx="175" cy="85" r="42" class="body-outline"/><line x1="162" y1="128" x2="162" y2="152" class="body-outline"/><line x1="188" y1="128" x2="188" y2="152" class="body-outline"/><line x1="112" y1="162" x2="238" y2="162" class="body-outline"/>
+                <path d="M112 162 Q122 210 127 270 Q130 340 142 420 Q152 490 157 590 L193 590 Q198 490 208 420 Q220 340 223 270 Q228 210 238 162" class="body-outline"/>
+                <path d="M112 167 Q72 240 77 350 Q80 460 92 590" class="body-outline"/><path d="M238 167 Q278 240 273 350 Q270 460 258 590" class="body-outline"/>
+                <path d="M157 590 Q147 680 147 810" class="body-outline"/><path d="M193 590 Q203 680 203 810" class="body-outline"/>
+                <ellipse cx="157" cy="825" rx="14" ry="7" class="body-outline"/><ellipse cx="203" cy="825" rx="14" ry="7" class="body-outline"/>
+                <line x1="102" y1="242" x2="248" y2="242" class="measure-line" data-measure="chest"/><circle cx="102" cy="242" class="measure-dot" data-measure="chest"/><circle cx="248" cy="242" class="measure-dot" data-measure="chest"/><text x="258" y="246" class="measure-label">CHEST</text>
+                <line x1="107" y1="340" x2="243" y2="340" class="measure-line" data-measure="waist"/><circle cx="107" cy="340" class="measure-dot" data-measure="waist"/><circle cx="243" cy="340" class="measure-dot" data-measure="waist"/><text x="253" y="344" class="measure-label">WAIST</text>
+                <line x1="112" y1="450" x2="238" y2="450" class="measure-line" data-measure="hips"/><circle cx="112" cy="450" class="measure-dot" data-measure="hips"/><circle cx="238" cy="450" class="measure-dot" data-measure="hips"/><text x="248" y="454" class="measure-label">HIPS</text>
+                <line x1="112" y1="145" x2="238" y2="145" class="measure-line" data-measure="shoulder"/><circle cx="112" cy="145" class="measure-dot" data-measure="shoulder"/><circle cx="238" cy="145" class="measure-dot" data-measure="shoulder"/><text x="248" y="149" class="measure-label">SHOULDER</text>
+                <line x1="97" y1="165" x2="92" y2="590" class="measure-line" data-measure="sleeve"/><circle cx="97" cy="165" class="measure-dot" data-measure="sleeve"/><circle cx="92" cy="590" class="measure-dot" data-measure="sleeve"/><text x="40" y="380" class="measure-label" transform="rotate(-90 40,380)">SLEEVE</text>
+                <line x1="223" y1="450" x2="223" y2="810" class="measure-line" data-measure="outseam"/><circle cx="223" cy="450" class="measure-dot" data-measure="outseam"/><circle cx="223" cy="810" class="measure-dot" data-measure="outseam"/><text x="233" y="630" class="measure-label">OUTSEAM</text>
+                <line x1="175" y1="590" x2="175" y2="810" class="measure-line" data-measure="inseam"/><circle cx="175" cy="590" class="measure-dot" data-measure="inseam"/><circle cx="175" cy="810" class="measure-dot" data-measure="inseam"/><text x="185" y="710" class="measure-label">INSEAM</text>
+                <ellipse cx="175" cy="148" rx="20" ry="9" class="measure-line" data-measure="neck"/><circle cx="175" cy="139" class="measure-dot" data-measure="neck"/><text x="208" y="151" class="measure-label">NECK</text>
+              </svg>
+            </div>
+            <!-- BACK FACE -->
+            <div class="mannequin-face mannequin-back">
+              <svg class="mannequin-svg" viewBox="0 0 350 900" xmlns="http://www.w3.org/2000/svg">
+                <text x="140" y="30" class="measure-label" style="font-size:13px;">BACK VIEW</text>
+                <circle cx="175" cy="85" r="42" fill="#f5f5f5" stroke="none"/>
+                <path d="M162 128 L162 152 L188 152 L188 128 Z" fill="#f5f5f5" stroke="none"/>
+                <path d="M112 162 Q122 210 132 310 Q142 410 152 590 L198 590 Q208 410 218 310 Q228 210 238 162 Z" fill="#f5f5f5" stroke="none"/>
+                <path d="M112 167 Q72 240 82 590 L102 590 L102 167 Z" fill="#f5f5f5" stroke="none"/><path d="M238 167 Q278 240 268 590 L248 590 L248 167 Z" fill="#f5f5f5" stroke="none"/>
+                <path d="M152 590 Q147 680 147 810 L167 810 L167 590 Z" fill="#f5f5f5" stroke="none"/><path d="M198 590 Q203 680 203 810 L183 810 L183 590 Z" fill="#f5f5f5" stroke="none"/>
+                <ellipse cx="157" cy="825" rx="14" ry="7" fill="#f5f5f5" stroke="none"/><ellipse cx="203" cy="825" rx="14" ry="7" fill="#f5f5f5" stroke="none"/>
+                <circle cx="175" cy="85" r="42" class="body-outline"/><line x1="162" y1="128" x2="162" y2="152" class="body-outline"/><line x1="188" y1="128" x2="188" y2="152" class="body-outline"/><line x1="112" y1="162" x2="238" y2="162" class="body-outline"/>
+                <path d="M112 162 Q122 210 132 310 Q142 410 152 590 L198 590 Q208 410 218 310 Q228 210 238 162" class="body-outline"/>
+                <path d="M112 167 Q72 240 82 590" class="body-outline"/><path d="M238 167 Q278 240 268 590" class="body-outline"/>
+                <path d="M152 590 Q147 680 147 810" class="body-outline"/><path d="M198 590 Q203 680 203 810" class="body-outline"/>
+                <ellipse cx="157" cy="825" rx="14" ry="7" class="body-outline"/><ellipse cx="203" cy="825" rx="14" ry="7" class="body-outline"/>
+                <line x1="117" y1="215" x2="233" y2="215" class="measure-line" data-measure="back-width"/><circle cx="117" cy="215" class="measure-dot" data-measure="back-width"/><circle cx="233" cy="215" class="measure-dot" data-measure="back-width"/><text x="243" y="219" class="measure-label">BACK WIDTH</text>
+                <line x1="112" y1="145" x2="238" y2="145" class="measure-line" data-measure="across-shoulder"/><circle cx="112" cy="145" class="measure-dot" data-measure="across-shoulder"/><circle cx="238" cy="145" class="measure-dot" data-measure="across-shoulder"/><text x="248" y="149" class="measure-label">ACROSS SHOULDER</text>
+                <line x1="112" y1="350" x2="238" y2="350" class="measure-line" data-measure="back-waist"/><circle cx="112" cy="350" class="measure-dot" data-measure="back-waist"/><circle cx="238" cy="350" class="measure-dot" data-measure="back-waist"/><text x="248" y="354" class="measure-label">BACK WAIST</text>
+                <line x1="112" y1="460" x2="238" y2="460" class="measure-line" data-measure="seat"/><circle cx="112" cy="460" class="measure-dot" data-measure="seat"/><circle cx="238" cy="460" class="measure-dot" data-measure="seat"/><text x="248" y="464" class="measure-label">SEAT</text>
+                <line x1="175" y1="145" x2="175" y2="590" class="measure-line" data-measure="center-back"/><circle cx="175" cy="145" class="measure-dot" data-measure="center-back"/><circle cx="175" cy="590" class="measure-dot" data-measure="center-back"/><text x="185" y="370" class="measure-label">CENTER BACK</text>
+              </svg>
+            </div>
+          </div>
+          <div class="limb-indicator" id="mannequinIndicator" style="top:6%; left:50%; transform:translateX(-50%);">Hover a measurement</div>
+        </div>
+
+        <!-- Toggle Buttons -->
+        <div class="flex gap-3 mt-4 justify-center">
+          <button class="quick-toggle-btn active-toggle" id="btnFront">Front View</button>
+          <button class="quick-toggle-btn" id="btnBack">Back View</button>
+        </div>
+
+        <!-- Rotation Slider -->
+        <div class="rotation-slider-container mt-3">
+          <span class="rotation-label" id="labelFront"><i class="fas fa-user"></i> FRONT</span>
+          <input type="range" id="rotationSlider" class="rotation-slider" min="0" max="180" value="0" step="1">
+          <span class="rotation-label" id="labelBack">BACK <i class="fas fa-user"></i></span>
+        </div>
+        <div class="view-indicator mt-2" id="viewLabel"><strong>FRONT</strong></div>
+        <p class="text-xs text-neutral-400 mt-1 text-center">Drag slider or use buttons to rotate</p>
+      </div>
+    </div>
+
+    <!-- Detailed Measurements -->
+    <div class="border-t border-neutral-200 pt-12 mt-6">
+      <h2 class="text-3xl font-light section-title mb-8">Detailed Measurements</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="glass-panel p-5">
+          <h3 class="font-semibold uppercase tracking-widest text-xs mb-4 flex items-center gap-2"><i class="fas fa-tshirt text-sm"></i> Upper Body</h3>
+          <div class="space-y-3">
+            <div><label class="text-xs uppercase tracking-wider text-neutral-500">Neck (inches)</label><input type="number" step="0.25" placeholder="15.5" class="input-lux mt-1 measurement-input" data-measure="neck"></div>
+            <div><label class="text-xs uppercase tracking-wider text-neutral-500">Shoulder</label><input type="number" step="0.25" placeholder="18.0" class="input-lux mt-1 measurement-input" data-measure="shoulder"></div>
+            <div><label class="text-xs uppercase tracking-wider text-neutral-500">Chest</label><input type="number" step="0.25" placeholder="42.0" class="input-lux mt-1 measurement-input" data-measure="chest"></div>
+            <div><label class="text-xs uppercase tracking-wider text-neutral-500">Sleeve</label><input type="number" step="0.25" placeholder="25.0" class="input-lux mt-1 measurement-input" data-measure="sleeve"></div>
+            <div><label class="text-xs uppercase tracking-wider text-neutral-500">Bicep</label><input type="number" step="0.25" placeholder="14.0" class="input-lux mt-1 measurement-input" data-measure="bicep"></div>
+          </div>
+        </div>
+        <div class="glass-panel p-5">
+          <h3 class="font-semibold uppercase tracking-widest text-xs mb-4 flex items-center gap-2"><i class="fas fa-ruler-vertical text-sm"></i> Mid Body</h3>
+          <div class="space-y-3">
+            <div><label class="text-xs uppercase tracking-wider text-neutral-500">Waist</label><input type="number" step="0.25" placeholder="34.0" class="input-lux mt-1 measurement-input" data-measure="waist"></div>
+            <div><label class="text-xs uppercase tracking-wider text-neutral-500">Hips</label><input type="number" step="0.25" placeholder="40.0" class="input-lux mt-1 measurement-input" data-measure="hips"></div>
+            <div><label class="text-xs uppercase tracking-wider text-neutral-500">Back Length</label><input type="number" step="0.25" placeholder="28.0" class="input-lux mt-1 measurement-input" data-measure="back-length"></div>
+            <div><label class="text-xs uppercase tracking-wider text-neutral-500">Agbada Width</label><input type="number" step="0.25" placeholder="58.0" class="input-lux mt-1 measurement-input" data-measure="agbada-width"></div>
+            <div><label class="text-xs uppercase tracking-wider text-neutral-500">Back Width</label><input type="number" step="0.25" placeholder="20.0" class="input-lux mt-1 measurement-input" data-measure="back-width"></div>
+          </div>
+        </div>
+        <div class="glass-panel p-5">
+          <h3 class="font-semibold uppercase tracking-widest text-xs mb-4 flex items-center gap-2"><i class="fas fa-shoe-prints text-sm"></i> Lower Body</h3>
+          <div class="space-y-3">
+            <div><label class="text-xs uppercase tracking-wider text-neutral-500">Inseam</label><input type="number" step="0.25" placeholder="32.0" class="input-lux mt-1 measurement-input" data-measure="inseam"></div>
+            <div><label class="text-xs uppercase tracking-wider text-neutral-500">Outseam</label><input type="number" step="0.25" placeholder="42.0" class="input-lux mt-1 measurement-input" data-measure="outseam"></div>
+            <div><label class="text-xs uppercase tracking-wider text-neutral-500">Thigh</label><input type="number" step="0.25" placeholder="24.0" class="input-lux mt-1 measurement-input" data-measure="thigh"></div>
+            <div><label class="text-xs uppercase tracking-wider text-neutral-500">Knee</label><input type="number" step="0.25" placeholder="16.0" class="input-lux mt-1 measurement-input" data-measure="knee"></div>
+            <div><label class="text-xs uppercase tracking-wider text-neutral-500">Ankle</label><input type="number" step="0.25" placeholder="10.0" class="input-lux mt-1 measurement-input" data-measure="ankle"></div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <button id="saveMeasurementsBtn" class="btn-black px-8 py-3 uppercase text-sm">Save Measurements</button>
+        <button class="btn-outline px-8 py-3 uppercase text-sm" onclick="window.location.href='fitting.html'">Request Professional Fitting</button>
+      </div>
+      <div id="measurementFeedback" class="text-emerald-600 font-medium text-sm mt-3 hidden">✓ Measurements saved to your profile!</div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#050505] text-neutral-400 mt-16">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 py-16">
+      <div class="grid md:grid-cols-5 gap-10 mb-12">
+        <div class="md:col-span-2">
+          <img src="photos/logo_only.png" alt="EL-ATTIRE" class="footer-logo mb-4" onerror="this.style.display='none'">
+          <p class="text-sm text-neutral-500 leading-relaxed max-w-xs">Bespoke Nigerian tailoring since 2010. Crafting Kaftans, Agbada, and Senator styles for the modern gentleman.</p>
+          <div class="flex gap-4 mt-6"><a href="#" class="text-neutral-500 hover:text-white transition"><i class="fab fa-instagram text-lg"></i></a><a href="#" class="text-neutral-500 hover:text-white transition"><i class="fab fa-whatsapp text-lg"></i></a><a href="#" class="text-neutral-500 hover:text-white transition"><i class="fab fa-pinterest text-lg"></i></a></div>
+        </div>
+        <div><h4 class="text-white uppercase tracking-wider mb-5 text-xs font-semibold">Collections</h4><a href="#" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Kaftans</a><a href="#" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Agbada</a><a href="#" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Senator Styles</a><a href="#" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Ready-to-Wear</a></div>
+        <div><h4 class="text-white uppercase tracking-wider mb-5 text-xs font-semibold">Services</h4><a href="tailoring-page.html" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Bespoke Tailoring</a><a href="fabrics.html" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Fabric Store</a><a href="fitting.html" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Book Fitting</a><a href="measurements.html" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Measurements</a></div>
+        <div><h4 class="text-white uppercase tracking-wider mb-5 text-xs font-semibold">Support</h4><a href="faq.html" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">FAQ</a><a href="terms.html" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Terms & Conditions</a><a href="about.html" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">About Us</a><a href="index.html#contact" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Contact</a></div>
+      </div>
+      <div class="border-t border-neutral-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-xs text-neutral-600">© 2026 EL-ATTIRE. All rights reserved. Bespoke Nigerian Tailoring.</p>
+        <div class="flex gap-6 text-xs text-neutral-600"><a href="terms.html" class="hover:text-white transition">Terms</a><a href="#" class="hover:text-white transition">Privacy</a><a href="#" class="hover:text-white transition">Cookies</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      const mannequinInner = document.getElementById('mannequinInner');
+      const rotationSlider = document.getElementById('rotationSlider');
+      const viewLabel = document.getElementById('viewLabel');
+      const indicator = document.getElementById('mannequinIndicator');
+      const mannequinContainer = document.getElementById('mannequinContainer');
+      const btnFront = document.getElementById('btnFront');
+      const btnBack = document.getElementById('btnBack');
+      const labelFront = document.getElementById('labelFront');
+      const labelBack = document.getElementById('labelBack');
+      const allDots = document.querySelectorAll('.measure-dot');
+      const allLines = document.querySelectorAll('.measure-line');
+
+      function updateRotation(degrees) {
+        if (mannequinInner) mannequinInner.style.transform = `rotateY(${degrees}deg)`;
+        if (rotationSlider) {
+          rotationSlider.value = Math.round(degrees);
+          const percent = (degrees / 180) * 100;
+          rotationSlider.style.background = `linear-gradient(to right, #0a0a0a 0%, #0a0a0a ${percent}%, #d4d4d4 ${percent}%, #d4d4d4 100%)`;
+        }
+        if (viewLabel) {
+          if (degrees < 30) { viewLabel.innerHTML = '<strong>FRONT</strong>'; btnFront?.classList.add('active-toggle'); btnBack?.classList.remove('active-toggle'); }
+          else if (degrees > 150) { viewLabel.innerHTML = '<strong>BACK</strong>'; btnBack?.classList.add('active-toggle'); btnFront?.classList.remove('active-toggle'); }
+          else { viewLabel.innerHTML = '<strong>SIDE / ROTATING</strong>'; btnFront?.classList.remove('active-toggle'); btnBack?.classList.remove('active-toggle'); }
+        }
+      }
+
+      rotationSlider?.addEventListener('input', function() { updateRotation(parseInt(this.value)); });
+      btnFront?.addEventListener('click', () => updateRotation(0));
+      btnBack?.addEventListener('click', () => updateRotation(180));
+      labelFront?.addEventListener('click', () => updateRotation(0));
+      labelBack?.addEventListener('click', () => updateRotation(180));
+
+      function hideAllIndicators() {
+        if (indicator) indicator.classList.remove('visible');
+        allDots.forEach(d => d.classList.remove('active-dot'));
+        allLines.forEach(l => l.classList.remove('active'));
+      }
+
+      allDots.forEach(dot => {
+        dot.addEventListener('mouseenter', function() {
+          hideAllIndicators();
+          const measure = this.dataset.measure;
+          allDots.forEach(d => { if (d.dataset.measure === measure) d.classList.add('active-dot'); });
+          allLines.forEach(l => { if (l.dataset.measure === measure) l.classList.add('active'); });
+          if (indicator) { indicator.textContent = measure.replace(/-/g, ' ').toUpperCase(); indicator.classList.add('visible'); }
+        });
+        dot.addEventListener('mouseleave', () => { setTimeout(() => { if (!document.querySelector('.measure-dot:hover') && !document.querySelector('.measure-line:hover')) hideAllIndicators(); }, 200); });
+        dot.addEventListener('click', function() {
+          const input = document.querySelector(`.measurement-input[data-measure="${this.dataset.measure}"]`);
+          if (input) { input.focus(); input.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+        });
+      });
+
+      allLines.forEach(line => {
+        line.addEventListener('mouseenter', function() {
+          hideAllIndicators();
+          const measure = this.dataset.measure;
+          allDots.forEach(d => { if (d.dataset.measure === measure) d.classList.add('active-dot'); });
+          allLines.forEach(l => { if (l.dataset.measure === measure) l.classList.add('active'); });
+          if (indicator) { indicator.textContent = measure.replace(/-/g, ' ').toUpperCase(); indicator.classList.add('visible'); }
+        });
+        line.addEventListener('mouseleave', () => { setTimeout(() => { if (!document.querySelector('.measure-dot:hover') && !document.querySelector('.measure-line:hover')) hideAllIndicators(); }, 200); });
+        line.addEventListener('click', function() {
+          const input = document.querySelector(`.measurement-input[data-measure="${this.dataset.measure}"]`);
+          if (input) { input.focus(); input.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+        });
+      });
+
+      mannequinContainer?.addEventListener('mouseleave', () => setTimeout(hideAllIndicators, 300));
+
+      document.getElementById('registerBtn')?.addEventListener('click', () => {
+        if (document.getElementById('phoneNumber').value.trim().length < 7) { alert('Please enter a valid phone number.'); return; }
+        document.getElementById('regFeedback').classList.remove('hidden');
+        document.querySelector('.measurement-input')?.scrollIntoView({ behavior: 'smooth' });
+      });
+
+      document.getElementById('saveMeasurementsBtn')?.addEventListener('click', () => {
+        const inputs = document.querySelectorAll('.measurement-input');
+        let ok = true;
+        inputs.forEach(i => { if (!i.value) ok = false; });
+        if (!ok) { alert('Please fill all measurement fields.'); return; }
+        document.getElementById('measurementFeedback').classList.remove('hidden');
+        setTimeout(() => document.getElementById('measurementFeedback').classList.add('hidden'), 4000);
+      });
+
+      updateRotation(0);
+    })();
+  </script>
+</body>
+</html>

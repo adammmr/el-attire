@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=yes">
+  <title>EL-ATTIRE | Orders</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --text-primary: #374151;
+      --text-secondary: #9ca3af;
+      --bg-primary: #fafafa;
+      --bg-card: #ffffff;
+      --border-color: rgba(0,0,0,0.05);
+      --sidebar-bg: #f8f7f5;
+      --sidebar-hover: #efede9;
+      --sidebar-active: #374151;
+      --sidebar-active-text: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body { 
+      font-family: 'Inter', system-ui, -apple-system, sans-serif; 
+      background: var(--bg-primary); 
+      color: var(--text-primary); 
+      letter-spacing: -0.01em; 
+      font-size: 0.85rem;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #b0b7c3; }
+
+    .glass-panel { 
+      background: var(--bg-card); 
+      border: 1px solid var(--border-color); 
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03); 
+      border-radius: 10px; 
+    }
+
+    .btn-primary { 
+      background: var(--text-primary); 
+      color: white; 
+      border: none; 
+      transition: all 0.15s ease; 
+      cursor: pointer; 
+      font-weight: 500; 
+      letter-spacing: 0.03em; 
+      border-radius: 7px;
+      font-size: 0.78rem;
+    }
+    .btn-primary:hover { 
+      background: #4b5563; 
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .btn-primary:active { transform: scale(0.98); }
+
+    .btn-outline { 
+      background: transparent; 
+      color: var(--text-primary); 
+      border: 1px solid #e5e7eb; 
+      transition: all 0.15s ease; 
+      cursor: pointer; 
+      font-weight: 500; 
+      letter-spacing: 0.03em; 
+      border-radius: 7px;
+      font-size: 0.78rem;
+    }
+    .btn-outline:hover { 
+      background: #f9fafb; 
+      border-color: #d1d5db;
+      transform: translateY(-1px);
+    }
+    .btn-outline:active { transform: scale(0.98); }
+
+    .nav-link { 
+      display: flex; 
+      align-items: center; 
+      gap: 9px; 
+      padding: 8px 12px; 
+      border-radius: 7px; 
+      transition: all 0.15s ease; 
+      color: var(--text-secondary); 
+      text-decoration: none; 
+      font-weight: 450; 
+      font-size: 0.8rem; 
+    }
+    .nav-link:hover { 
+      background: var(--sidebar-hover); 
+      color: var(--text-primary); 
+    }
+    .nav-link.active { 
+      background: var(--sidebar-active); 
+      color: var(--sidebar-active-text); 
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+
+    .filter-btn { 
+      padding: 6px 16px; 
+      border: 1px solid #e5e7eb; 
+      cursor: pointer; 
+      font-size: 0.7rem; 
+      font-weight: 500; 
+      text-transform: uppercase; 
+      letter-spacing: 0.04em; 
+      transition: all 0.15s; 
+      background: transparent; 
+      border-radius: 6px;
+      color: #9ca3af;
+    }
+    .filter-btn.active-filter { 
+      background: #374151; 
+      color: white; 
+      border-color: #374151; 
+    }
+    .filter-btn:hover:not(.active-filter) { 
+      border-color: #d1d5db;
+      color: #374151;
+    }
+
+    .input-lux { 
+      width: 100%; 
+      padding: 0.45rem 0.65rem; 
+      border: 1px solid #e5e7eb; 
+      background: #fafafa; 
+      font-size: 0.78rem; 
+      border-radius: 6px;
+      color: var(--text-primary);
+    }
+    .input-lux:focus { 
+      border-color: #6b7280; 
+      background: white; 
+      outline: none; 
+      box-shadow: 0 0 0 3px rgba(107,114,128,0.1);
+    }
+
+    .qty-btn { 
+      width: 30px; 
+      height: 30px; 
+      border: 1px solid #e5e7eb; 
+      background: none; 
+      cursor: pointer; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      font-size: 0.9rem; 
+      border-radius: 6px;
+      color: #374151;
+      transition: all 0.15s;
+    }
+    .qty-btn:hover { 
+      background: #f3f4f6; 
+      border-color: #d1d5db;
+    }
+
+    .order-card { 
+      cursor: pointer; 
+      transition: all 0.15s; 
+      border-left: 3px solid transparent; 
+    }
+    .order-card:hover { 
+      border-left-color: #374151; 
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04); 
+    }
+
+    /* Ring Progress */
+    .ring-progress {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .ring-progress svg {
+      transform: rotate(-90deg);
+    }
+    .ring-progress circle {
+      transition: stroke-dashoffset 0.6s ease;
+    }
+    .ring-progress .progress-text {
+      position: absolute;
+      font-weight: 600;
+      font-size: 0.6rem;
+      color: var(--text-primary);
+    }
+
+    .side-drawer-overlay { 
+      position: fixed; 
+      inset: 0; 
+      background: rgba(0,0,0,0.4); 
+      z-index: 150; 
+      opacity: 0; 
+      pointer-events: none; 
+      transition: opacity 0.25s;
+      backdrop-filter: blur(2px);
+    }
+    .side-drawer-overlay.open { 
+      opacity: 1; 
+      pointer-events: all; 
+    }
+    .side-drawer { 
+      position: fixed; 
+      top: 0; 
+      right: -480px; 
+      width: 460px; 
+      max-width: 94vw; 
+      height: 100vh; 
+      background: white; 
+      z-index: 160; 
+      box-shadow: -8px 0 30px rgba(0,0,0,0.1); 
+      transition: right 0.3s cubic-bezier(0.23, 1, 0.32, 1); 
+      display: flex; 
+      flex-direction: column; 
+    }
+    .side-drawer.open { right: 0; }
+
+    .invoice-a4 { 
+      background: white; 
+      padding: 15mm 12mm; 
+      font-family: 'Source Code Pro', monospace; 
+      font-size: 9pt; 
+      line-height: 1.6; 
+      position: relative; 
+      min-height: 297mm; 
+      width: 210mm; 
+      max-width: 100%; 
+    }
+    .inv-watermark { 
+      position: absolute; 
+      top: 50%; 
+      left: 50%; 
+      transform: translate(-50%,-50%) rotate(-30deg); 
+      font-size: 60pt; 
+      color: rgba(0,0,0,0.02); 
+      pointer-events: none; 
+      font-weight: 700;
+      white-space: nowrap; 
+      letter-spacing: 0.15em;
+    }
+
+    @media print {
+      body * { visibility: hidden; }
+      .invoice-modal, .invoice-modal * { visibility: visible; }
+      .invoice-modal { position: absolute; inset: 0; background: white; }
+      .no-print { display: none !important; }
+    }
+
+    .notification-dot { 
+      width: 6px; 
+      height: 6px; 
+      background: #ef4444; 
+      border-radius: 50%; 
+      display: inline-block; 
+      box-shadow: 0 0 0 2px white;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.4); }
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 100px;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #374151;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      z-index: 1000;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    /* Drawer ring progress */
+    .drawer-ring-progress {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .drawer-ring-progress svg {
+      transform: rotate(-90deg);
+    }
+    .drawer-ring-progress circle {
+      transition: stroke-dashoffset 0.8s ease;
+    }
+    .drawer-ring-progress .drawer-progress-text {
+      position: absolute;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--text-primary);
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-100 px-5 py-2.5 flex items-center justify-between">
+    <a href="dashboard.html" class="text-lg font-semibold tracking-[0.1em] text-[#374151] no-underline">
+      EL-<span class="font-normal text-neutral-400 text-sm">ATTIRE</span>
+    </a>
+    <div class="flex items-center gap-4">
+      <div class="relative cursor-pointer p-1.5 hover:bg-gray-50 rounded-lg transition-colors">
+        <i class="fas fa-bell text-sm text-neutral-400 hover:text-[#374151] transition-colors"></i>
+        <span class="notification-dot absolute top-0.5 right-0.5"></span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-full bg-stone-100 flex items-center justify-center font-medium text-[0.65rem] text-[#374151] ring-2 ring-white shadow-sm">OA</div>
+        <span class="hidden sm:inline text-[0.8rem] font-medium text-[#374151]">Oluwaseun</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="flex min-h-screen">
+    <!-- Fixed Sidebar -->
+    <aside class="fixed top-[41px] left-0 bottom-0 w-[210px] hidden lg:flex flex-col border-r border-stone-200/50 overflow-y-auto" style="background: #f8f7f5;">
+      <div class="px-3.5 pt-4 pb-3 border-b border-stone-200/30">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-md flex items-center justify-center bg-[#374151]">
+            <span class="text-white font-semibold text-[0.65rem]">E</span>
+          </div>
+          <div>
+            <p class="text-[0.7rem] font-semibold text-[#374151] tracking-wider">EL-ATTIRE</p>
+            <p class="text-[0.55rem] text-neutral-400 tracking-wider">BESPOKE</p>
+          </div>
+        </div>
+      </div>
+      <nav class="flex-1 px-2.5 py-3 space-y-0.5">
+        <p class="px-2.5 text-[0.58rem] font-semibold uppercase tracking-widest text-neutral-400 mb-1.5">Menu</p>
+        <a href="dashboard.html" class="nav-link"><i class="fas fa-th-large w-3 text-[0.7rem]"></i> Dashboard</a>
+        <a href="measurements.html" class="nav-link"><i class="fas fa-ruler-combined w-3 text-[0.7rem]"></i> Measurements</a>
+        <a href="orders.html" class="nav-link active"><i class="fas fa-shopping-bag w-3 text-[0.7rem]"></i> Orders</a>
+        <a href="tailoring.html" class="nav-link"><i class="fas fa-cut w-3 text-[0.7rem]"></i> Tailoring</a>
+        <a href="reviews.html" class="nav-link"><i class="fas fa-star w-3 text-[0.7rem]"></i> Reviews</a>
+        <p class="px-2.5 text-[0.58rem] font-semibold uppercase tracking-widest text-neutral-400 mb-1.5 mt-4">Account</p>
+        <a href="profile.html" class="nav-link"><i class="fas fa-user-cog w-3 text-[0.7rem]"></i> Profile</a>
+        <a href="#" class="nav-link"><i class="fas fa-cog w-3 text-[0.7rem]"></i> Settings</a>
+      </nav>
+      <div class="px-2.5 py-3 border-t border-stone-200/30">
+        <div class="rounded-lg p-3" style="background: #f3f1ed;">
+          <div class="flex items-center gap-1.5 mb-1.5">
+            <i class="fas fa-headset text-[0.6rem] text-amber-700/60"></i>
+            <p class="text-[0.65rem] font-medium text-[#374151]">Support</p>
+          </div>
+          <p class="text-[0.6rem] text-neutral-400 mb-2 leading-relaxed">Mon-Sat, 8am-8pm</p>
+          <a href="#" class="flex items-center gap-2 py-1.5 px-2 rounded-md text-[0.7rem] text-neutral-400 hover:text-[#374151] hover:bg-[#efede9] transition-colors">
+            <i class="fas fa-envelope text-[0.55rem]"></i> support@elattire.com
+          </a>
+        </div>
+        <div class="flex items-center gap-2 mt-2.5 px-1.5 py-1.5 rounded-lg hover:bg-[#f3f1ed] transition-colors cursor-pointer">
+          <div class="w-6 h-6 rounded-full bg-stone-200 flex items-center justify-center font-medium text-[0.55rem] text-[#374151] flex-shrink-0">OA</div>
+          <div class="min-w-0 flex-1"><p class="text-[0.68rem] font-medium text-[#374151] truncate">Oluwaseun A.</p></div>
+          <i class="fas fa-sign-out-alt text-[0.55rem] text-neutral-400 hover:text-red-400 transition-colors flex-shrink-0"></i>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-4 md:p-5 lg:ml-[210px]">
+      <div class="flex justify-between items-center mb-4">
+        <div class="flex gap-1.5 flex-wrap">
+          <button class="filter-btn active-filter" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="active">Active</button>
+          <button class="filter-btn" data-filter="completed">Completed</button>
+          <button class="filter-btn" data-filter="pickup">Pickup</button>
+          <button class="filter-btn" data-filter="tailoring">Tailoring</button>
+        </div>
+        <button class="btn-primary px-3 py-1.5 text-[0.7rem]" id="placeNewOrderBtn">
+          <i class="fas fa-plus mr-1 text-[0.55rem]"></i> New Order
+        </button>
+      </div>
+
+      <div class="space-y-2" id="ordersList"></div>
+    </main>
+  </div>
+
+  <!-- Side Drawer -->
+  <div class="side-drawer-overlay" id="drawerOverlay"></div>
+  <div class="side-drawer" id="sideDrawer">
+    <div class="p-4 border-b flex justify-between items-center">
+      <span class="text-[0.7rem] font-semibold uppercase tracking-wider text-neutral-400">Order Details</span>
+      <button class="text-xl leading-none text-neutral-400 hover:text-[#374151] transition-colors" id="closeDrawer">&times;</button>
+    </div>
+    <div class="flex-1 overflow-y-auto p-4" id="drawerContent"></div>
+    <div class="p-4 border-t flex gap-2">
+      <button class="btn-primary flex-1 py-2 text-[0.7rem]" id="drawerPrintInvoice"><i class="fas fa-print mr-1.5 text-[0.55rem]"></i> Print</button>
+      <button class="btn-outline flex-1 py-2 text-[0.7rem]" id="drawerContactSupport"><i class="fas fa-headset mr-1.5 text-[0.55rem]"></i> Support</button>
+    </div>
+  </div>
+
+  <!-- Invoice Modal -->
+  <div class="fixed inset-0 bg-black/50 z-200 hidden items-center justify-center invoice-modal" id="invoiceModal">
+    <div class="bg-white max-w-2xl w-full max-h-[90vh] overflow-y-auto mx-4 rounded-lg relative" id="invoiceContent"></div>
+    <button class="absolute top-3 right-3 text-white text-2xl no-print cursor-pointer hover:opacity-70 z-210" onclick="document.getElementById('invoiceModal').classList.add('hidden');document.getElementById('invoiceModal').classList.remove('flex');">&times;</button>
+  </div>
+
+  <!-- New Order Modal -->
+  <div class="fixed inset-0 bg-black/50 z-100 hidden items-center justify-center" id="newOrderModal">
+    <div class="bg-white p-5 max-w-xl w-full mx-3 max-h-[90vh] overflow-y-auto rounded-xl">
+      <div class="flex justify-between items-center mb-4">
+        <span class="text-sm font-medium text-[#374151]">Place New Order</span>
+        <button class="text-xl text-neutral-400 hover:text-[#374151] transition-colors" onclick="closeNewOrderModal()">&times;</button>
+      </div>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="space-y-3">
+          <div><label class="text-[0.62rem] text-neutral-400 uppercase tracking-wider">Fabric</label><select class="input-lux mt-0.5" id="orderFabric"><option value="120">Royal Blue Aso Oke · $120/yd</option><option value="95">Cream Damask · $95/yd</option><option value="185">Emerald Silk · $185/yd</option><option value="55">Sage Cotton Blend · $55/yd</option><option value="210">Gold Brocade · $210/yd</option></select></div>
+          <div><label class="text-[0.62rem] text-neutral-400 uppercase tracking-wider">Qty (yards)</label><div class="flex items-center gap-2 mt-0.5"><button class="qty-btn" id="orderQtyMinus">−</button><input type="number" value="3" min="1" max="50" class="input-lux w-16 text-center" id="orderQty"><button class="qty-btn" id="orderQtyPlus">+</button></div></div>
+          <div><label class="text-[0.62rem] text-neutral-400 uppercase tracking-wider">Delivery</label><select class="input-lux mt-0.5" id="orderDelivery"><option value="0">Store Pickup (Free)</option><option value="5">Home · Lagos ($5)</option><option value="10">Home · Abuja ($10)</option></select></div>
+        </div>
+        <div class="space-y-3">
+          <div><label class="text-[0.62rem] text-neutral-400 uppercase tracking-wider">Address</label><textarea class="input-lux mt-0.5" rows="2" id="orderAddress">15 Marina Road, Victoria Island, Lagos</textarea></div>
+          <div><label class="text-[0.62rem] text-neutral-400 uppercase tracking-wider">Notes</label><textarea class="input-lux mt-0.5" rows="2" placeholder="Special instructions..."></textarea></div>
+          <div class="bg-gray-50 rounded-lg p-3 text-[0.75rem] space-y-1">
+            <div class="flex justify-between"><span class="text-neutral-400">Subtotal</span><span id="orderSubtotal">$360.00</span></div>
+            <div class="flex justify-between"><span class="text-neutral-400">Delivery</span><span id="orderDeliveryFee">Free</span></div>
+            <div class="flex justify-between"><span class="text-neutral-400">Tax (7.5%)</span><span id="orderTax">$27.00</span></div>
+            <div class="border-t pt-1.5 mt-1.5 flex justify-between font-medium"><span>Total</span><span id="orderTotal">$387.00</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="flex gap-2 mt-4">
+        <button class="btn-primary flex-1 py-2 text-[0.7rem]" id="confirmOrderBtn">Confirm Order</button>
+        <button class="btn-outline flex-1 py-2 text-[0.7rem]" onclick="closeNewOrderModal()">Cancel</button>
+      </div>
+      <div id="orderFeedback" class="text-emerald-600 text-[0.75rem] mt-3 hidden text-center">✓ Order placed!</div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function() {
+      const orders = [
+        { id:'INV-2026-0704-001', type:'fabric', item:'Royal Blue Aso Oke', qty:3, unit:'yds', price:120, subtotal:360, tax:27, shipping:0, total:387, status:'completed', statusLabel:'Delivered', date:'Jul 4, 2026', deliveryDate:'Jul 10, 2026', delivery:'Home Delivery', address:'15 Marina Road, VI, Lagos', paymentMethod:'Card (**** 4242)', trackingNumber:'EL-SHP-001234', description:'Premium handwoven Aso Oke in royal blue with metallic thread accents.' },
+        { id:'INV-2026-0704-002', type:'fabric', item:'Sage Cotton Blend', qty:5, unit:'yds', price:55, subtotal:275, tax:20.63, shipping:0, total:295.63, status:'pickup', statusLabel:'Ready for Pickup', date:'Jul 4, 2026', delivery:'Store Pickup', pickupCode:'EL-PU-4829', pickupLocation:'15 Marina Rd, VI, Lagos', validUntil:'Jul 14, 2026', paymentMethod:'Bank Transfer', description:'Lightweight sage green cotton blend. Breathable, perfect for casual Kaftans.' },
+        { id:'TAIL-2026-001', type:'tailoring', item:'Embroidered Agbada Set', qty:1, unit:'set', price:450, subtotal:450, tax:33.75, shipping:10, total:493.75, status:'active', statusLabel:'In Progress', date:'Jun 28, 2026', estCompletion:'Jul 15, 2026', delivery:'Home Delivery', address:'15 Marina Road, VI, Lagos', paymentMethod:'Card (**** 4242)', description:'Full three-piece Agbada with gold embroidery. Custom measured.', progress:65, stages:['Measurement','Fabric Cut','Embroidery','Fitting','Delivery'] },
+        { id:'INV-2026-0703-003', type:'fabric', item:'Navy Damask', qty:2, unit:'yds', price:105, subtotal:210, tax:15.75, shipping:5, total:230.75, status:'active', statusLabel:'Processing', date:'Jul 3, 2026', estDelivery:'Jul 12, 2026', delivery:'Home Delivery', address:'15 Marina Road, VI, Lagos', paymentMethod:'Card (**** 4242)', trackingNumber:'EL-SHP-001235', description:'Italian navy damask with subtle geometric weave.' },
+        { id:'TAIL-2026-002', type:'tailoring', item:'Midnight Brocade Kaftan', qty:1, unit:'piece', price:275, subtotal:275, tax:20.63, shipping:0, total:295.63, status:'active', statusLabel:'Fabric Prep', date:'Jul 1, 2026', estCompletion:'Jul 20, 2026', delivery:'Store Pickup', paymentMethod:'Pay on Delivery', description:'Slim-fit Kaftan in midnight brocade with mandarin collar.', progress:25, stages:['Measurement','Fabric Prep','Stitching','Fitting','Delivery'] }
+      ];
+
+      let currentFilter = 'all';
+      let currentDrawerOrder = null;
+
+      const statusColors = {
+        completed: 'bg-emerald-50 text-emerald-600',
+        pickup: 'bg-amber-50 text-amber-600',
+        active: 'bg-blue-50 text-blue-600'
+      };
+
+      // Generate ring progress SVG
+      function ringProgressSVG(percent, size = 40, strokeWidth = 4, color = '#374151', bgColor = '#e5e7eb') {
+        const radius = (size - strokeWidth) / 2;
+        const circumference = 2 * Math.PI * radius;
+        const offset = circumference - (percent / 100) * circumference;
+        const center = size / 2;
+        const fontSize = size <= 36 ? '0.55rem' : '0.6rem';
+        
+        return `
+          <div class="ring-progress" style="width:${size}px;height:${size}px;" data-percent="${percent}">
+            <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+              <circle cx="${center}" cy="${center}" r="${radius}" fill="none" stroke="${bgColor}" stroke-width="${strokeWidth}"/>
+              <circle cx="${center}" cy="${center}" r="${radius}" fill="none" stroke="${color}" stroke-width="${strokeWidth}" 
+                stroke-dasharray="${circumference}" stroke-dashoffset="${circumference}" stroke-linecap="round"/>
+            </svg>
+            <span class="progress-text" style="font-size:${fontSize}">${percent}%</span>
+          </div>`;
+      }
+
+      // Animate ring on intersection
+      function animateRings() {
+        document.querySelectorAll('.ring-progress').forEach(ring => {
+          const percent = parseInt(ring.dataset.percent);
+          const circle = ring.querySelector('circle:last-child');
+          if (!circle) return;
+          const radius = parseInt(circle.getAttribute('r'));
+          const circumference = 2 * Math.PI * radius;
+          const offset = circumference - (percent / 100) * circumference;
+          
+          circle.style.transition = 'none';
+          circle.style.strokeDashoffset = circumference;
+          
+          requestAnimationFrame(() => {
+            circle.style.transition = 'stroke-dashoffset 0.8s ease-out';
+            circle.style.strokeDashoffset = offset;
+          });
+        });
+      }
+
+      function renderOrders(filter = 'all') {
+        const filtered = filter === 'all' ? orders : orders.filter(o => o.status === filter || o.type === filter);
+        document.getElementById('ordersList').innerHTML = filtered.map(o => `
+          <div class="glass-panel p-3.5 order-card flex flex-col sm:flex-row justify-between sm:items-center gap-2" data-id="${o.id}">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${o.type==='tailoring'?'bg-amber-50 text-amber-600':'bg-blue-50 text-blue-600'}">
+                <i class="fas ${o.type==='tailoring'?'fa-cut':'fa-tshirt'} text-xs"></i>
+              </div>
+              <div class="min-w-0">
+                <span class="text-[0.6rem] text-neutral-400 font-mono">${o.id}</span>
+                <p class="text-[0.8rem] font-medium text-[#374151] truncate">${o.item} · ${o.qty} ${o.unit}</p>
+                <p class="text-[0.65rem] text-neutral-400">${o.date} · ${o.delivery}</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 flex-shrink-0">
+              <span class="status-badge ${statusColors[o.status]}">${o.statusLabel}</span>
+              <span class="text-[0.8rem] font-medium text-[#374151]">$${o.total.toFixed(2)}</span>
+              ${o.type === 'tailoring' ? ringProgressSVG(o.progress, 36, 3.5, '#374151', '#e5e7eb') : ''}
+            </div>
+          </div>
+        `).join('');
+
+        document.querySelectorAll('.order-card').forEach(card => {
+          card.addEventListener('click', () => openDrawer(card.dataset.id));
+        });
+
+        // Animate rings after render
+        setTimeout(animateRings, 50);
+      }
+
+      function openDrawer(orderId) {
+        const o = orders.find(x => x.id === orderId);
+        if (!o) return;
+        currentDrawerOrder = o;
+
+        let html = `
+          <div class="space-y-4">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="text-[0.6rem] text-neutral-400 font-mono">${o.id}</span>
+                <h3 class="text-base font-medium text-[#374151] mt-0.5">${o.item}</h3>
+                <span class="status-badge ${statusColors[o.status]} mt-1.5">${o.statusLabel}</span>
+              </div>
+              ${o.type === 'tailoring' ? `
+                <div class="drawer-ring-progress flex-shrink-0" data-drawer-percent="${o.progress}" style="width:72px;height:72px;">
+                  <svg width="72" height="72" viewBox="0 0 72 72">
+                    <circle cx="36" cy="36" r="30" fill="none" stroke="#e5e7eb" stroke-width="5"/>
+                    <circle cx="36" cy="36" r="30" fill="none" stroke="#374151" stroke-width="5" 
+                      stroke-dasharray="188.5" stroke-dashoffset="188.5" stroke-linecap="round"/>
+                  </svg>
+                  <span class="drawer-progress-text">${o.progress}%</span>
+                </div>
+              ` : ''}
+            </div>
+            <p class="text-[0.78rem] text-neutral-500">${o.description}</p>
+        `;
+
+        if (o.type === 'tailoring' && o.stages) {
+          html += `<div><h4 class="text-[0.65rem] font-semibold uppercase tracking-wider text-neutral-400 mb-2">Progress</h4><div class="space-y-1.5">`;
+          o.stages.forEach((stage, i) => {
+            const sp = Math.min(100, Math.max(0, (o.progress - (i * 20)) * 5));
+            const done = sp >= 100, active = sp > 0 && sp < 100;
+            html += `<div class="flex items-center gap-2.5 text-[0.75rem]">
+              <div class="w-5 h-5 rounded-full flex items-center justify-center text-[0.55rem] flex-shrink-0 ${done?'bg-[#374151] text-white':active?'border-2 border-[#374151] text-[#374151]':'border-2 border-gray-200 text-gray-300'}">
+                ${done?'<i class="fas fa-check"></i>':active?'<i class="fas fa-spinner fa-pulse"></i>':i+1}
+              </div>
+              <span class="${done?'font-medium text-[#374151]':active?'text-[#374151]':'text-neutral-400'}">${stage}</span>
+              ${done?'<span class="text-[0.6rem] text-emerald-500 ml-auto">Done</span>':active?'<span class="text-[0.6rem] text-amber-500 ml-auto">Active</span>':''}
+            </div>`;
+          });
+          html += `</div></div>`;
+        }
+
+        html += `
+            <div class="border-t pt-3 space-y-1.5 text-[0.78rem]">
+              <div class="flex justify-between"><span class="text-neutral-400">Qty</span><span>${o.qty} ${o.unit}</span></div>
+              <div class="flex justify-between"><span class="text-neutral-400">Unit Price</span><span>$${o.price.toFixed(2)}</span></div>
+              <div class="flex justify-between"><span class="text-neutral-400">Subtotal</span><span>$${o.subtotal.toFixed(2)}</span></div>
+              <div class="flex justify-between"><span class="text-neutral-400">Tax</span><span>$${o.tax.toFixed(2)}</span></div>
+              <div class="flex justify-between"><span class="text-neutral-400">Shipping</span><span>${o.shipping===0?'Free':'$'+o.shipping.toFixed(2)}</span></div>
+              <div class="border-t pt-1.5 flex justify-between font-medium"><span>Total</span><span>$${o.total.toFixed(2)}</span></div>
+            </div>
+            <div class="border-t pt-3 space-y-1.5 text-[0.78rem]">
+              <div class="flex justify-between"><span class="text-neutral-400">Date</span><span>${o.date}</span></div>
+              ${o.deliveryDate?`<div class="flex justify-between"><span class="text-neutral-400">Delivery</span><span>${o.deliveryDate}</span></div>`:''}
+              ${o.estCompletion?`<div class="flex justify-between"><span class="text-neutral-400">Est. Completion</span><span>${o.estCompletion}</span></div>`:''}
+              ${o.estDelivery?`<div class="flex justify-between"><span class="text-neutral-400">Est. Delivery</span><span>${o.estDelivery}</span></div>`:''}
+              ${o.address?`<div class="flex justify-between"><span class="text-neutral-400">Address</span><span>${o.address}</span></div>`:''}
+              ${o.trackingNumber?`<div class="flex justify-between"><span class="text-neutral-400">Tracking</span><span class="font-mono font-medium">${o.trackingNumber}</span></div>`:''}
+              ${o.pickupCode?`<div class="flex justify-between"><span class="text-neutral-400">Pickup Code</span><span class="font-mono font-bold text-lg">${o.pickupCode}</span></div>`:''}
+              ${o.pickupLocation?`<div class="flex justify-between"><span class="text-neutral-400">Location</span><span>${o.pickupLocation}</span></div>`:''}
+              ${o.validUntil?`<div class="flex justify-between"><span class="text-neutral-400">Valid Until</span><span>${o.validUntil}</span></div>`:''}
+              <div class="flex justify-between"><span class="text-neutral-400">Payment</span><span>${o.paymentMethod}</span></div>
+            </div>
+          </div>`;
+
+        document.getElementById('drawerContent').innerHTML = html;
+        document.getElementById('sideDrawer').classList.add('open');
+        document.getElementById('drawerOverlay').classList.add('open');
+
+        // Animate drawer ring
+        setTimeout(() => {
+          const drawerRing = document.querySelector('.drawer-ring-progress');
+          if (drawerRing) {
+            const percent = parseInt(drawerRing.dataset.drawerPercent);
+            const circle = drawerRing.querySelector('circle:last-child');
+            if (circle) {
+              const circumference = 2 * Math.PI * 30;
+              const offset = circumference - (percent / 100) * circumference;
+              circle.style.transition = 'none';
+              circle.style.strokeDashoffset = circumference;
+              requestAnimationFrame(() => {
+                circle.style.transition = 'stroke-dashoffset 0.8s ease-out';
+                circle.style.strokeDashoffset = offset;
+              });
+            }
+          }
+        }, 100);
+      }
+
+      function closeDrawer() {
+        document.getElementById('sideDrawer').classList.remove('open');
+        document.getElementById('drawerOverlay').classList.remove('open');
+        currentDrawerOrder = null;
+      }
+
+      function generateInvoice(o) {
+        return `
+          <div class="invoice-a4">
+            <div class="inv-watermark">EL-ATTIRE</div>
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:25px;">
+              <div>
+                <h2 style="font-size:16pt;font-weight:700;letter-spacing:0.05em;margin:0;">EL-ATTIRE</h2>
+                <p style="font-size:8pt;color:#666;margin:2px 0;">Bespoke Nigerian Tailoring</p>
+                <p style="font-size:7pt;color:#999;">Lagos · Abuja · Milano</p>
+              </div>
+              <div style="text-align:right;">
+                <h2 style="font-size:12pt;margin:0;">INVOICE</h2>
+                <p style="font-size:8pt;font-weight:600;">${o.id}</p>
+                <p style="font-size:7pt;color:#666;">Date: ${o.date}</p>
+              </div>
+            </div>
+            <hr style="border:1.5px solid #374151;margin-bottom:18px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:25px;margin-bottom:18px;">
+              <div><p style="font-size:7pt;text-transform:uppercase;letter-spacing:0.1em;color:#999;">Bill To</p><p style="font-weight:600;">Oluwaseun Adebayo</p><p style="font-size:8pt;color:#555;">+234 812 345 6789</p></div>
+              <div><p style="font-size:7pt;text-transform:uppercase;letter-spacing:0.1em;color:#999;">${o.delivery==='Store Pickup'?'Pickup':'Shipping'}</p><p style="font-weight:600;font-size:8pt;">${o.address||o.pickupLocation||'N/A'}</p></div>
+            </div>
+            <table style="width:100%;border-collapse:collapse;margin-bottom:18px;">
+              <thead><tr style="border-bottom:2px solid #374151;"><th style="text-align:left;padding:8px 0;font-size:7pt;text-transform:uppercase;color:#666;">Item</th><th style="text-align:center;padding:8px 0;font-size:7pt;text-transform:uppercase;color:#666;">Qty</th><th style="text-align:right;padding:8px 0;font-size:7pt;text-transform:uppercase;color:#666;">Price</th><th style="text-align:right;padding:8px 0;font-size:7pt;text-transform:uppercase;color:#666;">Total</th></tr></thead>
+              <tbody><tr style="border-bottom:1px solid #e5e7eb;"><td style="padding:10px 0;">${o.item}<br><span style="font-size:7pt;color:#999;">${o.description?.substring(0,50)}...</span></td><td style="text-align:center;padding:10px 0;">${o.qty}</td><td style="text-align:right;padding:10px 0;">$${o.price.toFixed(2)}</td><td style="text-align:right;padding:10px 0;">$${o.subtotal.toFixed(2)}</td></tr></tbody>
+            </table>
+            <div style="display:flex;justify-content:flex-end;"><div style="width:220px;">
+              <div style="display:flex;justify-content:space-between;font-size:8pt;padding:3px 0;"><span>Subtotal</span><span>$${o.subtotal.toFixed(2)}</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:8pt;padding:3px 0;"><span>Shipping</span><span>${o.shipping===0?'Free':'$'+o.shipping.toFixed(2)}</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:8pt;padding:3px 0;"><span>Tax (7.5%)</span><span>$${o.tax.toFixed(2)}</span></div>
+              <hr style="border:1.5px solid #374151;margin:6px 0;">
+              <div style="display:flex;justify-content:space-between;font-weight:700;font-size:10pt;"><span>TOTAL</span><span>$${o.total.toFixed(2)}</span></div>
+            </div></div>
+            <div style="margin-top:30px;padding-top:15px;border-top:1px solid #e5e7eb;font-size:7pt;color:#999;">
+              <p>Payment: ${o.paymentMethod} · Thank you for choosing EL-ATTIRE.</p>
+              ${o.trackingNumber?`<p>Tracking: ${o.trackingNumber}</p>`:''}
+            </div>
+          </div>`;
+      }
+
+      function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.className = 'toast show';
+        setTimeout(() => t.classList.remove('show'), 2500);
+      }
+
+      // Event listeners
+      document.getElementById('closeDrawer').addEventListener('click', closeDrawer);
+      document.getElementById('drawerOverlay').addEventListener('click', closeDrawer);
+      document.getElementById('drawerPrintInvoice').addEventListener('click', () => {
+        if (currentDrawerOrder) {
+          document.getElementById('invoiceContent').innerHTML = generateInvoice(currentDrawerOrder) + `
+            <div class="text-center py-3 no-print"><button class="btn-primary px-6 py-2 text-[0.7rem] mr-2" onclick="window.print()"><i class="fas fa-print mr-1.5"></i>Print</button><button class="btn-outline px-6 py-2 text-[0.7rem]" onclick="document.getElementById('invoiceModal').classList.add('hidden');document.getElementById('invoiceModal').classList.remove('flex');">Close</button></div>`;
+          document.getElementById('invoiceModal').classList.add('flex');
+          document.getElementById('invoiceModal').classList.remove('hidden');
+        }
+      });
+      document.getElementById('drawerContactSupport').addEventListener('click', () => showToast('Support notified re: ' + (currentDrawerOrder?.id||'')));
+
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active-filter'));
+          this.classList.add('active-filter');
+          currentFilter = this.dataset.filter;
+          renderOrders(currentFilter);
+        });
+      });
+
+      document.getElementById('placeNewOrderBtn').addEventListener('click', () => {
+        document.getElementById('newOrderModal').classList.add('flex');
+        document.getElementById('newOrderModal').classList.remove('hidden');
+      });
+
+      window.closeNewOrderModal = () => {
+        document.getElementById('newOrderModal').classList.add('hidden');
+        document.getElementById('newOrderModal').classList.remove('flex');
+      };
+
+      const qtyInput = document.getElementById('orderQty');
+      function updateTotal() {
+        const price = parseInt(document.getElementById('orderFabric')?.value||120);
+        const qty = parseInt(qtyInput?.value||3);
+        const shipping = parseInt(document.getElementById('orderDelivery')?.value||0);
+        const sub = price*qty, tax = sub*0.075;
+        document.getElementById('orderSubtotal').textContent = '$'+sub+'.00';
+        document.getElementById('orderDeliveryFee').textContent = shipping===0?'Free':'$'+shipping+'.00';
+        document.getElementById('orderTax').textContent = '$'+tax.toFixed(2);
+        document.getElementById('orderTotal').textContent = '$'+(sub+shipping+tax).toFixed(2);
+      }
+
+      document.getElementById('orderQtyPlus')?.addEventListener('click',()=>{qtyInput.value=Math.min(50,+qtyInput.value+1);updateTotal();});
+      document.getElementById('orderQtyMinus')?.addEventListener('click',()=>{qtyInput.value=Math.max(1,+qtyInput.value-1);updateTotal();});
+      document.getElementById('orderFabric')?.addEventListener('change',updateTotal);
+      document.getElementById('orderDelivery')?.addEventListener('change',updateTotal);
+
+      document.getElementById('confirmOrderBtn')?.addEventListener('click',()=>{
+        const fb=document.getElementById('orderFeedback');
+        fb?.classList.remove('hidden');
+        setTimeout(()=>{
+          closeNewOrderModal();
+          fb?.classList.add('hidden');
+          const name=document.getElementById('orderFabric')?.options[document.getElementById('orderFabric').selectedIndex]?.text.split('·')[0].trim()||'Fabric';
+          const qty=+qtyInput.value,price=+document.getElementById('orderFabric')?.value||120,sub=price*qty,tax=sub*0.075,ship=+document.getElementById('orderDelivery')?.value||0;
+          orders.unshift({id:'INV-'+new Date().toISOString().slice(0,10).replace(/-/g,'')+'-NEW',type:'fabric',item:name,qty,unit:'yds',price,subtotal:sub,tax,shipping:ship,total:sub+ship+tax,status:'active',statusLabel:'Processing',date:new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}),estDelivery:new Date(Date.now()+7*864e5).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}),delivery:document.getElementById('orderDelivery')?.options[document.getElementById('orderDelivery').selectedIndex]?.text||'Store Pickup',address:document.getElementById('orderAddress')?.value,paymentMethod:'Card (**** 4242)',description:'New fabric order.'});
+          renderOrders(currentFilter);
+          showToast('Order placed!');
+        },1500);
+      });
+
+      document.getElementById('newOrderModal')?.addEventListener('click',function(e){if(e.target===this)closeNewOrderModal();});
+      document.getElementById('invoiceModal')?.addEventListener('click',function(e){if(e.target===this){this.classList.add('hidden');this.classList.remove('flex');}});
+
+      updateTotal();
+      renderOrders();
+    })();
+  </script>
+</body>
+</html>

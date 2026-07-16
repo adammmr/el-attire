@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=yes">
+  <title>EL-ATTIRE | Luxury Fabric Collection</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #ffffff;
+      color: #0a0a0a;
+      letter-spacing: -0.01em;
+      overflow-x: hidden;
+    }
+    html { scroll-behavior: smooth; }
+    ::selection { background: #0a0a0a; color: #ffffff; }
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: #f5f5f5; }
+    ::-webkit-scrollbar-thumb { background: #b0b0b0; border-radius: 8px; }
+
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(200, 200, 200, 0.5);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
+    }
+
+    .btn-black {
+      background: #0a0a0a; color: white; border: 1px solid #0a0a0a;
+      transition: all 0.3s; cursor: pointer; font-weight: 600; letter-spacing: 0.06em; font-size: 0.85rem;
+    }
+    .btn-black:hover { background: #1f1f1f; letter-spacing: 0.1em; }
+    .btn-outline {
+      background: transparent; color: #0a0a0a; border: 1px solid #0a0a0a;
+      transition: 0.3s; cursor: pointer; font-weight: 600; letter-spacing: 0.06em; font-size: 0.85rem;
+    }
+    .btn-outline:hover { background: #0a0a0a; color: white; }
+
+    .section-title { font-family: 'Playfair Display', serif; letter-spacing: 0.03em; }
+
+    .link-underline {
+      position: relative; display: inline-block; padding-bottom: 2px;
+    }
+    .link-underline::after {
+      content: ''; position: absolute; bottom: 0; left: 0; width: 0%; height: 1.5px;
+      background: #0a0a0a; transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .link-underline:hover::after { width: 100%; }
+
+    /* Hero carousel */
+    .hero-carousel { position: relative; height: 70vh; min-height: 500px; overflow: hidden; }
+    .hero-slide {
+      position: absolute; inset: 0; background-size: cover; background-position: center;
+      transition: opacity 1.2s cubic-bezier(0.23, 1, 0.32, 1); opacity: 0;
+    }
+    .hero-slide.active { opacity: 1; }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.4) 50%, rgba(0,0,0,0.15) 100%);
+      z-index: 5;
+    }
+    .hero-content { position: relative; z-index: 10; max-width: 600px; padding: 60px; }
+    .hero-nav { position: absolute; bottom: 30px; right: 30px; z-index: 20; display: flex; gap: 10px; }
+    .hero-nav-btn {
+      width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(8px); border: 1px solid rgba(0,0,0,0.1); cursor: pointer;
+      display: flex; align-items: center; justify-content: center; transition: all 0.3s;
+    }
+    .hero-nav-btn:hover { background: #0a0a0a; color: white; }
+    .hero-dots { position: absolute; bottom: 40px; left: 60px; z-index: 20; display: flex; gap: 8px; }
+    .hero-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: rgba(0,0,0,0.2);
+      cursor: pointer; transition: all 0.3s;
+    }
+    .hero-dot.active-dot { background: #0a0a0a; width: 28px; border-radius: 4px; }
+
+    /* Large card */
+    .large-card {
+      position: relative; overflow: hidden; cursor: pointer;
+      border: 1px solid rgba(0,0,0,0.05);
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      grid-row: span 2; grid-column: span 2;
+    }
+    .large-card:hover { transform: translateY(-6px); box-shadow: 0 35px 55px rgba(0,0,0,0.1); }
+    .large-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1); }
+    .large-card:hover img { transform: scale(1.04); }
+    .large-card-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0; padding: 40px;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%); color: white;
+    }
+
+    /* Standard fabric card */
+    .fabric-card {
+      position: relative; overflow: hidden; border: 1px solid rgba(0,0,0,0.06);
+      background: white; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); cursor: pointer;
+    }
+    .fabric-card:hover { transform: translateY(-6px); box-shadow: 0 30px 50px rgba(0,0,0,0.08); }
+    .fabric-image-container { position: relative; overflow: hidden; height: 300px; }
+    .fabric-slide {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: cover; transition: opacity 0.7s ease; opacity: 0;
+    }
+    .fabric-slide.active { opacity: 1; }
+    .fabric-dots {
+      position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 5px; z-index: 10;
+    }
+    .fabric-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.5);
+      border: 1px solid rgba(0,0,0,0.3); transition: all 0.3s;
+    }
+    .fabric-dot.active-dot { background: #0a0a0a; border-color: #0a0a0a; transform: scale(1.3); }
+
+    .quick-add-btn {
+      position: absolute; bottom: 14px; right: 14px; background: #0a0a0a; color: white;
+      border: none; padding: 10px 16px; font-size: 10px; font-weight: 600;
+      letter-spacing: 0.08em; cursor: pointer; opacity: 0; transform: translateY(10px);
+      transition: all 0.35s ease; z-index: 15; text-transform: uppercase;
+    }
+    .fabric-card:hover .quick-add-btn,
+    .large-card:hover .quick-add-btn { opacity: 1; transform: translateY(0); }
+    .quick-add-btn:hover { background: #2a2a2a; }
+
+    .fabric-tag {
+      position: absolute; top: 12px; left: 12px; background: rgba(255,255,255,0.9);
+      color: #0a0a0a; padding: 4px 10px; font-size: 9px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; z-index: 10; backdrop-filter: blur(6px);
+    }
+    .fabric-badge {
+      position: absolute; top: 12px; right: 12px; background: #0a0a0a; color: white;
+      padding: 4px 10px; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; z-index: 10;
+    }
+
+    .filter-chip {
+      padding: 8px 18px; border: 1px solid #d4d4d4; background: transparent;
+      color: #0a0a0a; font-size: 11px; font-weight: 500; letter-spacing: 0.05em;
+      cursor: pointer; transition: all 0.3s; text-transform: uppercase; border-radius: 4px;
+    }
+    .filter-chip:hover, .filter-chip.active-chip { background: #0a0a0a; color: white; border-color: #0a0a0a; }
+
+    /* Featured carousel */
+    .featured-carousel {
+      display: flex; gap: 1.5rem; overflow-x: auto; scroll-behavior: smooth;
+      padding-bottom: 1rem; scrollbar-width: thin;
+    }
+    .featured-carousel::-webkit-scrollbar { height: 4px; }
+    .featured-carousel::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+    .featured-card {
+      flex: 0 0 auto; width: 320px; border: 1px solid rgba(0,0,0,0.06);
+      transition: all 0.4s ease; cursor: pointer; background: white;
+      position: relative; overflow: hidden;
+    }
+    .featured-card:hover { transform: translateY(-6px); box-shadow: 0 25px 45px rgba(0,0,0,0.1); }
+    .featured-card img { width: 100%; height: 260px; object-fit: cover; transition: transform 0.6s ease; }
+    .featured-card:hover img { transform: scale(1.06); }
+
+    /* Detail Modal */
+    .detail-modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 200;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.4s;
+    }
+    .detail-modal-overlay.open { opacity: 1; pointer-events: all; }
+    .detail-modal {
+      background: white; max-width: 900px; width: 94%; max-height: 90vh;
+      overflow-y: auto; display: grid; grid-template-columns: 1fr 1fr; position: relative;
+      border-radius: 8px;
+    }
+    .detail-modal-close {
+      position: absolute; top: 16px; right: 16px; z-index: 20; width: 40px; height: 40px;
+      border-radius: 50%; background: white; border: 1px solid rgba(0,0,0,0.15);
+      cursor: pointer; font-size: 1.3rem; display: flex; align-items: center;
+      justify-content: center; transition: all 0.3s;
+    }
+    .detail-modal-close:hover { background: #0a0a0a; color: white; }
+    .detail-modal-nav {
+      position: absolute; top: 50%; transform: translateY(-50%); z-index: 20;
+      width: 40px; height: 40px; border-radius: 50%; background: white;
+      border: 1px solid rgba(0,0,0,0.15); cursor: pointer; font-size: 1rem;
+      display: flex; align-items: center; justify-content: center; transition: all 0.3s;
+    }
+    .detail-modal-nav:hover { background: #0a0a0a; color: white; }
+    .detail-modal-nav-left { left: -20px; }
+    .detail-modal-nav-right { right: -20px; }
+
+    .swatch {
+      width: 32px; height: 32px; border-radius: 50%; border: 2px solid white;
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.2); display: inline-block;
+    }
+
+    /* Cart drawer */
+    .cart-drawer {
+      position: fixed; top: 0; right: -440px; width: 420px; height: 100vh;
+      background: white; z-index: 150; box-shadow: -10px 0 40px rgba(0,0,0,0.12);
+      transition: right 0.45s cubic-bezier(0.23, 1, 0.32, 1); display: flex; flex-direction: column;
+    }
+    .cart-drawer.open { right: 0; }
+    .cart-drawer-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 149;
+      opacity: 0; pointer-events: none; transition: opacity 0.4s;
+    }
+    .cart-drawer-overlay.open { opacity: 1; pointer-events: all; }
+
+    .toast {
+      position: fixed; bottom: 30px; right: 30px; background: #0a0a0a; color: white;
+      padding: 14px 24px; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.05em;
+      z-index: 250; opacity: 0; transform: translateY(20px);
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    .nav-logo { height: 34px; width: auto; }
+    .footer-logo { height: 50px; width: auto; }
+
+    @media (max-width: 768px) {
+      .detail-modal { grid-template-columns: 1fr; }
+      .hero-content { padding: 30px; }
+      .large-card { grid-row: span 1; grid-column: span 1; }
+    }
+  </style>
+</head>
+<body class="antialiased bg-white">
+
+  <!-- Toast -->
+  <div class="toast" id="toast">✓ Added to cart</div>
+
+  <!-- Detail Modal -->
+  <div class="detail-modal-overlay" id="detailModalOverlay">
+    <div class="detail-modal" id="detailModal"></div>
+    <button class="detail-modal-close" id="detailModalClose">&times;</button>
+    <button class="detail-modal-nav detail-modal-nav-left" id="detailModalPrev"><i class="fas fa-chevron-left"></i></button>
+    <button class="detail-modal-nav detail-modal-nav-right" id="detailModalNext"><i class="fas fa-chevron-right"></i></button>
+  </div>
+
+  <!-- Cart Drawer -->
+  <div class="cart-drawer-overlay" id="cartDrawerOverlay"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="p-5 border-b flex justify-between items-center">
+      <h3 class="font-semibold uppercase tracking-widest text-sm">Shopping Bag (<span id="drawerCount">0</span>)</h3>
+      <button class="text-2xl leading-none cursor-pointer hover:opacity-60" id="closeDrawer">&times;</button>
+    </div>
+    <div class="flex-1 overflow-y-auto p-5 space-y-4" id="drawerItems">
+      <p class="text-neutral-400 text-sm text-center py-16">Your bag is empty</p>
+    </div>
+    <div class="p-5 border-t">
+      <div class="flex justify-between font-semibold mb-3"><span>Subtotal</span><span id="drawerTotal">₦0</span></div>
+      <button class="btn-black w-full py-3 uppercase text-sm">Checkout</button>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 glass-panel border-b border-white/50 px-5 md:px-8 py-3 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3 no-underline">
+      <img src="photos/logo_only_bk.png" alt="EL-ATTIRE" class="nav-logo" onerror="this.style.display='none'">
+      <span class="text-2xl md:text-3xl font-semibold tracking-[0.1em] text-black section-title">EL-<span class="font-light text-neutral-700 text-lg">ATTIRE</span></span>
+    </a>
+    <nav class="hidden lg:flex items-center gap-8 text-xs uppercase tracking-[0.15em] font-medium text-black">
+      <a href="index.html" class="link-underline no-underline text-black">Home</a>
+      <a href="collection.html" class="link-underline no-underline text-black">Kaftans</a>
+      <a href="fabrics.html" class="link-underline no-underline text-black font-bold border-b-2 border-black pb-1">Fabrics</a>
+      <a href="tailoring-page.html" class="link-underline no-underline text-black">Tailoring</a>
+      <a href="about.html" class="link-underline no-underline text-black">About</a>
+    </nav>
+    <div class="flex items-center gap-5 text-xl">
+      <a href="login.html" class="text-sm text-neutral-500 hover:text-black"><i class="far fa-user"></i></a>
+      <div class="relative cursor-pointer" id="cartIcon">
+        <i class="fas fa-shopping-bag hover:opacity-70 transition"></i>
+        <span class="absolute -top-2 -right-3 bg-black text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold" id="cartBadge">0</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO CAROUSEL with local fabric images -->
+    <section class="hero-carousel" id="heroCarousel">
+      <div class="hero-slide active" style="background-image:url('photos/fabrics/f1.jpg');"></div>
+      <div class="hero-slide" style="background-image:url('photos/fabrics/f5.jpg');"></div>
+      <div class="hero-slide" style="background-image:url('photos/fabrics/f9.jpg');"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <span class="text-xs uppercase tracking-[0.3em] text-neutral-600 bg-white/80 px-4 py-2 inline-block mb-4">New Collection</span>
+        <h1 class="text-5xl md:text-7xl font-light section-title leading-tight mb-4">Premium<br>Fabrics</h1>
+        <p class="text-neutral-700 text-lg mb-6 max-w-md">Handpicked textiles from Nigeria, Italy, and beyond. Each fabric tells a story of craftsmanship.</p>
+        <a href="#fabricGrid" class="btn-black px-8 py-4 uppercase inline-block no-underline">Explore Collection</a>
+      </div>
+      <div class="hero-dots" id="heroDots"><span class="hero-dot active-dot" data-index="0"></span><span class="hero-dot" data-index="1"></span><span class="hero-dot" data-index="2"></span></div>
+      <div class="hero-nav"><button class="hero-nav-btn" id="heroPrev"><i class="fas fa-chevron-left"></i></button><button class="hero-nav-btn" id="heroNext"><i class="fas fa-chevron-right"></i></button></div>
+    </section>
+
+    <div class="max-w-7xl mx-auto px-5 md:px-8 py-10">
+      <div class="mb-8 text-center md:text-left">
+        <h2 class="text-3xl md:text-4xl font-light section-title mb-3">The Fabric Atelier</h2>
+        <p class="text-neutral-500 text-base max-w-xl">Curated premium textiles for your bespoke garments.</p>
+      </div>
+
+      <!-- FEATURED CAROUSEL -->
+      <div class="mb-14">
+        <div class="flex justify-between items-end mb-6">
+          <h3 class="text-2xl font-light section-title">Featured Fabrics</h3>
+          <div class="flex gap-2">
+            <button class="btn-outline px-3 py-2 text-xs" id="featScrollLeft"><i class="fas fa-arrow-left"></i></button>
+            <button class="btn-outline px-3 py-2 text-xs" id="featScrollRight"><i class="fas fa-arrow-right"></i></button>
+          </div>
+        </div>
+        <div class="featured-carousel" id="featuredCarousel"></div>
+      </div>
+
+      <!-- FILTERS -->
+      <div class="flex flex-wrap gap-3 mb-10">
+        <button class="filter-chip active-chip" data-filter="all">All Fabrics</button>
+        <button class="filter-chip" data-filter="aso-oke">Aso Oke</button>
+        <button class="filter-chip" data-filter="damask">Damask</button>
+        <button class="filter-chip" data-filter="silk">Silk</button>
+        <button class="filter-chip" data-filter="brocade">Brocade</button>
+        <button class="filter-chip" data-filter="cotton">Cotton</button>
+        <button class="filter-chip" data-filter="lace">Lace</button>
+        <button class="filter-chip" data-filter="new">New Arrivals</button>
+      </div>
+
+      <!-- FABRIC GRID -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" id="fabricGridContainer"></div>
+
+      <div class="text-center mt-12">
+        <button class="btn-outline px-10 py-3 uppercase text-sm" id="loadMoreBtn">Load More Fabrics</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#050505] text-neutral-400">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 py-16">
+      <div class="grid md:grid-cols-5 gap-10 mb-12">
+        <div class="md:col-span-2">
+          <img src="photos/logo_only.png" alt="EL-ATTIRE" class="footer-logo mb-4" onerror="this.style.display='none'">
+          <p class="text-sm text-neutral-500 leading-relaxed max-w-xs">Bespoke Nigerian tailoring since 2010. Crafting Kaftans, Agbada, and Senator styles for the modern gentleman.</p>
+          <div class="flex gap-4 mt-6">
+            <a href="#" class="text-neutral-500 hover:text-white transition"><i class="fab fa-instagram text-lg"></i></a>
+            <a href="#" class="text-neutral-500 hover:text-white transition"><i class="fab fa-whatsapp text-lg"></i></a>
+            <a href="#" class="text-neutral-500 hover:text-white transition"><i class="fab fa-pinterest text-lg"></i></a>
+          </div>
+        </div>
+        <div><h4 class="text-white uppercase tracking-wider mb-5 text-xs font-semibold">Collections</h4><a href="#" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Kaftans</a><a href="#" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Agbada</a><a href="#" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Senator Styles</a><a href="#" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Ready-to-Wear</a></div>
+        <div><h4 class="text-white uppercase tracking-wider mb-5 text-xs font-semibold">Services</h4><a href="tailoring-page.html" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Bespoke Tailoring</a><a href="fabrics.html" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Fabric Store</a><a href="fitting.html" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Book Fitting</a><a href="measurements.html" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Measurements</a></div>
+        <div><h4 class="text-white uppercase tracking-wider mb-5 text-xs font-semibold">Support</h4><a href="faq.html" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">FAQ</a><a href="terms.html" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Terms & Conditions</a><a href="about.html" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">About Us</a><a href="index.html#contact" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Contact</a></div>
+      </div>
+      <div class="border-t border-neutral-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-xs text-neutral-600">© 2026 EL-ATTIRE. All rights reserved. Bespoke Nigerian Tailoring.</p>
+        <div class="flex gap-6 text-xs text-neutral-600"><a href="terms.html" class="hover:text-white transition">Terms</a><a href="#" class="hover:text-white transition">Privacy</a><a href="#" class="hover:text-white transition">Cookies</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      // Fabric data with local photos (f1-f16.jpg in photos/fabrics/)
+      const fabricData = [
+        { id:1, name:'Royal Blue Aso Oke', category:'aso-oke', price:120000, unit:'yd', images:['photos/fabrics/f1.jpg','photos/fabrics/f2.jpg','photos/fabrics/f3.jpg'], tag:'Premium', badge:'Bestseller', isNew:false, description:'Handwoven premium Aso Oke from the Yoruba tradition. Rich royal blue with metallic thread accents.', width:'45"', composition:'Cotton / Metallic Thread', weight:'280 gsm', care:'Dry Clean', colors:['#1a3a5c','#c9a84c','#f5f5f0'] },
+        { id:2, name:'Cream Damask Weave', category:'damask', price:95000, unit:'yd', images:['photos/fabrics/f4.jpg','photos/fabrics/f5.jpg','photos/fabrics/f6.jpg'], tag:'Italian', badge:'', isNew:false, description:'Italian damask with subtle floral patterns. Beautiful drape and sheen for modern Senator styles.', width:'54"', composition:'Cotton Damask', weight:'250 gsm', care:'Dry Clean', colors:['#f5f0e8','#e8ddd0','#d4c8b8'] },
+        { id:3, name:'Emerald Silk Satin', category:'silk', price:185000, unit:'yd', images:['photos/fabrics/f7.jpg','photos/fabrics/f8.jpg','photos/fabrics/f9.jpg'], tag:'Luxury', badge:'New', isNew:true, description:'Pure silk satin in deep emerald. Liquid-like drape with luminous surface.', width:'44"', composition:'100% Silk', weight:'180 gsm', care:'Dry Clean Only', colors:['#0a5c3a','#1a7a4a','#c9e8d0'] },
+        { id:4, name:'Gold Brocade', category:'brocade', price:210000, unit:'yd', images:['photos/fabrics/f10.jpg','photos/fabrics/f11.jpg','photos/fabrics/f12.jpg'], tag:'Exclusive', badge:'', isNew:false, description:'Opulent gold brocade with raised patterns. Heavyweight and regal for grand Agbada.', width:'48"', composition:'Silk Blend Brocade', weight:'350 gsm', care:'Dry Clean', colors:['#c9a84c','#8b6914','#fff8dc'] },
+        { id:5, name:'White Cotton Lawn', category:'cotton', price:45000, unit:'yd', images:['photos/fabrics/f13.jpg','photos/fabrics/f14.jpg','photos/fabrics/f15.jpg'], tag:'Essential', badge:'', isNew:false, description:'Lightweight cotton lawn in crisp white. Breathable and versatile for daily wear.', width:'45"', composition:'100% Cotton', weight:'150 gsm', care:'Machine Wash', colors:['#ffffff','#f8f8f8','#f0f0f0'] },
+        { id:6, name:'Burgundy Aso Oke', category:'aso-oke', price:135000, unit:'yd', images:['photos/fabrics/f16.jpg','photos/fabrics/f1.jpg','photos/fabrics/f2.jpg'], tag:'Heritage', badge:'', isNew:false, description:'Deep burgundy Aso Oke with traditional stripe patterns for ceremonial occasions.', width:'45"', composition:'Cotton / Silk Blend', weight:'290 gsm', care:'Dry Clean', colors:['#4a0a1a','#6a1a2a','#f0e0e5'] },
+        { id:7, name:'Navy Damask', category:'damask', price:105000, unit:'yd', images:['photos/fabrics/f3.jpg','photos/fabrics/f4.jpg','photos/fabrics/f5.jpg'], tag:'Classic', badge:'New', isNew:true, description:'Navy blue damask with subtle geometric weave. Sophisticated and timeless.', width:'54"', composition:'Cotton Damask', weight:'260 gsm', care:'Dry Clean', colors:['#0a1a3a','#1a2a5a','#c0c8d8'] },
+        { id:8, name:'Ivory Silk Chiffon', category:'silk', price:165000, unit:'yd', images:['photos/fabrics/f6.jpg','photos/fabrics/f7.jpg','photos/fabrics/f8.jpg'], tag:'Delicate', badge:'New', isNew:true, description:'Sheer ivory silk chiffon with ethereal float. Perfect for layering.', width:'42"', composition:'100% Silk', weight:'80 gsm', care:'Dry Clean Only', colors:['#fffff0','#faf5e8','#f0e8d8'] },
+        { id:9, name:'Black Lace Panel', category:'lace', price:150000, unit:'panel', images:['photos/fabrics/f9.jpg','photos/fabrics/f10.jpg','photos/fabrics/f11.jpg'], tag:'Artisan', badge:'', isNew:false, description:'Hand-crafted black lace with intricate floral motifs.', width:'36"', composition:'Cotton Lace', weight:'120 gsm', care:'Hand Wash', colors:['#0a0a0a','#1a1a1a','#2a2a2a'] },
+        { id:10, name:'Sage Cotton Blend', category:'cotton', price:55000, unit:'yd', images:['photos/fabrics/f12.jpg','photos/fabrics/f13.jpg','photos/fabrics/f14.jpg'], tag:'Breathable', badge:'New', isNew:true, description:'Soft sage green cotton blend with subtle texture for casual Kaftans.', width:'45"', composition:'Cotton / Linen Blend', weight:'170 gsm', care:'Machine Wash', colors:['#8a9a7a','#aabaaa','#d0d8c8'] },
+        { id:11, name:'Purple Brocade', category:'brocade', price:230000, unit:'yd', images:['photos/fabrics/f15.jpg','photos/fabrics/f16.jpg','photos/fabrics/f1.jpg'], tag:'Regal', badge:'', isNew:false, description:'Royal purple brocade with gold undertones for statement pieces.', width:'48"', composition:'Silk Blend Brocade', weight:'360 gsm', care:'Dry Clean', colors:['#3a0a4a','#5a1a6a','#d0c0d8'] },
+        { id:12, name:'Champagne Aso Oke', category:'aso-oke', price:140000, unit:'yd', images:['photos/fabrics/f2.jpg','photos/fabrics/f3.jpg','photos/fabrics/f4.jpg'], tag:'Celebration', badge:'New', isNew:true, description:'Champagne-toned Aso Oke with subtle shimmer for weddings and galas.', width:'45"', composition:'Cotton / Metallic Thread', weight:'275 gsm', care:'Dry Clean', colors:['#f5e8c8','#e8d8a8','#d4c898'] },
+      ];
+
+      let cart = [];
+      let currentFilter = 'all';
+      let visibleCount = 6;
+      let detailIndex = -1;
+
+      const gridContainer = document.getElementById('fabricGridContainer');
+      const cartBadge = document.getElementById('cartBadge');
+      const cartDrawer = document.getElementById('cartDrawer');
+      const cartDrawerOverlay = document.getElementById('cartDrawerOverlay');
+      const drawerItems = document.getElementById('drawerItems');
+      const drawerCount = document.getElementById('drawerCount');
+      const drawerTotal = document.getElementById('drawerTotal');
+      const detailModalOverlay = document.getElementById('detailModalOverlay');
+      const detailModal = document.getElementById('detailModal');
+
+      function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg; t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2500);
+      }
+
+      function startAutoSlide(card) {
+        const slides = card.querySelectorAll('.fabric-slide');
+        const dots = card.querySelectorAll('.fabric-dot');
+        if (slides.length < 2) return;
+        let index = 0, interval;
+        function show(i) { slides.forEach(s => s.classList.remove('active')); dots.forEach(d => d.classList.remove('active-dot')); slides[i].classList.add('active'); dots[i].classList.add('active-dot'); }
+        card.addEventListener('mouseenter', () => { interval = setInterval(() => { index = (index+1) % slides.length; show(index); }, 1200); });
+        card.addEventListener('mouseleave', () => { clearInterval(interval); index = 0; show(0); });
+        show(0);
+      }
+
+      function openDetailModal(index) {
+        detailIndex = index;
+        const f = fabricData[index];
+        if (!f) return;
+        detailModal.innerHTML = `
+          <div style="height:400px;"><img src="${f.images[0]}" alt="${f.name}" class="w-full h-full object-cover" id="detailMainImage"></div>
+          <div class="p-8 flex flex-col justify-center">
+            <span class="text-xs uppercase tracking-[0.2em] text-neutral-400">${f.category.replace('-',' ')} · ${f.tag}</span>
+            <h2 class="text-2xl font-light section-title mt-2 mb-3">${f.name}</h2>
+            <p class="text-sm text-neutral-600 leading-relaxed mb-4">${f.description}</p>
+            <div class="space-y-2 text-sm mb-4">
+              <div class="flex justify-between"><span class="text-neutral-400">Width</span><span>${f.width}</span></div>
+              <div class="flex justify-between"><span class="text-neutral-400">Composition</span><span>${f.composition}</span></div>
+              <div class="flex justify-between"><span class="text-neutral-400">Weight</span><span>${f.weight}</span></div>
+              <div class="flex justify-between"><span class="text-neutral-400">Care</span><span>${f.care}</span></div>
+            </div>
+            <div class="flex gap-2 mb-4">${f.colors.map(c => `<span class="swatch" style="background:${c};"></span>`).join('')}</div>
+            <p class="text-2xl font-semibold mb-2">₦${f.price.toLocaleString()}<span class="text-sm font-normal text-neutral-500">/${f.unit}</span></p>
+            <div class="flex gap-2 mb-4"><span class="text-xs uppercase tracking-wider font-medium">Qty:</span><div class="flex items-center border"><button class="px-3 py-1 detail-qty-minus">−</button><span class="px-4 py-1 font-semibold detail-qty-val">3</span><button class="px-3 py-1 detail-qty-plus">+</button></div></div>
+            <div class="flex gap-3"><button class="btn-black px-6 py-3 uppercase text-xs flex-1 detail-add-cart" data-id="${f.id}">Add to Cart — ₦<span class="detail-total-price">${(f.price*3).toLocaleString()}</span></button><button class="btn-outline px-4 py-3 aspect-square flex items-center justify-center"><i class="far fa-heart"></i></button></div>
+            <div class="flex gap-2 mt-3">${f.images.map((img,i) => `<img src="${img}" class="w-12 h-12 object-cover cursor-pointer border-2 ${i===0?'border-black':'border-transparent'} detail-thumb" data-img="${i}">`).join('')}</div>
+          </div>`;
+        detailModalOverlay.classList.add('open'); document.body.style.overflow = 'hidden';
+        detailModal.querySelectorAll('.detail-thumb').forEach(thumb => { thumb.addEventListener('click', function() { detailModal.querySelectorAll('.detail-thumb').forEach(t => t.classList.remove('border-black')); this.classList.add('border-black'); document.getElementById('detailMainImage').src = f.images[parseInt(this.dataset.img)]; }); });
+        const qtyVal = detailModal.querySelector('.detail-qty-val');
+        const totalPriceEl = detailModal.querySelector('.detail-total-price');
+        detailModal.querySelector('.detail-qty-plus').addEventListener('click', () => { let v = parseInt(qtyVal.textContent); qtyVal.textContent = Math.min(50, v+1); totalPriceEl.textContent = (f.price * parseInt(qtyVal.textContent)).toLocaleString(); });
+        detailModal.querySelector('.detail-qty-minus').addEventListener('click', () => { let v = parseInt(qtyVal.textContent); if(v>1) qtyVal.textContent = v-1; totalPriceEl.textContent = (f.price * parseInt(qtyVal.textContent)).toLocaleString(); });
+        detailModal.querySelector('.detail-add-cart').addEventListener('click', function() { const qty = parseInt(qtyVal.textContent); for(let i=0; i<qty; i++) addToCart(f.id); showToast(`✓ ${qty} yard(s) of ${f.name} added`); closeDetailModal(); });
+      }
+
+      function closeDetailModal() { detailModalOverlay.classList.remove('open'); document.body.style.overflow = ''; detailIndex = -1; }
+      document.getElementById('detailModalClose').addEventListener('click', closeDetailModal);
+      detailModalOverlay.addEventListener('click', function(e) { if(e.target === this) closeDetailModal(); });
+      document.getElementById('detailModalPrev').addEventListener('click', () => { if (detailIndex > 0) openDetailModal(detailIndex - 1); });
+      document.getElementById('detailModalNext').addEventListener('click', () => { if (detailIndex < fabricData.length - 1) openDetailModal(detailIndex + 1); });
+      document.addEventListener('keydown', function(e) { if (!detailModalOverlay.classList.contains('open')) return; if (e.key === 'Escape') closeDetailModal(); if (e.key === 'ArrowLeft' && detailIndex > 0) openDetailModal(detailIndex - 1); if (e.key === 'ArrowRight' && detailIndex < fabricData.length - 1) openDetailModal(detailIndex + 1); });
+
+      function renderFabrics(filter = 'all', count = visibleCount) {
+        let filtered = filter === 'all' ? fabricData : filter === 'new' ? fabricData.filter(f => f.isNew) : fabricData.filter(f => f.category === filter);
+        const display = filtered.slice(0, count);
+        let html = '';
+        display.forEach((fabric) => {
+          const actualIndex = fabricData.indexOf(fabric);
+          const isLarge = fabric.isNew && display.filter(f=>f.isNew).indexOf(fabric) < 2;
+          if (isLarge) {
+            html += `<div class="large-card fabric-card" data-index="${actualIndex}" style="grid-row:span 2;grid-column:span 2;"><div class="fabric-image-container" style="height:100%;">${fabric.images.map((img,j) => `<img src="${img}" class="fabric-slide ${j===0?'active':''}" alt="${fabric.name}">`).join('')}<div class="fabric-dots">${fabric.images.map((_,j) => `<span class="fabric-dot ${j===0?'active-dot':''}"></span>`).join('')}</div><span class="fabric-tag">${fabric.tag}</span><span class="fabric-badge">NEW ARRIVAL</span><button class="quick-add-btn" data-id="${fabric.id}">Add to Cart</button></div><div class="large-card-overlay"><span class="text-xs uppercase tracking-wider opacity-70">${fabric.category.replace('-',' ')}</span><h4 class="text-2xl font-light section-title mt-1">${fabric.name}</h4><p class="text-xl font-semibold mt-1">₦${fabric.price.toLocaleString()}/${fabric.unit}</p></div></div>`;
+          } else {
+            html += `<div class="fabric-card" data-index="${actualIndex}"><div class="fabric-image-container">${fabric.images.map((img,j) => `<img src="${img}" class="fabric-slide ${j===0?'active':''}" alt="${fabric.name}">`).join('')}<div class="fabric-dots">${fabric.images.map((_,j) => `<span class="fabric-dot ${j===0?'active-dot':''}"></span>`).join('')}</div><span class="fabric-tag">${fabric.tag}</span>${fabric.badge?`<span class="fabric-badge">${fabric.badge}</span>`:''}<button class="quick-add-btn" data-id="${fabric.id}">Add to Cart</button></div><div class="p-4"><h4 class="font-medium text-sm">${fabric.name}</h4><div class="flex justify-between items-center mt-1"><span class="font-semibold text-sm">₦${fabric.price.toLocaleString()}/${fabric.unit}</span><span class="text-xs text-neutral-400 uppercase">${fabric.category.replace('-',' ')}</span></div></div></div>`;
+          }
+        });
+        gridContainer.innerHTML = html;
+        document.querySelectorAll('.fabric-card').forEach(card => startAutoSlide(card));
+        document.querySelectorAll('.fabric-card').forEach(card => { card.addEventListener('click', function(e) { if (e.target.closest('.quick-add-btn')) return; openDetailModal(parseInt(this.dataset.index)); }); });
+        document.querySelectorAll('.quick-add-btn').forEach(btn => { btn.addEventListener('click', function(e) { e.stopPropagation(); addToCart(parseInt(this.dataset.id)); }); });
+        document.getElementById('loadMoreBtn').style.display = filtered.length <= count ? 'none' : 'inline-block';
+      }
+
+      function addToCart(id) { const fabric = fabricData.find(f => f.id === id); if (!fabric) return; const existing = cart.find(i => i.id === id); existing ? existing.qty++ : cart.push({...fabric, qty:1}); updateCart(); }
+      function updateCart() {
+        const totalItems = cart.reduce((s,i) => s + i.qty, 0);
+        cartBadge.textContent = totalItems; drawerCount.textContent = totalItems;
+        drawerTotal.textContent = '₦' + cart.reduce((s,i) => s + i.price * i.qty, 0).toLocaleString();
+        drawerItems.innerHTML = cart.length === 0 ? '<p class="text-neutral-400 text-sm text-center py-16">Your bag is empty</p>' : cart.map(item => `<div class="flex gap-3 items-start border-b pb-3"><img src="${item.images[0]}" class="w-16 h-16 object-cover" alt="${item.name}"><div class="flex-1"><p class="text-sm font-medium">${item.name}</p><p class="text-xs text-neutral-500">₦${item.price.toLocaleString()}/${item.unit}</p><div class="flex items-center gap-2 mt-1"><button class="border px-2 py-0.5 text-xs cq-minus" data-id="${item.id}">−</button><span class="text-sm">${item.qty}</span><button class="border px-2 py-0.5 text-xs cq-plus" data-id="${item.id}">+</button></div></div><button class="text-neutral-400 hover:text-red-500 cremove" data-id="${item.id}"><i class="fas fa-trash text-xs"></i></button></div>`).join('');
+        document.querySelectorAll('.cq-plus').forEach(b => b.addEventListener('click', () => { const item = cart.find(i => i.id === parseInt(b.dataset.id)); if(item) item.qty++; updateCart(); }));
+        document.querySelectorAll('.cq-minus').forEach(b => b.addEventListener('click', () => { const item = cart.find(i => i.id === parseInt(b.dataset.id)); if(item && item.qty > 1) item.qty--; else cart = cart.filter(i => i.id !== parseInt(b.dataset.id)); updateCart(); }));
+        document.querySelectorAll('.cremove').forEach(b => b.addEventListener('click', () => { cart = cart.filter(i => i.id !== parseInt(b.dataset.id)); updateCart(); }));
+      }
+
+      // Featured carousel
+      const featCarousel = document.getElementById('featuredCarousel');
+      featCarousel.innerHTML = fabricData.slice(0,5).map(f => `<div class="featured-card" data-index="${fabricData.indexOf(f)}"><img src="${f.images[0]}" alt="${f.name}"><div class="p-4"><span class="text-xs text-neutral-400 uppercase tracking-wider">${f.category.replace('-',' ')}</span><h4 class="font-medium mt-1">${f.name}</h4><p class="font-semibold text-sm mt-1">₦${f.price.toLocaleString()}/${f.unit}</p></div></div>`).join('');
+      featCarousel.querySelectorAll('.featured-card').forEach(card => { card.addEventListener('click', () => openDetailModal(parseInt(card.dataset.index))); });
+      document.getElementById('featScrollLeft').addEventListener('click', () => featCarousel.scrollBy({left:-340,behavior:'smooth'}));
+      document.getElementById('featScrollRight').addEventListener('click', () => featCarousel.scrollBy({left:340,behavior:'smooth'}));
+
+      // Hero carousel
+      let heroIndex = 0;
+      const heroSlides = document.querySelectorAll('.hero-slide');
+      const heroDots = document.querySelectorAll('.hero-dot');
+      function showHero(i) { heroSlides.forEach(s => s.classList.remove('active')); heroDots.forEach(d => d.classList.remove('active-dot')); heroSlides[i].classList.add('active'); heroDots[i].classList.add('active-dot'); heroIndex = i; }
+      document.getElementById('heroNext').addEventListener('click', () => showHero((heroIndex+1)%heroSlides.length));
+      document.getElementById('heroPrev').addEventListener('click', () => showHero((heroIndex-1+heroSlides.length)%heroSlides.length));
+      heroDots.forEach(d => d.addEventListener('click', () => showHero(parseInt(d.dataset.index))));
+      setInterval(() => showHero((heroIndex+1)%heroSlides.length), 5000);
+
+      // Cart drawer
+      document.getElementById('cartIcon').addEventListener('click', () => { cartDrawer.classList.add('open'); cartDrawerOverlay.classList.add('open'); });
+      document.getElementById('closeDrawer').addEventListener('click', () => { cartDrawer.classList.remove('open'); cartDrawerOverlay.classList.remove('open'); });
+      cartDrawerOverlay.addEventListener('click', () => { cartDrawer.classList.remove('open'); cartDrawerOverlay.classList.remove('open'); });
+
+      // Filters
+      document.querySelectorAll('.filter-chip').forEach(chip => chip.addEventListener('click', function() { document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active-chip')); this.classList.add('active-chip'); currentFilter = this.dataset.filter; visibleCount = 6; renderFabrics(currentFilter, visibleCount); }));
+      document.getElementById('loadMoreBtn').addEventListener('click', () => { visibleCount += 6; renderFabrics(currentFilter, visibleCount); });
+
+      renderFabrics();
+      updateCart();
+    })();
+  </script>
+</body>
+</html>

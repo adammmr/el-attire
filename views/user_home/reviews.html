@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=yes">
+  <title>EL-ATTIRE | Reviews</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --text-primary: #374151;
+      --text-secondary: #9ca3af;
+      --bg-primary: #fafafa;
+      --bg-card: #ffffff;
+      --border-color: rgba(0,0,0,0.05);
+      --sidebar-bg: #f8f7f5;
+      --sidebar-hover: #efede9;
+      --sidebar-active: #374151;
+      --sidebar-active-text: #ffffff;
+      --star-color: #f59e0b;
+    }
+
+    * { box-sizing: border-box; }
+
+    body { 
+      font-family: 'Inter', system-ui, -apple-system, sans-serif; 
+      background: var(--bg-primary); 
+      color: var(--text-primary); 
+      letter-spacing: -0.01em; 
+      font-size: 0.85rem;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #b0b7c3; }
+
+    .glass-panel { 
+      background: var(--bg-card); 
+      border: 1px solid var(--border-color); 
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03); 
+      border-radius: 10px; 
+    }
+
+    .btn-primary { 
+      background: var(--text-primary); 
+      color: white; 
+      border: none; 
+      transition: all 0.15s ease; 
+      cursor: pointer; 
+      font-weight: 500; 
+      letter-spacing: 0.03em; 
+      border-radius: 7px;
+      font-size: 0.78rem;
+    }
+    .btn-primary:hover { 
+      background: #4b5563; 
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .btn-primary:active { transform: scale(0.98); }
+
+    .btn-outline { 
+      background: transparent; 
+      color: var(--text-primary); 
+      border: 1px solid #e5e7eb; 
+      transition: all 0.15s ease; 
+      cursor: pointer; 
+      font-weight: 500; 
+      letter-spacing: 0.03em; 
+      border-radius: 7px;
+      font-size: 0.78rem;
+    }
+    .btn-outline:hover { 
+      background: #f9fafb; 
+      border-color: #d1d5db;
+      transform: translateY(-1px);
+    }
+    .btn-outline:active { transform: scale(0.98); }
+
+    .btn-danger {
+      background: transparent; color: #ef4444; border: 1px solid #fecaca;
+      transition: all 0.15s ease; cursor: pointer; font-weight: 500;
+      letter-spacing: 0.03em; border-radius: 7px; font-size: 0.78rem;
+    }
+    .btn-danger:hover { background: #fef2f2; border-color: #ef4444; }
+
+    .nav-link { 
+      display: flex; align-items: center; gap: 9px; padding: 8px 12px; 
+      border-radius: 7px; transition: all 0.15s ease; color: var(--text-secondary); 
+      text-decoration: none; font-weight: 450; font-size: 0.8rem; 
+    }
+    .nav-link:hover { background: var(--sidebar-hover); color: var(--text-primary); }
+    .nav-link.active { background: var(--sidebar-active); color: var(--sidebar-active-text); box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+
+    .input-lux { 
+      width: 100%; padding: 0.5rem 0.75rem; border: 1px solid #e5e7eb; 
+      background: #fafafa; font-size: 0.8rem; border-radius: 7px;
+      color: var(--text-primary); transition: all 0.15s;
+    }
+    .input-lux:focus { 
+      border-color: #6b7280; background: white; outline: none; 
+      box-shadow: 0 0 0 3px rgba(107,114,128,0.1);
+    }
+
+    .star-rating { display: inline-flex; gap: 3px; cursor: pointer; }
+    .star-rating i { font-size: 1.4rem; color: #e5e7eb; transition: all 0.15s; }
+    .star-rating i.active-star { color: var(--star-color); }
+    .star-rating i:hover { transform: scale(1.15); }
+
+    .star-display { display: inline-flex; gap: 2px; }
+    .star-display i { font-size: 0.75rem; color: var(--star-color); }
+    .star-display i.empty { color: #e5e7eb; }
+
+    .review-card { 
+      border-left: 3px solid transparent; 
+      transition: all 0.15s; 
+      cursor: default;
+    }
+    .review-card:hover { 
+      border-left-color: #374151; 
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04); 
+    }
+
+    .photo-upload {
+      width: 72px; height: 72px; border: 2px dashed #e5e7eb; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+      transition: all 0.15s; color: #d1d5db;
+    }
+    .photo-upload:hover { border-color: #9ca3af; color: #9ca3af; background: #f9fafb; }
+    .photo-preview {
+      width: 72px; height: 72px; border-radius: 10px; object-fit: cover;
+      position: relative;
+    }
+
+    .notification-dot { 
+      width: 6px; height: 6px; background: #ef4444; border-radius: 50%; 
+      display: inline-block; box-shadow: 0 0 0 2px white;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot { 0%,100%{transform:scale(1);} 50%{transform:scale(1.4);} }
+
+    .toast {
+      position: fixed; bottom: 20px; right: 20px; background: #374151; color: white;
+      padding: 10px 18px; border-radius: 8px; font-size: 0.78rem; font-weight: 500;
+      z-index: 1000; opacity: 0; transform: translateY(10px);
+      transition: all 0.3s ease; box-shadow: 0 4px 16px rgba(0,0,0,0.15); pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.success { background: #059669; }
+    .toast.error { background: #ef4444; }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-in { animation: fadeInUp 0.4s ease-out forwards; }
+  </style>
+</head>
+<body class="antialiased">
+
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-100 px-5 py-2.5 flex items-center justify-between">
+    <a href="dashboard.html" class="text-lg font-semibold tracking-[0.1em] text-[#374151] no-underline">
+      EL-<span class="font-normal text-neutral-400 text-sm">ATTIRE</span>
+    </a>
+    <div class="flex items-center gap-4">
+      <div class="relative cursor-pointer p-1.5 hover:bg-gray-50 rounded-lg transition-colors">
+        <i class="fas fa-bell text-sm text-neutral-400 hover:text-[#374151] transition-colors"></i>
+        <span class="notification-dot absolute top-0.5 right-0.5"></span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-full bg-stone-100 flex items-center justify-center font-medium text-[0.65rem] text-[#374151] ring-2 ring-white shadow-sm">OA</div>
+        <span class="hidden sm:inline text-[0.8rem] font-medium text-[#374151]">Oluwaseun</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="flex min-h-screen">
+    <aside class="fixed top-[41px] left-0 bottom-0 w-[210px] hidden lg:flex flex-col border-r border-stone-200/50 overflow-y-auto" style="background: #f8f7f5;">
+      <div class="px-3.5 pt-4 pb-3 border-b border-stone-200/30">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-md flex items-center justify-center bg-[#374151]"><span class="text-white font-semibold text-[0.65rem]">E</span></div>
+          <div><p class="text-[0.7rem] font-semibold text-[#374151] tracking-wider">EL-ATTIRE</p><p class="text-[0.55rem] text-neutral-400 tracking-wider">BESPOKE</p></div>
+        </div>
+      </div>
+      <nav class="flex-1 px-2.5 py-3 space-y-0.5">
+        <p class="px-2.5 text-[0.58rem] font-semibold uppercase tracking-widest text-neutral-400 mb-1.5">Menu</p>
+        <a href="dashboard.html" class="nav-link"><i class="fas fa-th-large w-3 text-[0.7rem]"></i> Dashboard</a>
+        <a href="measurements.html" class="nav-link"><i class="fas fa-ruler-combined w-3 text-[0.7rem]"></i> Measurements</a>
+        <a href="orders.html" class="nav-link"><i class="fas fa-shopping-bag w-3 text-[0.7rem]"></i> Orders</a>
+        <a href="tailoring.html" class="nav-link"><i class="fas fa-cut w-3 text-[0.7rem]"></i> Tailoring</a>
+        <a href="reviews.html" class="nav-link active"><i class="fas fa-star w-3 text-[0.7rem]"></i> Reviews</a>
+        <p class="px-2.5 text-[0.58rem] font-semibold uppercase tracking-widest text-neutral-400 mb-1.5 mt-4">Account</p>
+        <a href="profile.html" class="nav-link"><i class="fas fa-user-cog w-3 text-[0.7rem]"></i> Profile</a>
+        <a href="#" class="nav-link"><i class="fas fa-cog w-3 text-[0.7rem]"></i> Settings</a>
+      </nav>
+      <div class="px-2.5 py-3 border-t border-stone-200/30">
+        <div class="rounded-lg p-3" style="background: #f3f1ed;">
+          <div class="flex items-center gap-1.5 mb-1.5"><i class="fas fa-headset text-[0.6rem] text-amber-700/60"></i><p class="text-[0.65rem] font-medium text-[#374151]">Support</p></div>
+          <p class="text-[0.6rem] text-neutral-400 mb-2 leading-relaxed">Mon-Sat, 8am-8pm</p>
+          <a href="#" class="flex items-center gap-2 py-1.5 px-2 rounded-md text-[0.7rem] text-neutral-400 hover:text-[#374151] hover:bg-[#efede9] transition-colors"><i class="fas fa-envelope text-[0.55rem]"></i> support@elattire.com</a>
+        </div>
+        <div class="flex items-center gap-2 mt-2.5 px-1.5 py-1.5 rounded-lg hover:bg-[#f3f1ed] transition-colors cursor-pointer">
+          <div class="w-6 h-6 rounded-full bg-stone-200 flex items-center justify-center font-medium text-[0.55rem] text-[#374151] flex-shrink-0">OA</div>
+          <div class="min-w-0 flex-1"><p class="text-[0.68rem] font-medium text-[#374151] truncate">Oluwaseun A.</p></div>
+          <i class="fas fa-sign-out-alt text-[0.55rem] text-neutral-400 hover:text-red-400 transition-colors flex-shrink-0"></i>
+        </div>
+      </div>
+    </aside>
+
+    <main class="flex-1 p-4 md:p-5 lg:ml-[210px]">
+      <!-- Stats Overview -->
+      <div class="grid grid-cols-3 gap-3 mb-5">
+        <div class="glass-panel p-3 text-center">
+          <p class="text-2xl font-medium text-[#374151]">4</p>
+          <p class="text-[0.62rem] text-neutral-400 uppercase tracking-wider mt-0.5">Total Reviews</p>
+        </div>
+        <div class="glass-panel p-3 text-center">
+          <div class="flex items-center justify-center gap-0.5 mb-0.5">
+            <span class="text-2xl font-medium text-[#374151]">4.6</span>
+            <i class="fas fa-star text-amber-500 text-sm"></i>
+          </div>
+          <p class="text-[0.62rem] text-neutral-400 uppercase tracking-wider">Avg Rating</p>
+        </div>
+        <div class="glass-panel p-3 text-center">
+          <p class="text-2xl font-medium text-[#374151]">2</p>
+          <p class="text-[0.62rem] text-neutral-400 uppercase tracking-wider">This Month</p>
+        </div>
+      </div>
+
+      <!-- Write Review -->
+      <div class="glass-panel p-4 mb-5">
+        <div class="flex items-center gap-2 mb-4">
+          <i class="fas fa-pen text-[0.7rem] text-neutral-400"></i>
+          <span class="text-[0.7rem] font-medium text-neutral-400 uppercase tracking-wider">Write a Review</span>
+        </div>
+        <div class="space-y-3">
+          <div class="grid md:grid-cols-2 gap-3">
+            <div>
+              <label class="text-[0.62rem] text-neutral-400">Product / Service</label>
+              <select class="input-lux mt-0.5" id="reviewProduct">
+                <option value="">Select what you're reviewing...</option>
+                <option>Royal Blue Aso Oke Fabric</option>
+                <option>Sage Cotton Blend Fabric</option>
+                <option>Embroidered Agbada Set (Tailoring)</option>
+                <option>Midnight Brocade Kaftan (Tailoring)</option>
+                <option>Senator White (Ready-to-Wear)</option>
+                <option>General Tailoring Service</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-[0.62rem] text-neutral-400">Rating</label>
+              <div class="flex items-center gap-2 mt-0.5">
+                <div class="star-rating" id="starRating">
+                  <i class="fas fa-star" data-star="1"></i>
+                  <i class="fas fa-star" data-star="2"></i>
+                  <i class="fas fa-star" data-star="3"></i>
+                  <i class="fas fa-star" data-star="4"></i>
+                  <i class="fas fa-star" data-star="5"></i>
+                </div>
+                <span class="text-[0.65rem] text-neutral-400" id="ratingText">Tap to rate</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label class="text-[0.62rem] text-neutral-400">Title</label>
+            <input type="text" class="input-lux mt-0.5" placeholder="Sum up your experience..." id="reviewTitle">
+          </div>
+          <div>
+            <label class="text-[0.62rem] text-neutral-400">Your Review</label>
+            <textarea rows="3" class="input-lux mt-0.5" placeholder="Share details about your experience..." id="reviewBody"></textarea>
+          </div>
+          <div>
+            <label class="text-[0.62rem] text-neutral-400">Photos (optional)</label>
+            <div class="flex gap-2 mt-1.5" id="photoUploads">
+              <div class="photo-upload" onclick="simulatePhotoUpload()" id="uploadTrigger">
+                <i class="fas fa-camera text-xl"></i>
+              </div>
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <button class="btn-primary px-5 py-2 text-[0.72rem]" id="submitReviewBtn">
+              <i class="fas fa-paper-plane mr-1.5 text-[0.6rem]"></i> Submit Review
+            </button>
+            <button class="btn-outline px-5 py-2 text-[0.72rem]" id="clearReviewBtn">
+              <i class="fas fa-undo mr-1.5 text-[0.6rem]"></i> Clear
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reviews List -->
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-[0.7rem] font-medium text-neutral-400 uppercase tracking-wider">Your Reviews</span>
+        <span class="text-[0.65rem] text-neutral-400" id="reviewCount">2 reviews</span>
+      </div>
+      <div class="space-y-2.5" id="reviewsList">
+        <div class="glass-panel p-3.5 review-card">
+          <div class="flex justify-between items-start">
+            <div class="flex-1 min-w-0">
+              <div class="star-display mb-1">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+              </div>
+              <h4 class="text-[0.82rem] font-medium text-[#374151]">Exceptional Quality Fabric!</h4>
+              <p class="text-[0.72rem] text-neutral-500 mt-1 line-clamp-2">The Royal Blue Aso Oke exceeded my expectations. The metallic thread accents are stunning in person. Will definitely order again for my next event.</p>
+              <div class="flex items-center gap-2 mt-1.5">
+                <span class="text-[0.62rem] text-neutral-400">Royal Blue Aso Oke</span>
+                <span class="text-[0.6rem] text-neutral-300">·</span>
+                <span class="text-[0.62rem] text-neutral-400">Jul 10, 2026</span>
+              </div>
+            </div>
+            <div class="flex gap-1 ml-2 flex-shrink-0">
+              <button class="p-1.5 rounded-md hover:bg-gray-100 transition-colors text-neutral-400 hover:text-[#374151]" title="Edit" onclick="editReview(this)"><i class="fas fa-pencil-alt text-[0.6rem]"></i></button>
+              <button class="p-1.5 rounded-md hover:bg-red-50 transition-colors text-neutral-400 hover:text-red-500" title="Delete" onclick="deleteReview(this)"><i class="fas fa-trash text-[0.6rem]"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="glass-panel p-3.5 review-card">
+          <div class="flex justify-between items-start">
+            <div class="flex-1 min-w-0">
+              <div class="star-display mb-1">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star empty"></i>
+              </div>
+              <h4 class="text-[0.82rem] font-medium text-[#374151]">Great Tailoring, Minor Delay</h4>
+              <p class="text-[0.72rem] text-neutral-500 mt-1 line-clamp-2">The Agbada fits perfectly and the embroidery is beautiful. Slight delay in delivery but the quality made up for it.</p>
+              <div class="flex items-center gap-2 mt-1.5">
+                <span class="text-[0.62rem] text-neutral-400">Tailoring Service</span>
+                <span class="text-[0.6rem] text-neutral-300">·</span>
+                <span class="text-[0.62rem] text-neutral-400">Jun 15, 2026</span>
+              </div>
+            </div>
+            <div class="flex gap-1 ml-2 flex-shrink-0">
+              <button class="p-1.5 rounded-md hover:bg-gray-100 transition-colors text-neutral-400 hover:text-[#374151]" title="Edit" onclick="editReview(this)"><i class="fas fa-pencil-alt text-[0.6rem]"></i></button>
+              <button class="p-1.5 rounded-md hover:bg-red-50 transition-colors text-neutral-400 hover:text-red-500" title="Delete" onclick="deleteReview(this)"><i class="fas fa-trash text-[0.6rem]"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function() {
+      let selectedRating = 0;
+      let uploadedPhotos = [];
+      const stars = document.querySelectorAll('#starRating i');
+      const ratingText = document.getElementById('ratingText');
+      const labels = ['Tap to rate','Poor','Fair','Good','Very Good','Excellent!'];
+
+      // Star rating
+      stars.forEach(star => {
+        star.addEventListener('mouseenter', function() {
+          const v = parseInt(this.dataset.star);
+          stars.forEach((s,i) => s.classList.toggle('active-star', i < v));
+        });
+        star.addEventListener('click', function() {
+          selectedRating = parseInt(this.dataset.star);
+          stars.forEach((s,i) => s.classList.toggle('active-star', i < selectedRating));
+          ratingText.textContent = labels[selectedRating];
+        });
+      });
+      document.getElementById('starRating').addEventListener('mouseleave', () => {
+        stars.forEach((s,i) => s.classList.toggle('active-star', i < selectedRating));
+      });
+
+      // Photo upload simulation
+      window.simulatePhotoUpload = function() {
+        if (uploadedPhotos.length >= 3) {
+          showToast('Maximum 3 photos allowed', 'error');
+          return;
+        }
+        const colors = ['#dbeafe','#d1fae5','#fef3c7','#ede9fe','#fce7f3'];
+        const photoUrl = `https://placehold.co/72x72/${colors[uploadedPhotos.length].replace('#','')}/9ca3af?text=📷`;
+        uploadedPhotos.push(photoUrl);
+        renderPhotos();
+        showToast('Photo added!');
+      };
+
+      function renderPhotos() {
+        const container = document.getElementById('photoUploads');
+        const photosHtml = uploadedPhotos.map((url, i) => `
+          <div class="relative photo-preview">
+            <img src="${url}" alt="Photo ${i+1}" class="w-full h-full rounded-lg object-cover">
+            <button class="absolute -top-1.5 -right-1.5 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-[0.5rem] hover:bg-red-600 transition-colors" onclick="removePhoto(${i})">×</button>
+          </div>
+        `).join('');
+        container.innerHTML = photosHtml + (uploadedPhotos.length < 3 ? `
+          <div class="photo-upload" onclick="simulatePhotoUpload()">
+            <i class="fas fa-camera text-xl"></i>
+          </div>` : '');
+      }
+
+      window.removePhoto = function(index) {
+        uploadedPhotos.splice(index, 1);
+        renderPhotos();
+        showToast('Photo removed');
+      };
+
+      // Submit review
+      document.getElementById('submitReviewBtn').addEventListener('click', () => {
+        const product = document.getElementById('reviewProduct').value;
+        const title = document.getElementById('reviewTitle').value.trim();
+        const body = document.getElementById('reviewBody').value.trim();
+
+        if (!product || !title || !body || selectedRating === 0) {
+          showToast('Please fill all fields and select a rating', 'error');
+          return;
+        }
+
+        const starsHtml = Array.from({length:5}, (_,i) => 
+          `<i class="fas fa-star${i < selectedRating ? '' : ' empty'}"></i>`
+        ).join('');
+
+        const photosHtml = uploadedPhotos.length ? `
+          <div class="flex gap-1.5 mt-2">${uploadedPhotos.map(url => 
+            `<img src="${url}" class="w-12 h-12 rounded-md object-cover">`
+          ).join('')}</div>` : '';
+
+        document.getElementById('reviewsList').insertAdjacentHTML('afterbegin', `
+          <div class="glass-panel p-3.5 review-card animate-in">
+            <div class="flex justify-between items-start">
+              <div class="flex-1 min-w-0">
+                <div class="star-display mb-1">${starsHtml}</div>
+                <h4 class="text-[0.82rem] font-medium text-[#374151]">${title}</h4>
+                <p class="text-[0.72rem] text-neutral-500 mt-1">${body}</p>
+                ${photosHtml}
+                <div class="flex items-center gap-2 mt-1.5">
+                  <span class="text-[0.62rem] text-neutral-400">${product}</span>
+                  <span class="text-[0.6rem] text-neutral-300">·</span>
+                  <span class="text-[0.62rem] text-neutral-400">${new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</span>
+                </div>
+              </div>
+              <div class="flex gap-1 ml-2 flex-shrink-0">
+                <button class="p-1.5 rounded-md hover:bg-gray-100 transition-colors text-neutral-400 hover:text-[#374151]" title="Edit" onclick="editReview(this)"><i class="fas fa-pencil-alt text-[0.6rem]"></i></button>
+                <button class="p-1.5 rounded-md hover:bg-red-50 transition-colors text-neutral-400 hover:text-red-500" title="Delete" onclick="deleteReview(this)"><i class="fas fa-trash text-[0.6rem]"></i></button>
+              </div>
+            </div>
+          </div>
+        `);
+
+        updateReviewCount();
+        resetForm();
+        showToast('Review submitted!', 'success');
+      });
+
+      // Clear form
+      document.getElementById('clearReviewBtn').addEventListener('click', resetForm);
+
+      function resetForm() {
+        document.getElementById('reviewProduct').value = '';
+        document.getElementById('reviewTitle').value = '';
+        document.getElementById('reviewBody').value = '';
+        selectedRating = 0;
+        stars.forEach(s => s.classList.remove('active-star'));
+        ratingText.textContent = 'Tap to rate';
+        uploadedPhotos = [];
+        renderPhotos();
+      }
+
+      // Edit review
+      window.editReview = function(btn) {
+        const card = btn.closest('.review-card');
+        const title = card.querySelector('h4').textContent;
+        const body = card.querySelector('p').textContent;
+        const product = card.querySelector('.text-neutral-400').textContent;
+        const starsCount = card.querySelectorAll('.fa-star:not(.empty)').length;
+
+        document.getElementById('reviewProduct').value = product;
+        document.getElementById('reviewTitle').value = title;
+        document.getElementById('reviewBody').value = body;
+        selectedRating = starsCount;
+        stars.forEach((s,i) => s.classList.toggle('active-star', i < starsCount));
+        ratingText.textContent = labels[starsCount];
+
+        card.remove();
+        updateReviewCount();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        showToast('Review loaded for editing');
+      };
+
+      // Delete review
+      window.deleteReview = function(btn) {
+        if (!confirm('Delete this review?')) return;
+        btn.closest('.review-card').remove();
+        updateReviewCount();
+        showToast('Review deleted');
+      };
+
+      function updateReviewCount() {
+        const count = document.querySelectorAll('#reviewsList .review-card').length;
+        document.getElementById('reviewCount').textContent = `${count} review${count !== 1 ? 's' : ''}`;
+      }
+
+      function showToast(msg, type = '') {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.className = 'toast ' + type + ' show';
+        setTimeout(() => t.classList.remove('show'), 2500);
+      }
+
+      renderPhotos();
+    })();
+  </script>
+</body>
+</html>

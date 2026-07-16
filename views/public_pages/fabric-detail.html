@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=yes">
+  <title>EL-ATTIRE | Royal Blue Aso Oke - Detail</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --text-primary: #374151;
+      --text-secondary: #9ca3af;
+      --text-muted: #b0b7c3;
+      --bg-primary: #fafafa;
+      --bg-card: #ffffff;
+      --border-color: rgba(0,0,0,0.05);
+    }
+
+    * { box-sizing: border-box; }
+
+    body { 
+      font-family: 'Inter', system-ui, -apple-system, sans-serif; 
+      background: #ffffff; 
+      color: var(--text-primary); 
+      letter-spacing: -0.01em; 
+      font-size: 0.85rem;
+      font-weight: 400;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+
+    .section-title { font-family: 'Playfair Display', serif; letter-spacing: 0.03em; }
+
+    .glass-panel { 
+      background: rgba(255,255,255,0.92); 
+      backdrop-filter: blur(20px); 
+      border: 1px solid rgba(0,0,0,0.06); 
+      box-shadow: 0 10px 30px rgba(0,0,0,0.03); 
+      border-radius: 10px; 
+    }
+
+    .btn-primary { 
+      background: var(--text-primary); color: white; border: none; 
+      transition: all 0.15s ease; cursor: pointer; font-weight: 500; 
+      letter-spacing: 0.03em; border-radius: 7px; font-size: 0.78rem;
+      padding: 11px 22px;
+    }
+    .btn-primary:hover { background: #4b5563; transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .btn-primary:active { transform: scale(0.98); }
+
+    .btn-outline { 
+      background: transparent; color: var(--text-primary); border: 1px solid #e5e7eb; 
+      transition: all 0.15s ease; cursor: pointer; font-weight: 500; 
+      letter-spacing: 0.03em; border-radius: 7px; font-size: 0.78rem;
+      padding: 11px 22px;
+    }
+    .btn-outline:hover { background: #f9fafb; border-color: #d1d5db; transform: translateY(-1px); }
+    .btn-outline:active { transform: scale(0.98); }
+
+    .link-underline {
+      position: relative; display: inline-block; padding-bottom: 2px; 
+      text-decoration: none; color: var(--text-primary);
+    }
+    .link-underline::after {
+      content: ''; position: absolute; bottom: 0; left: 0; width: 0%; height: 1.5px;
+      background: var(--text-primary); transition: width 0.3s ease;
+    }
+    .link-underline:hover::after { width: 100%; }
+
+    .zoom-container {
+      position: relative; overflow: hidden; cursor: crosshair;
+      border-radius: 10px; border: 1px solid rgba(0,0,0,0.06);
+      background: #f9fafb;
+    }
+    .zoom-container img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      transform-origin: var(--zoom-x) var(--zoom-y);
+    }
+    .zoom-container:hover img { transform: scale(1.8); }
+
+    .thumb-item {
+      cursor: pointer; border: 2px solid transparent; overflow: hidden;
+      transition: all 0.15s ease; border-radius: 8px;
+    }
+    .thumb-item:hover { border-color: #d1d5db; }
+    .thumb-item.active-thumb { border-color: #374151; }
+    .thumb-item img { width: 100%; height: 100%; object-fit: cover; }
+
+    .gallery-item {
+      position: relative; overflow: hidden; cursor: crosshair;
+      border-radius: 10px; border: 1px solid rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+    }
+    .gallery-item:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .gallery-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .gallery-item:hover img { transform: scale(1.5); }
+
+    .qty-control { 
+      display: inline-flex; align-items: center; border: 1px solid #e5e7eb; 
+      border-radius: 7px; overflow: hidden; background: white;
+    }
+    .qty-control button { 
+      width: 38px; height: 38px; background: none; border: none; 
+      font-size: 1rem; cursor: pointer; transition: all 0.15s; 
+      color: var(--text-primary); display: flex; align-items: center; justify-content: center;
+    }
+    .qty-control button:hover { background: #f3f4f6; }
+    .qty-control input { 
+      width: 48px; text-align: center; border: none; 
+      border-left: 1px solid #e5e7eb; border-right: 1px solid #e5e7eb; 
+      font-size: 0.85rem; font-weight: 600; padding: 8px 0;
+    }
+
+    .color-swatch {
+      width: 32px; height: 32px; border-radius: 50%; border: 2px solid white;
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.15); display: inline-block; 
+      cursor: pointer; transition: transform 0.15s; position: relative;
+    }
+    .color-swatch:hover { transform: scale(1.2); }
+    .color-swatch .swatch-tip {
+      position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%);
+      background: #374151; color: white; padding: 3px 8px;
+      border-radius: 4px; font-size: 0.6rem; white-space: nowrap;
+      opacity: 0; pointer-events: none; transition: opacity 0.2s;
+    }
+    .color-swatch:hover .swatch-tip { opacity: 1; }
+
+    .related-scroll { 
+      display: flex; gap: 1rem; overflow-x: auto; scroll-behavior: smooth; 
+      padding-bottom: 0.5rem; scrollbar-width: thin; 
+    }
+    .related-scroll::-webkit-scrollbar { height: 4px; }
+    .related-scroll::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+    .related-card { 
+      flex: 0 0 auto; width: 190px; border: 1px solid rgba(0,0,0,0.06); 
+      transition: all 0.3s ease; cursor: pointer; 
+      background: white; border-radius: 10px; overflow: hidden; text-decoration: none;
+    }
+    .related-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.08); }
+    .related-card img { width: 100%; height: 160px; object-fit: cover; }
+
+    .breadcrumb { 
+      font-size: 0.7rem; letter-spacing: 0.04em; text-transform: uppercase; 
+      color: var(--text-secondary); display: flex; align-items: center; gap: 6px;
+    }
+    .breadcrumb a { color: #374151; text-decoration: none; font-weight: 500; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .spec-row { 
+      display: flex; justify-content: space-between; padding: 10px 0; 
+      border-bottom: 1px solid #f3f4f6; font-size: 0.78rem; 
+    }
+    .spec-label { 
+      color: var(--text-secondary); text-transform: uppercase; font-size: 0.65rem; 
+      letter-spacing: 0.05em; font-weight: 500; 
+    }
+    .spec-value { font-weight: 500; text-align: right; }
+
+    .cart-drawer {
+      position: fixed; top: 0; right: -420px; width: 400px; max-width: 92vw; height: 100vh;
+      background: white; z-index: 170; box-shadow: -8px 0 30px rgba(0,0,0,0.12);
+      transition: right 0.35s cubic-bezier(0.23, 1, 0.32, 1); display: flex; flex-direction: column;
+    }
+    .cart-drawer.open { right: 0; }
+    .cart-drawer-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 160;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+      backdrop-filter: blur(2px);
+    }
+    .cart-drawer-overlay.open { opacity: 1; pointer-events: all; }
+
+    .toast {
+      position: fixed; bottom: 24px; right: 24px; background: #374151; color: white;
+      padding: 10px 20px; border-radius: 8px; font-size: 0.78rem; font-weight: 500;
+      z-index: 300; opacity: 0; transform: translateY(10px);
+      transition: all 0.3s ease; box-shadow: 0 4px 16px rgba(0,0,0,0.15); pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    .support-btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 6px 12px; border-radius: 7px; cursor: pointer;
+      transition: all 0.15s ease; border: 1px solid #e5e7eb;
+      background: transparent; color: #9ca3af; font-family: inherit;
+      font-size: 0.7rem; font-weight: 500;
+    }
+    .support-btn:hover { border-color: #d1d5db; color: #374151; background: #f9fafb; }
+    .support-btn .live-dot {
+      width: 5px; height: 5px; border-radius: 50%; background: #10b981;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot { 0%,100%{transform:scale(1);} 50%{transform:scale(1.4);} }
+
+    .nav-logo { height: 34px; width: auto; }
+    .footer-logo { height: 50px; width: auto; }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-in { animation: fadeInUp 0.4s ease-out forwards; opacity: 0; }
+    .delay-1 { animation-delay: 0.05s; }
+    .delay-2 { animation-delay: 0.15s; }
+    .delay-3 { animation-delay: 0.25s; }
+    .delay-4 { animation-delay: 0.35s; }
+  </style>
+</head>
+<body class="antialiased">
+
+  <div class="toast" id="toast">✓ Added to cart</div>
+
+  <!-- Cart Drawer -->
+  <div class="cart-drawer-overlay" id="cartDrawerOverlay"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="p-4 border-b flex justify-between items-center">
+      <div>
+        <span class="text-sm font-medium text-[#374151]">Shopping Bag</span>
+        <span class="text-[0.65rem] text-neutral-400 ml-2" id="drawerCount">0 items</span>
+      </div>
+      <button class="text-neutral-400 hover:text-[#374151] text-lg leading-none transition-colors" id="closeDrawer">✕</button>
+    </div>
+    <div class="flex-1 overflow-y-auto p-4 space-y-3" id="drawerItems">
+      <p class="text-neutral-400 text-[0.8rem] text-center py-16">Your bag is empty</p>
+    </div>
+    <div class="p-4 border-t">
+      <div class="flex justify-between font-medium mb-1 text-[0.8rem]"><span>Subtotal</span><span id="drawerTotal">₦0</span></div>
+      <p class="text-[0.62rem] text-neutral-400 mb-3">Shipping calculated at checkout</p>
+      <button class="btn-primary w-full py-2.5 text-[0.75rem]">Checkout</button>
+    </div>
+  </div>
+
+  <!-- Header -->
+        <header class="sticky top-0 z-50 glass-panel border-b border-gray-100 px-5 py-2.5 flex items-center justify-between">
+          <a href="/" class="flex items-center gap-3 no-underline">
+            <img src="photos/logo_bk_only_bk.png" alt="EL-ATTIRE" style="height:44px;width:auto;" onerror="this.style.display='none'">
+            <span class="text-lg font-semibold tracking-[0.1em] text-[#374151]">EL-<span class="font-normal text-neutral-400 text-sm">ATTIRE</span></span>
+          </a>
+          <nav class="hidden lg:flex items-center gap-6 text-[0.72rem] uppercase tracking-[0.08em] font-medium">
+            <a href="/" class="link-underline">Home</a>
+            <a href="/collection" class="link-underline">Shop</a>
+            <a href="/fabrics" class="link-underline">Fabrics</a>
+            <a href="/tailoring" class="link-underline">Tailoring</a>
+            <a href="/lookbook" class="link-underline">Lookbook</a>
+            <a href="/about" class="link-underline">About</a>
+          </nav>
+          <div class="flex items-center gap-3">
+            <button class="support-btn" id="supportHeaderToggle" title="Chat with support">
+              <i class="fas fa-headset text-[0.6rem]"></i> Support
+              <span class="live-dot"></span>
+            </button>
+            <div class="relative cursor-pointer p-1.5 hover:bg-gray-50 rounded-lg transition-colors" id="cartTriggerBtn">
+              <i class="fas fa-shopping-bag text-sm text-neutral-400 hover:text-[#374151] transition-colors"></i>
+              <span class="absolute -top-1 -right-1 bg-[#374151] text-white text-[0.55rem] w-4 h-4 rounded-full flex items-center justify-center font-semibold" id="cartBadge">0</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-7 h-7 rounded-full bg-stone-100 flex items-center justify-center font-medium text-[0.65rem] text-[#374151] ring-2 ring-white shadow-sm">OA</div>
+            </div>
+          </div>
+        </header>
+
+  <main class="max-w-7xl mx-auto px-4 md:px-6 py-6">
+    
+    <!-- Breadcrumb -->
+    <div class="breadcrumb mb-5 animate-in delay-1">
+      <a href="index.html">Home</a> <span class="text-neutral-300">/</span> 
+      <a href="fabrics.html">Fabrics</a> <span class="text-neutral-300">/</span> 
+      <a href="fabrics.html">Aso Oke</a> <span class="text-neutral-300">/</span> 
+      <span class="text-neutral-400">Royal Blue Aso Oke</span>
+    </div>
+
+    <!-- Product Section -->
+    <div class="grid md:grid-cols-2 gap-8 mb-14">
+      
+      <!-- Left: Image Gallery -->
+      <div class="animate-in delay-1">
+        <div class="flex gap-3">
+          <div class="flex flex-col gap-2 w-16 flex-shrink-0">
+            <div class="thumb-item active-thumb h-16" data-img="0">
+              <img src="photos/fabrics/f1.jpg" alt="Full view" onerror="this.src='https://placehold.co/64x64/e5e7eb/9ca3af?text=1'">
+            </div>
+            <div class="thumb-item h-16" data-img="1">
+              <img src="photos/fabrics/f2.jpg" alt="Texture" onerror="this.src='https://placehold.co/64x64/e5e7eb/9ca3af?text=2'">
+            </div>
+            <div class="thumb-item h-16" data-img="2">
+              <img src="photos/fabrics/f3.jpg" alt="Thread" onerror="this.src='https://placehold.co/64x64/e5e7eb/9ca3af?text=3'">
+            </div>
+            <div class="thumb-item h-16" data-img="3">
+              <img src="photos/fabrics/f4.jpg" alt="Draped" onerror="this.src='https://placehold.co/64x64/e5e7eb/9ca3af?text=4'">
+            </div>
+          </div>
+          <div class="flex-1 zoom-container" style="height:480px;" id="zoomContainer">
+            <img id="mainImage" src="photos/fabrics/f1.jpg" alt="Royal Blue Aso Oke" onerror="this.src='https://placehold.co/600x480/e5e7eb/9ca3af?text=Aso+Oke'">
+          </div>
+        </div>
+        <p class="text-[0.62rem] text-neutral-400 mt-2 text-center">
+          <i class="fas fa-search-plus text-[0.55rem] mr-1"></i> Hover to zoom
+        </p>
+      </div>
+
+      <!-- Right: Product Info -->
+      <div class="space-y-5 animate-in delay-2">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-[0.6rem] uppercase tracking-[0.15em] font-semibold text-neutral-400 bg-gray-50 px-2.5 py-1 rounded">Premium</span>
+            <span class="text-[0.6rem] uppercase tracking-[0.1em] text-neutral-400">Aso Oke</span>
+          </div>
+          <h1 class="text-2xl md:text-3xl font-medium text-[#374151] mb-1">Royal Blue Aso Oke</h1>
+          <p class="text-[0.72rem] text-neutral-400 italic">Handwoven Nigerian heritage fabric</p>
+        </div>
+
+        <div class="flex items-baseline gap-2">
+          <span class="text-2xl font-semibold text-[#374151]">₦120,000</span>
+          <span class="text-[0.72rem] text-neutral-400">/ yard</span>
+        </div>
+
+        <div class="flex items-center gap-2 text-[0.75rem]">
+          <span class="flex items-center gap-1.5 text-emerald-600 font-medium">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> In Stock
+          </span>
+          <span class="text-neutral-300">·</span>
+          <span class="text-neutral-400">45 yards available</span>
+        </div>
+
+        <div class="h-px bg-gray-100"></div>
+
+        <p class="text-[0.8rem] text-neutral-500 leading-relaxed">
+          A masterpiece of Yoruba textile artistry. This handwoven Aso Oke features deep royal blue threads interwoven with delicate metallic gold accents that catch the light with every movement. Each yard represents hours of meticulous craftsmanship passed down through generations.
+        </p>
+
+        <!-- Color Swatches -->
+        <div>
+          <label class="text-[0.65rem] font-medium text-neutral-400 uppercase tracking-wider block mb-2">Color Palette</label>
+          <div class="flex gap-2">
+            <div class="color-swatch" style="background:#1a3a5c;">
+              <span class="swatch-tip">Royal Blue</span>
+            </div>
+            <div class="color-swatch" style="background:#c9a84c;">
+              <span class="swatch-tip">Gold Thread</span>
+            </div>
+            <div class="color-swatch" style="background:#f5f5f0;">
+              <span class="swatch-tip">Natural Base</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Specifications -->
+        <div class="bg-gray-50/60 rounded-lg p-3.5 space-y-0">
+          <div class="spec-row"><span class="spec-label">Width</span><span class="spec-value">45 inches</span></div>
+          <div class="spec-row"><span class="spec-label">Composition</span><span class="spec-value">Cotton / Metallic Thread</span></div>
+          <div class="spec-row"><span class="spec-label">Weight</span><span class="spec-value">280 gsm</span></div>
+          <div class="spec-row"><span class="spec-label">Care</span><span class="spec-value">Dry Clean Recommended</span></div>
+          <div class="spec-row"><span class="spec-label">Pattern</span><span class="spec-value">Solid with metallic accents</span></div>
+          <div class="spec-row" style="border-bottom:none;"><span class="spec-label">Origin</span><span class="spec-value">Nigeria</span></div>
+        </div>
+
+        <!-- Quantity & Cart -->
+        <div class="space-y-3">
+          <div>
+            <label class="text-[0.65rem] font-medium text-neutral-400 uppercase tracking-wider block mb-2">Quantity (yards)</label>
+            <div class="flex items-center gap-3">
+              <div class="qty-control">
+                <button id="qtyMinus">−</button>
+                <input type="number" id="qtyInput" value="3" min="3" max="45" readonly>
+                <button id="qtyPlus">+</button>
+              </div>
+              <span class="text-[0.7rem] text-neutral-400">Min. 3 yards</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2">
+            <button class="btn-primary flex-1 text-[0.75rem]" id="addToCartBtn">
+              <i class="fas fa-shopping-bag mr-2 text-[0.6rem]"></i> Add to Cart · ₦<span id="totalPrice">360,000</span>
+            </button>
+            <button class="btn-outline px-3 aspect-square flex items-center justify-center" id="wishlistBtn" title="Add to wishlist">
+              <i class="far fa-heart text-sm"></i>
+            </button>
+          </div>
+          <p class="text-[0.65rem] text-neutral-400">
+            <i class="fas fa-truck text-[0.55rem] mr-1"></i> Free pickup · Delivery from ₦5,000
+          </p>
+        </div>
+
+        <!-- Accordions -->
+        <div class="space-y-2 pt-1">
+          <details class="group border border-gray-100 rounded-lg overflow-hidden">
+            <summary class="flex justify-between items-center p-3.5 cursor-pointer hover:bg-gray-50/50 transition-colors list-none">
+              <span class="text-[0.68rem] font-medium uppercase tracking-wider text-neutral-400">Description & Usage</span>
+              <i class="fas fa-chevron-down text-[0.5rem] text-neutral-400 transition-transform group-open:rotate-180"></i>
+            </summary>
+            <div class="px-3.5 pb-3.5">
+              <p class="text-[0.75rem] text-neutral-500 leading-relaxed">
+                Perfect for Agbada sets (6-8 yards), Kaftans (4-5 yards), or Senator styles (3-4 yards). The metallic sheen is striking under evening lighting. Pair with plain navy or black lining for structure.
+              </p>
+            </div>
+          </details>
+          <details class="group border border-gray-100 rounded-lg overflow-hidden">
+            <summary class="flex justify-between items-center p-3.5 cursor-pointer hover:bg-gray-50/50 transition-colors list-none">
+              <span class="text-[0.68rem] font-medium uppercase tracking-wider text-neutral-400">Shipping & Returns</span>
+              <i class="fas fa-chevron-down text-[0.5rem] text-neutral-400 transition-transform group-open:rotate-180"></i>
+            </summary>
+            <div class="px-3.5 pb-3.5">
+              <p class="text-[0.75rem] text-neutral-500 leading-relaxed">
+                Ships within 2-3 business days. Free pickup at Lagos & Abuja studios. Home delivery: Lagos ₦5,000, Abuja ₦10,000. Returns accepted on uncut fabric within 7 days.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <!-- Detail Gallery -->
+    <div class="mb-14 animate-in delay-3">
+      <h2 class="text-lg font-medium text-[#374151] mb-4">Detail Gallery</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div class="gallery-item" style="aspect-ratio:3/4;">
+          <img src="photos/fabrics/f1.jpg" alt="Full view" onerror="this.src='https://placehold.co/400x533/e5e7eb/9ca3af?text=Full'">
+        </div>
+        <div class="gallery-item" style="aspect-ratio:3/4;">
+          <img src="photos/fabrics/f2.jpg" alt="Texture" onerror="this.src='https://placehold.co/400x533/e5e7eb/9ca3af?text=Texture'">
+        </div>
+        <div class="gallery-item" style="aspect-ratio:3/4;">
+          <img src="photos/fabrics/f3.jpg" alt="Thread detail" onerror="this.src='https://placehold.co/400x533/e5e7eb/9ca3af?text=Thread'">
+        </div>
+        <div class="gallery-item" style="aspect-ratio:3/4;">
+          <img src="photos/fabrics/f4.jpg" alt="Draped" onerror="this.src='https://placehold.co/400x533/e5e7eb/9ca3af?text=Drape'">
+        </div>
+      </div>
+    </div>
+
+    <!-- Related Fabrics -->
+    <div class="mb-14 animate-in delay-4">
+      <div class="flex justify-between items-end mb-4">
+        <div>
+          <h2 class="text-lg font-medium text-[#374151]">You May Also Like</h2>
+          <p class="text-[0.7rem] text-neutral-400 mt-0.5">Curated selections for your next project</p>
+        </div>
+        <div class="flex gap-1.5">
+          <button class="btn-outline px-2.5 py-1.5 text-[0.65rem]" id="scrollLeft"><i class="fas fa-arrow-left"></i></button>
+          <button class="btn-outline px-2.5 py-1.5 text-[0.65rem]" id="scrollRight"><i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+      <div class="related-scroll" id="relatedScroll">
+        <a href="fabric-detail.html?id=6" class="related-card">
+          <img src="photos/fabrics/f16.jpg" alt="Burgundy Aso Oke" onerror="this.src='https://placehold.co/190x160/e5e7eb/9ca3af?text=Burgundy'">
+          <div class="p-2.5">
+            <p class="text-[0.72rem] font-medium text-[#374151]">Burgundy Aso Oke</p>
+            <p class="text-[0.65rem] text-neutral-400">₦135,000/yd</p>
+          </div>
+        </a>
+        <a href="fabric-detail.html?id=4" class="related-card">
+          <img src="photos/fabrics/f10.jpg" alt="Gold Brocade" onerror="this.src='https://placehold.co/190x160/e5e7eb/9ca3af?text=Brocade'">
+          <div class="p-2.5">
+            <p class="text-[0.72rem] font-medium text-[#374151]">Gold Brocade</p>
+            <p class="text-[0.65rem] text-neutral-400">₦210,000/yd</p>
+          </div>
+        </a>
+        <a href="fabric-detail.html?id=2" class="related-card">
+          <img src="photos/fabrics/f5.jpg" alt="Cream Damask" onerror="this.src='https://placehold.co/190x160/e5e7eb/9ca3af?text=Damask'">
+          <div class="p-2.5">
+            <p class="text-[0.72rem] font-medium text-[#374151]">Cream Damask Weave</p>
+            <p class="text-[0.65rem] text-neutral-400">₦95,000/yd</p>
+          </div>
+        </a>
+        <a href="fabric-detail.html?id=3" class="related-card">
+          <img src="photos/fabrics/f7.jpg" alt="Emerald Silk" onerror="this.src='https://placehold.co/190x160/e5e7eb/9ca3af?text=Silk'">
+          <div class="p-2.5">
+            <p class="text-[0.72rem] font-medium text-[#374151]">Emerald Silk Satin</p>
+            <p class="text-[0.65rem] text-neutral-400">₦185,000/yd</p>
+          </div>
+        </a>
+        <a href="fabric-detail.html?id=7" class="related-card">
+          <img src="photos/fabrics/f3.jpg" alt="Navy Damask" onerror="this.src='https://placehold.co/190x160/e5e7eb/9ca3af?text=Navy'">
+          <div class="p-2.5">
+            <p class="text-[0.72rem] font-medium text-[#374151]">Navy Damask</p>
+            <p class="text-[0.65rem] text-neutral-400">₦105,000/yd</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="bg-[#374151] text-white p-8 md:p-10 text-center rounded-xl animate-in delay-4">
+      <h2 class="text-xl font-medium mb-2">Need Help Choosing?</h2>
+      <p class="text-neutral-300 text-[0.8rem] mb-5 max-w-lg mx-auto">Book a consultation with our fabric specialists for personalized recommendations.</p>
+      <div class="flex gap-3 justify-center">
+        <a href="fitting.html" class="btn-outline px-5 py-2.5 text-[0.75rem] inline-block no-underline text-white border-white/30 hover:bg-white hover:text-[#374151]">
+          <i class="fas fa-calendar-check mr-1.5 text-[0.6rem]"></i> Book Consultation
+        </a>
+        <button class="btn-outline px-5 py-2.5 text-[0.75rem] text-white border-white/30 hover:bg-white hover:text-[#374151]" onclick="document.getElementById('supportHeaderToggle').click()">
+          <i class="fas fa-comment mr-1.5 text-[0.6rem]"></i> Chat Now
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#0a0a0a] text-neutral-400 mt-12">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 py-16">
+      <div class="grid md:grid-cols-5 gap-10 mb-12">
+        <div class="md:col-span-2">
+          <img src="photos/logo_only.png" alt="EL-ATTIRE" class="footer-logo mb-4" onerror="this.style.display='none'">
+          <p class="text-sm text-neutral-500 leading-relaxed max-w-xs">Bespoke Nigerian tailoring since 2010. Crafting Kaftans, Agbada, and Senator styles for the modern gentleman.</p>
+          <div class="flex gap-4 mt-6">
+            <a href="#" class="text-neutral-500 hover:text-white transition"><i class="fab fa-instagram text-lg"></i></a>
+            <a href="#" class="text-neutral-500 hover:text-white transition"><i class="fab fa-whatsapp text-lg"></i></a>
+            <a href="#" class="text-neutral-500 hover:text-white transition"><i class="fab fa-pinterest text-lg"></i></a>
+          </div>
+        </div>
+        <div><h4 class="text-white uppercase tracking-wider mb-5 text-xs font-semibold">Collections</h4><a href="#" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Kaftans</a><a href="#" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Agbada</a><a href="#" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Senator Styles</a><a href="#" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Ready-to-Wear</a></div>
+        <div><h4 class="text-white uppercase tracking-wider mb-5 text-xs font-semibold">Services</h4><a href="tailoring-page.html" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Bespoke Tailoring</a><a href="fabrics.html" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Fabric Store</a><a href="fitting.html" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Book Fitting</a><a href="measurements.html" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Measurements</a></div>
+        <div><h4 class="text-white uppercase tracking-wider mb-5 text-xs font-semibold">Support</h4><a href="faq.html" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">FAQ</a><a href="terms.html" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Terms & Conditions</a><a href="about.html" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">About Us</a><a href="index.html#contact" class="block mb-2 text-sm text-neutral-500 hover:text-white transition">Contact</a></div>
+      </div>
+      <div class="border-t border-neutral-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-xs text-neutral-600">© 2026 EL-ATTIRE. All rights reserved. Bespoke Nigerian Tailoring.</p>
+        <div class="flex gap-6 text-xs text-neutral-600"><a href="terms.html" class="hover:text-white transition">Terms</a><a href="#" class="hover:text-white transition">Privacy</a><a href="#" class="hover:text-white transition">Cookies</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Independent Chat Widget -->
+  <script>
+    (function() {
+      const widget = document.createElement('div');
+      widget.className = 'chat-widget-overlay';
+      widget.id = 'chatWidget';
+      widget.innerHTML = `<style>
+        .chat-widget-overlay { position:fixed;bottom:24px;right:24px;width:350px;max-width:90vw;height:440px;max-height:65vh;background:white;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,0.2);z-index:300;display:flex;flex-direction:column;transform:translateY(20px) scale(0.95);opacity:0;pointer-events:none;transition:all 0.25s cubic-bezier(0.23,1,0.32,1);border:1px solid rgba(0,0,0,0.08); }
+        .chat-widget-overlay.open { transform:translateY(0) scale(1);opacity:1;pointer-events:all; }
+        .cw-h { padding:12px 14px;border-bottom:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between;border-radius:14px 14px 0 0;background:#fafafa; }
+        .cw-ag { display:flex;align-items:center;gap:8px; }
+        .cw-av { width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;color:white;font-weight:600;font-size:0.65rem; }
+        .cw-on { display:flex;align-items:center;gap:4px;font-size:0.6rem;color:#10b981;font-weight:500; }
+        .cw-ond { width:5px;height:5px;border-radius:50%;background:#10b981; }
+        .cw-b { flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;background:#fafafa; }
+        .cw-f { padding:10px 12px;border-top:1px solid #f3f4f6;display:flex;gap:6px;align-items:center; }
+        .cw-f input { flex:1;padding:8px 12px;border:1px solid #e5e7eb;border-radius:18px;font-size:0.75rem;outline:none;background:white;font-family:inherit; }
+        .cw-f input:focus { border-color:#9ca3af; }
+        .cw-s { width:34px;height:34px;border-radius:50%;border:none;background:#374151;color:white;cursor:pointer;font-size:0.75rem;transition:all 0.15s;flex-shrink:0; }
+        .cw-s:hover { background:#4b5563;transform:scale(1.05); }
+        .cw-x { width:26px;height:26px;border-radius:50%;border:none;background:transparent;cursor:pointer;color:#9ca3af;font-size:0.9rem;display:flex;align-items:center;justify-content:center;transition:all 0.15s; }
+        .cw-x:hover { background:#e5e7eb;color:#374151; }
+        .cw-bub { padding:8px 12px;border-radius:12px;font-size:0.75rem;line-height:1.5;max-width:85%;animation:cwIn 0.3s ease-out; }
+        @keyframes cwIn { from{opacity:0;transform:translateY(6px);} to{opacity:1;transform:translateY(0);} }
+        .cw-bub.in { background:white;color:#374151;align-self:flex-start;border-bottom-left-radius:4px;box-shadow:0 1px 2px rgba(0,0,0,0.04); }
+        .cw-bub.out { background:#374151;color:white;align-self:flex-end;border-bottom-right-radius:4px; }
+        .cw-t { font-size:0.55rem;opacity:0.6;margin-top:3px;display:block; }
+        .cw-q { display:flex;flex-wrap:wrap;gap:4px;padding:0 12px 8px; }
+        .cw-q button { padding:5px 10px;border-radius:14px;border:1px solid #e5e7eb;background:white;font-size:0.65rem;cursor:pointer;transition:all 0.15s;color:#374151;font-family:inherit;white-space:nowrap; }
+        .cw-q button:hover { background:#374151;color:white;border-color:#374151; }
+        .cw-typ { display:flex;gap:3px;padding:8px 12px; }
+        .cw-typ span { width:5px;height:5px;border-radius:50%;background:#9ca3af;animation:cwB 0.8s infinite; }
+        .cw-typ span:nth-child(2){animation-delay:0.2s;} .cw-typ span:nth-child(3){animation-delay:0.4s;}
+        @keyframes cwB { 0%,60%,100%{transform:translateY(0);} 30%{transform:translateY(-6px);} }
+      </style>
+      <div class="cw-h"><div class="cw-ag"><div class="cw-av">CS</div><div><p style="font-size:0.75rem;font-weight:500;color:#374151;margin:0;">Customer Support</p><div class="cw-on"><span class="cw-ond"></span> Online</div></div></div><button class="cw-x" id="cwClose">✕</button></div>
+      <div class="cw-b" id="cwMessages"><div class="cw-bub in">Hello! 👋 How can we help with this fabric?<span class="cw-t">Just now</span></div></div>
+      <div class="cw-q" id="cwQuick"><button onclick="window._cwSendQuick('Fabric width?')">📏 Width</button><button onclick="window._cwSendQuick('Shipping info')">🚚 Shipping</button><button onclick="window._cwSendQuick('Bulk pricing')">💰 Bulk</button><button onclick="window._cwSendQuick('Yardage for Agbada?')">📐 Yardage</button></div>
+      <div class="cw-f"><input type="text" placeholder="Type message..." id="cwInput" onkeypress="if(event.key==='Enter')window._cwSend()"><button class="cw-s" onclick="window._cwSend()"><i class="fas fa-paper-plane"></i></button></div>`;
+      document.body.appendChild(widget);
+
+      let isOpen = false;
+      const replies = {
+        'width': '📏 45 inches wide. Standard for Nigerian fabrics. Works beautifully for all traditional styles.',
+        'ship': '🚚 Free pickup at Lagos & Abuja. Home delivery: Lagos ₦5k (2-3 days), Abuja ₦10k (3-5 days).',
+        'bulk': '💰 10+ yards = 10% off. 20+ yards = 15% off. Wholesale pricing available for 50+ yards.',
+        'yardage': '📐 Agbada: 6-8 yards. Kaftan: 4-5 yards. Senator: 3-4 yards. Add 1 yard for matching cap.',
+        'default': 'Thanks! A specialist will respond shortly. For urgent inquiries: +234 800 000 0000.'
+      };
+      function getReply(m) { const x=m.toLowerCase(); if(x.includes('width'))return replies.width; if(x.includes('ship')||x.includes('deliver'))return replies.ship; if(x.includes('bulk')||x.includes('discount'))return replies.bulk; if(x.includes('yard')||x.includes('agbada')||x.includes('kaftan'))return replies.yardage; return replies.default; }
+      function getTime() { return new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:true}); }
+      function addMsg(text,type) { const msgs=document.getElementById('cwMessages'); const b=document.createElement('div'); b.className='cw-bub '+(type==='sent'?'out':'in'); b.innerHTML=text+'<span class="cw-t">'+getTime()+'</span>'; msgs.appendChild(b); msgs.scrollTop=msgs.scrollHeight; }
+      function showTyping() { const msgs=document.getElementById('cwMessages'); const t=document.createElement('div'); t.className='cw-typ'; t.id='cwTyping'; t.innerHTML='<span></span><span></span><span></span>'; msgs.appendChild(t); msgs.scrollTop=msgs.scrollHeight; }
+      function hideTyping() { const t=document.getElementById('cwTyping'); if(t)t.remove(); }
+      window._cwSend=function(){ const input=document.getElementById('cwInput'); if(!input||!input.value.trim())return; addMsg(input.value.trim(),'sent'); const msg=input.value.trim(); input.value=''; showTyping(); setTimeout(()=>{hideTyping();addMsg(getReply(msg),'received');},700+Math.random()*1000); };
+      window._cwSendQuick=function(text){ const input=document.getElementById('cwInput'); if(input)input.value=text; window._cwSend(); };
+      function open(){ widget.classList.add('open'); isOpen=true; setTimeout(()=>document.getElementById('cwInput')?.focus(),300); }
+      function close(){ widget.classList.remove('open'); isOpen=false; }
+      function toggle(){ isOpen?close():open(); }
+      document.getElementById('cwClose').addEventListener('click',close);
+      document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&isOpen)close(); });
+      document.addEventListener('click',function(e){ if(isOpen&&!widget.contains(e.target)&&e.target.id!=='supportHeaderToggle'&&!document.getElementById('supportHeaderToggle')?.contains(e.target))close(); });
+      document.getElementById('supportHeaderToggle').addEventListener('click',toggle);
+    })();
+  </script>
+
+  <!-- Product Script -->
+  <script>
+    (function() {
+      const product = {
+        id: 1, name: 'Royal Blue Aso Oke', category: 'aso-oke', price: 120000, unit: 'yard',
+        images: ['photos/fabrics/f1.jpg','photos/fabrics/f2.jpg','photos/fabrics/f3.jpg','photos/fabrics/f4.jpg'],
+        tag: 'Premium', minQty: 3, maxQty: 45
+      };
+
+      let cart = JSON.parse(localStorage.getItem('elattire_cart') || '[]');
+      function saveCart() { localStorage.setItem('elattire_cart', JSON.stringify(cart)); }
+
+      const zoomContainer = document.getElementById('zoomContainer');
+      const mainImage = document.getElementById('mainImage');
+      zoomContainer.addEventListener('mousemove', function(e) {
+        const rect = this.getBoundingClientRect();
+        this.style.setProperty('--zoom-x', ((e.clientX - rect.left) / rect.width) * 100 + '%');
+        this.style.setProperty('--zoom-y', ((e.clientY - rect.top) / rect.height) * 100 + '%');
+      });
+      zoomContainer.addEventListener('mouseleave', function() {
+        this.style.setProperty('--zoom-x', '50%');
+        this.style.setProperty('--zoom-y', '50%');
+      });
+
+      document.querySelectorAll('.thumb-item').forEach(thumb => {
+        thumb.addEventListener('click', function() {
+          const index = parseInt(this.dataset.img);
+          mainImage.src = product.images[index];
+          mainImage.onerror = function() { this.src = 'https://placehold.co/600x480/e5e7eb/9ca3af?text=Fabric'; };
+          document.querySelectorAll('.thumb-item').forEach(t => t.classList.remove('active-thumb'));
+          this.classList.add('active-thumb');
+        });
+      });
+      mainImage.onerror = function() { this.src = 'https://placehold.co/600x480/e5e7eb/9ca3af?text=Fabric'; };
+
+      const qtyInput = document.getElementById('qtyInput');
+      const totalPrice = document.getElementById('totalPrice');
+      function updateTotal() { const qty = parseInt(qtyInput.value) || product.minQty; totalPrice.textContent = (product.price * qty).toLocaleString(); }
+      document.getElementById('qtyPlus').addEventListener('click', () => { qtyInput.value = Math.min(product.maxQty, parseInt(qtyInput.value) + 1); updateTotal(); });
+      document.getElementById('qtyMinus').addEventListener('click', () => { qtyInput.value = Math.max(product.minQty, parseInt(qtyInput.value) - 1); updateTotal(); });
+
+      document.getElementById('addToCartBtn').addEventListener('click', () => {
+        const qty = parseInt(qtyInput.value);
+        const existing = cart.find(i => i.id === product.id);
+        if (existing) { existing.qty += qty; }
+        else { cart.push({ ...product, qty }); }
+        saveCart(); updateCart();
+        const toast = document.getElementById('toast');
+        toast.textContent = `✓ ${qty} yard(s) added — ₦${(product.price * qty).toLocaleString()}`;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
+      });
+
+      document.getElementById('wishlistBtn').addEventListener('click', function() {
+        const icon = this.querySelector('i');
+        icon.classList.toggle('far'); icon.classList.toggle('fas'); icon.classList.toggle('text-red-500');
+        const toast = document.getElementById('toast');
+        toast.textContent = icon.classList.contains('fas') ? '♥ Added to wishlist' : 'Removed from wishlist';
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2000);
+      });
+
+      function updateCart() {
+        const total = cart.reduce((s,i) => s + i.qty, 0);
+        document.getElementById('cartBadge').textContent = total;
+        document.getElementById('drawerCount').textContent = `${total} item${total !== 1 ? 's' : ''}`;
+        document.getElementById('drawerTotal').textContent = '₦' + cart.reduce((s,i) => s + i.price * i.qty, 0).toLocaleString();
+        
+        document.getElementById('drawerItems').innerHTML = cart.length === 0 ? 
+          '<p class="text-neutral-400 text-[0.8rem] text-center py-16">Your bag is empty</p>' : 
+          cart.map(item => `
+            <div class="flex gap-3 items-start border-b border-gray-50 pb-3">
+              <img src="${item.images[0]}" class="w-14 h-14 object-cover rounded" alt="${item.name}" onerror="this.src='https://placehold.co/56x56/e5e7eb/9ca3af'">
+              <div class="flex-1 min-w-0">
+                <p class="text-[0.75rem] font-medium truncate">${item.name}</p>
+                <p class="text-[0.65rem] text-neutral-400">₦${item.price.toLocaleString()}/${item.unit}</p>
+                <div class="flex items-center gap-2 mt-1">
+                  <button class="border px-1.5 py-0.5 text-[0.6rem] rounded cq-minus" data-id="${item.id}">−</button>
+                  <span class="text-[0.7rem] font-medium">${item.qty}</span>
+                  <button class="border px-1.5 py-0.5 text-[0.6rem] rounded cq-plus" data-id="${item.id}">+</button>
+                </div>
+              </div>
+              <button class="text-neutral-400 hover:text-red-500 cremove" data-id="${item.id}"><i class="fas fa-trash text-[0.6rem]"></i></button>
+            </div>
+          `).join('');
+        
+        document.querySelectorAll('.cq-plus').forEach(b => b.addEventListener('click', () => {
+          const item = cart.find(i => i.id === parseInt(b.dataset.id));
+          if (item) { item.qty = Math.min(item.maxQty || 50, item.qty + 1); saveCart(); updateCart(); }
+        }));
+        document.querySelectorAll('.cq-minus').forEach(b => b.addEventListener('click', () => {
+          const item = cart.find(i => i.id === parseInt(b.dataset.id));
+          if (item && item.qty > (item.minQty || 1)) { item.qty--; }
+          else { cart = cart.filter(i => i.id !== parseInt(b.dataset.id)); }
+          saveCart(); updateCart();
+        }));
+        document.querySelectorAll('.cremove').forEach(b => b.addEventListener('click', () => {
+          cart = cart.filter(i => i.id !== parseInt(b.dataset.id));
+          saveCart(); updateCart();
+        }));
+      }
+
+      document.getElementById('cartIcon').addEventListener('click', () => {
+        document.getElementById('cartDrawer').classList.add('open');
+        document.getElementById('cartDrawerOverlay').classList.add('open');
+      });
+      document.getElementById('closeDrawer').addEventListener('click', () => {
+        document.getElementById('cartDrawer').classList.remove('open');
+        document.getElementById('cartDrawerOverlay').classList.remove('open');
+      });
+      document.getElementById('cartDrawerOverlay').addEventListener('click', () => {
+        document.getElementById('cartDrawer').classList.remove('open');
+        document.getElementById('cartDrawerOverlay').classList.remove('open');
+      });
+
+      const scrollContainer = document.getElementById('relatedScroll');
+      document.getElementById('scrollLeft').addEventListener('click', () => scrollContainer.scrollBy({ left: -200, behavior: 'smooth' }));
+      document.getElementById('scrollRight').addEventListener('click', () => scrollContainer.scrollBy({ left: 200, behavior: 'smooth' }));
+
+      updateCart();
+    })();
+  </script>
+</body>
+</html>

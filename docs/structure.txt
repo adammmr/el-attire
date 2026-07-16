@@ -1,0 +1,75 @@
+el-attire/
+├── package.json
+├── server.js
+├── .env
+├── middleware/
+│   ├── auth.js
+│   ├── admin.js
+│   └── upload.js
+├── models/
+│   ├── User.js
+│   ├── Product.js
+│   ├── Order.js
+│   ├── Fabric.js
+│   ├── Tailoring.js
+│   ├── Appointment.js
+│   ├── Measurement.js
+│   ├── Review.js
+│   ├── PageContent.js
+│   ├── SiteSettings.js
+│   ├── Media.js
+│   └── Invoice.js
+├── controllers/
+│   ├── authController.js
+│   ├── productController.js
+│   ├── orderController.js
+│   ├── fabricController.js
+│   ├── tailoringController.js
+│   ├── appointmentController.js
+│   ├── measurementController.js
+│   ├── reviewController.js
+│   ├── adminController.js
+│   ├── pageContentController.js
+│   └── publicController.js
+├── routes/
+│   ├── auth.js
+│   ├── products.js
+│   ├── orders.js
+│   ├── fabrics.js
+│   ├── tailoring.js
+│   ├── appointments.js
+│   ├── measurements.js
+│   ├── reviews.js
+│   ├── admin.js
+│   └── public.js
+├── views/
+│   ├── layouts/
+│   │   └── main.ejs
+│   ├── partials/
+│   │   ├── header.ejs
+│   │   ├── footer.ejs
+│   │   └── nav.ejs
+│   ├── public/
+│   │   ├── home.ejs
+│   │   ├── about.ejs
+│   │   ├── collection.ejs
+│   │   ├── fabrics.ejs
+│   │   ├── tailoring.ejs
+│   │   ├── lookbook.ejs
+│   │   ├── contact.ejs
+│   │   ├── faq.ejs
+│   │   ├── terms.ejs
+│   │   ├── login.ejs
+│   │   └── register.ejs
+│   └── admin/
+│       ├── dashboard.ejs
+│       ├── pages.ejs
+│       ├── settings.ejs
+│       ├── products.ejs
+│       └── orders.ejs
+├── public/
+│   ├── css/
+│   ├── js/
+│   └── uploads/
+└── config/
+    └── db.js

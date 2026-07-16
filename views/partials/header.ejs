@@ -1,0 +1,83 @@
+<header class="sticky top-0 z-50 glass-panel border-b border-gray-100 px-5 py-2.5 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3 no-underline">
+        <img src="/images/logo_only_bk.png" alt="EL-ATTIRE" class="h-[34px] w-auto" onerror="this.style.display='none'" />
+        <span class="text-lg font-semibold tracking-[0.1em] text-[#374151]">
+            EL-<span class="font-normal text-neutral-400 text-sm">ATTIRE</span>
+        </span>
+    </a>
+    
+    <nav class="hidden lg:flex items-center gap-6 text-[0.72rem] uppercase tracking-[0.08em] font-medium">
+        <a href="/" class="link-underline <%= locals.currentPage === 'home' ? 'font-semibold border-b-2 border-[#374151] pb-1' : '' %>">Home</a>
+        <a href="/collection" class="link-underline <%= locals.currentPage === 'collection' ? 'font-semibold border-b-2 border-[#374151] pb-1' : '' %>">Shop</a>
+        <a href="/fabrics" class="link-underline <%= locals.currentPage === 'fabrics' ? 'font-semibold border-b-2 border-[#374151] pb-1' : '' %>">Fabrics</a>
+        <a href="/tailoring" class="link-underline <%= locals.currentPage === 'tailoring' ? 'font-semibold border-b-2 border-[#374151] pb-1' : '' %>">Tailoring</a>
+        <a href="/about" class="link-underline <%= locals.currentPage === 'about' ? 'font-semibold border-b-2 border-[#374151] pb-1' : '' %>">About</a>
+    </nav>
+    
+    <div class="flex items-center gap-3">
+        <button class="support-btn" id="supportHeaderToggle" title="Chat with support">
+            <i class="fas fa-headset text-[0.6rem]"></i> Support
+            <span class="live-dot"></span>
+        </button>
+        
+        <% if (locals.user) { %>
+            <div class="relative group">
+                <button class="flex items-center gap-2 text-[0.75rem] text-neutral-600 hover:text-[#374151] transition-colors">
+                    <i class="fas fa-user"></i> <%= user.name || 'User' %>
+                </button>
+                <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-100 hidden group-hover:block" style="z-index: 100;">
+                    <a href="/profile" class="block px-4 py-2 text-sm hover:bg-gray-50">My Profile</a>
+                    <a href="/orders" class="block px-4 py-2 text-sm hover:bg-gray-50">My Orders</a>
+                    <hr class="my-1">
+                    <a href="/logout" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-50">Logout</a>
+                </div>
+            </div>
+        <% } else { %>
+            <a href="/login" class="text-[0.75rem] text-neutral-400 hover:text-[#374151] transition-colors">Sign In</a>
+            <a href="/register" class="btn-primary px-4 py-2 text-[0.7rem]">Get Started</a>
+        <% } %>
+        
+        <a href="/cart" class="relative ml-2">
+            <i class="fas fa-shopping-bag text-neutral-600 text-lg"></i>
+            <% if (locals.cartCount && cartCount > 0) { %>
+                <span class="absolute -top-2 -right-2 bg-red-500 text-white text-[0.6rem] w-5 h-5 rounded-full flex items-center justify-center font-medium">
+                    <%= cartCount %>
+                </span>
+            <% } %>
+        </a>
+    </div>
+</header>
+
+<style>
+    .support-btn {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        border-radius: 7px;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        border: 1px solid #e5e7eb;
+        background: transparent;
+        color: #9ca3af;
+        font-family: inherit;
+        font-size: 0.7rem;
+        font-weight: 500;
+    }
+    .support-btn:hover {
+        border-color: #d1d5db;
+        color: #374151;
+        background: #f9fafb;
+    }
+    .support-btn .live-dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #10b981;
+        animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.4); }
+    }
+</style>
